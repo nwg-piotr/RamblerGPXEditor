@@ -399,10 +399,17 @@ public class RouteCreatorActivity extends Utils
         }
 
         /*
-         * Not yet in use
+         * When the Route Manager main activity (picker) is ready, this button will be adding selected route
+         * to Data.mRoutesGpx, and close the Creator.
          */
-        saveButton.setEnabled(false);
-        saveButton.getBackground().setAlpha(100);
+        if (Data.osrmRoutes != null && Data.osrmRoutes.size() > 0 && Data.sSelectedAlternative != null) {
+            saveButton.setEnabled(true);
+            saveButton.getBackground().setAlpha(255);
+        } else {
+            saveButton.setEnabled(false);
+            saveButton.getBackground().setAlpha(100);
+        }
+
     }
 
     private void displayWaypointDialog(final GeoPoint geoPoint) {
