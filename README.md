@@ -16,15 +16,15 @@ As soon as this sandbox starts working well enough, I'll start re-implementing t
 - POI (Points Of Interest) Manager;
 - *Enter an idea here*.
 
-## Recent changes 
+# Recent changes 
 
 *Possibly it should be moved to another file*
 
-###(23rd May 2017)
+##(23rd May 2017)
 
 All the code imported into a fresh Android Studio project, and shared from scratch.
 
-###(22nd May 2017)
+##(22nd May 2017)
 
 MainActivity (together with the FileBrowser) added, needs further adaptation. At the moment the POI Manager button 
 does nothing (this isn't going to change soon), and the Route Managar button leads temporarily to the Route Creator activity.
