@@ -18,6 +18,8 @@ As soon as this sandbox starts working well enough, I'll start re-implementing t
 
 ## Recent changes 
 
+*Possibly it should be moved to another file*
+
 ###(23rd May 2017)
 
 All the code imported into a fresh Android Studio project, and shared from scratch.
