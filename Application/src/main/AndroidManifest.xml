@@ -98,6 +98,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="pl.nwg.dev.rambler.gpx.RoutePickerActivity"
+            android:theme="@android:style/Theme.Holo.Light"
+            android:label="@string/route_creator_name">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAVhuW2bsmDgWTWo2H_u67Hqnb9bLA9KlU"/>
 
         <meta-data

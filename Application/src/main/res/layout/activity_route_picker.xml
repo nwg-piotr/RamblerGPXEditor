@@ -12,11 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
+        <org.osmdroid.views.MapView android:id="@+id/osmmap"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/map" tools:context=".RoutePickerActivity"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
+            android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:id="@+id/InnerRelativeLayout"
@@ -62,8 +60,6 @@
                             android:maxHeight="0dp"
                             android:id="@+id/picker_fit_button" />
 
-
-
                         <Button
                             style="?android:attr/buttonStyleSmall"
                             android:layout_width="wrap_content"
@@ -100,7 +96,7 @@
             android:paddingBottom="2dp"
             android:text="@string/route_edit_prompt"
             android:background="#44000000"
-            android:textColor="@color/white"
+            android:textColor="#fff"
             android:textSize="15sp"
             android:enabled="false"/>
 
