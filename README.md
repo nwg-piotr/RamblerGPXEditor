@@ -20,7 +20,7 @@ As soon as this sandbox starts working well enough, I'll start re-implementing t
 
 **23rd May 2017**
 
-All the code imported into a fresh Android Studio project, and shared from scratch.
+All the code imported into a fresh Android Studio project, to finally get rid of the old app rudiments. Project shared from scratch.
 
 **22nd May 2017**
 
