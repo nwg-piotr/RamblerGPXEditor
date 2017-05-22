@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TableRow>
+
+        <CheckBox android:id="@+id/pois_filter_types_on"
+            android:text="@string/dialog_filter_type" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText android:id="@+id/pois_distance_min"
+                android:layout_width="0dp"
+                android:inputType="numberDecimal"
+                android:text=""
+                android:layout_weight="1"/>
+
+            <TextView
+                android:text="min"
+                android:layout_weight="1"/>
+
+            <EditText android:id="@+id/pois_distance_max"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text=""
+                android:inputType="numberDecimal"/>
+
+            <TextView
+                android:text="max"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+        <CheckBox android:id="@+id/pois_filter_distance_on"
+            android:text="@string/dialog_filter_dst" />
+
+        <TableRow>
+
+            <EditText android:id="@+id/pois_age_min"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text=""
+                android:inputType="number"/>
+
+            <TextView
+                android:text="min"
+                android:layout_weight="1"/>
+
+            <EditText android:id="@+id/pois_age_max"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text=""
+                android:inputType="number"/>
+
+            <TextView
+                android:text="max"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+        <CheckBox android:id="@+id/pois_filter_age_on"
+            android:text="@string/dialog_filter_age" />
+
+    </TableLayout>
+
+</LinearLayout>

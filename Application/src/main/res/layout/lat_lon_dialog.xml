@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <TextView
+            android:text="@string/manually_name_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_weight="1" />
+
+        <EditText
+            android:id="@+id/manually_name_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/poi_edit_name_edit"
+            android:singleLine="true"
+            android:selectAllOnFocus="true"
+            android:maxLength="20" />
+
+        <TableRow>
+            <TextView
+                android:text="@string/manually_lat_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_weight="1" />
+            <EditText
+                android:id="@+id/manually_lat_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned|numberDecimal"
+                android:layout_weight="2" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:text="@string/manually_lon_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_weight="1" />
+            <EditText
+                android:id="@+id/manually_lon_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned|numberDecimal"
+                android:layout_weight="2" />
+        </TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/poi_edit_description_label"
+            android:id="@+id/manual_description_label"
+            android:layout_weight="2"
+            android:gravity="center_vertical" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:maxLength="99"
+            android:ems="10"
+            android:id="@+id/manual_description_edit"
+            android:text=""
+            android:layout_weight="1" />
+
+    </TableLayout>
+
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RouteEditorActivity">
+
+    <item android:orderInCategory="100"
+        android:id="@+id/route_reverse"
+        android:title="@string/map_reverse_route" />
+
+    <item android:orderInCategory="110"
+        android:id="@+id/route_hintify"
+        android:title="@string/route_hintify" />
+
+    <item android:orderInCategory="120"
+        android:id="@+id/route_dehintify"
+        android:title="@string/route_dehintify" />
+
+    <item android:orderInCategory="130"
+        android:id="@+id/show_poi"
+        android:checkable="true"
+        android:title="@string/poi" />
+
+</menu>

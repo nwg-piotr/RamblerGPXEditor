@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button style="?android:attr/buttonStyleSmall"
+            android:id="@+id/karambola_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/karambola"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:text="@string/geo_karambola"/>
+
+        <Button style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/karambola_txt_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(open source)"
+            android:textSize="14sp"
+            android:textColor="@color/blue"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:id="@+id/credits_karambola"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:text="@string/karambola"/>
+
+
+        <TextView
+            android:id="@+id/credits_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:text="@string/credits"/>
+
+        <TextView
+            android:id="@+id/languages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="@string/languages"/>
+
+    </LinearLayout>
+
+</ScrollView>

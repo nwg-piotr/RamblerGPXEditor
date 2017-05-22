@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/grey" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/track_reduce"
+            android:checked="false"
+            android:id="@+id/reduceTrackCheckbox"
+            android:layout_weight="1"/>
+
+        <TableRow
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginBottom="10dp">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number|numberSigned"
+                android:paddingLeft="10dp"
+                android:text="100"
+                android:maxLength="3"
+                android:ems="10"
+                android:id="@+id/reduceMaxPoints"
+                android:layout_weight="1"
+                android:enabled="false"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Max wpt#"
+                android:id="@+id/reduceMaxPointsLabel"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number|numberSigned"
+                android:text="10"
+                android:maxLength="4"
+                android:ems="10"
+                android:id="@+id/reduceMaxError"
+                android:layout_weight="1"
+                android:enabled="false"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Max error"
+                android:id="@+id/reduceMaxErrorLabel"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

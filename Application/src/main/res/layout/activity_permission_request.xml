@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/dark_grey">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:text="@string/permissions_required"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal" />
+
+    <Button style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:id="@+id/grantButton"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/icon"
+        android:onClick="onClickApprovePermissionRequest" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/permissions_grant"
+        android:textColor="@color/white"
+        android:id="@+id/textView3" />
+
+    <Button style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_quit"
+        android:id="@+id/denyButton"
+        android:onClick="onClickDenyPermissionRequest" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:text="@string/permissions_deny"
+        android:id="@+id/textView4" />
+
+
+</LinearLayout>

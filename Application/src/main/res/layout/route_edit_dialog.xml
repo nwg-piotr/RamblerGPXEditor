@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/poi_edit_name_label"
+        android:id="@+id/route_name_label"
+        android:layout_weight="1"
+        android:layout_gravity="bottom" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/route_name_edit"
+        android:text="@string/poi_edit_name_edit"
+        android:singleLine="true"
+        android:selectAllOnFocus="true"
+        android:maxLength="100"
+        android:layout_weight="1" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow android:layout_gravity="bottom">
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/route_type_spinner"
+                android:layout_weight="4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/route_edit_number_label"
+                android:id="@+id/poi_altitude_label"
+                android:layout_weight="1"
+                android:layout_gravity="bottom" />
+
+        </TableRow>
+
+        <TableRow android:layout_gravity="top">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/route_type_edit"
+                android:text=""
+                android:singleLine="true"
+                android:maxLength="20"
+                android:layout_weight="4" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/route_number_edit"
+                android:inputType="number"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/poi_edit_description_label"
+        android:id="@+id/route_description"
+        android:layout_weight="2"
+        android:gravity="center_vertical" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:maxLength="99"
+        android:ems="10"
+        android:id="@+id/route_description_edit"
+        android:text=""
+        android:layout_weight="1" />
+
+
+
+</LinearLayout>

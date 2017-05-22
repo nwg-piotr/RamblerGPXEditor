@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_about">O aplikacji</string>
+
+    <string name="action_classic">Tarcza Classic</string>
+    <string name="action_exit">Wyjdź</string>
+    <string name="action_lv">Tarcza Active</string>
+    <string name="action_units">Wybierz jednostki</string>
+    <string name="active">Ekran aktywny</string>
+    <string name="alt">ALT (Wysokość)</string>
+    <string name="ambient">Ekran przyciemniony</string>
+    <string name="application_error">Błąd aplikacji: %1$d</string>
+    <string name="avs">ASP (Średnia prędkość)</string>
+    <string name="azimuth">AZI (Azymut)</string>
+    <string name="bearing">BEA (Namiar)</string>
+    <string name="button_end_here">Tu zakończ</string>
+    <string name="button_insert_start">Start/Koniec</string>
+    <string name="button_refresh">Odświeżanie GPS i ekranu:\n</string>
+    <string name="button_speed">Historia prędkości:\n</string>
+    <string name="button_swap">Przełączanie zestawów 1/2:\n</string>
+    <string name="button_threshold">Próg odległości:\n</string>
+    <string name="button_units">Jednostki:\n</string>
+    <string name="buy_button">Kup</string>
+    <string name="convert_max_points_dst">Max ogległość punktów (m)</string>
+    <string name="convert_dialog_title">Min odległość punktów (m)</string>
+    <string name="convert_corners_dst">Min odległość narożników (m)</string>
+    <string name="convert_min_points_dst">Min odległość punktów</string>
+    <string name="creating_properties">Tworzę nowy plik ustawień</string>
+    <string name="credits_btn">Podziękowania</string>
+    <string name="current_speed">SPD (Prędkość)</string>
+    <string name="deviation">DEV (Dewiacja)</string>
+    <string name="dialog_advanced">Ustawienia nawigacji</string>
+    <string name="dialog_all">Wszystko</string>
+    <string name="dialog_apply">Zastosuj</string>
+    <string name="dialog_cancel">Anuluj</string>
+    <string name="dialog_clear">Wyczyść</string>
+    <string name="dialog_clear_pois">Usunąć wszystkie POI?</string>
+    <string name="dialog_clear_routes">Usunąć wszystkie trasy?</string>
+    <string name="dialog_data_changed_message">Zmiany nie zapisane. Zapisać teraz?</string>
+    <string name="dialog_data_changed_title">Dane zmienione</string>
+    <string name="dialog_delete">Usuń</string>
+    <string name="dialog_delete_route">Usunąć trasę?</string>
+    <string name="dialog_delete_route_message">Zamierzasz usunąć trasę \"%1$s\".</string>
+    <string name="dialog_discard">Odrzuć</string>
+    <string name="dialog_dont_save">Nie zapisuj</string>
+    <string name="dialog_edit_points">Edytuj punkty</string>
+    <string name="dialog_filter_age">Filtruj przez wiek (dni)</string>
+    <string name="dialog_filter_clear">Wyczyść</string>
+    <string name="dialog_filter_dst">Filtruj przez odległość (km)</string>
+    <string name="dialog_filter_lenth">Filtruj przez długość (km)</string>
+    <string name="dialog_filter_set">Ustaw filtr</string>
+    <string name="dialog_filter_routedst">Przez odległość od trasy (km)</string>
+    <string name="dialog_filter_type">Filtruj przez typy</string>
+    <string name="dialog_insert_b4">Wstaw przed</string>
+    <string name="dialog_loading_data">Ładuję dane</string>
+    <string name="dialog_manually">Lat/Lon (format GPS)</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_overwrite_message">Nadpisać aktualny plik?</string>
+    <string name="dialog_overwrite_title">Plik istnieje</string>
+    <string name="dialog_pois_filter_title">Filtr widoku POI</string>
+    <string name="dialog_route_changed_message">Trasa zmodyfikowana. Zapisać zmiany?</string>
+    <string name="dialog_routes_filter_title">Filtr widoku tras</string>
+    <string name="dialog_save">Zapisz</string>
+    <string name="dialog_save_changes_exit">Nie zapisuj</string>
+    <string name="dialog_save_changes_save">Zapisz</string>
+    <string name="dialog_save_changes_title">Dane zmienione</string>
+    <string name="dialog_savegpx_saveasnew">Zapisz do pliku GPX</string>
+    <string name="dialog_saving_data">Zapisuję dane</string>
+    <string name="dialog_select_pois">Wybierz POI</string>
+    <string name="dialog_select_routes_export">Wybierz trasy</string>
+    <string name="dialog_select_routes_import">Wybierz trasy</string>
+    <string name="dialog_select_tracks">Ścieżki do konwersji</string>
+    <string name="dialog_selected">Wybrane</string>
+    <string name="dialog_sending_results">Wysyłanie wyników</string>
+    <string name="dialog_set_lat_lon">Dodaj</string>
+    <string name="dialog_stats">Statystyki</string>
+    <string name="dialog_widget_title">Wybierz wartość:</string>
+    <string name="drawer_close">Zamknij szufladę nawigacji</string>
+    <string name="drawer_open">Otwórz szufladę nawigacji</string>
+    <string name="ela">ELA (Czas podróży)</string>
+    <string name="error_creating_properties">Błąd tworzenia pliku ustawień</string>
+    <string name="error_loading_properties">Błąd ładowania ustawień</string>
+    <string name="eta">ETA (Przewidywany czas przybycia)</string>
+    <string name="ete">ETE (Przewidywany czas w drodze)</string>
+    <string name="file_pick">Wybierz plik</string>
+    <string name="filebrowser_name">Przeglądaj pliki</string>
+    <string name="gps_average">GPS: średni</string>
+    <string name="gps_excellent">GPS: doskonały</string>
+    <string name="gps_good">GPS: dobry</string>
+    <string name="gps_poor">GPS: słaby</string>
+    <string name="gps_searching">GPS: Szukam</string>
+    <string name="heading">HEA (Kierunek)</string>
+    <string name="help_history">Obliczanie ETE (przewidywanego czasu w drodze) i ETA (przewidywanego czau przybycia) bazuje na średniej prędkości z ostatnich 1–10 minut.\n         \nWspólne dla obu tarcz.</string>
+    <string name="help_history_lbl">Historia prędkości</string>
+    <string name="help_more">Auto-pauzowanie ETA/ETE: określa czy postój ma być brany pod uwagę podczas obliczania przweidywanego czasu przybycia / czasu w drodze, nawet gdy Auto-pauowanie ELA jest wyłączone.\n
+        \nAuto-pauzowanie ELA: gdy zaznaczone - wstrzymuje obliczanie wszystkich wartości do momentu wykrycia ruchu.\n
+        \nAuto-pomijanie punktów trasy: wyszukuje następny punkt trasy, jeśli jakiś pominąłeś.\n
+        \nBierz pod uwagę wysokość: używaj tylko na urządzeniach z barometrycznym czujnikiem wysokości. W przeciwnym razie będziesz otrzymywać fałszywe wskazania odległości od trasy.\n
+        \nAutomatycznie dodawaj wskazówki: po uruchomieniu nawigacji zegarek wygeneruje wskazówki w odpowiednich punktach. Wskazówki wprowadzone ręcznie zostaną zachowane.
+    </string>
+    <string name="help_more_lbl">Różne ustawienia</string>
+    <string name="help_prompt">Przytrzymaj - Pomoc</string>
+    <string name="help_refresh">Częstotliwość (w sekundach) odświeżania lokalizacji i odświeżania ekranu. Mniejsze wartości zwiększają dokładność, ale mogą zwiększać zużycie baterii.\n         \nWspólne dla obu tarcz.</string>
+    <string name="help_refresh_lbl">Odświeżanie</string>
+    <string name="help_send">Wysyła wybrane wartości do zegarka. Jeśli go nie użyjesz, zostaną wysłane gdy będziesz opuszcać ten ekran.</string>
+    <string name="help_send_lbl">Wyślij do zegarka</string>
+    <string name="help_swap">Częstotliwość przełączania (w sekundach) między zestawem 1 i zestawem 2 przy przyciemnionym ekranie.\n         \nTylko tarcza Active.</string>
+    <string name="help_swap_lbl">Przełącznie</string>
+    <string name="help_threshold">Nawigacja do POI: w jakiej odległości wykrywać przybycie i zatrzymywać nawigację.\n         \nPodążanie trasą: jak daleko od pukntu trasy zegarek ma wybrać następny punkt.\n\nDozwolone 10 do 500 metrów.\n         \nWspólne dla obu tarcz.</string>
+    <string name="help_threshold_lbl">Próg celu</string>
+    <string name="help_units">Metryczny: odległość w kilometrach, prędkość w km na godzinę;\n\nImperialny: odległość w milach, prędkość w milach na godzinę;\n         \nŻeglarski: odległość w milach morskich, prędkość w węzłach.\n         \nWspólne dla obu tarcz.</string>
+    <string name="help_units_lbl">Jednostki</string>
+    <string name="convert_bearing_variation">Progowa wariancja namiaru (w stopniach)</string>
+    <string name="convert_corner_angle">Progowy kąt narożnika (w stopniach)</string>
+    <string name="help_widgets">SPD (Prędkość) - prędkość względem ziemi\n
+        \nASP (Średnia prędkość) - zależnie od ustawienia \'Auto-pauzowanie ELA\' (Wł/Wył), tylko czas w ruchu / łączny czas będzie brany pod uwagę\n
+        \nSMG (Speed Made Good) - prawdziwa prędkość ruchu w kierunku celu\n\nETE (Przewidywany czas w drodze) - czas jaki pozostał do osiągnięcia celu, wyliczony na podstawie SMG\n
+        \nHEA (Kierunek) - Kąt w stopniach między kierunkiem Twojego ruchu a północą\n\nBEA (odchylenie względne) - kąt w stopniach między kierunkiem ruchu, a prostą linią między Tobą i celem.\n
+        \nDOC (Distance Off Course) - odległość między Twoją pozycją a najbliższym punktem trasy\n
+        \nPozostałe widżety nie powinny wymagać wytłumaczenia.</string>
+    <string name="help_widgets_lbl">Widżety zegarka</string>
+    <string name="imperial">Imperialne</string>
+    <string name="lv_bearing">BEA (Odchylenie względne)</string>
+    <string name="lv_heading">HEA (Kierunek)</string>
+    <string name="lv_refresh_1">1 sekunda</string>
+    <string name="lv_refresh_10">10 sekund</string>
+    <string name="lv_refresh_2">2 sekundy</string>
+    <string name="lv_refresh_5">5 sekund</string>
+    <string name="manually_lat_desc">Szerokość:</string>
+    <string name="manually_lon_desc">Długość:</string>
+    <string name="manually_name_desc">Nazwa POI:</string>
+    <string name="map_pois_clear">Wyczyść wszystko</string>
+    <string name="map_pois_enter_latlon">Nowy z koordynatów</string>
+    <string name="map_pois_from_places">Nowy z Miejsc Google</string>
+    <string name="map_pois_import">Importuj</string>
+    <string name="map_pois_save">Eksportuj</string>
+    <string name="map_pois_save_all">Eksportuj wszystko</string>
+    <string name="map_pois_save_view">Esportuj widok z filtrem</string>
+    <string name="map_prompt">0 punktów, przytrzymaj by dodać</string>
+    <string name="map_prompt_route">%1$d punktów, przytrzymaj by dodać</string>
+    <string name="map_reverse_route">Odwróć trasę</string>
+    <string name="map_waypoints">%1$d punktów trasy</string>
+    <string name="metric">Metryczne</string>
+    <string name="more">Ustawienia nawigacji</string>
+    <string name="msp">MSP (Maksymalna prędkość)</string>
+    <string name="nautical">Żeglarskie</string>
+    <string name="node_id">Podłączone urządzenie</string>
+    <string name="odo">DST (Przebyty dystans)</string>
+    <string name="ok_no_device_connected">OK</string>
+    <string name="picker_edit_apply">Zastosuj</string>
+    <string name="picker_edit_dialog_title">Właściwości trasy</string>
+    <string name="poi_edit_description_label">Opis:</string>
+    <string name="poi_edit_edit">Edytuj</string>
+    <string name="poi_edit_elevation_label">Ele (m):</string>
+    <string name="poi_edit_name_edit">bez nazwy</string>
+    <string name="poi_edit_name_label">Nazwa</string>
+    <string name="poi_edit_spinner_label">Wybierz typ</string>
+    <string name="poi_edit_time">Czas nieznany</string>
+    <string name="poi_edit_title">Dane POI</string>
+    <string name="pro_checking">Licencja: sprawdzam</string>
+    <string name="pro_disabled">Licencja: darmowa</string>
+    <string name="pro_enabled">Licencja: pro</string>
+    <string name="pro_feature">Opcja pro</string>
+    <string name="pro_unknown">Licencja: status nieznany</string>
+    <string name="quit_button">Zamknij</string>
+    <string name="restore_defaults">Przywróć domyślne</string>
+    <string name="restore_defaults_message">Przywrócić domyślne ustawienia obu tarcz?</string>
+    <string name="retry_button">Ponów</string>
+    <string name="route_dehintify">Czyść wskazówki</string>
+    <string name="route_edit_number_label">Numer</string>
+    <string name="route_edit_prompt">Dotknij trasy by wybrać</string>
+    <string name="route_hintify">Dodaj wskazówki</string>
+    <string name="routes_clear">Czyść wszystko</string>
+    <string name="routes_delete_selected">Usuń wybraną</string>
+    <string name="routes_display">Widoczność</string>
+    <string name="routes_display_show_end">Punkty końcowe</string>
+    <string name="routes_display_show_labels">Etykiety</string>
+    <string name="routes_display_show_start">Punkty początkowe</string>
+    <string name="routes_edit_convert_tracks">Importuj ślady</string>
+    <string name="routes_edit_export_multiple">Eksportuj</string>
+    <string name="routes_edit_import_routes">Importuj</string>
+    <string name="routes_edit_selected">Edytuj wybraną</string>
+    <string name="routes_new_manually">Rysuj ręcznie</string>
+    <string name="routes_simplify_selected">Uprość wybraną</string>
+    <string name="sending_settings">Wysyłam ustawienia do zegarka</string>
+    <string name="set1">Zestaw 1</string>
+    <string name="set2">Zestaw 2</string>
+    <string name="set3">Zestaw 3</string>
+    <string name="simplification_error">Max błąd: %1$d m</string>
+    <string name="smg">SMG (Prędkość do celu)</string>
+    <string name="square">Ekran prostokątny</string>
+    <string name="stats_avs">ASP:</string>
+    <string name="stats_avs_desc">Średnia prędkość</string>
+    <string name="stats_counter"># tras/treningów:</string>
+    <string name="stats_counter_desc">Ilość tras/treningów:</string>
+    <string name="stats_distance_desc">Odległość:</string>
+    <string name="stats_dst">DST:</string>
+    <string name="stats_empty_value">-</string>
+    <string name="stats_time">ELA:</string>
+    <string name="stats_current">Ostatnia:</string>
+    <string name="stats_time_desc">Czas:</string>
+    <string name="stats_totals">Podsumowanie:</string>
+    <string name="steps">STE (Licznik kroków)</string>
+    <string name="swap">Przełączanie widżetów</string>
+    <string name="swap_1">1 sekunda</string>
+    <string name="swap_10">10 sekund</string>
+    <string name="swap_2">2 sekundy</string>
+    <string name="swap_5">5 sekund</string>
+    <string name="time_date"><![CDATA[T&D (Czas I data)]]></string>
+    <string name="time_of_sunrise">SRI (Wschód słońca)</string>
+    <string name="time_of_sunset">SSE (Zachód słońca)</string>
+    <string name="time_to_sunrise">2SR (Czas do wschodu)</string>
+    <string name="time_to_sunset">2SS (Do zachodu)</string>
+    <string name="title_no_device_connected">Nie podłączono zegarka</string>
+    <string name="track_reduce">Uprość zaimportowane</string>
+    <string name="unlicensed_dialog_retry_body">Nie udało się sprawdzić licencji. Sprawdź połączenie sieciowe. Jeśli działa, zapewne serwer  Google Play chwilowo nie odpowiada. Spróbuj ponownie za kilka minut.</string>
+    <string name="unlicensed_dialog_title">Alikacja nielicencjonowana</string>
+    <string name="unnamed">bez nazwy</string>
+    <string name="warning_poi_filtered_out">POI będzie niewidoczny przy aktualnym fitrowaniu widoku</string>
+    <string name="waypoint_edit_title">Edycja punktu</string>
+    <string name="waypoint_hint_back">Zawróć</string>
+    <string name="waypoint_hint_left">W lewo</string>
+    <string name="waypoint_hint_none">brak</string>
+    <string name="waypoint_hint_right">W prawo</string>
+    <string name="waypoint_hint_stop">Stop</string>
+    <string name="manual_btn">Podręcznik</string>
+    <string name="widget_empty">---</string>
+    <string name="widget_off">Wyłączone</string>
+    <string name="wp_name">Podaj nazwę</string>
+    <string name="view_filter">Filtr widoku</string>
+    <string name="add_captured">Dodaj zebrane POI</string>
+    <string name="send_current_view">Wyślij bieżący widok</string>
+    <string name="send_selected_route">Wyślij wybraną trasę</string>
+    <string name="tracks_loaded">%1$d śladów</string>
+    <string name="read_error">Błąd odczytu: </string>
+    <string name="poi_loaded">%1$d POI</string>
+    <string name="routes_loaded">%1$d tras</string>
+    <string name="removed">Usunięto</string>
+    <string name="duplicates">duplikatów</string>
+    <string name="routes_imported">tras zaimportowano</string>
+    <string name="no_tracks_not_gpx">Brak śladów lub nie jest to plik GPX!</string>
+    <string name="no_named_tracks">Plik GPX nie zawiera śladów</string>
+    <string name="failed_writing_gpx">Błąd zapisu pliku GPX</string>
+    <string name="new_gpx">Nowy plik GPX</string>
+    <string name="open_gpx">Otwórz plik GPX</string>
+    <string name="save_gpx">Zapisz plik GPX</string>
+    <string name="stats_latest">Ostatnie:</string>
+    <string name="connected_to">Połączony z: %1$s</string>
+    <string name="not_connected">Niepołączony</string>
+    <string name="failed_rambler_pois">Nie udało się utworzyć ramblerPois.gpx</string>
+    <string name="failed_rambler_routes">Nie udało się utworzyć ramblerRoutes.gpx</string>
+    <string name="failed_rambler_tracks">Nie udało się utworzyć ramblerTracks.gpx</string>
+    <string name="sample_loaded">Załadowano przykładowe dane. Rzuć na nie okiem.</string>
+    <string name="rambler_folder_created">Utworzono folder Rambler</string>
+    <string name="rambler_folder_failure">Nie udało się utworzyć folderu Rambler</string>
+    <string name="saving_wait">Zapisuję pliki</string>
+    <string name="saving">Zapisuję</string>
+    <string name="no_file_selected">Nie wybrano pliku</string>
+    <string name="nothing_to_save">Nie ma nic do zapisania</string>
+    <string name="duplicated_poi">duplikatów POI</string>
+    <string name="overlapping_routes">nakładających się tras</string>
+    <string name="default_file_corrupted">- brak lub uszkodzenie domyślnego pliku, tworzę nowy</string>
+    <string name="error_opening_file">Błąd otwierania pliku:</string>
+    <string name="error_saving_data">Błąd zapisu danych:</string>
+    <string name="default_files_saved">Domyślne pliki zapisane</string>
+    <string name="error">Błąd:</string>
+    <string name="poi_sent">POI wysłano do zegarka</string>
+    <string name="poi_sending_error">Błąd podczas wysyłania POI</string>
+    <string name="about">Nawigacja dla Android Wear i edytor GPX dla Androida ©2015–2017 nwg (Piotr Miller). Wszelkie prawa zastrzeżone.\n
+        \nBiblioteka GeoKarambola ©2016 Karambola (Afonso Santos).\n
+        \nZobacz też podziękowania.</string>
+    <string name="added_captured_poi">Dodano %1$d POI</string>
+    <string name="poi_in_cache">%1$d POI w buforze</string>
+    <string name="poi_cache_contains">Bufor POI zawiera %1$s punktów. Naciśnij długo przycisk POI w menu nawigacji zegarka, by wyczyścić bufor.</string>
+    <string name="no_poi_in_cache">Brak POI w buforze</string>
+    <string name="sending_n_poi">Wysyłam %1$s POI</string>
+    <string name="no_poi_in_view">Brak POI w aktualnym widoku</string>
+    <string name="no_poi_to_clear">Brak POI do usunięcia</string>
+    <string name="play_services_check">Usługi Google Play niedostępne. Sprawdź czy ta sama wersja jest zainstalowana w telefonie i zegarku.</string>
+    <string name="play_services_unavailable">Usługi Google Play niedostępne</string>
+    <string name="not_available_free">Niedostępne w wersji darmowej</string>
+    <string name="properties_dont_exist">Brak pliku ustawień</string>
+    <string name="x_of_y_poi_press">%1$d z %2$d POI, przytrzymaj by dodać</string>
+    <string name="poi_rejected">%1$d POI odrzucono</string>
+    <string name="no_poi_press">Brak POI, przytrzymaj by dodać</string>
+    <string name="x_poi_press">%1$d POI, przytrzymaj by dodać</string>
+    <string name="type">Typ:</string>
+    <string name="lat_lon_should_be">Lat musi być w zakresie -90 to 90\nLon musi być w zakresie -180 to 180</string>
+    <string name="location_unavailable">Lokalizacja niedostępna</string>
+    <string name="dialog_types_of_types">(%1$d z %2$d)</string>
+    <string name="no_poi_not_gpx">Brak POI lub nie jest to plik GPX!</string>
+    <string name="no_named_poi">Plik GPX nie zawiera POI</string>
+    <string name="no_poi_selected">Nie wybrano POI</string>
+    <string name="poi_imported">POI zaimportowano</string>
+    <string name="saving_to">Zapisuję do</string>
+    <string name="poi_cleared">Usunięto wszystkie POI</string>
+    <string name="too_many_waypoints">Zbyt dużo punktów trasy. Uprość do maksimum %1$d punktów.</string>
+    <string name="not_found_no_route">nie odnaleziony lub nie zawiera tras</string>
+    <string name="opening_route">Wczytuję trasę</string>
+    <string name="too_many_waypoints_preview">Zbyt dużo punktów, tylko podgląd (dozwolone %1$d)</string>
+    <string name="converting_track">Konwertuję ślad</string>
+    <string name="pro_to_send_multiple">By wysyłać więcej niż jedną trasę, potrzebujesz licencji pro. Wyślij wybraną trasę.</string>
+    <string name="no_routes_in_view">Brak tras w tym widoku</string>
+    <string name="no_watch_connected">Nie sparowano z zegarkiem</string>
+    <string name="pick_a_route">Wybierz trasę</string>
+    <string name="about_to_delete_route">Usuwasz trasę</string>
+    <string name="no_routes_to_clear">Brak tras do usunięcia</string>
+    <string name="no_routes_loaded">Nie załadowano tras</string>
+    <string name="not_gpx">To nie jest plik GPX!</string>
+    <string name="selected_routes_exported">Wyeksportowano wybrane trasy</string>
+    <string name="failed_creating_file">Nie udało się utworzyć pliku</string>
+    <string name="neither_single_nor_multiple">Nie wybrano jednej ani wielu tras</string>
+    <string name="routes_cleared">Usunięto wszystkie trasy</string>
+    <string name="no_routes_selected">Nie wybrano żadnej trasy</string>
+    <string name="no_routes_memory">Brak tras w pamięci lub aktualnym widoku</string>
+    <string name="tracks_converted">Skonwertowano %1$d śladów</string>
+    <string name="simplifying">Upraszczanie...</string>
+    <string name="no_tracks_selected">Nie wybrano śladów</string>
+    <string name="no_routes_not_gpx">Brak tras lub nie jest to plik GPX</string>
+    <string name="no_named_routes">Plik GPX nie zawiera tras</string>
+    <string name="x_of_y_routes">%1$d z %2$d tras</string>
+    <string name="no_data">Brak danych!</string>
+
+    <string name="karambola">
+        - narzędzia importu/eksportu/edycji plików ;
+        \n- filtrowanie widoku i sortowanie POI i tras;
+        \n- Path Simplifier - narzędzie do interaktywnej konwersji śladów na trasy i silnik redukcji trasy;
+        \n- auto-generowanie wskazówek trasy podczas edycji;
+        \n- zarządzanie danymi JSON;
+        \n©2016 Karambola (Afonso Santos).
+    </string>
+
+    <string name="credits">
+        W aplikacji użyto kodu opublikowanego na licencji Apache 2.0:\n
+        \n- AOSP code Copyright ©2014-2016 The Android Open Source Project;\n
+        \n- Sunrise/SunsetLib by Mike Reedell;\n
+        \n- AndroidFileBrowser by Alexey Vassiliev.\n
+        \nKopię licencji znajdziesz pod adresem http://www.apache.org/licenses/LICENSE-2.0.\n
+        \nCzcionka SciFly-Sans jest darmowym krojem stworzonym przez by http://www.flyerzone.co.uk</string>
+
+    <string name="geo_karambola">Biblioteka GeoKarambola</string>
+    <string name="select_folder">Wybierz\n[ %1$s ]</string>
+    <string name="current_folder">Bieżący folder: %1$s</string>
+    <string name="path_not_exists">Ścieżka nie istnieje lub nie można odczytać</string>
+    <string name="folder_empty">Folder jest pusty</string>
+    <string name="folder_up">W górę</string>
+    <string name="folder_select">Wybierz</string>
+    <string name="unlicensed_dialog_body">Witaj! Chciałbym Cię tylko poinformować, że praca na tą aplikacją pochłania prawie cały mój wolny czas:
+tysiące godzin pracy, setki nieprzespanych nocy. Jeśli naprawdę nie możesz sobie pozwolić na zakup, napisz do mnie i zostań testerem.
+Otrzymasz kod do darmowej instalacji wersji pro i pomożesz w dalszym rozwoju aplikacji. W przeciwnym wypadku pamiętaj, że trzeba nie tylko nie tylko pisać,
+ale też testować, a kawa i nowy sprzęt nie rosną na drzewach. OK, kawa rośnie. Miałem na myśli piwo. ;) Pozdrawiam! </string>
+    <string name="languages">Tłumaczenia:\n\n
+DE Stefan Scherrer\n
+PL Piotr Miller</string>
+    <string name="auto_pause_eta_ete">Autopauzuj ETA/ETE</string>
+    <string name="auto_pause_ela">Autopauzuj ELA</string>
+    <string name="twelve_hours_clock">Zegar 12-godzinny</string>
+    <string name="poi">POI</string>
+    <string name="dialog_insert">Wstaw</string>
+    <string name="dialog_append">Dołącz</string>
+    <string name="dialog_poi2wpt">POI do Wpt</string>
+    <string name="dialog_insert_message">Dodać %1$s jako punkt trasy?</string>
+    <string name="routes_sort_by">Sortuj trasy według</string>
+    <string name="routes_sort_by_name">Nazwa</string>
+    <string name="routes_sort_by_time">Czas</string>
+    <string name="routes_sort_by_length">Długość</string>
+    <string name="dialog_send">Wyślij</string>
+    <string name="dialog_edit">Edytuj</string>
+    <string name="waypoints_auto_skip">Auto-pomijanie punkty trasy</string>
+    <string name="vibrate_on_hints">Wibruj na wskazówkach punktu trasy</string>
+    <string name="vibrate_on_names">Wibruj na punktach z nazwą</string>
+    <string name="vibrate_on_transitions">Wibruj gdy odchodzę/wracam na trasę</string>
+
+    <string name="doc">DOC (Odległość od trasy)</string>
+    <string name="generate_auto_hints">Automatycznie dodawaj wskazówki</string>
+    <string name="waypoint_hint_auto">Auto</string>
+    <string name="common_settings">Ustawienia wspólne</string>
+    <string name="button_clock">Format zegara:\n</string>
+    <string name="help_clock_lbl">Format zegara</string>
+    <string name="help_clock">Format wyświetlania czasu: 24 lub 12-godzinny</string>
+    <string name="permissions_grant">Przyznaj uprawnienia</string>
+    <string name="permissions_deny">Zakończ</string>
+    <string name="permissions_insufficient">Nie udało się uruchomić aplikacji z powodu braku uprawnień:</string>
+    <string name="permissions_location">Dostęp do lokalizacji urządzenia</string>
+    <string name="permissions_files">Dostęp do odczytu i zapisu plików</string>
+    <string name="splash_bottom_text">Użytkownicy wersji pro: przy pierwszym uruchomieniu programu, aby zapisać status licencji na zegarku, należy wybrać na nim tarczę Active lub Classic i ponownie uruchomić tę aplikację.</string>
+    <string name="permissions_required">Ta aplikacja wymaga dostępu do odczytu i zapisu plików, gdzie przechowywane są ustawienia i dane, a także dostępu do lokalizacji urządzenia.</string>
+    <string name="whats_new_title">Co nowego?</string>
+    <string name="whats_new_dont_show">Nie pokazuj więcej</string>
+    <string name="dialog_update">Wymagana aktualizacja</string>
+    <string name="dialog_update_play_services">Usługi Google Play nieaktualne. Zainstaluj najnowszą wersję.</string>
+    <string name="dialog_update_update">Aktualizuj</string>
+    <string name="whats_new_message">Na razie wszystko jest nowe, ale nadal nie całkiem gotowe.</string>
+    <string name="route_sent">Trasa %1$s wysłana do zegarka</string>
+    <string name="routes_sent">tras wysłano do zegarka</string>
+    <string name="route_sending_error">Błąd podczas wysyłania tras</string>
+    <string name="map_pois_enter_w3w">Nowy z adresu 3 words</string>
+    <string name="dialog_w3w">Adres 3 words</string>
+    <string name="address_not_valid">%1$s nie jest prawidłowym adresem 3 words</string>
+    <string name="address_not_found">Nie znaleziono adresu (Kod: %1$s)</string>
+    <string name="dialog_read_more">Więcej</string>
+    <string name="no_network">Brak połączenia internetowego?</string>
+    <string name="app_name">Rambler Edytor GPX</string>
+    <string name="sending_n_routes">Wysyłam trasy</string>
+    <string name="routes_new_auto">Rysuj automatycznie</string>
+    <string name="auto_too_many_waypoints">Dozwolone łącznie 25 punktów (Start + 23 punkty pośrednie + Finisz)</string>
+    <string name="gplus_url"><a href="https://plus.google.com/u/0/communities/107974128581728883609/stream/a3da101d-9471-4fe6-a8fc-c3d1335546b6">Nowości w aplikacji na Google+</a></string>
+    <string name="auto_not_enough_waypoints">Potrzebne przynajmniej 2 punkty (początek i koniec)</string>
+    <string name="dialog_add">Dodaj</string>
+    <string name="waypoint_delete">Usunąć punkt trasy?</string>
+
+</resources>

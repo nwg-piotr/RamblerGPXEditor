@@ -1,0 +1,110 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map" tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+        <RelativeLayout
+            android:id="@+id/InnerRelativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow android:gravity="center">
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/map_previous"
+                        android:maxWidth="0dp"
+                        android:maxHeight="0dp"
+                        android:id="@+id/previous_button" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/map_watch_set"
+                        android:maxWidth="0dp"
+                        android:maxHeight="0dp"
+                        android:id="@+id/save_route_button"
+                        android:enabled="false" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/map_fit"
+                        android:maxWidth="0dp"
+                        android:maxHeight="0dp"
+                        android:id="@+id/fit_maps_button" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/map_delete"
+                        android:maxWidth="0dp"
+                        android:maxHeight="0dp"
+                        android:id="@+id/clear_point_button" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/map_next"
+                        android:maxWidth="0dp"
+                        android:maxHeight="0dp"
+                        android:id="@+id/next_button" />
+
+                </TableRow>
+
+            </TableLayout>
+
+
+
+        </RelativeLayout>
+
+    <TextView
+        android:id="@+id/summary"
+        android:text="@string/map_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="5dp"
+        android:textSize="14sp"
+
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_above="@+id/InnerRelativeLayout"
+        android:layout_alignParentStart="true" />
+
+    <Button style="?android:attr/buttonStyleSmall"
+        android:id="@+id/route_location_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/location_button"
+        android:contentDescription="My Location"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Copyright (C) 2014 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#eeeeee">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/lovis_ambient"
+                    android:text="@string/set1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="0dp"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold" />
+
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="2">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal">
+
+                            <Button style="?android:attr/buttonBarButtonStyle"
+                                android:id="@+id/set1_tl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minHeight="0dp"
+                                android:background="@drawable/widget_tl"
+                                android:textColor="#ffffff"
+                                android:text="@string/widget_empty" />
+
+                            <Button style="?android:attr/buttonBarButtonStyle"
+                                android:id="@+id/set1_tr"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minHeight="0dp"
+                                android:background="@drawable/widget_tr"
+                                android:textColor="#ffffff"
+                                android:text="@string/widget_empty" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal">
+
+
+                            <Button style="?android:attr/buttonBarButtonStyle"
+                                android:id="@+id/set1_bl"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:minHeight="0dp"
+                                android:background="@drawable/widget_bl"
+                                android:textColor="#ffffff"
+                                android:text="@string/widget_empty" />
+
+                            <Button style="?android:attr/buttonBarButtonStyle"
+                                android:id="@+id/set1_br"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:minHeight="0dp"
+                                android:background="@drawable/widget_br"
+                                android:textColor="#ffffff"
+                                android:text="@string/widget_empty" />
+                        </TableRow>
+
+                    </TableLayout>
+
+                <TextView
+                    android:id="@+id/lovis_set2"
+                    android:text="@string/set2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="0dp"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_horizontal">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal">
+
+                        <Button style="?android:attr/buttonBarButtonStyle"
+                            android:id="@+id/set2_tl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="0dp"
+                            android:background="@drawable/widget_tl"
+                            android:textColor="#ffffff"
+                            android:text="@string/widget_empty" />
+
+                        <Button style="?android:attr/buttonBarButtonStyle"
+                            android:id="@+id/set2_tr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="0dp"
+                            android:background="@drawable/widget_tr"
+                            android:textColor="#ffffff"
+                            android:text="@string/widget_empty" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal">
+
+                        <Button style="?android:attr/buttonBarButtonStyle"
+                            android:id="@+id/set2_bl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="0dp"
+                            android:background="@drawable/widget_bl"
+                            android:textColor="#ffffff"
+                            android:text="@string/widget_empty" />
+
+                        <Button style="?android:attr/buttonBarButtonStyle"
+                            android:id="@+id/set2_br"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="0dp"
+                            android:background="@drawable/widget_br"
+                            android:textColor="#ffffff"
+                            android:text="@string/widget_empty" />
+                    </TableRow>
+
+                    </TableLayout>
+
+                    <TextView
+                        android:id="@+id/lovis_night"
+                        android:text="@string/set3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="0dp"
+                        android:textSize="16sp"
+                        android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="0dp" />
+
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_gravity="center_horizontal">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_horizontal">
+
+                                <Button style="?android:attr/buttonBarButtonStyle"
+                                    android:id="@+id/set3_tl"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="0dp"
+                                    android:background="@drawable/widget_tl"
+                                    android:textColor="#ffffff"
+                                    android:text="@string/widget_empty" />
+
+                                <Button style="?android:attr/buttonBarButtonStyle"
+                                    android:id="@+id/set3_tr"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="0dp"
+                                    android:background="@drawable/widget_tr"
+                                    android:textColor="#ffffff"
+                                    android:text="@string/widget_empty" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_horizontal">
+
+                                <Button style="?android:attr/buttonBarButtonStyle"
+                                    android:id="@+id/set3_bl"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="0dp"
+                                    android:background="@drawable/widget_bl"
+                                    android:textColor="#ffffff"
+                                    android:text="@string/widget_empty" />
+
+                                <Button style="?android:attr/buttonBarButtonStyle"
+                                    android:id="@+id/set3_br"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="0dp"
+                                    android:background="@drawable/widget_br"
+                                    android:textColor="#ffffff"
+                                    android:text="@string/widget_empty" />
+                            </TableRow>
+
+                        </TableLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:baselineAligned="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"></LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/dark_grey"/>
+
+        <Button style="?android:attr/buttonStyleSmall"
+            android:background="#ffffff"
+            android:id="@+id/button_swap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:textAllCaps="false"
+            android:text="@string/widget_empty"
+            android:gravity="center_vertical|start" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+                <Button style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:id="@+id/widgets_help"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/map_help" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/map_watch_set"
+                    android:id="@+id/send_settings_button"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="false" />
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+</ScrollView>

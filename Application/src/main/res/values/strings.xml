@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<resources>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="filebrowser_name">File Browser</string>
+
+    <string name="action_about">About</string>
+    <string name="action_units">Select units</string>
+    <string name="action_lv">Active watch face</string>
+    <string name="action_classic">Classic watch face</string>
+    <string name="action_exit">Exit</string>
+
+
+    <string name="analog_config_text" translatable="false">Rambler Navigation pro by nwg.</string>
+
+    <string name="about">Android Wear navigation and Android GPX edition software.\n
+        \n&#169;2015&#8211;2016 nwg (Piotr Miller). All rights reserved.\n
+        \nGeoKarambola library &#169;2016 Karambola (Afonso Santos).\n
+        \nSee credits for more details.</string>
+
+    <string name="credits_btn">Credits</string>
+    <string name="manual_btn">Manual</string>
+
+    <string name="karambola">
+        - GPX format import/export/manipulation tools;
+        \n- POI/routes view filtering and sorting;
+        \n- Path Simplifier - the Track2Route on the fly conversion and route reduction engine;
+        \n- Edit-time route hint generation;
+        \n- JSON" data marshaling;
+        \n&#169;2016 Karambola (Afonso Santos).
+    </string>
+
+    <string name="credits">
+        The application utilizes code released under the Apache 2.0 license:
+        \n- AOSP code Copyright &#169;2014-2016 The Android Open Source Project;
+        \n- Sunrise/SunsetLib by Mike Reedell;
+        \n- AndroidFileBrowser by Alexey Vassiliev.
+        \nYou may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+        \nThe SciFly-Sans font is a freeware typeface by http://www.flyerzone.co.uk</string>
+
+    <string name="title_no_device_connected">No wearable device is currently connected.</string>
+    <string name="ok_no_device_connected">OK</string>
+
+    <string name="gps_searching">GPS: Searching</string>
+    <string name="gps_poor">GPS: Poor</string>
+    <string name="gps_average">GPS: Average</string>
+    <string name="gps_good">GPS: Good</string>
+    <string name="gps_excellent">GPS: Excellent</string>
+    <string name="pro_unknown">License: unknown</string>
+    <string name="pro_disabled">License: free</string>
+    <string name="pro_checking">License: checking</string>
+    <string name="pro_enabled">License: pro</string>
+
+    <string name="node_id">Connected node</string>
+
+    <string name="stats_time">ELA:</string>
+    <string name="stats_dst">DST:</string>
+    <string name="stats_avs">ASP:</string>
+    <string name="stats_counter"># of trips:</string>
+
+    <string name="more">Navigation settings</string>
+
+    <string name="widget_empty">---</string>
+
+    <string name="metric">Metric</string>
+    <string name="imperial">Imperial</string>
+    <string name="nautical">Nautical</string>
+
+    <string-array name="units_array">
+        <item>@string/metric</item>
+        <item>@string/imperial</item>
+        <item>@string/nautical</item>
+    </string-array>
+
+    <string name="swap">Widgets swapping:</string>
+
+    <string name="swap_10">10 seconds</string>
+    <string name="swap_5">5 seconds</string>
+    <string name="swap_2">2 seconds</string>
+    <string name="swap_1">1 second</string>
+
+    <string-array name="swap_array">
+        <item>@string/swap_10</item>
+        <item>@string/swap_5</item>
+        <item>@string/swap_2</item>
+        <item>@string/swap_1</item>
+    </string-array>
+
+    <string name="time_of_sunrise">SRI (Time of sunrise)</string>
+    <string name="time_of_sunset">SSE (Time of sunset)</string>
+    <string name="time_to_sunrise">2SR (Time to sunrise)</string>
+    <string name="time_to_sunset">2SS (Time to sunset)</string>
+    <string name="azimuth">AZI (Azimuth)</string>
+    <string name="bearing">BEA (Bearing)</string>
+    <string name="heading">HEA (Heading)</string>
+    <string name="deviation">DEV (Deviation)</string>
+    <string name="current_speed">SPD (Current speed)</string>
+    <string name="avs">ASP (Average speed)</string>
+    <string name="ete">ETE (Est. Time Enroute)</string>
+    <string name="eta">ETA (Est. Time of Arrival)</string>
+    <string name="msp">MSP (Maximum speed)</string>
+    <string name="smg">SMG (Speed Made Good)</string>
+    <string name="odo">DST (Distance made)</string>
+    <string name="ela">ELA (Time elapsed)</string>
+    <string name="alt">ALT (Altitude)</string>
+    <string name="widget_off">Turned off</string>
+    <string name="steps">STE (Steps counter)</string>
+    <string name="lv_heading">HEA (Heading)</string>
+    <string name="lv_bearing">BEA (Relative bearing)</string>
+    <string name="doc">DOC (Distance Off Course)</string>
+
+    <string-array name="widgets_settings_array">
+        <item>@string/time_of_sunrise</item>
+        <item>@string/time_of_sunset</item>
+        <item>@string/time_to_sunrise</item>
+        <item>@string/time_to_sunset</item>
+        <item>@string/azimuth</item>
+        <item>@string/heading</item>
+        <item>@string/bearing</item>
+        <item>@string/current_speed</item>
+        <item>@string/avs</item>
+        <item>@string/msp</item>
+        <item>@string/smg</item>
+        <item>@string/ete</item>
+        <item>@string/eta</item>
+        <item>@string/odo</item>
+        <item>@string/ela</item>
+        <item>@string/alt</item>
+    </string-array>
+
+    <string name="time_date">T&amp;D (Time and date)</string>
+
+    <string-array name="lo_vis_active_array">
+        <item>@string/current_speed</item>
+        <item>@string/avs</item>
+        <item>@string/msp</item>
+        <item>@string/smg</item>
+        <item>@string/ete</item>
+        <item>@string/eta</item>
+        <item>@string/ela</item>
+        <item>@string/odo</item>
+        <item>@string/time_date</item>
+        <item>@string/alt</item>
+        <item>@string/steps</item>
+        <item>@string/time_of_sunrise</item>
+        <item>@string/time_of_sunset</item>
+        <item>@string/time_to_sunrise</item>
+        <item>@string/time_to_sunset</item>
+        <item>@string/lv_heading</item>
+        <item>@string/lv_bearing</item>
+        <item>@string/doc</item>
+
+    </string-array>
+
+    <string name="lv_refresh_10">10  seconds</string>
+    <string name="lv_refresh_5">5 seconds</string>
+    <string name="lv_refresh_2">2 seconds</string>
+    <string name="lv_refresh_1">1 second</string>
+
+    <string-array name="refresh_array">
+        <item>@string/lv_refresh_5</item>
+        <item>@string/lv_refresh_2</item>
+        <item>@string/lv_refresh_1</item>
+    </string-array>
+
+    <string name="clock_24h" translatable="false">24h</string>
+    <string name="clock_12h" translatable="false">12h</string>
+
+    <string-array name="clock_array">
+        <item>@string/clock_12h</item>
+        <item>@string/clock_24h</item>
+    </string-array>
+
+    <string name="set1">Set 1</string>
+    <string name="set2">Set 2</string>
+    <string name="set3">Set 3</string>
+
+    <string name="active">Active</string>
+    <string name="ambient">Ambient</string>
+    <string name="square">Square</string>
+
+    <string name="button_swap">Sets 1/2 swap rate:\n</string>
+    <string name="button_refresh">GPS/Screen refresh rate:\n</string>
+    <string name="button_units">Units:\n</string>
+    <string name="button_speed">Speed history:\n</string>
+    <string name="button_threshold">Proximity threshold:\n</string>
+    <string name="button_clock">Time format:\n</string>
+
+    <string name="button_insert_start">Start/End</string>
+    <string name="button_end_here">End here</string>
+    <string name="wp_name">Enter name</string>
+    <string name="route_hintify">Add hints</string>
+    <string name="route_dehintify">Clear hints</string>
+
+    <string name="track_reduce">Simplify imported routes</string>
+    <string name="restore_defaults">Restore defaults</string>
+    <string name="restore_defaults_message">This will restore default settings for both watch faces. Continue?</string>
+
+    <string name="dialog_about" translatable="false">Rambler Navigation pro</string>
+    <string name="dialog_advanced">Navigation settings</string>
+    <string name="dialog_stats">Statistics</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_read_more">Read more</string>
+
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_delete">Delete</string>
+    <string name="dialog_insert_b4">Insert B4</string>
+
+    <string name="dialog_edit_points">Edit points</string>
+    <string name="dialog_manually">Lat/Lon (GPS format)</string>
+    <string name="dialog_w3w">3 words address</string>
+    <string name="dialog_select_pois">Select POI to import</string>
+    <string name="dialog_select_routes_import">Select Routes to import</string>
+    <string name="dialog_select_routes_export">Select Routes to export</string>
+    <string name="dialog_select_tracks">Select Tracks to convert</string>
+    <string name="dialog_selected">Selected</string>
+    <string name="dialog_all">All</string>
+
+    <string name="dialog_clear_pois">Clear all POI?</string>
+    <string name="dialog_clear_routes">Clear all routes?</string>
+    <string name="dialog_clear">Clear</string>
+
+    <string name="dialog_data_changed_title">Data changed</string>
+    <string name="dialog_data_changed_message">Changes you made have not yet been saved. Save now?</string>
+    <string name="dialog_save">Save</string>
+    <string name="dialog_dont_save">Don\'t save</string>
+
+    <string name="unnamed">unnamed</string>
+
+    <string name="dialog_save_changes_title">Data changed</string>
+    <string name="dialog_delete_route">Delete route?</string>
+    <string name="dialog_delete_route_message">You are about to delete the \"%1$s\" route.</string>
+    <string name="dialog_save_changes_save">Save</string>
+    <string name="dialog_save_changes_exit">Don\'t save</string>
+    <string name="dialog_apply">Apply</string>
+    <string name="dialog_discard">Discard</string>
+    <string name="dialog_loading_data">Loading data</string>
+    <string name="dialog_saving_data">Saving data</string>
+
+    <string name="dialog_sending_results">Sending results</string>
+
+    <string name="dialog_route_changed_message">The route has been modified. Apply changes?</string>
+
+    <string name="dialog_savegpx_saveasnew">Save to GPX file</string>
+    <string name="dialog_savegpx_extension" translatable="false">.gpx</string>
+    <string name="dialog_savegpx_default" translatable="false">myfile</string>
+
+    <string name="dialog_overwrite_title">File exists</string>
+    <string name="dialog_overwrite_message">Do you want to overwrite current file?</string>
+
+    <string name="dialog_pois_filter_title">POI view filter</string>
+    <string name="dialog_routes_filter_title">Routes view filter</string>
+
+    <string name="dialog_filter_set">Set filter</string>
+    <string name="dialog_filter_clear">Clear</string>
+    <string name="dialog_filter_type">Filter by Types</string>
+    <string name="dialog_filter_dst">Filter by Distance (km)</string>
+    <string name="dialog_filter_age">Filter by Age (days)</string>
+
+    <string name="dialog_filter_lenth">Filter by Length (km)</string>
+    <string name="dialog_filter_routedst">Distance to route (km)</string>
+
+    <string name="help_swap">Swap rate is the value in seconds, at which Set 1 and Set 2 widgets will be changed in ambient mode.\n
+        \nOnly affects the Active watch face.</string>
+    <string name="help_swap_lbl">Swap rate</string>
+
+    <string name="help_refresh">Refresh rate is the value in seconds, at which location updates will be acquired. The screen in active mode refreshes
+        at the same rate. Smaller values increase accuracy, but shorten the battery life.\n
+        \nCommon setting for both watch faces.</string>
+    <string name="help_refresh_lbl">Refresh rate</string>
+
+    <string name="help_units">Metric: distances in kilometers, speed in kilometers per hour;\n\nImperial: distances in miles, speed in miles per hour;\n
+        \nNautical: distances in nautical miles, speed in knots.\n
+        \nCommon setting for both watch faces.</string>
+    <string name="help_units_lbl">Distance/speed units"</string>
+
+    <string name="help_history">ETE (Estimated Time En route) and ETA (Estimated Time of Arrival) calculations base on the averaged speed from the last 1&#8211;10 minutes.\n
+        \nCommon setting for both watch faces.</string>
+    <string name="help_history_lbl">Speed history</string>
+
+    <string name="help_threshold">Navigating to a POI: how far from the target the navigation should be stopped (arrival detected).\n
+        \nFollowing a route: how far from the way point the watch should select the next one.\n\n10 to 500 meters allowed.\n
+        \nCommon setting for both watch faces.</string>
+    <string name="help_threshold_lbl">Target threshold</string>
+
+    <string name="help_more">Auto-pause ETA/ETE: determines if your stops should be taken into account while calculating estimated time of arrival / time en route, even if Auto-pause ELA unchecked.\n
+        \nAuto-pause ELA: if checked - stops counting all values when no movement detected.\n
+        \nAuto-skip way points: searches the next possible way point if you missed one on the route.\n
+        \nConsider elevation: use only on devices with the barometric altitude sensor, or you will be getting false distance to the route indications.\n
+        \nGenerate auto-hints: when navigation started, automatically adds direction hints in appropriate points. Does not override hints entered manually.
+    </string>
+    <string name="help_more_lbl">Various settings</string>
+
+    <string name="help_prompt">Long press for help</string>
+
+    <string name="help_widgets">SPD (Current speed) - your speed over ground\n
+        \nASP (Average Speed) - according to \'Navigation settings\' -> \'Auto-pause ELA\' on/off, only your time in movement will or will not be taken into account\n
+        \nSMG (Speed Made Good) - current speed towards the target\n\nETE (Estimated Time En route) - estimated time left to arrival, based on the SMG value\n
+        \nHEA (Heading) - angle in degrees between your movement direction and the North direction\n
+        \nBEA (relative Bearing) - angle in degrees from the heading to a straight line between your position and the target\n
+        \nDOC (Distance Off Course) - distance between your position and the nearest route point\n
+        \nThe rest of widgets should be self-explanatory.</string>
+    <string name="help_widgets_lbl">Watch widgets</string>
+
+    <string name="help_send">Sends currently selected values to the watch. If not pressed, the values will be sent anyway while leaving this screen.</string>
+    <string name="help_send_lbl">Sent to the watch</string>
+
+    <string name="warning_poi_filtered_out">POI will be invisible at current filter settings</string>
+
+    <string name="convert_min_points_dst">Min points distance (m)</string>
+    <string name="convert_max_points_dst">Max points distance (m)</string>
+    <string name="convert_bearing_variation">Trigger bearing variation (deg)</string>
+    <string name="convert_corner_angle">Trigger corner angle (deg)</string>
+    <string name="convert_corners_dst">Min corners distance (m)</string>
+
+    <string name="convert_dialog_title">Custom settings</string>
+
+
+    <string name="poi_edit_title">POI data</string>
+    <string name="poi_edit_name_label">Name:</string>
+    <string name="poi_edit_name_edit">unnamed</string>
+    <string name="poi_edit_time">Time unknown</string>
+    <string name="poi_edit_elevation_label">Ele (m):</string>
+    <string name="poi_edit_description_label">Description:</string>
+    <string name="poi_edit_spinner_label">Select type</string>
+    <string name="poi_edit_edit">Edit</string>
+
+    <string name="waypoint_edit_title">Edit waypoint</string>
+    <string name="waypoint_hint_none">No hint</string>
+    <string name="waypoint_hint_left">Turn left</string>
+    <string name="waypoint_hint_right">Turn right</string>
+    <string name="waypoint_hint_stop">Stop</string>
+    <string name="waypoint_hint_back">Turn back</string>
+    <string name="waypoint_hint_auto">Auto</string>
+
+    <string name="waypoint_delete">Delete waypoint?</string>
+
+    <string name="route_edit_number_label">Number</string>
+
+    <string-array name="waypoint_hint_array">
+        <item>@string/waypoint_hint_none</item>
+        <item>@string/waypoint_hint_left</item>
+        <item>@string/waypoint_hint_right</item>
+        <item>@string/waypoint_hint_stop</item>
+        <item>@string/waypoint_hint_back</item>
+        <item>@string/waypoint_hint_auto</item>
+    </string-array>
+
+    <string name="picker_edit_dialog_title">Route properties</string>
+    <string name="picker_edit_apply">Apply</string>
+
+    <string name="dialog_widget_title">Select a value:</string>
+
+    <string name="stats_current">Last:</string>
+    <string name="stats_totals">Totals:</string>
+    <string name="stats_counter_desc">Number of trips:</string>
+    <string name="stats_time_desc">Time:</string>
+    <string name="stats_distance_desc">Distance:</string>
+    <string name="stats_avs_desc">Average speed:</string>
+    <string name="stats_empty_value">-</string>
+
+    <string name="map_reverse_route">Reverse route</string>
+
+    <string name="map_pois_import">Import</string>
+    <string name="map_pois_save">Export</string>
+    <string name="map_pois_save_view">Export filtered view</string>
+    <string name="map_pois_save_all">Export all</string>
+    <string name="map_pois_clear">Clear all</string>
+    <string name="map_pois_enter_latlon">New by Lat/Lon</string>
+    <string name="map_pois_from_places">New from Google Places</string>
+    <string name="map_pois_enter_w3w">New by 3 words address</string>
+
+    <string name="map_prompt">0 points, long press to add</string>
+    <string name="map_prompt_route">%1$d points, long press to add</string>
+    <string name="map_waypoints">%1$d way points</string>
+
+    <string name="simplification_error">Max error: %1$d m</string>
+
+    <string name="pro_feature">Pro feature</string>
+
+    <string name="routes_new_manually">Draw manually</string>
+    <string name="routes_new_auto">Draw automatically</string>
+    <string name="routes_edit_import_routes">Import</string>
+    <string name="routes_edit_convert_tracks">Import tracks</string>
+    <string name="routes_clear">Clear all</string>
+
+    <string name="routes_edit_export_multiple">Export</string>
+    <string name="routes_edit_selected">Edit selected</string>
+    <string name="routes_simplify_selected">Simplify selected</string>
+    <string name="routes_delete_selected">Delete selected</string>
+    <string name="routes_display">Visibility</string>
+    <string name="routes_display_show_start">Start points</string>
+    <string name="routes_display_show_end">End points</string>
+    <string name="routes_display_show_labels">Name labels</string>
+
+    <string name="route_edit_prompt">Touch a route to select</string>
+
+    <string name="file_pick">Pick file</string>
+
+    <string name="manually_name_desc">POI name:</string>
+    <string name="manually_lat_desc">Latitude:</string>
+    <string name="manually_lon_desc">Longitude:</string>
+
+    <string name="no_network">No Internet connection?</string>
+
+    <!-- License checking status messages -->
+    <string name="application_error">Application error: %1$d</string>
+
+    <!-- Unlicensed dialog messages -->
+    <string name="unlicensed_dialog_title">Application not licensed</string>
+    <string name="unlicensed_dialog_body">Hi! Just wanted you to know, that working on this app consumes almost all my spare time:
+        hundreds of hours, many sleepless nights. If you really can not afford to buy it, drop me a line, and become a tester. You\'ll
+        contribute to the app development, and grab your pro license for free. Otherwise keep in mind that I need to develop and test
+        the app, while coffee and new watches don\'t grow on trees. OK, coffee does, but I meant beer in fact. Cheers!</string>
+    <string name="unlicensed_dialog_retry_body">Unable to validate license. Check to see if a network connection is available. If so,
+        probably the Google Play server doesn\'t respond at the moment. Please wait several minutes and try again. Sorry for the inconvenience.
+        It will not happen often.</string>
+    <string name="buy_button">Buy app</string>
+    <string name="retry_button">Retry</string>
+    <string name="quit_button">Close</string>
+
+    <!-- Config activities -->
+    <string name="creating_properties">Creating a new properties file</string>
+    <string name="error_creating_properties">Failed creating properties file</string>
+    <string name="error_loading_properties">Error loading properties</string>
+    <string name="sending_settings">Sending settings to the watch</string>
+
+    <string name="view_filter">View filter</string>
+    <string name="add_captured">Add captured POI</string>
+    <string name="send_current_view">Send current view</string>
+    <string name="send_selected_route">Send selected route</string>
+    <string name="poi_loaded">" %1$d POI"</string>
+    <string name="routes_loaded">%1$d routes</string>
+    <string name="tracks_loaded">%1$d tracks</string>
+
+    <string name="read_error">Read error:</string>
+    <string name="removed">Removed</string>
+    <string name="duplicates">duplicates</string>
+    <string name="routes_imported">Routes imported</string>
+    <string name="no_tracks_not_gpx">No Tracks or not a GPX file!</string>
+    <string name="no_named_tracks">The GPX file has no named Tracks</string>
+    <string name="failed_writing_gpx">Failed writing GPX file</string>
+    <string name="new_gpx">New GPX file</string>
+    <string name="open_gpx">Open GPX file</string>
+    <string name="save_gpx">Save GPX file</string>
+    <string name="stats_latest">Latest:</string>
+    <string name="connected_to">Connected to: %1$s</string>
+    <string name="not_connected">Not connected</string>
+    <string name="failed_rambler_pois">Failed creating ramblerPois.gpx</string>
+    <string name="failed_rambler_routes">Failed creating ramblerRoutes.gpx</string>
+    <string name="failed_rambler_tracks">Failed creating ramblerTracks.gpx</string>
+    <string name="sample_loaded">Sample data loaded. Take a look at them.</string>
+    <string name="rambler_folder_created">Rambler folder created</string>
+    <string name="rambler_folder_failure">Failed creating Rambler folder</string>
+    <string name="saving_wait">Saving files, please wait</string>
+    <string name="saving">Saving</string>
+    <string name="no_file_selected">No file selected</string>
+    <string name="nothing_to_save">Nothing to save</string>
+    <string name="duplicated_poi">duplicated POI</string>
+    <string name="overlapping_routes">overlapping routes</string>
+    <string name="default_file_corrupted">default file not found or corrupted - creating a new one</string>
+    <string name="error_saving_data">Error saving data:</string>
+    <string name="error_opening_file">Error opening file:</string>
+    <string name="default_files_saved">Default data files saved</string>
+    <string name="error">Error:</string>
+    <string name="poi_sent">POI sent to the watch</string>
+    <string name="poi_sending_error">Failed sending POI</string>
+    <string name="added_captured_poi">Added %1$d POI</string>
+
+    <string name="address_not_valid">%1$s is not a valid 3 word address</string>
+    <string name="address_not_found">Address not found (Code: %1$s)</string>
+
+    <string name="poi_in_cache">%1$d POI in cache</string>
+    <string name="poi_cache_contains">Captured POI cache contains %1$s points. Long press the Capture POI button on the watch to clear the cache.</string>
+    <string name="no_poi_in_cache">No POI in cache</string>
+    <string name="poi_rejected">%1$d POI rejected</string>
+    <string name="sending_n_poi">Sending %1$s POI</string>
+    <string name="sending_n_routes">Sending routes</string>
+    <string name="no_poi_in_view">No POI in current view</string>
+    <string name="no_poi_to_clear">No POI to clear</string>
+    <string name="play_services_check">Play Services not available. Check if the same version is installed on your watch and phone.</string>
+    <string name="play_services_unavailable">Play Services not available</string>
+    <string name="not_available_free">Not available in the free version</string>
+    <string name="properties_dont_exist">Properties file does not exist</string>
+    <string name="x_of_y_poi_press">%1$d of %2$d POI, long press to add</string>
+    <string name="no_poi_press">No POI, long press to add</string>
+    <string name="x_poi_press">%1$d POI, long press to add</string>
+    <string name="type">Type:</string>
+    <string name="lat_lon_should_be">Lat should be -90 to 90\nLon should be -180 to 180</string>
+    <string name="location_unavailable">Location not available</string>
+    <string name="dialog_types_of_types">(%1$d of %2$d)</string>
+    <string name="no_poi_not_gpx">No POI or not a GPX file!</string>
+    <string name="no_named_poi">The GPX file has no named POI</string>
+    <string name="no_poi_selected">No POI selected</string>
+    <string name="poi_imported">POI imported</string>
+    <string name="saving_to">Saving to</string>
+    <string name="poi_cleared">POI cleared</string>
+    <string name="too_many_waypoints">Too many way points. Please simplify up to %1$d points.</string>
+    <string name="not_found_no_route">not found or contains no route</string>
+    <string name="opening_route">Opening a route</string>
+    <string name="too_many_waypoints_preview">Too many points, preview only (%1$d allowed)</string>
+    <string name="converting_track">Converting a Track</string>
+    <string name="pro_to_send_multiple">Pro license required to send multiple routes to the watch. Please use \'Send selected route\' below.</string>
+    <string name="no_routes_in_view">No routes in current view</string>
+    <string name="no_watch_connected">No watch connected</string>
+    <string name="pick_a_route">Pick a route</string>
+    <string name="about_to_delete_route">You\'re about to delete the route</string>
+    <string name="no_routes_to_clear">No routes to clear</string>
+    <string name="no_routes_loaded">No routes loaded</string>
+    <string name="not_gpx">Not a GPX file!</string>
+    <string name="selected_routes_exported">Selected routes exported</string>
+    <string name="failed_creating_file">Failed creating file</string>
+    <string name="neither_single_nor_multiple">Neither single nor multiple routes selected</string>
+    <string name="routes_cleared">Routes cleared</string>
+    <string name="no_routes_selected">No routes selected</string>
+    <string name="no_routes_memory">No routes in memory or current view</string>
+    <string name="tracks_converted">%1$d tracks converted</string>
+    <string name="simplifying">Simplifying...</string>
+    <string name="no_tracks_selected">No tracks selected</string>
+    <string name="no_routes_not_gpx">No routes or not a GPX file!</string>
+    <string name="no_named_routes">The GPX file has no named routes</string>
+    <string name="x_of_y_routes">%1$d of %2$d routes</string>
+    <string name="no_data">No data!</string>
+    <string name="geo_karambola">GeoKarambola library</string>
+    <!-- File Picker -->
+    <string name="select_folder">Select\n[ %1$s ]</string>
+    <string name="current_folder">Current folder: %1$s</string>
+    <string name="path_not_exists">Path does not exist or cannot be read</string>
+    <string name="folder_empty">Folder is empty</string>
+    <string name="folder_up">Up</string>
+    <string name="folder_select">Select</string>
+    <string name="languages">German translations: Stefan Scherrer</string>
+    <string name="auto_pause_eta_ete">Auto-pause ETA/ETE</string>
+    <string name="auto_pause_ela">Auto-pause ELA</string>
+    <string name="twelve_hours_clock">12-hours clock</string>
+
+    <string name="gplus_url"><a href="https://plus.google.com/u/0/communities/107974128581728883609/stream/a3da101d-9471-4fe6-a8fc-c3d1335546b6">Rambler development on Google+</a></string>
+
+    <!-- POI to Wpt -->
+    <string name="poi">POI</string>
+    <string name="dialog_insert">Insert</string>
+    <string name="dialog_append">Append</string>
+    <string name="dialog_add">Add</string>
+    <string name="dialog_poi2wpt">POI to Wpt</string>
+    <string name="dialog_insert_message">Add %1$s as a way point?</string>
+
+    <string name="routes_sort_by">Sort routes by</string>
+    <string name="routes_sort_by_name">Name</string>
+    <string name="routes_sort_by_time">Time</string>
+    <string name="routes_sort_by_length">Length</string>
+
+    <string-array name="routes_sorting_array">
+        <item>@string/routes_sort_by_name</item>
+        <item>@string/routes_sort_by_time</item>
+        <item>@string/routes_sort_by_length</item>
+    </string-array>
+    <string name="dialog_send">Send</string>
+    <string name="dialog_edit">Edit</string>
+    <string name="waypoints_auto_skip">Auto-skip way points</string>
+
+    <string name="common_settings">Common settings</string>
+    <string name="permissions_required">This application needs the storage access to read and write files, where your settings and data are being stored. It also can not work without accessing your location data.</string>
+    <string name="generate_auto_hints">Generate auto-hints</string>
+    <string name="permissions_grant">Grant permissions</string>
+    <string name="permissions_deny">Exit Rambler</string>
+    <string name="permissions_insufficient">Couldn\'t run the app due to missing permissions:</string>
+    <string name="permissions_location">Access to the device location</string>
+    <string name="permissions_files">Access to read and write files</string>
+    <string name="splash_bottom_text">Pro version users: if you\'ve just installed Rambler for the first time, please remember to run this application (exit and launch again) after setting either Active or Classic watch face on the wearable device. This will transfer your license status to the watch.</string>
+    <string name="help_clock">Time format: 24h / 12h</string>
+    <string name="help_clock_lbl">Time format</string>
+    <string name="vibrate_on_hints">Vibrate on way point hints</string>
+    <string name="vibrate_on_names">Vibrate on way point names</string>
+    <string name="vibrate_on_transitions">Vibrate on on/off course</string>
+    <string name="whats_new_title">What\'s new?</string>
+    <string name="whats_new_dont_show">Don\'t show again</string>
+    <string name="dialog_update">Update required</string>
+    <string name="dialog_update_play_services">Google Play services out of date. Install the newest version.</string>
+    <string name="dialog_update_update">Update</string>
+    <string name="whats_new_message">Everything is new, however still under development.</string>
+    <string name="route_sent">Route %1$s sent to the watch</string>
+    <string name="routes_sent">routes sent</string>
+    <string name="route_sending_error">Failed sending route(s)</string>
+    <string name="dialog_set_lat_lon">Add</string>
+
+    <string name="auto_too_many_waypoints">Totally 25 (Start + 23 intermediate + Finish) points allowed</string>
+    <string name="auto_not_enough_waypoints">At least 2 points (Start and Finish) necessary</string>
+
+</resources>
