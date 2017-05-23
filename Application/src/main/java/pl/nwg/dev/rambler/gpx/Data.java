@@ -31,4 +31,7 @@ public final class Data {
 
     public static String lastOpenFile = null;
 
+    public static Integer sLastZoom;
+    public static GeoPoint sLastCenter;
+
 }

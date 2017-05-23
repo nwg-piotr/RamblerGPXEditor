@@ -177,8 +177,17 @@ public class RouteCreatorActivity extends Utils
             }
         };
 
-        mapController.setZoom(3);
-        mapController.setCenter(new GeoPoint(0d,0d));
+        if (Data.sLastZoom == null) {
+            mapController.setZoom(3);
+        } else {
+            mapController.setZoom(Data.sLastZoom);
+        }
+
+        if (Data.sLastCenter == null) {
+            mapController.setCenter(new GeoPoint(0d, 0d));
+        } else {
+            mapController.setCenter(Data.sLastCenter);
+        }
 
         setUpButtons();
         setButtonsState();
@@ -531,6 +540,8 @@ public class RouteCreatorActivity extends Utils
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+        Data.sLastZoom = mMapView.getZoomLevel();
+        Data.sLastCenter = new GeoPoint(mMapView.getMapCenter().getLatitude(), mMapView.getMapCenter().getLongitude());
     }
 
     /**
