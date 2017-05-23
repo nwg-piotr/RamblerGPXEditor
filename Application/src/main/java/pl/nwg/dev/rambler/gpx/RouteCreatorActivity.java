@@ -42,6 +42,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.io.IOException;
@@ -63,19 +64,18 @@ import pt.karambola.gpx.util.GpxUtils;
 import static pl.nwg.dev.rambler.gpx.R.id.osmmap;
 
 /**
- * Autoroute editor activity created by piotr on 02.05.17.
+ * Route Creator activity created by piotr on 02.05.17.
  */
 public class RouteCreatorActivity extends Utils
         implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    MapView map;
     private final String TAG = "Creator";
 
     private Map<Marker,GeoPoint> markerToCardinalWaypoint;
 
-    private final int MAX_ZOOM_LEVEL = 20;
+    private final int MAX_ZOOM_LEVEL = 19;
     private final int MIN_ZOOM_LEVEL = 4;
 
     /**
@@ -84,10 +84,6 @@ public class RouteCreatorActivity extends Utils
     private final String MODE_CAR = "driving";
     private final String MODE_BIKE = "cycling";
     private final String MODE_FOOT = "foot";
-
-    Polyline routeOverlay;
-
-    MapEventsReceiver mapEventsReceiver;
 
     Button locationButton;
     Button pencilButton;
@@ -100,7 +96,10 @@ public class RouteCreatorActivity extends Utils
 
     TextView routePrompt;
 
-    IMapController mapController;
+    private MapView mMapView;
+    private IMapController mapController;
+
+    private MapEventsReceiver mapEventsReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,19 +144,21 @@ public class RouteCreatorActivity extends Utils
 
     private void setUpMap() {
 
-        map = (MapView) findViewById(osmmap);
+        mMapView = (MapView) findViewById(osmmap);
 
-        map.setTileSource(TileSourceFactory.MAPNIK);
+        mMapView.setTilesScaledToDpi(true);
 
-        TilesOverlay tilesOverlay = map.getOverlayManager().getTilesOverlay();
+        mMapView.setTileSource(TileSourceFactory.MAPNIK);
+
+        TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
-        map.setMaxZoomLevel(MAX_ZOOM_LEVEL);
-        map.setMinZoomLevel(MIN_ZOOM_LEVEL);
+        mMapView.setMaxZoomLevel(MAX_ZOOM_LEVEL);
+        mMapView.setMinZoomLevel(MIN_ZOOM_LEVEL);
 
-        map.setMultiTouchControls(true);
+        mMapView.setMultiTouchControls(true);
 
-        mapController = map.getController();
+        mapController = mMapView.getController();
 
         mapEventsReceiver = new MapEventsReceiver() {
             @Override
@@ -185,12 +186,20 @@ public class RouteCreatorActivity extends Utils
 
     private void refreshMap() {
 
-        map.getOverlays().clear();
+        mMapView.getOverlays().clear();
 
         MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(mapEventsReceiver);
-        map.getOverlays().add(0, mapEventsOverlay);
+        mMapView.getOverlays().add(0, mapEventsOverlay);
 
-        routeOverlay = new Polyline();
+        ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
+        mMapView.getOverlays().add(mScaleBarOverlay);
+        // Scale bar tries to draw as 1-inch, so to put it in the top center, set x offset to
+        // half screen width, minus half an inch.
+        mScaleBarOverlay.setScaleBarOffset(
+                (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()
+                        .getDisplayMetrics().xdpi / 2), 10);
+
+        Polyline routeOverlay = new Polyline();
 
         if (Data.osrmRoutes == null) {
 
@@ -216,7 +225,7 @@ public class RouteCreatorActivity extends Utils
             routePrompt.setText(GpxUtils.getRouteNameAnnotated(selectedOsrmRoute, Units.METRIC));
         }
 
-        map.getOverlays().add(routeOverlay);
+        mMapView.getOverlays().add(routeOverlay);
 
         markerToCardinalWaypoint = new HashMap<>();
 
@@ -226,14 +235,14 @@ public class RouteCreatorActivity extends Utils
 
             Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, String.valueOf(i)));
 
-            Marker marker = new Marker(map);
+            Marker marker = new Marker(mMapView);
             marker.setPosition(geoPoint);
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             marker.setDraggable(true);
             marker.setIcon(icon);
 
             markerToCardinalWaypoint.put(marker, geoPoint);
-            map.getOverlays().add(marker);
+            mMapView.getOverlays().add(marker);
 
             marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
                 @Override
@@ -265,7 +274,7 @@ public class RouteCreatorActivity extends Utils
             });
 
         }
-        map.invalidate();
+        mMapView.invalidate();
         setButtonsState();
     }
 
@@ -296,7 +305,7 @@ public class RouteCreatorActivity extends Utils
             @Override
             public void onClick(View v) {
                 if (Data.sCardinalGeoPoints != null && Data.sCardinalGeoPoints.size() > 1) {
-                    map.zoomToBoundingBox(findBoundingBox(Data.sCardinalGeoPoints), true);
+                    mMapView.zoomToBoundingBox(findBoundingBox(Data.sCardinalGeoPoints), true);
                 }
                 setButtonsState();
             }
@@ -306,7 +315,7 @@ public class RouteCreatorActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(map.getProjection().getZoomLevel() +1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() +1);
                 setButtonsState();
             }
         });
@@ -315,7 +324,7 @@ public class RouteCreatorActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(map.getProjection().getZoomLevel() -1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() -1);
                 setButtonsState();
             }
         });
@@ -382,7 +391,7 @@ public class RouteCreatorActivity extends Utils
             alternativesButton.getBackground().setAlpha(100);
         }
 
-        if (map.getProjection().getZoomLevel() < MAX_ZOOM_LEVEL) {
+        if (mMapView.getProjection().getZoomLevel() < MAX_ZOOM_LEVEL) {
             zoomInButton.setEnabled(true);
             zoomInButton.getBackground().setAlpha(255);
         } else {
@@ -390,7 +399,7 @@ public class RouteCreatorActivity extends Utils
             zoomInButton.getBackground().setAlpha(100);
         }
 
-        if (map.getProjection().getZoomLevel() > MIN_ZOOM_LEVEL) {
+        if (mMapView.getProjection().getZoomLevel() > MIN_ZOOM_LEVEL) {
             zoomOutButton.setEnabled(true);
             zoomOutButton.getBackground().setAlpha(255);
         } else {
