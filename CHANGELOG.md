@@ -1,8 +1,7 @@
 CHANGELOG
 ===============
 **24th May, 2017**
-
-- Map display improved.
+- Map display improved, thanks to [osmdroid sample code](https://github.com/osmdroid/osmdroid/tree/master/OpenStreetMapViewer).
 - Route Manager button now leads to a very basic browser activity, which will finally become the Route Picker (main activity of the Route Manager).
 - Route Creator attached to the Route Manager menu. Save button active, adds the just created route to Data.mRoutesGpx.
 
