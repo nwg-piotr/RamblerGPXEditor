@@ -409,8 +409,6 @@
     <string name="routes_display_show_end">End points</string>
     <string name="routes_display_show_labels">Name labels</string>
 
-    <string name="route_edit_prompt">Touch a route to select</string>
-
     <string name="file_pick">Pick file</string>
 
     <string name="manually_name_desc">POI name:</string>
@@ -601,5 +599,6 @@
 
     <string name="auto_too_many_waypoints">Totally 25 (Start + 23 intermediate + Finish) points allowed</string>
     <string name="auto_not_enough_waypoints">At least 2 points (Start and Finish) necessary</string>
+    <string name="route_edit_prompt">Touch a route to select</string>
 
 </resources>

@@ -101,7 +101,7 @@
         <activity
             android:name="pl.nwg.dev.rambler.gpx.RoutePickerActivity"
             android:theme="@android:style/Theme.Holo.Light"
-            android:label="@string/route_creator_name">
+            android:label="@string/route_picker_name">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

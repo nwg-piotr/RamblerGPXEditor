@@ -327,4 +327,24 @@ public class Utils extends Activity {
         }
     }
 
+    protected static Integer[] typeColors = {
+            Color.parseColor("#006600"),
+            Color.parseColor("#b8860b"),
+            Color.parseColor("#8b008b"),
+            Color.parseColor("#b22222"),
+            Color.parseColor("#d02090"),
+            Color.parseColor("#d2691e"),
+            Color.parseColor("#a52a2a"),
+            Color.parseColor("#ff8c00"),
+            Color.parseColor("#6b8e23"),
+            Color.parseColor("#00bfff"),
+            Color.parseColor("#2e8b57"),
+            Color.parseColor("#ff6347"),
+            Color.parseColor("#ff00ff"),
+            Color.parseColor("#f4a460"),
+            Color.parseColor("#3cb371"),
+            Color.parseColor("#ffa500")
+    };
+    protected static int N_COLOURS = typeColors.length;
+
 }

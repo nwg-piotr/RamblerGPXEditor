@@ -2,20 +2,20 @@ package pl.nwg.dev.rambler.gpx;
 
 import android.Manifest;
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,11 +28,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
@@ -42,14 +37,9 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,44 +53,33 @@ import pt.karambola.gpx.util.GpxUtils;
 import static pl.nwg.dev.rambler.gpx.R.id.osmmap;
 
 /**
- * Autoroute editor activity created by piotr on 02.05.17.
+ * Route Picker activity created by piotr on 02.05.17.
  */
 public class RoutePickerActivity extends Utils
         implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    MapView map;
-    private final String TAG = "Creator";
+    private final String TAG = "Picker";
 
-    private Map<Marker,GeoPoint> markerToCardinalWaypoint;
-
-    private final int MAX_ZOOM_LEVEL = 20;
+    private final int MAX_ZOOM_LEVEL = 19;
     private final int MIN_ZOOM_LEVEL = 4;
 
-    /**
-     * Routing profile to be used in the OSRM API request
-     */
-    private final String MODE_CAR = "driving";
-    private final String MODE_BIKE = "cycling";
-    private final String MODE_FOOT = "foot";
-
-    Polyline routeOverlay;
-
-    MapEventsReceiver mapEventsReceiver;
-
     Button locationButton;
-    Button pencilButton;
     Button fitButton;
-    Button zoomInButton;
-    Button zoomOutButton;
-    Button modeButton;
-    Button alternativesButton;
-    Button saveButton;
+    Button nextButton;
+    Button previousButton;
 
-    TextView routePrompt;
+    Button searchButton;
 
-    IMapController mapController;
+    TextView routesSummary;
+
+    private MapView mMapView;
+    private IMapController mapController;
+
+    private MapEventsReceiver mapEventsReceiver;
+
+    private List<GeoPoint> mAllGeopoints;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,16 +107,6 @@ public class RoutePickerActivity extends Utils
                 .addApi(LocationServices.API)
                 .build();
 
-        if (Data.sCardinalGeoPoints == null) {
-            Data.sCardinalGeoPoints = new ArrayList<>();
-        }
-
-        if (Data.sRoutingProfile == null) {
-            Data.sRoutingProfile = MODE_CAR;
-        }
-
-        Data.sSelectedAlternative = null;
-
         setUpMap();
 
         refreshMap();
@@ -145,19 +114,21 @@ public class RoutePickerActivity extends Utils
 
     private void setUpMap() {
 
-        map = (MapView) findViewById(osmmap);
+        mMapView = (MapView) findViewById(osmmap);
 
-        map.setTileSource(TileSourceFactory.MAPNIK);
+        mMapView.setTilesScaledToDpi(true);
 
-        TilesOverlay tilesOverlay = map.getOverlayManager().getTilesOverlay();
+        mMapView.setTileSource(TileSourceFactory.MAPNIK);
+
+        TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
-        map.setMaxZoomLevel(MAX_ZOOM_LEVEL);
-        map.setMinZoomLevel(MIN_ZOOM_LEVEL);
+        mMapView.setMaxZoomLevel(MAX_ZOOM_LEVEL);
+        mMapView.setMinZoomLevel(MIN_ZOOM_LEVEL);
 
-        map.setMultiTouchControls(true);
+        mMapView.setMultiTouchControls(true);
 
-        mapController = map.getController();
+        mapController = mMapView.getController();
 
         mapEventsReceiver = new MapEventsReceiver() {
             @Override
@@ -169,109 +140,88 @@ public class RoutePickerActivity extends Utils
             @Override
             public boolean longPressHelper(GeoPoint p) {
 
-                Data.sCardinalGeoPoints.add(new GeoPoint(p));
-                clearRoutes();
-                refreshMap();
                 return false;
             }
         };
 
-        mapController.setZoom(3);
-        mapController.setCenter(new GeoPoint(0d,0d));
+        restoreMapPosition();
 
         setUpButtons();
         setButtonsState();
     }
 
-    private void refreshMap() {
+    private void restoreMapPosition() {
 
-        map.getOverlays().clear();
-
-        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(mapEventsReceiver);
-        map.getOverlays().add(0, mapEventsOverlay);
-
-        routeOverlay = new Polyline();
-
-        if (Data.osrmRoutes == null) {
-
-            routeOverlay.setColor(Color.parseColor("#006666"));
-            routeOverlay.setPoints(Data.sCardinalGeoPoints);
-
-            routePrompt.setText(String.format(getResources().getString(R.string.map_prompt_route), Data.sCardinalGeoPoints.size()));
-
+        if (Data.sLastZoom == null && Data.sLastCenter == null && mAllGeopoints != null) {
+            mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), true);
         } else {
 
+            if (Data.sLastZoom == null) {
+                mapController.setZoom(3);
+            } else {
+                mapController.setZoom(Data.sLastZoom);
+            }
+
+            if (Data.sLastCenter == null) {
+                mapController.setCenter(new GeoPoint(0d, 0d));
+            } else {
+                mapController.setCenter(Data.sLastCenter);
+            }
+        }
+    }
+
+    private void refreshMap() {
+
+        mMapView.getOverlays().clear();
+
+        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(mapEventsReceiver);
+        mMapView.getOverlays().add(0, mapEventsOverlay);
+
+        ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
+        mMapView.getOverlays().add(mScaleBarOverlay);
+        // Scale bar tries to draw as 1-inch, so to put it in the top center, set x offset to
+        // half screen width, minus half an inch.
+        mScaleBarOverlay.setScaleBarOffset(
+                (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()
+                        .getDisplayMetrics().xdpi / 2), 10);
+
+        /*
+         * We'll create bounding box around this
+         */
+        mAllGeopoints = new ArrayList<>();
+
+        for(int i = 0; i < Data.mRoutesGpx.getRoutes().size(); i++) {
+
+            Route route = Data.mRoutesGpx.getRoutes().get(i);
+            List<RoutePoint> routePoints = route.getRoutePoints();
             List<GeoPoint> geoPoints = new ArrayList<>();
 
-            if (Data.sSelectedAlternative == null) {
-                Data.sSelectedAlternative = 0;
+            for(int j = 0; j < routePoints.size(); j++) {
+
+                RoutePoint routePoint = routePoints.get(j);
+                GeoPoint geoPoint = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
+                geoPoints.add(geoPoint);
+
+                mAllGeopoints.add(geoPoint);
             }
-            Route selectedOsrmRoute = Data.osrmRoutes.get(Data.sSelectedAlternative);
-            for (int i = 0; i < selectedOsrmRoute.getRoutePoints().size(); i++) {
-                RoutePoint routePoint = selectedOsrmRoute.getRoutePoints().get(i);
-                geoPoints.add(new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude()));
-            }
-            routeOverlay.setColor(Color.parseColor("#0066ff"));
+
+            Polyline routeOverlay = new Polyline();
+
+            routeOverlay.setColor(typeColors[i % N_COLOURS]);
             routeOverlay.setPoints(geoPoints);
-            routePrompt.setText(GpxUtils.getRouteNameAnnotated(selectedOsrmRoute, Units.METRIC));
+
+            mMapView.getOverlays().add(routeOverlay);
         }
 
-        map.getOverlays().add(routeOverlay);
+        mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), true);
 
-        markerToCardinalWaypoint = new HashMap<>();
-
-        for (int i= 0; i < Data.sCardinalGeoPoints.size(); i++) {
-
-            GeoPoint geoPoint = Data.sCardinalGeoPoints.get(i);
-
-            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, String.valueOf(i)));
-
-            Marker marker = new Marker(map);
-            marker.setPosition(geoPoint);
-            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            marker.setDraggable(true);
-            marker.setIcon(icon);
-
-            markerToCardinalWaypoint.put(marker, geoPoint);
-            map.getOverlays().add(marker);
-
-            marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker, MapView mapView) {
-
-                    displayWaypointDialog(markerToCardinalWaypoint.get(marker));
-                    return false;
-                }
-            });
-            marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
-                @Override
-                public void onMarkerDrag(Marker marker) {
-
-                }
-
-                @Override
-                public void onMarkerDragEnd(Marker marker) {
-                    GeoPoint dragged = markerToCardinalWaypoint.get(marker);
-                    dragged.setCoords(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
-
-                    clearRoutes();
-                    refreshMap();
-                }
-
-                @Override
-                public void onMarkerDragStart(Marker marker) {
-
-                }
-            });
-
-        }
-        map.invalidate();
+        mMapView.invalidate();
         setButtonsState();
     }
 
     private void setUpButtons() {
 
-        locationButton = (Button) findViewById(R.id.location_button);
+        locationButton = (Button) findViewById(R.id.picker_location_button);
         locationButton.setEnabled(false);
         locationButton.getBackground().setAlpha(0);
         locationButton.setOnClickListener(new View.OnClickListener() {
@@ -283,119 +233,61 @@ public class RoutePickerActivity extends Utils
             }
         });
 
-        pencilButton = (Button) findViewById(R.id.pencil_button);
-        pencilButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                askOsrm(Data.sCardinalGeoPoints);
-            }
-        });
-
-        fitButton = (Button) findViewById(R.id.fit_button);
+        fitButton = (Button) findViewById(R.id.picker_fit_button);
         fitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 if (Data.sCardinalGeoPoints != null && Data.sCardinalGeoPoints.size() > 1) {
-                    map.zoomToBoundingBox(findBoundingBox(Data.sCardinalGeoPoints), true);
+                    mMapView.zoomToBoundingBox(findBoundingBox(Data.sCardinalGeoPoints), true);
                 }
                 setButtonsState();
-            }
-        });
-        zoomInButton = (Button) findViewById(R.id.zoom_in_button);
-        zoomInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mapController.setZoom(map.getProjection().getZoomLevel() +1);
-                setButtonsState();
-            }
-        });
-        zoomOutButton = (Button) findViewById(R.id.zoom_out_button);
-        zoomOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mapController.setZoom(map.getProjection().getZoomLevel() -1);
-                setButtonsState();
-            }
-        });
-        modeButton = (Button) findViewById(R.id.mode_button);
-        modeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch(Data.sRoutingProfile) {
-                    case MODE_CAR:
-                        Data.sRoutingProfile =  MODE_BIKE;
-                        modeButton.setBackgroundResource(R.drawable.button_cycling);
-                        break;
-                    case MODE_BIKE:
-                        Data.sRoutingProfile = MODE_FOOT;
-                        modeButton.setBackgroundResource(R.drawable.button_walking);
-                        break;
-                    case MODE_FOOT:
-                        Data.sRoutingProfile = MODE_CAR;
-                        modeButton.setBackgroundResource(R.drawable.button_driving);
-                        break;
+                */
+                if (mAllGeopoints != null) {
+                    mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), true);
                 }
             }
         });
-        alternativesButton = (Button) findViewById(R.id.alternatives_button);
-        alternativesButton.setOnClickListener(new View.OnClickListener() {
+        nextButton = (Button) findViewById(R.id.picker_next_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (Data.sSelectedAlternative < Data.sAlternativesNumber - 1) {
-                    Data.sSelectedAlternative++;
-                } else {
-                    Data.sSelectedAlternative = 0;
-                }
-                refreshMap();
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() +1);
+                setButtonsState();
             }
         });
-        saveButton = (Button) findViewById(R.id.save_button);
+        previousButton = (Button) findViewById(R.id.picker_previous_button);
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        routePrompt = (TextView) findViewById(R.id.route_prompt);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() -1);
+                setButtonsState();
+            }
+        });
+
+        searchButton = (Button) findViewById(R.id.picker_search_button);
+
+        routesSummary = (TextView) findViewById(R.id.routes_summary);
     }
 
     private void setButtonsState() {
 
-        if (Data.sCardinalGeoPoints != null && Data.sCardinalGeoPoints.size() > 1) {
-            pencilButton.setEnabled(true);
-            pencilButton.getBackground().setAlpha(255);
+        if (mMapView.getProjection().getZoomLevel() < MAX_ZOOM_LEVEL) {
+            nextButton.setEnabled(true);
+            nextButton.getBackground().setAlpha(255);
         } else {
-            pencilButton.setEnabled(false);
-            pencilButton.getBackground().setAlpha(100);
+            nextButton.setEnabled(false);
+            nextButton.getBackground().setAlpha(100);
         }
 
-        if (Data.sSelectedAlternative != null) {
-            alternativesButton.setText((Data.sSelectedAlternative + 1) + "/" + Data.sAlternativesNumber);
-            if (Data.sAlternativesNumber > 1) {
-                alternativesButton.setEnabled(true);
-                alternativesButton.getBackground().setAlpha(255);
-            } else {
-                alternativesButton.setEnabled(false);
-                alternativesButton.getBackground().setAlpha(100);
-            }
+        if (mMapView.getProjection().getZoomLevel() > MIN_ZOOM_LEVEL) {
+            previousButton.setEnabled(true);
+            previousButton.getBackground().setAlpha(255);
         } else {
-            alternativesButton.setText("0/0");
-            alternativesButton.setEnabled(false);
-            alternativesButton.getBackground().setAlpha(100);
-        }
-
-        if (map.getProjection().getZoomLevel() < MAX_ZOOM_LEVEL) {
-            zoomInButton.setEnabled(true);
-            zoomInButton.getBackground().setAlpha(255);
-        } else {
-            zoomInButton.setEnabled(false);
-            zoomInButton.getBackground().setAlpha(100);
-        }
-
-        if (map.getProjection().getZoomLevel() > MIN_ZOOM_LEVEL) {
-            zoomOutButton.setEnabled(true);
-            zoomOutButton.getBackground().setAlpha(255);
-        } else {
-            zoomOutButton.setEnabled(false);
-            zoomOutButton.getBackground().setAlpha(100);
+            previousButton.setEnabled(false);
+            previousButton.getBackground().setAlpha(100);
         }
 
         /*
@@ -403,46 +295,13 @@ public class RoutePickerActivity extends Utils
          * to Data.mRoutesGpx, and close the Creator.
          */
         if (Data.osrmRoutes != null && Data.osrmRoutes.size() > 0 && Data.sSelectedAlternative != null) {
-            saveButton.setEnabled(true);
-            saveButton.getBackground().setAlpha(255);
+            searchButton.setEnabled(true);
+            searchButton.getBackground().setAlpha(255);
         } else {
-            saveButton.setEnabled(false);
-            saveButton.getBackground().setAlpha(100);
+            searchButton.setEnabled(false);
+            searchButton.getBackground().setAlpha(100);
         }
 
-    }
-
-    private void displayWaypointDialog(final GeoPoint geoPoint) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setTitle(getResources().getString(R.string.waypoint_delete))
-                .setIcon(R.drawable.map_question)
-                .setCancelable(true)
-                .setPositiveButton(getResources().getString(R.string.dialog_delete), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        Data.sCardinalGeoPoints.remove(geoPoint);
-
-                        clearRoutes();
-                        refreshMap();
-                    }
-                })
-                .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
-
-        AlertDialog alert = builder.create();
-        alert.show();
-
-    }
-
-    public void clearRoutes() {
-        Data.osrmRoutes = null;
-        Data.sAlternativesNumber = 0;
-        Data.sSelectedAlternative = null;
     }
 
     public void onResume(){
@@ -454,6 +313,8 @@ public class RoutePickerActivity extends Utils
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
 
         mGoogleApiClient.connect();
+        restoreMapPosition();
+        refreshMap();
     }
 
     @Override
@@ -522,80 +383,41 @@ public class RoutePickerActivity extends Utils
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+        Data.sLastZoom = mMapView.getZoomLevel();
+        Data.sLastCenter = new GeoPoint(mMapView.getMapCenter().getLatitude(), mMapView.getMapCenter().getLongitude());
     }
 
-    /**
-     * The osmbonuspack API uses their own RoadManager class, as described here:
-     * https://github.com/MKergall/osmbonuspack/wiki/Tutorial_1
-     * However, the class uses the Mapquest API, which requires the user registration for the API key,
-     * and enforces quite restrictive usage conditions.
-     * We'll use the Open Street Routing Machine demo server instead.
-     * Please read the API usage policy here:
-     * https://github.com/Project-OSRM/osrm-backend/wiki/Api-usage-policy
-     */
-    private void askOsrm(final List<GeoPoint> waypoints) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_route_picker, menu);
 
-        String polyline = encode(waypoints);
-        try {
-            polyline = URLEncoder.encode(polyline, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            polyline = "";
-        }
-        final String uri = "http://router.project-osrm.org/route/v1/" + Data.sRoutingProfile + "/polyline(" + polyline + ")?alternatives=true&overview=full";
+        return true;
+    }
 
-        Log.d(TAG, uri);
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
 
-        AsyncTask<Void, Void, Boolean> getHttpRequest = new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected void onPreExecute() {
+        /*
+         * We'll enable/disable menu options here
+         */
+        return super.onPrepareOptionsMenu(menu);
+    }
 
-            }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-            @Override
-            protected Boolean doInBackground(Void... params) {
+        Intent i;
 
-                responseString = null;
+        switch (item.getItemId()) {
 
-                HttpResponse response = null;
-                try {
-                    HttpClient client = new DefaultHttpClient();
-                    HttpGet request = new HttpGet();
-                    request.setURI(new URI(uri));
-                    response = client.execute(request);
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                } catch (ClientProtocolException e) {
-                    Log.d(TAG, "ClientProtocolException: " + e);
-                } catch (IOException e) {
-                    Log.d(TAG, "IOException: " + e);
-                }
-
-                if (response != null) {
-                    try {
-                        InputStream inputStream = response.getEntity().getContent();
-                        responseString = convertStreamToString(inputStream);
-                    } catch (IOException e) {
-                        responseString = null;
-                        e.printStackTrace();
-                    }
-                }
+            case R.id.routes_new_autorute:
+                i = new Intent(RoutePickerActivity.this, RouteCreatorActivity.class);
+                startActivity(i);
                 return true;
-            }
 
-            @Override
-            protected void onPostExecute(Boolean result) {
-
-                if (responseString != null) {
-
-                    Log.d(TAG, "Response: " + responseString);
-
-                    parseOsrmResponse(responseString); // and store results in List<Route> Data.osrmRoutes
-
-                    refreshMap();
-                }
-            }
-        };
-        getHttpRequest.execute();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

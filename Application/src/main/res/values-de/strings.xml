@@ -489,5 +489,7 @@ PL Piotr Miller</string>
     <string name="auto_not_enough_waypoints">Mindestens 2 Punkte (Start und Ziel) notwendig</string>
     <string name="dialog_add">Hinzufügen</string>
     <string name="waypoint_delete">Wegpunkt löschen?</string>
+    <string name="route_creator_name">Route Creator</string>
+    <string name="route_picker_name">Routen Manager</string>
 
 </resources>

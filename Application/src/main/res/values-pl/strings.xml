@@ -408,5 +408,7 @@ PL Piotr Miller</string>
     <string name="auto_not_enough_waypoints">Potrzebne przynajmniej 2 punkty (początek i koniec)</string>
     <string name="dialog_add">Dodaj</string>
     <string name="waypoint_delete">Usunąć punkt trasy?</string>
+    <string name="route_creator_name">Kreator trasy</string>
+    <string name="route_picker_name">Menadżer tras</string>
 
 </resources>

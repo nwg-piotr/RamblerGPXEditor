@@ -101,6 +101,8 @@ public class RouteCreatorActivity extends Utils
 
     private MapEventsReceiver mapEventsReceiver;
 
+    private Route selectedOsrmRoute;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +179,14 @@ public class RouteCreatorActivity extends Utils
             }
         };
 
+        restoreMapPosition();
+
+        setUpButtons();
+        setButtonsState();
+    }
+
+    private void restoreMapPosition() {
+
         if (Data.sLastZoom == null) {
             mapController.setZoom(3);
         } else {
@@ -188,9 +198,6 @@ public class RouteCreatorActivity extends Utils
         } else {
             mapController.setCenter(Data.sLastCenter);
         }
-
-        setUpButtons();
-        setButtonsState();
     }
 
     private void refreshMap() {
@@ -224,7 +231,7 @@ public class RouteCreatorActivity extends Utils
             if (Data.sSelectedAlternative == null) {
                 Data.sSelectedAlternative = 0;
             }
-            Route selectedOsrmRoute = Data.osrmRoutes.get(Data.sSelectedAlternative);
+            selectedOsrmRoute = Data.osrmRoutes.get(Data.sSelectedAlternative);
             for (int i = 0; i < selectedOsrmRoute.getRoutePoints().size(); i++) {
                 RoutePoint routePoint = selectedOsrmRoute.getRoutePoints().get(i);
                 geoPoints.add(new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude()));
@@ -371,6 +378,17 @@ public class RouteCreatorActivity extends Utils
             }
         });
         saveButton = (Button) findViewById(R.id.save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedOsrmRoute != null) {
+                    Data.mRoutesGpx.addRoute(selectedOsrmRoute);
+                    clearRoutes();
+                    Data.sCardinalGeoPoints = new ArrayList<>();
+                    finish();
+                }
+            }
+        });
 
         routePrompt = (TextView) findViewById(R.id.route_prompt);
     }
@@ -472,6 +490,7 @@ public class RouteCreatorActivity extends Utils
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
 
         mGoogleApiClient.connect();
+        restoreMapPosition();
     }
 
     @Override

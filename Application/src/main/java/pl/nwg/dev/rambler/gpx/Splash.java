@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 /**
- * Created by piotr on 19.06.16.
+ * This activity just asks user for necessary permissions, and launches the main activity if given.
  */
 public class Splash extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {

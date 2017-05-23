@@ -239,9 +239,9 @@ public class MainActivity extends Utils {
 
                 startActivityForResult(i, 90);
                 */
-                // Temporarily it leads to the Route Creator
+
                 Intent i;
-                i = new Intent(MainActivity.this, RouteCreatorActivity.class);
+                i = new Intent(MainActivity.this, RoutePickerActivity.class);
 
                 startActivity(i);
             }

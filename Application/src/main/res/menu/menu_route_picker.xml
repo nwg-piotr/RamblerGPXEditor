@@ -6,7 +6,8 @@
 
     <item android:orderInCategory="100"
         android:id="@+id/routes_new_route"
-        android:title="@string/routes_new_manually" />
+        android:title="@string/routes_new_manually"
+        android:enabled="false" />
 
     <item android:orderInCategory="105"
         android:id="@+id/routes_new_autorute"
@@ -14,36 +15,44 @@
 
     <item android:orderInCategory="110"
         android:id="@+id/routes_edit_selected"
-        android:title="@string/routes_edit_selected" />
+        android:title="@string/routes_edit_selected"
+        android:enabled="false" />
 
     <item android:orderInCategory="120"
         android:id="@+id/routes_simplify_selected"
-        android:title="@string/routes_simplify_selected" />
+        android:title="@string/routes_simplify_selected"
+        android:enabled="false" />
 
     <item android:orderInCategory="130"
         android:id="@+id/routes_delete_selected"
-        android:title="@string/routes_delete_selected" />
+        android:title="@string/routes_delete_selected"
+        android:enabled="false" />
 
     <item android:orderInCategory="140"
         android:id="@+id/routes_clear"
-        android:title="@string/routes_clear" />
+        android:title="@string/routes_clear"
+        android:enabled="false" />
 
     <item android:orderInCategory="150"
         android:id="@+id/routes_import_routes"
-        android:title="@string/routes_edit_import_routes" />
+        android:title="@string/routes_edit_import_routes"
+        android:enabled="false" />
 
     <item android:orderInCategory="160"
         android:id="@+id/convert_tracks"
-        android:title="@string/routes_edit_convert_tracks" />
+        android:title="@string/routes_edit_convert_tracks"
+        android:enabled="false" />
 
 
     <item android:orderInCategory="170"
         android:id="@+id/export_multiple"
-        android:title="@string/routes_edit_export_multiple" />
+        android:title="@string/routes_edit_export_multiple"
+        android:enabled="false" />
 
     <item android:orderInCategory="180"
         android:id="@+id/routes_display"
-        android:title="@string/routes_display" >
+        android:title="@string/routes_display"
+        android:enabled="false" >
 
         <menu >
             <group android:id="@+id/display_group" android:checkableBehavior="all">
