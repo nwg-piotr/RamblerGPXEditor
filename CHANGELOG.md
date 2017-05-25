@@ -1,7 +1,9 @@
 CHANGELOG
 ===============
 **25th May, 2017**
-- Route picker: buttons to select a route activated. Touch the map anywhere to clear selection.
+
+Route picker: 
+- buttons to select a route activated. Touch the map anywhere to clear selection.
 - The route prompt line displays annotated name of currently selected route.
 - apk 0.0.1.9 uploaded.
 
