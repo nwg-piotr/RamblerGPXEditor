@@ -2,7 +2,7 @@ CHANGELOG
 ===============
 **25th May, 2017**
 - Route picker: buttons to select a route activated. Touch the map anywhere to clear selection.
-- The route prompt line displays annotated route name.
+- The route prompt line displays annotated name of currently selected route.
 
 **24th May, 2017**
 - Map display improved, thanks to [osmdroid sample code](https://github.com/osmdroid/osmdroid/tree/master/OpenStreetMapViewer).
