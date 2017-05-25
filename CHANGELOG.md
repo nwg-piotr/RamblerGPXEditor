@@ -1,5 +1,9 @@
 CHANGELOG
 ===============
+**25th May, 2017**
+- Route picker: buttons to select a route activated. Touch the map anywhere to clear selection.
+- The route prompt line displays annotated route name.
+
 **24th May, 2017**
 - Map display improved, thanks to [osmdroid sample code](https://github.com/osmdroid/osmdroid/tree/master/OpenStreetMapViewer).
 - Route Manager button now leads to a very basic browser activity, which will finally become the Route Picker (main activity of the Route Manager).
@@ -7,7 +11,7 @@ CHANGELOG
 
 **23rd May, 2017**
 
-All the code imported into a fresh Android Studio project, to finally get rid of the old app rudiments. Project shared from scratch.
+- All the code imported into a fresh Android Studio project, to finally get rid of the old app rudiments. Project shared from scratch.
 
 **22nd May, 2017**
 
