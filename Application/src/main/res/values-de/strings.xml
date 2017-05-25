@@ -312,7 +312,7 @@
   <string name="routes_display_show_start">Startpunkte</string>
   <string name="routes_display_show_end">Endpunkte</string>
   <string name="routes_display_show_labels">Namensbezeichnungen</string>
-  <string name="route_edit_prompt">Berühre Route um sie auszuwählen</string>
+  <string name="route_edit_prompt">Wählen Sie eine Route aus</string>
   <string name="file_pick">Datei auswählen</string>
   <string name="manually_name_desc">POI Name:</string>
   <string name="manually_lat_desc">Breite:</string>

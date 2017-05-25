@@ -168,7 +168,7 @@
     <string name="retry_button">Ponów</string>
     <string name="route_dehintify">Czyść wskazówki</string>
     <string name="route_edit_number_label">Numer</string>
-    <string name="route_edit_prompt">Dotknij trasy by wybrać</string>
+    <string name="route_edit_prompt">Wybierz trasę</string>
     <string name="route_hintify">Dodaj wskazówki</string>
     <string name="routes_clear">Czyść wszystko</string>
     <string name="routes_delete_selected">Usuń wybraną</string>

@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -35,7 +33,6 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
-import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
@@ -69,8 +66,9 @@ public class RoutePickerActivity extends Utils
     Button fitButton;
     Button nextButton;
     Button previousButton;
-
     Button searchButton;
+
+    TextView routePrompt;
 
     TextView routesSummary;
 
@@ -80,6 +78,9 @@ public class RoutePickerActivity extends Utils
     private MapEventsReceiver mapEventsReceiver;
 
     private List<GeoPoint> mAllGeopoints;
+
+    private Integer mSelectedRouteIdx = null;
+    private int mRoutesListSize = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -134,6 +135,9 @@ public class RoutePickerActivity extends Utils
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
 
+                mSelectedRouteIdx = null;
+                refreshMap(false);
+
                 return false;
             }
 
@@ -170,7 +174,7 @@ public class RoutePickerActivity extends Utils
         }
     }
 
-    private void refreshMap() {
+    private void refreshMap(boolean zoom_to_fit) {
 
         mMapView.getOverlays().clear();
 
@@ -185,14 +189,19 @@ public class RoutePickerActivity extends Utils
                 (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()
                         .getDisplayMetrics().xdpi / 2), 10);
 
+
         /*
          * We'll create bounding box around this
          */
         mAllGeopoints = new ArrayList<>();
 
-        for(int i = 0; i < Data.mRoutesGpx.getRoutes().size(); i++) {
+        final List<Route> routesList = Data.mRoutesGpx.getRoutes();
 
-            Route route = Data.mRoutesGpx.getRoutes().get(i);
+        mRoutesListSize = routesList.size();
+
+        for(int i = 0; i < mRoutesListSize; i++) {
+
+            final Route route = Data.mRoutesGpx.getRoutes().get(i);
             List<RoutePoint> routePoints = route.getRoutePoints();
             List<GeoPoint> geoPoints = new ArrayList<>();
 
@@ -202,21 +211,53 @@ public class RoutePickerActivity extends Utils
                 GeoPoint geoPoint = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
                 geoPoints.add(geoPoint);
 
-                mAllGeopoints.add(geoPoint);
+                if (mSelectedRouteIdx == null) {
+                    mAllGeopoints.add(geoPoint);
+                } else {
+                    if (i == mSelectedRouteIdx) {
+                        mAllGeopoints.add(geoPoint);
+                    }
+                }
             }
 
-            Polyline routeOverlay = new Polyline();
-
-            routeOverlay.setColor(typeColors[i % N_COLOURS]);
+            final Polyline routeOverlay = new Polyline();
             routeOverlay.setPoints(geoPoints);
+
+            if (mSelectedRouteIdx != null) {
+
+                if (i == mSelectedRouteIdx) {
+
+                    routeOverlay.setColor(Color.parseColor("#0099ff"));
+
+                } else {
+
+                    routeOverlay.setColor(Color.parseColor("#11000000"));
+                }
+
+            } else {
+
+                routeOverlay.setColor(typeColors[i % N_COLOURS]);
+            }
+            routeOverlay.setWidth(15);
 
             mMapView.getOverlays().add(routeOverlay);
         }
 
-        mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), true);
+        if (mSelectedRouteIdx != null) {
+            routePrompt.setText(GpxUtils.getRouteNameAnnotated(routesList.get(mSelectedRouteIdx), Units.METRIC));
+            routesSummary.setText((mSelectedRouteIdx +1) + "/" + mRoutesListSize);
+        }
+
+        if(zoom_to_fit) {
+            mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), false);
+        }
 
         mMapView.invalidate();
         setButtonsState();
+    }
+
+    private void refreshMap() {
+        refreshMap(true);
     }
 
     private void setUpButtons() {
@@ -253,8 +294,16 @@ public class RoutePickerActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() +1);
-                setButtonsState();
+                if (mSelectedRouteIdx == null) {
+                    mSelectedRouteIdx = 0;
+                } else {
+                    if (mSelectedRouteIdx < mRoutesListSize -1) {
+                        mSelectedRouteIdx++;
+                    } else {
+                        mSelectedRouteIdx = 0;
+                    }
+                }
+                refreshMap();
             }
         });
         previousButton = (Button) findViewById(R.id.picker_previous_button);
@@ -262,14 +311,24 @@ public class RoutePickerActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() -1);
-                setButtonsState();
+                if (mSelectedRouteIdx == null) {
+                    mSelectedRouteIdx = 0;
+                } else {
+                    if (mSelectedRouteIdx > 0) {
+                        mSelectedRouteIdx--;
+                    } else {
+                        mSelectedRouteIdx = mRoutesListSize -1;
+                    }
+                }
+                refreshMap();
             }
         });
 
         searchButton = (Button) findViewById(R.id.picker_search_button);
 
         routesSummary = (TextView) findViewById(R.id.routes_summary);
+
+        routePrompt = (TextView) findViewById(R.id.picker_route_prompt);
     }
 
     private void setButtonsState() {
@@ -314,7 +373,8 @@ public class RoutePickerActivity extends Utils
 
         mGoogleApiClient.connect();
         restoreMapPosition();
-        refreshMap();
+        mSelectedRouteIdx = null;
+        refreshMap(false);
     }
 
     @Override
