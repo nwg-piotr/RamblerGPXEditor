@@ -3,13 +3,13 @@ CHANGELOG
 **26th May, 2017**
 
 Route picker:
-- *view filtering added.* Long press the Zoom-to-fit button to enter values. Known bug in the distance filter and the route length filter: 
-entering values which produce no results hangs the app. To be fixed tomorrow.
+- **view filtering added.** Long press the Zoom-to-fit button to enter values. *Known bug in the distance filter and the route length filter: 
+entering values which produce no results hangs the app. To be fixed tomorrow.*
 
 **25th May, 2017**
 
 Route picker: 
-- *buttons to select a route activated.* Touch the map anywhere to clear selection.
+- **buttons to select a route activated (Prev / Next).** Touch the map anywhere to clear selection. *Given up on selecting routes by touching polylines: it's damned difficult to use.*
 - The route prompt line displays annotated name of currently selected route.
 
 New apk 0.0.1.9 uploaded.
