@@ -1,11 +1,18 @@
 CHANGELOG
 ===============
+**26th May, 2017**
+
+Route picker:
+- *view filtering added.* Long press the Zoom-to-fit button to enter values. Known bug in the distance filter and the route length filter: 
+entering values which produce no results hangs the app. To be fixed tomorrow.
+
 **25th May, 2017**
 
 Route picker: 
-- buttons to select a route activated. Touch the map anywhere to clear selection.
+- *buttons to select a route activated.* Touch the map anywhere to clear selection.
 - The route prompt line displays annotated name of currently selected route.
-- apk 0.0.1.9 uploaded.
+
+New apk 0.0.1.9 uploaded.
 
 **24th May, 2017**
 - Map display improved, thanks to [osmdroid sample code](https://github.com/osmdroid/osmdroid/tree/master/OpenStreetMapViewer).
