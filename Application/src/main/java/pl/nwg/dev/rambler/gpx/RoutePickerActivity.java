@@ -2,7 +2,9 @@ package pl.nwg.dev.rambler.gpx;
 
 import android.Manifest;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -12,12 +14,16 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -38,13 +44,13 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import pt.karambola.commons.collections.ListUtils;
 import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.RoutePoint;
+import pt.karambola.gpx.predicate.RouteFilter;
 import pt.karambola.gpx.util.GpxUtils;
 
 import static pl.nwg.dev.rambler.gpx.R.id.osmmap;
@@ -79,8 +85,15 @@ public class RoutePickerActivity extends Utils
 
     private List<GeoPoint> mAllGeopoints;
 
-    private Integer mSelectedRouteIdx = null;
-    private int mRoutesListSize = 0;
+    private int mFilteredRoutesNumber = 0;
+    private int mAllRoutesNumber = 0;
+
+    /**
+     * View filtering
+     */
+    boolean enable_type;
+    boolean enable_dst;
+    boolean enable_age;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,7 +148,7 @@ public class RoutePickerActivity extends Utils
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
 
-                mSelectedRouteIdx = null;
+                Data.sSelectedRouteIdx = null;
                 refreshMap(false);
 
                 return false;
@@ -195,11 +208,14 @@ public class RoutePickerActivity extends Utils
          */
         mAllGeopoints = new ArrayList<>();
 
-        final List<Route> routesList = Data.mRoutesGpx.getRoutes();
+        //final List<Route> routesList = Data.mRoutesGpx.getRoutes();
+        mAllRoutesNumber = Data.mRoutesGpx.getRoutes().size();
 
-        mRoutesListSize = routesList.size();
+        Data.sFilteredRoutes = ListUtils.filter(Data.mRoutesGpx.getRoutes(), Data.sViewRouteFilter);
 
-        for(int i = 0; i < mRoutesListSize; i++) {
+        mFilteredRoutesNumber = Data.sFilteredRoutes.size();
+
+        for(int i = 0; i < mFilteredRoutesNumber; i++) {
 
             final Route route = Data.mRoutesGpx.getRoutes().get(i);
             List<RoutePoint> routePoints = route.getRoutePoints();
@@ -211,10 +227,10 @@ public class RoutePickerActivity extends Utils
                 GeoPoint geoPoint = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
                 geoPoints.add(geoPoint);
 
-                if (mSelectedRouteIdx == null) {
+                if (Data.sSelectedRouteIdx == null) {
                     mAllGeopoints.add(geoPoint);
                 } else {
-                    if (i == mSelectedRouteIdx) {
+                    if (i == Data.sSelectedRouteIdx) {
                         mAllGeopoints.add(geoPoint);
                     }
                 }
@@ -223,9 +239,9 @@ public class RoutePickerActivity extends Utils
             final Polyline routeOverlay = new Polyline();
             routeOverlay.setPoints(geoPoints);
 
-            if (mSelectedRouteIdx != null) {
+            if (Data.sSelectedRouteIdx != null) {
 
-                if (i == mSelectedRouteIdx) {
+                if (i == Data.sSelectedRouteIdx) {
 
                     routeOverlay.setColor(Color.parseColor("#0099ff"));
 
@@ -243,10 +259,12 @@ public class RoutePickerActivity extends Utils
             mMapView.getOverlays().add(routeOverlay);
         }
 
-        if (mSelectedRouteIdx != null) {
-            routePrompt.setText(GpxUtils.getRouteNameAnnotated(routesList.get(mSelectedRouteIdx), Units.METRIC));
-            routesSummary.setText((mSelectedRouteIdx +1) + "/" + mRoutesListSize);
+        if (Data.sSelectedRouteIdx != null) {
+            routePrompt.setText(GpxUtils.getRouteNameAnnotated(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx), Units.METRIC));
+        } else {
+            routePrompt.setText(getResources().getString(R.string.route_edit_prompt));
         }
+        routesSummary.setText(String.format(getResources().getString(R.string.x_of_y_routes), mFilteredRoutesNumber, mAllRoutesNumber));
 
         if(zoom_to_fit) {
             mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), false);
@@ -278,15 +296,17 @@ public class RoutePickerActivity extends Utils
         fitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                if (Data.sCardinalGeoPoints != null && Data.sCardinalGeoPoints.size() > 1) {
-                    mMapView.zoomToBoundingBox(findBoundingBox(Data.sCardinalGeoPoints), true);
-                }
-                setButtonsState();
-                */
+
                 if (mAllGeopoints != null) {
                     mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), true);
                 }
+            }
+        });
+        fitButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                displayFilterDialog();
+                return false;
             }
         });
         nextButton = (Button) findViewById(R.id.picker_next_button);
@@ -294,13 +314,13 @@ public class RoutePickerActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                if (mSelectedRouteIdx == null) {
-                    mSelectedRouteIdx = 0;
+                if (Data.sSelectedRouteIdx == null) {
+                    Data.sSelectedRouteIdx = 0;
                 } else {
-                    if (mSelectedRouteIdx < mRoutesListSize -1) {
-                        mSelectedRouteIdx++;
+                    if (Data.sSelectedRouteIdx < mFilteredRoutesNumber -1) {
+                        Data.sSelectedRouteIdx++;
                     } else {
-                        mSelectedRouteIdx = 0;
+                        Data.sSelectedRouteIdx = 0;
                     }
                 }
                 refreshMap();
@@ -311,13 +331,13 @@ public class RoutePickerActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                if (mSelectedRouteIdx == null) {
-                    mSelectedRouteIdx = 0;
+                if (Data.sSelectedRouteIdx == null) {
+                    Data.sSelectedRouteIdx = 0;
                 } else {
-                    if (mSelectedRouteIdx > 0) {
-                        mSelectedRouteIdx--;
+                    if (Data.sSelectedRouteIdx > 0) {
+                        Data.sSelectedRouteIdx--;
                     } else {
-                        mSelectedRouteIdx = mRoutesListSize -1;
+                        Data.sSelectedRouteIdx = mFilteredRoutesNumber -1;
                     }
                 }
                 refreshMap();
@@ -361,6 +381,12 @@ public class RoutePickerActivity extends Utils
             searchButton.getBackground().setAlpha(100);
         }
 
+        if (Data.sViewRouteFilter.isEnabled()) {
+            fitButton.setBackgroundResource(R.drawable.map_filter_on);
+        } else {
+            fitButton.setBackgroundResource(R.drawable.map_fit);
+        }
+
     }
 
     public void onResume(){
@@ -373,7 +399,6 @@ public class RoutePickerActivity extends Utils
 
         mGoogleApiClient.connect();
         restoreMapPosition();
-        mSelectedRouteIdx = null;
         refreshMap(false);
     }
 
@@ -479,5 +504,240 @@ public class RoutePickerActivity extends Utils
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void displayFilterDialog() {
+
+        final List<String> rteTypes = GpxUtils.getDistinctRouteTypes(Data.mRoutesGpx.getRoutes());
+
+        // just used to build the multichoice selector
+        final String[] all_types = rteTypes.toArray(new String[rteTypes.size()]);
+
+        final boolean[] selections = new boolean[rteTypes.size()];
+
+        for (int i = 0; i < rteTypes.size(); i++) {
+            if (Data.sViewRouteFilter.getAcceptedTypes().contains(rteTypes.get(i))) {
+                selections[i] = true;
+            }
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        final View layout = inflater.inflate(R.layout.routes_filter_dialog, null);
+
+        final EditText dstStartMin = (EditText) layout.findViewById(R.id.route_distance_min);
+        if (Data.sViewRouteFilter.getDistanceMin() != null) {
+            double dst_min = Data.sViewRouteFilter.getDistanceMin() / 1000;
+            dstStartMin.setText(String.valueOf(dst_min));
+        } else {
+            dstStartMin.setText("");
+        }
+
+        final EditText dstStartMax = (EditText) layout.findViewById(R.id.route_distance_max);
+        if (Data.sViewRouteFilter.getDistanceMax() != null) {
+            double dst_max = Data.sViewRouteFilter.getDistanceMax() / 1000;
+            dstStartMax.setText(String.valueOf(dst_max));
+        } else {
+            dstStartMax.setText("");
+        }
+
+        final EditText lengthMin = (EditText) layout.findViewById(R.id.route_length_min);
+        if (Data.sViewRouteFilter.getLengthMin() != null) {
+            Double length_min = Data.sViewRouteFilter.getLengthMin() / 1000;
+            lengthMin.setText(String.valueOf(length_min));
+        } else {
+            lengthMin.setText("");
+        }
+
+        final EditText lengthMax = (EditText) layout.findViewById(R.id.route_length_max);
+        if (Data.sViewRouteFilter.getLengthMax() != null) {
+            Double length_max = Data.sViewRouteFilter.getLengthMax() / 1000;
+            lengthMax.setText(String.valueOf(length_max));
+        } else {
+            lengthMax.setText("");
+        }
+
+        final CheckBox dstCheckBox = (CheckBox) layout.findViewById(R.id.route_filter_distance_on);
+
+        if (Data.sCurrentPosition == null) {
+            dstCheckBox.setText(getResources().getString(R.string.location_unavailable));
+            dstCheckBox.setChecked(false);
+            dstCheckBox.setEnabled(false);
+            enable_dst = false;
+        } else {
+
+            dstCheckBox.setChecked(Data.sViewRouteFilter.isDistanceFilterEnabled());
+            dstCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    enable_dst = isChecked;
+                    dstStartMin.setEnabled(isChecked);
+                    dstStartMax.setEnabled(isChecked);
+                }
+            });
+        }
+
+        final CheckBox lengthCheckBox = (CheckBox) layout.findViewById(R.id.route_filter_length_on);
+        lengthCheckBox.setChecked(Data.sViewRouteFilter.isLengthFilterEnabled());
+        lengthCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                enable_age = isChecked;
+                lengthMin.setEnabled(isChecked);
+                lengthMax.setEnabled(isChecked);
+            }
+        });
+
+        String dialogTitle = getResources().getString(R.string.dialog_routes_filter_title);
+        String okText = getResources().getString(R.string.dialog_filter_set);
+        String clearText = getResources().getString(R.string.dialog_filter_clear);
+        String cancelText = getResources().getString(R.string.dialog_cancel);
+        builder.setTitle(dialogTitle)
+                .setIcon(R.drawable.map_filter)
+                .setCancelable(true)
+                .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setNeutralButton(clearText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        // clear current filters
+                        Data.sViewRouteFilter = new RouteFilter();
+                        Data.sSelectedRouteIdx = null;
+                        refreshMap();
+
+                    }
+                })
+                .setPositiveButton(okText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        Data.sSelectedRouteTypes = new ArrayList<>();
+
+                        for (int i = 0; i < selections.length; i++) {
+                            if (selections[i]) {
+                                Data.sSelectedRouteTypes.add(rteTypes.get(i));
+                            }
+                        }
+
+                        if (!dstStartMin.getText().toString().isEmpty()) {
+                            Data.sDstStartMinValue = Double.valueOf(dstStartMin.getText().toString()) * 1000;
+                        } else {
+                            Data.sDstStartMinValue = null;
+                        }
+
+                        if (!dstStartMax.getText().toString().isEmpty()) {
+                            Data.sDstStartMaxValue = Double.valueOf(dstStartMax.getText().toString()) * 1000;
+                        } else {
+                            Data.sDstStartMaxValue = null;
+                        }
+
+                        if (!lengthMin.getText().toString().isEmpty()) {
+                            Data.sLengthMinValue = Double.valueOf(lengthMin.getText().toString()) * 1000;
+                        } else {
+                            Data.sLengthMinValue = null;
+                        }
+
+                        if (!lengthMax.getText().toString().isEmpty()) {
+                            Data.sLengthMaxValue = Double.valueOf(lengthMax.getText().toString()) * 1000;
+                        } else {
+                            Data.sLengthMaxValue = null;
+                        }
+
+                        List<Route> mRoutes = Data.mRoutesGpx.getRoutes();
+
+                        final CheckBox typeCheckBox = (CheckBox) layout.findViewById(R.id.route_filter_types_on);
+                        if (typeCheckBox.isChecked()) {
+                            Data.sViewRouteFilter.enableTypeFilter(Data.sSelectedRouteTypes);
+                        } else {
+                            Data.sViewRouteFilter.disableTypeFilter();
+                        }
+
+                        final CheckBox dstCheckBox = (CheckBox) layout.findViewById(R.id.route_filter_distance_on);
+                        if (dstCheckBox.isChecked()) {
+                            Data.sViewRouteFilter.enableDistanceFilter(Data.sCurrentPosition.getLatitude(), Data.sCurrentPosition.getLongitude(),
+                                    Data.sCurrentPosition.getAltitude(), Data.sDstStartMinValue, Data.sDstStartMaxValue);
+                            Log.d(TAG,"Data.sDstStartMinValue = " + Data.sDstStartMinValue + ", Data.sDstStartMaxValue = " + Data.sDstStartMaxValue);
+
+                        } else {
+                            Data.sViewRouteFilter.disableDistanceFilter();
+                        }
+
+                        final CheckBox lengthCheckBox = (CheckBox) layout.findViewById(R.id.route_filter_length_on);
+                        if (lengthCheckBox.isChecked()) {
+                            Data.sViewRouteFilter.enableLengthFilter(Data.sLengthMinValue, Data.sLengthMaxValue);
+                        } else {
+                            Data.sViewRouteFilter.disableLengthFilter();
+                        }
+
+                        Data.sSelectedRouteIdx = null;
+                        refreshMap();
+
+                    }
+                });
+
+        builder.setMultiChoiceItems(all_types, selections, new DialogInterface.OnMultiChoiceClickListener() {
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1, boolean arg2) {
+
+                selections[arg1] = arg2;
+
+                final CheckBox typeCheckBox = (CheckBox) layout.findViewById(R.id.route_filter_types_on);
+
+                int selected_types_counter = 0;
+                for (int i = 0; i < selections.length; i++) {
+                    if (selections[i]) {
+                        selected_types_counter++;
+                    }
+                }
+
+                String display = getString(R.string.dialog_filter_type) + " " + String.format(getString(R.string.dialog_types_of_types), selected_types_counter, all_types.length);
+                typeCheckBox.setText(display);
+
+            }
+        });
+        builder.setView(layout);
+
+        final AlertDialog alert = builder.create();
+
+        alert.show();
+
+        dstStartMax.setEnabled(Data.sViewRouteFilter.isDistanceFilterEnabled());
+        dstStartMin.setEnabled(Data.sViewRouteFilter.isDistanceFilterEnabled());
+
+        lengthMin.setEnabled(Data.sViewRouteFilter.isLengthFilterEnabled());
+        lengthMax.setEnabled(Data.sViewRouteFilter.isLengthFilterEnabled());
+
+        alert.getListView().setEnabled(Data.sViewRouteFilter.isTypeFilterEnabled());
+
+        final CheckBox typeCheckBox = (CheckBox) layout.findViewById(R.id.route_filter_types_on);
+        typeCheckBox.setChecked(Data.sViewRouteFilter.isTypeFilterEnabled());
+
+        int selected_types_counter = 0;
+        for (int i = 0; i < selections.length; i++) {
+            if (selections[i]) {
+                selected_types_counter++;
+            }
+        }
+
+        String display = getString(R.string.dialog_filter_type) + " " + String.format(getString(R.string.dialog_types_of_types), selected_types_counter, all_types.length);
+        typeCheckBox.setText(display);
+
+        typeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                enable_type = isChecked;
+                if (isChecked) {
+                    alert.getListView().setEnabled(true);
+                    alert.getListView().setAlpha(1f);
+                } else {
+                    alert.getListView().setEnabled(false);
+                    alert.getListView().setAlpha(0.5f);
+                }
+            }
+        });
     }
 }

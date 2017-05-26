@@ -2,10 +2,12 @@ package pl.nwg.dev.rambler.gpx;
 
 import org.osmdroid.util.GeoPoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.beans.Route;
+import pt.karambola.gpx.predicate.RouteFilter;
 
 /**
  * Created by piotr on 16.05.17.
@@ -33,5 +35,18 @@ public final class Data {
 
     public static Integer sLastZoom;
     public static GeoPoint sLastCenter;
+
+    public static Integer sSelectedRouteIdx = null;
+
+    /**
+     * view filtering
+     */
+    public static List<String> sSelectedRouteTypes;
+    public static Double sDstStartMinValue = null;
+    public static Double sDstStartMaxValue = null;
+    public static Double sLengthMinValue = null;
+    public static Double sLengthMaxValue = null;
+    public static List<Route> sFilteredRoutes = new ArrayList<>();
+    public static RouteFilter sViewRouteFilter = new RouteFilter();
 
 }
