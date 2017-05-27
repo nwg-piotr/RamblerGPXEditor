@@ -600,5 +600,6 @@
     <string name="auto_too_many_waypoints">Totally 25 (Start + 23 intermediate + Finish) points allowed</string>
     <string name="auto_not_enough_waypoints">At least 2 points (Start and Finish) necessary</string>
     <string name="route_edit_prompt">Select a route</string>
+    <string name="no_osrm_reponse">Routing server did not respond</string>
 
 </resources>

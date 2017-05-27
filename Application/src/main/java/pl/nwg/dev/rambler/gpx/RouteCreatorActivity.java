@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -217,7 +218,7 @@ public class RouteCreatorActivity extends Utils
 
         Polyline routeOverlay = new Polyline();
 
-        if (Data.osrmRoutes == null) {
+        if (Data.osrmRoutes == null || Data.osrmRoutes.size() == 0) {
 
             routeOverlay.setColor(Color.parseColor("#006666"));
             routeOverlay.setPoints(Data.sCardinalGeoPoints);
@@ -625,13 +626,17 @@ public class RouteCreatorActivity extends Utils
             @Override
             protected void onPostExecute(Boolean result) {
 
-                if (responseString != null) {
+                if (responseString != null && !responseString.isEmpty()) {
 
                     Log.d(TAG, "Response: " + responseString);
 
                     parseOsrmResponse(responseString); // and store results in List<Route> Data.osrmRoutes
 
                     refreshMap();
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(), getString(R.string.no_osrm_reponse), Toast.LENGTH_SHORT).show();
                 }
             }
         };

@@ -491,5 +491,6 @@ PL Piotr Miller</string>
     <string name="waypoint_delete">Wegpunkt löschen?</string>
     <string name="route_creator_name">Route Creator</string>
     <string name="route_picker_name">Routen Manager</string>
+    <string name="no_osrm_reponse">Routing-Server antwortete nicht</string>
 
 </resources>
