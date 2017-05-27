@@ -59,7 +59,7 @@ import static pl.nwg.dev.rambler.gpx.R.id.osmmap;
 /**
  * Route Picker activity created by piotr on 02.05.17.
  */
-public class RoutePickerActivity extends Utils
+public class RoutesBrowserActivity extends Utils
         implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
@@ -114,7 +114,7 @@ public class RoutePickerActivity extends Utils
         Context ctx = getApplicationContext();
         //important! set your user agent to prevent getting banned from the osm servers
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-        setContentView(R.layout.activity_route_picker);
+        setContentView(R.layout.activity_routes_browser);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -478,7 +478,7 @@ public class RoutePickerActivity extends Utils
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_route_picker, menu);
+        getMenuInflater().inflate(R.menu.menu_routes_browser, menu);
 
         return true;
     }
@@ -500,7 +500,7 @@ public class RoutePickerActivity extends Utils
         switch (item.getItemId()) {
 
             case R.id.routes_new_autorute:
-                i = new Intent(RoutePickerActivity.this, RouteCreatorActivity.class);
+                i = new Intent(RoutesBrowserActivity.this, RouteCreatorActivity.class);
                 startActivity(i);
                 return true;
 

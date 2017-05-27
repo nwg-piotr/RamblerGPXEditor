@@ -15,7 +15,7 @@
         <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/map" tools:context=".RoutePickerActivity"
+            android:id="@+id/map" tools:context=".RoutesBrowserActivity"
             android:name="com.google.android.gms.maps.SupportMapFragment" />
 
             <RelativeLayout

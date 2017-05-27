@@ -232,7 +232,7 @@ public class MainActivity extends Utils {
 
                 /*
                 Intent i;
-                i = new Intent(MainActivity.this, RoutePickerActivity.class);
+                i = new Intent(MainActivity.this, RoutesBrowserActivity.class);
                 i.putExtra("current_lat", String.valueOf(currentLat));
                 i.putExtra("current_lon", String.valueOf(currentLon));
                 i.putExtra("current_ele", String.valueOf(currentAlt));
@@ -241,7 +241,7 @@ public class MainActivity extends Utils {
                 */
 
                 Intent i;
-                i = new Intent(MainActivity.this, RoutePickerActivity.class);
+                i = new Intent(MainActivity.this, RoutesBrowserActivity.class);
 
                 startActivity(i);
             }
