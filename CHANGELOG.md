@@ -1,5 +1,12 @@
 CHANGELOG
 ===============
+**27th May, 2017**
+
+- Refactoring: former Route Picker from now on is the Routes Browser.
+- Bugs in the Routes Browser fixed.
+- (simple) Support for the routing server error added.
+- New build: 0.0.2.0.apk uploaded.
+
 **26th May, 2017**
 
 Route picker:
