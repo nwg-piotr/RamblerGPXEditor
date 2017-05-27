@@ -25,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -208,7 +209,6 @@ public class RoutePickerActivity extends Utils
          */
         mAllGeopoints = new ArrayList<>();
 
-        //final List<Route> routesList = Data.mRoutesGpx.getRoutes();
         mAllRoutesNumber = Data.mRoutesGpx.getRoutes().size();
 
         Data.sFilteredRoutes = ListUtils.filter(Data.mRoutesGpx.getRoutes(), Data.sViewRouteFilter);
@@ -217,7 +217,8 @@ public class RoutePickerActivity extends Utils
 
         for(int i = 0; i < mFilteredRoutesNumber; i++) {
 
-            final Route route = Data.mRoutesGpx.getRoutes().get(i);
+            final Route route = Data.sFilteredRoutes.get(i);
+
             List<RoutePoint> routePoints = route.getRoutePoints();
             List<GeoPoint> geoPoints = new ArrayList<>();
 
@@ -266,7 +267,7 @@ public class RoutePickerActivity extends Utils
         }
         routesSummary.setText(String.format(getResources().getString(R.string.x_of_y_routes), mFilteredRoutesNumber, mAllRoutesNumber));
 
-        if(zoom_to_fit) {
+        if(zoom_to_fit && mAllGeopoints.size() > 0) {
             mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), false);
         }
 
@@ -297,8 +298,10 @@ public class RoutePickerActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                if (mAllGeopoints != null) {
-                    mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), true);
+                if(mAllGeopoints != null && mAllGeopoints.size() > 0) {
+                    mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), false);
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.no_routes_in_view), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -353,7 +356,7 @@ public class RoutePickerActivity extends Utils
 
     private void setButtonsState() {
 
-        if (mMapView.getProjection().getZoomLevel() < MAX_ZOOM_LEVEL) {
+        if (mFilteredRoutesNumber > 1) {
             nextButton.setEnabled(true);
             nextButton.getBackground().setAlpha(255);
         } else {
@@ -361,7 +364,7 @@ public class RoutePickerActivity extends Utils
             nextButton.getBackground().setAlpha(100);
         }
 
-        if (mMapView.getProjection().getZoomLevel() > MIN_ZOOM_LEVEL) {
+        if (mFilteredRoutesNumber > 1) {
             previousButton.setEnabled(true);
             previousButton.getBackground().setAlpha(255);
         } else {
@@ -646,8 +649,6 @@ public class RoutePickerActivity extends Utils
                             Data.sLengthMaxValue = null;
                         }
 
-                        List<Route> mRoutes = Data.mRoutesGpx.getRoutes();
-
                         final CheckBox typeCheckBox = (CheckBox) layout.findViewById(R.id.route_filter_types_on);
                         if (typeCheckBox.isChecked()) {
                             Data.sViewRouteFilter.enableTypeFilter(Data.sSelectedRouteTypes);
@@ -659,7 +660,6 @@ public class RoutePickerActivity extends Utils
                         if (dstCheckBox.isChecked()) {
                             Data.sViewRouteFilter.enableDistanceFilter(Data.sCurrentPosition.getLatitude(), Data.sCurrentPosition.getLongitude(),
                                     Data.sCurrentPosition.getAltitude(), Data.sDstStartMinValue, Data.sDstStartMaxValue);
-                            Log.d(TAG,"Data.sDstStartMinValue = " + Data.sDstStartMinValue + ", Data.sDstStartMaxValue = " + Data.sDstStartMaxValue);
 
                         } else {
                             Data.sViewRouteFilter.disableDistanceFilter();
@@ -673,7 +673,8 @@ public class RoutePickerActivity extends Utils
                         }
 
                         Data.sSelectedRouteIdx = null;
-                        refreshMap();
+
+                        refreshMap(true);
 
                     }
                 });
