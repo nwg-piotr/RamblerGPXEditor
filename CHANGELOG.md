@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**28th May, 2017**
+
+- Route labels added to the Routes Browser (in the half way route point).
+
+
 **27th May, 2017**
 
 - Refactoring: former Route Picker from now on is the Routes Browser.
