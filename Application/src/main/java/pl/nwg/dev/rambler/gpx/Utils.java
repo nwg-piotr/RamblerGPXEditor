@@ -109,6 +109,32 @@ public class Utils extends Activity {
         return  bitmap;
     }
 
+    protected Bitmap makeRouteNameBitmap(Context context, String name) {
+
+        Resources resources = context.getResources();
+        float scale = resources.getDisplayMetrics().density;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.path_label);
+
+        bitmap = bitmap.copy(ARGB_8888, true);
+
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.DKGRAY);
+        paint.setTextSize(12 * scale);
+        paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
+
+        Rect bounds = new Rect();
+        paint.getTextBounds(name, 0, name.length(), bounds);
+
+        int x = (bitmap.getWidth() - bounds.width()) / 2;
+        if (x < 0) x = 0;
+        int y = bounds.height();
+        canvas.drawText(name, x, y, paint);
+
+        return  bitmap;
+    }
+
     protected static String convertStreamToString(InputStream inputStream) throws IOException {
         if (inputStream != null) {
             Writer writer = new StringWriter();
@@ -328,22 +354,22 @@ public class Utils extends Activity {
     }
 
     protected static Integer[] typeColors = {
-            Color.parseColor("#006600"),
-            Color.parseColor("#b8860b"),
-            Color.parseColor("#8b008b"),
-            Color.parseColor("#b22222"),
-            Color.parseColor("#d02090"),
-            Color.parseColor("#d2691e"),
-            Color.parseColor("#a52a2a"),
-            Color.parseColor("#ff8c00"),
-            Color.parseColor("#6b8e23"),
-            Color.parseColor("#00bfff"),
-            Color.parseColor("#2e8b57"),
-            Color.parseColor("#ff6347"),
-            Color.parseColor("#ff00ff"),
-            Color.parseColor("#f4a460"),
-            Color.parseColor("#3cb371"),
-            Color.parseColor("#ffa500")
+            Color.parseColor("#99006600"),
+            Color.parseColor("#99b8860b"),
+            Color.parseColor("#998b008b"),
+            Color.parseColor("#99b22222"),
+            Color.parseColor("#99d02090"),
+            Color.parseColor("#99d2691e"),
+            Color.parseColor("#99a52a2a"),
+            Color.parseColor("#99ff8c00"),
+            Color.parseColor("#996b8e23"),
+            Color.parseColor("#9900bfff"),
+            Color.parseColor("#992e8b57"),
+            Color.parseColor("#99ff6347"),
+            Color.parseColor("#99ff00ff"),
+            Color.parseColor("#99f4a460"),
+            Color.parseColor("#993cb371"),
+            Color.parseColor("#99ffa500")
     };
     protected static int N_COLOURS = typeColors.length;
 

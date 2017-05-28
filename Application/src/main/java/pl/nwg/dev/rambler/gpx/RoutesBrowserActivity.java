@@ -8,7 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -40,6 +42,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
@@ -220,6 +223,9 @@ public class RoutesBrowserActivity extends Utils
             final Route route = Data.sFilteredRoutes.get(i);
 
             List<RoutePoint> routePoints = route.getRoutePoints();
+
+            int halfWayPoint = routePoints.size() / 2;
+
             List<GeoPoint> geoPoints = new ArrayList<>();
 
             for(int j = 0; j < routePoints.size(); j++) {
@@ -230,11 +236,52 @@ public class RoutesBrowserActivity extends Utils
 
                 if (Data.sSelectedRouteIdx == null) {
                     mAllGeopoints.add(geoPoint);
+
+                    if (j == halfWayPoint) {
+
+                        Drawable icon = new BitmapDrawable(getResources(), makeRouteNameBitmap(this, route.getName()));
+
+                        Marker marker = new Marker(mMapView);
+                        marker.setPosition(geoPoint);
+                        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                        marker.setDraggable(false);
+                        marker.setIcon(icon);
+                        marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                return false;
+                            }
+                        });
+
+                        mMapView.getOverlays().add(marker);
+                    }
+
                 } else {
+
                     if (i == Data.sSelectedRouteIdx) {
                         mAllGeopoints.add(geoPoint);
+
+                        if (j == halfWayPoint) {
+
+                            Drawable icon = new BitmapDrawable(getResources(), makeRouteNameBitmap(this, route.getName()));
+
+                            Marker marker = new Marker(mMapView);
+                            marker.setPosition(geoPoint);
+                            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                            marker.setDraggable(false);
+                            marker.setIcon(icon);
+                            marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                    return false;
+                                }
+                            });
+
+                            mMapView.getOverlays().add(marker);
+                        }
                     }
                 }
+
             }
 
             final Polyline routeOverlay = new Polyline();
