@@ -2,7 +2,7 @@ CHANGELOG
 ===============
 **29th May, 2017**
 
-- Route deletion activated in the Routes Browser menu. Removes the selected route from Data.mRoutesGpx.
+- Route deletion activated in the Routes Browser menu. Removes the selected route from Data.mRoutesGpx, and gets back to the refreshed browser display.
 - Build 0.0.2.2 uploaded.
 
 **28th May, 2017**
