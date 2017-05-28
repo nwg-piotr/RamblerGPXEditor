@@ -2,7 +2,7 @@ CHANGELOG
 ===============
 **28th May, 2017**
 
-- Route labels added to the Routes Browser (in the half way route point).
+- Route labels added to the Routes Browser (in the half way route point). To be decided later if to make the labels clickable.
 - Build 0.0.2.1 uploaded.
 
 
