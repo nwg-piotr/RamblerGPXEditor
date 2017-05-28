@@ -3,6 +3,7 @@ CHANGELOG
 **28th May, 2017**
 
 - Route labels added to the Routes Browser (in the half way route point).
+- Build 0.0.2.1 uploaded.
 
 
 **27th May, 2017**
