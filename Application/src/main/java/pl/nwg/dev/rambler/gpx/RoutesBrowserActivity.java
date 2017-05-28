@@ -536,6 +536,8 @@ public class RoutesBrowserActivity extends Utils
         /*
          * We'll enable/disable menu options here
          */
+        menu.findItem(R.id.routes_delete_selected).setEnabled(Data.sSelectedRouteIdx != null);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -549,6 +551,42 @@ public class RoutesBrowserActivity extends Utils
             case R.id.routes_new_autorute:
                 i = new Intent(RoutesBrowserActivity.this, RouteCreatorActivity.class);
                 startActivity(i);
+                return true;
+
+            case R.id.routes_delete_selected:
+
+                final Route route = Data.sFilteredRoutes.get(Data.sSelectedRouteIdx);
+                String deleteMessage;
+                if (route.getName() != null) {
+                    String deleteMessageFormat = getResources().getString(R.string.dialog_delete_route_message);
+                    deleteMessage = String.format(deleteMessageFormat, route.getName());
+                } else {
+                    deleteMessage = getResources().getString(R.string.about_to_delete_route);
+                }
+                new AlertDialog.Builder(this)
+                        .setIcon(R.drawable.map_warning)
+                        .setTitle(R.string.dialog_delete_route)
+                        .setMessage(deleteMessage)
+                        .setPositiveButton(R.string.dialog_delete, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Data.mRoutesGpx.removeRoute(route);
+                                Data.sSelectedRouteIdx = null;
+                                refreshMap();
+
+                            }
+
+                        })
+                        .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+
+                        })
+                        .show();
+
                 return true;
 
             default:

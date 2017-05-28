@@ -25,8 +25,7 @@
 
     <item android:orderInCategory="130"
         android:id="@+id/routes_delete_selected"
-        android:title="@string/routes_delete_selected"
-        android:enabled="false" />
+        android:title="@string/routes_delete_selected" />
 
     <item android:orderInCategory="140"
         android:id="@+id/routes_clear"
