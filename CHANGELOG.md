@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**29th May, 2017**
+
+- Route deletion activated in the Routes Browser menu. Removes the selected route from Data.mRoutesGpx.
+- Build 0.0.2.2 uploaded.
+
 **28th May, 2017**
 
 - Route labels added to the Routes Browser (in the half way route point). To be decided later if to make the labels clickable.
