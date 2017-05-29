@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -118,6 +119,8 @@ public class RouteCreatorActivity extends Utils
             actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#33ffffff")));
             actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#55ffffff")));
         }
+
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 
         Context ctx = getApplicationContext();
         //important! set your user agent to prevent getting banned from the osm servers
@@ -392,6 +395,9 @@ public class RouteCreatorActivity extends Utils
         });
 
         routePrompt = (TextView) findViewById(R.id.route_prompt);
+
+        final TextView copyright = (TextView) findViewById(R.id.copyright);
+        copyright.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setButtonsState() {

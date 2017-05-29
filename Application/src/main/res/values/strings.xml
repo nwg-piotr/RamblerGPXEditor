@@ -602,4 +602,6 @@
     <string name="route_edit_prompt">Select a route</string>
     <string name="no_osrm_reponse">Routing server did not respond</string>
 
+    <string name="osm_copyright">&#169; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</string>
+
 </resources>

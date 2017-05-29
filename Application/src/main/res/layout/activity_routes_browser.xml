@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true" >
 
-                <TableLayout
+                <TableLayout android:id="@+id/buttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -47,8 +47,6 @@
                             android:maxWidth="0dp"
                             android:maxHeight="0dp"
                             android:id="@+id/picker_previous_button" />
-
-
 
                         <Button
                             style="?android:attr/buttonStyleSmall"
@@ -83,6 +81,18 @@
                     </TableRow>
 
                 </TableLayout>
+
+                <TextView
+                    android:id="@+id/copyright"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buttons"
+                    android:gravity="start"
+                    android:textSize="12sp"
+                    android:textColor="#444"
+                    android:padding="4dp"
+                    android:text="@string/osm_copyright"
+                    android:linksClickable="true" />
 
             </RelativeLayout>
 

@@ -15,6 +15,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -113,6 +114,8 @@ public class RoutesBrowserActivity extends Utils
             actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#33ffffff")));
             actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#55ffffff")));
         }
+
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 
         Context ctx = getApplicationContext();
         //important! set your user agent to prevent getting banned from the osm servers
@@ -399,6 +402,9 @@ public class RoutesBrowserActivity extends Utils
         routesSummary = (TextView) findViewById(R.id.routes_summary);
 
         routePrompt = (TextView) findViewById(R.id.picker_route_prompt);
+
+        final TextView copyright = (TextView) findViewById(R.id.copyright);
+        copyright.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setButtonsState() {

@@ -412,4 +412,6 @@ PL Piotr Miller</string>
     <string name="route_picker_name">Menadżer tras</string>
     <string name="no_osrm_reponse">Serwer routingu nie odpowiada</string>
 
+    <string name="osm_copyright">&#169; autorzy <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a></string>
+
 </resources>

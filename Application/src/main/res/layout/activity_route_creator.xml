@@ -48,11 +48,10 @@
         android:layout_above="@+id/tableLayout5"
         android:layout_alignParentStart="true" />
 
-    <TableLayout
+    <TableLayout android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/tableLayout5">
+        android:layout_alignParentBottom="true">
 
         <TableRow
             android:layout_width="match_parent"
@@ -110,6 +109,18 @@
                 android:maxWidth="0dp" />
 
         </TableRow>
+
+        <TextView
+            android:id="@+id/copyright"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttons"
+            android:gravity="start"
+            android:textSize="12sp"
+            android:textColor="#444"
+            android:padding="4dp"
+            android:text="@string/osm_copyright"
+            android:linksClickable="true" />
 
     </TableLayout>
 
