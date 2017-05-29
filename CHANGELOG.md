@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**30th May, 2017**
+
+- User-Agent and copyright info updated according to [Important notes on using osmdroid in your app](https://github.com/osmdroid/osmdroid/wiki/Important-notes-on-using-osmdroid-in-your-app) Wiki.
+- Build 0.0.2.3 uploaded.
+
 **29th May, 2017**
 
 - Route deletion activated in the Routes Browser menu. Removes the selected route from Data.mRoutesGpx, and gets back to the refreshed browser display.
