@@ -45,7 +45,7 @@
         android:padding="5dp"
         android:textSize="14sp"
         android:gravity="center_vertical|center_horizontal"
-        android:layout_above="@+id/tableLayout5"
+        android:layout_above="@+id/buttons"
         android:layout_alignParentStart="true" />
 
     <TableLayout android:id="@+id/buttons"
