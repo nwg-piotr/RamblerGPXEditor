@@ -3,7 +3,9 @@ CHANGELOG
 **30th May, 2017**
 
 - User-Agent and copyright info updated according to [Important notes on using osmdroid in your app](https://github.com/osmdroid/osmdroid/wiki/Important-notes-on-using-osmdroid-in-your-app) Wiki.
-- Build 0.0.2.3 uploaded.
+- Routes Browser: the Search button (magnifier) launches the dialog to select a route by name. The dialog layout needs to be improved.
+Also sorting order must be user-configurable (long press the button to change?).
+- Build 0.0.2.4 uploaded.
 
 **29th May, 2017**
 
