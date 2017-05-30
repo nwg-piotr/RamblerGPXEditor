@@ -49,6 +49,7 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import pt.karambola.commons.collections.ListUtils;
@@ -73,11 +74,13 @@ public class RoutesBrowserActivity extends Utils
     private final int MAX_ZOOM_LEVEL = 19;
     private final int MIN_ZOOM_LEVEL = 4;
 
-    Button locationButton;
-    Button fitButton;
-    Button nextButton;
-    Button previousButton;
-    Button searchButton;
+    private Button locationButton;
+    private Button fitButton;
+    private Button nextButton;
+    private Button previousButton;
+    private Button searchButton;
+
+    private Button editRouteButton;
 
     TextView routePrompt;
 
@@ -118,7 +121,6 @@ public class RoutesBrowserActivity extends Utils
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 
         Context ctx = getApplicationContext();
-        //important! set your user agent to prevent getting banned from the osm servers
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_routes_browser);
 
@@ -398,6 +400,12 @@ public class RoutesBrowserActivity extends Utils
         });
 
         searchButton = (Button) findViewById(R.id.picker_search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displaySelectRouteDialog();
+            }
+        });
 
         routesSummary = (TextView) findViewById(R.id.routes_summary);
 
@@ -426,10 +434,9 @@ public class RoutesBrowserActivity extends Utils
         }
 
         /*
-         * When the Route Manager main activity (picker) is ready, this button will be adding selected route
-         * to Data.mRoutesGpx, and close the Creator.
+         * Open a dialog to select a route by name
          */
-        if (Data.osrmRoutes != null && Data.osrmRoutes.size() > 0 && Data.sSelectedAlternative != null) {
+        if (Data.sFilteredRoutes != null && Data.sFilteredRoutes.size() > 0) {
             searchButton.setEnabled(true);
             searchButton.getBackground().setAlpha(255);
         } else {
@@ -831,5 +838,101 @@ public class RoutesBrowserActivity extends Utils
                 }
             }
         });
+    }
+
+    private void displaySelectRouteDialog() {
+
+        if (Data.mRoutesGpx.getRoutes().size() == 0 || Data.sFilteredRoutes.size() == 0) {
+
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_routes_memory), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Route[] sortedRoutesArray = new Route[Data.sFilteredRoutes.size()];
+        sortedRoutesArray = Data.sFilteredRoutes.toArray(sortedRoutesArray);
+
+        Arrays.sort(sortedRoutesArray, Data.rteComparator);
+
+        List<String> gpxRteDisplayNames = new ArrayList<>();
+
+        for (Route route : sortedRoutesArray) {
+
+            gpxRteDisplayNames.add(GpxUtils.getRouteNameAnnotated(route, Data.sUnitsInUse));
+
+        }
+
+        final List<Route> sortedRoutes = new ArrayList<>(Arrays.asList(sortedRoutesArray));
+
+        List<String> allNames = new ArrayList<>();
+        allNames.addAll(gpxRteDisplayNames);
+
+        String[] menu_entries = new String[allNames.size()];
+        menu_entries = allNames.toArray(menu_entries);
+
+        final int idxOfSelectedRoute;
+
+        if (Data.sSelectedRouteIdx != null) {
+            /*
+             * This is a little bit insane:
+             * find the route in the sorted (by Data.rteComparator) array
+             * by its index on the filtered view list, ughhh...
+             */
+            idxOfSelectedRoute = sortedRoutes.indexOf(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+
+        } else {
+
+            idxOfSelectedRoute = -1;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialog);
+
+        builder.setCancelable(true)
+                .setPositiveButton(getResources().getString(R.string.quit_button), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        refreshMap();
+
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.dialog_edit), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        /* todo this will need entirely new code
+                        Data.editRouteHereCenter = mMap.getCameraPosition().target;
+                        Data.editRouteZoom = mMap.getCameraPosition().zoom;
+
+                        displayEditDialog(Data.pickedRoute);
+                        */
+
+                    }
+                });
+
+        builder.setSingleChoiceItems(menu_entries, idxOfSelectedRoute, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Route pickedRoute = sortedRoutes.get(which);
+
+                Data.sSelectedRouteIdx = Data.sFilteredRoutes.indexOf(pickedRoute);
+
+                editRouteButton.setEnabled(Data.sSelectedRouteIdx != null);
+
+                refreshMap(true);
+
+            }
+        });
+
+        AlertDialog alert = builder.create();
+
+        alert.show();
+
+        editRouteButton = alert.getButton(AlertDialog.BUTTON_NEUTRAL);
+        editRouteButton.setEnabled(Data.pickedRoute != null);
+
+        int width = (int)(getResources().getDisplayMetrics().widthPixels*0.90);
+        int height = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
+
+        alert.getWindow().setLayout(width, height);
+
     }
 }

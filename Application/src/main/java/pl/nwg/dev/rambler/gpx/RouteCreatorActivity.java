@@ -123,7 +123,6 @@ public class RouteCreatorActivity extends Utils
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
 
         Context ctx = getApplicationContext();
-        //important! set your user agent to prevent getting banned from the osm servers
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_route_creator);
 

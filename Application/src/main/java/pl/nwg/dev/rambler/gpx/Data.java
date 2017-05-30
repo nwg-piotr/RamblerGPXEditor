@@ -3,10 +3,13 @@ package pl.nwg.dev.rambler.gpx;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.beans.Route;
+import pt.karambola.gpx.comparator.RouteComparator;
 import pt.karambola.gpx.predicate.RouteFilter;
 
 /**
@@ -48,5 +51,12 @@ public final class Data {
     public static Double sLengthMaxValue = null;
     public static List<Route> sFilteredRoutes = new ArrayList<>();
     public static RouteFilter sViewRouteFilter = new RouteFilter();
+
+    /**
+     * Comparator used in the Select Route dialog popup
+     */
+    public static Comparator<Route> rteComparator = RouteComparator.NAME;
+    public static Route pickedRoute;
+    public static Units sUnitsInUse = Units.METRIC; // this will have to be user-configurable
 
 }
