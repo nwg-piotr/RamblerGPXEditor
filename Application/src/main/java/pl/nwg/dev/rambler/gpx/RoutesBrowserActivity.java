@@ -50,7 +50,9 @@ import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pt.karambola.commons.collections.ListUtils;
 import pt.karambola.geo.Units;
@@ -95,6 +97,11 @@ public class RoutesBrowserActivity extends Utils
 
     private int mFilteredRoutesNumber = 0;
     private int mAllRoutesNumber = 0;
+
+    /**
+     * route label marker -> index of selected route
+     */
+    private Map<Marker,Integer> markerToRouteIdx;
 
     /**
      * View filtering
@@ -223,6 +230,8 @@ public class RoutesBrowserActivity extends Utils
 
         mFilteredRoutesNumber = Data.sFilteredRoutes.size();
 
+        markerToRouteIdx = new HashMap<>();
+
         for(int i = 0; i < mFilteredRoutesNumber; i++) {
 
             final Route route = Data.sFilteredRoutes.get(i);
@@ -247,6 +256,7 @@ public class RoutesBrowserActivity extends Utils
                         Drawable icon = new BitmapDrawable(getResources(), makeRouteNameBitmap(this, route.getName()));
 
                         Marker marker = new Marker(mMapView);
+                        markerToRouteIdx.put(marker, i);
                         marker.setPosition(geoPoint);
                         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                         marker.setDraggable(false);
@@ -254,7 +264,14 @@ public class RoutesBrowserActivity extends Utils
                         marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
                             @Override
                             public boolean onMarkerClick(Marker marker, MapView mapView) {
-                                return false;
+
+                                /*
+                                 * Click the route label marker to select the route
+                                 */
+                                Data.sSelectedRouteIdx = markerToRouteIdx.get(marker);
+                                refreshMap(false);
+
+                                return true;
                             }
                         });
 
