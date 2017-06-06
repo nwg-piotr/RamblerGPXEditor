@@ -4,7 +4,7 @@ Rambler GPX Editor
 This project is an attempt to create a GPX editor, based on existing commercial application code, 
 but this time using opensource APIs and open data. 
 
-#Activities:
+**Activities:**
 
 - **Routes Manager** *partially ready* | Allows to browse routes and launch other route-related activities;
 - **Route Editor** *planned* | Allows to edit route properties, move/add/remove waypoints, draw a route manually;
