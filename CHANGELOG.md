@@ -1,5 +1,9 @@
 CHANGELOG
 ===============
+**6th July, 2017**
+
+- Route labels in the browser touchable: click to select the route.
+
 **30th May, 2017**
 
 - User-Agent and copyright info updated according to [Important notes on using osmdroid in your app](https://github.com/osmdroid/osmdroid/wiki/Important-notes-on-using-osmdroid-in-your-app) Wiki.
