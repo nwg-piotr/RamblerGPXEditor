@@ -99,6 +99,15 @@
         </activity>
 
         <activity
+            android:name="pl.nwg.dev.rambler.gpx.RouteEditorActivity"
+            android:theme="@android:style/Theme.Holo.Light"
+            android:label="@string/route_editor_name">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="pl.nwg.dev.rambler.gpx.RoutesBrowserActivity"
             android:theme="@android:style/Theme.Holo.Light"
             android:label="@string/route_picker_name">

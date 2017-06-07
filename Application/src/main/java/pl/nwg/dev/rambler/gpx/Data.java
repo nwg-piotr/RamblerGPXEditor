@@ -39,7 +39,17 @@ public final class Data {
     public static Integer sLastZoom;
     public static GeoPoint sLastCenter;
 
+    /**
+     * Index of currently selected route on the Data.sFilteredRoutes list
+     * (Routes Browser - filtered view); null if nothing selected
+     */
     public static Integer sSelectedRouteIdx = null;
+
+    /**
+     * We'll edit a copy of selected route in case user given up
+     */
+    public static Route sCopiedRoute;
+    public static List<GeoPoint> routeNodes;
 
     /**
      * view filtering

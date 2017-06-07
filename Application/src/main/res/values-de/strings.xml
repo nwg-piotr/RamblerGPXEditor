@@ -494,5 +494,6 @@ PL Piotr Miller</string>
     <string name="no_osrm_reponse">Routing-Server antwortete nicht</string>
 
   <string name="osm_copyright">&#169; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende</string>
+    <string name="route_editor_name">Route Editor</string>
 
 </resources>

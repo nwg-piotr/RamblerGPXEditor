@@ -373,4 +373,46 @@ public class Utils extends Activity {
     };
     protected static int N_COLOURS = typeColors.length;
 
+    protected static Route copyRoute(Route source) {
+
+        Route copy = new Route();
+
+        copy.setName(source.getName());
+        copy.setType(source.getType());
+        copy.setComment(source.getComment());
+        copy.setDescription(source.getDescription());
+        copy.setNumber(source.getNumber());
+        copy.setSrc(source.getSrc());
+
+        if (!source.getRoutePoints().isEmpty()) {
+
+            for (RoutePoint routePoint : source.getRoutePoints()) {
+
+                RoutePoint newRoutePoint = new RoutePoint();
+
+                newRoutePoint.setDescription(routePoint.getDescription());
+                newRoutePoint.setLongitude(routePoint.getLongitude());
+                newRoutePoint.setLatitude(routePoint.getLatitude());
+                newRoutePoint.setSrc(routePoint.getSrc());
+                newRoutePoint.setType(routePoint.getType());
+                newRoutePoint.setComment(routePoint.getComment());
+                newRoutePoint.setAgeOfGpsData(routePoint.getAgeOfGpsData());
+                newRoutePoint.setDgpsid(routePoint.getDgpsid());
+                newRoutePoint.setElevation(routePoint.getElevation());
+                newRoutePoint.setGeoidHeight(routePoint.getGeoidHeight());
+                newRoutePoint.setMagneticDeclination(routePoint.getMagneticDeclination());
+                newRoutePoint.setHdop(routePoint.getHdop());
+                newRoutePoint.setPdop(routePoint.getPdop());
+                newRoutePoint.setSat(routePoint.getSat());
+                newRoutePoint.setName(routePoint.getName());
+                newRoutePoint.setSym(routePoint.getSym());
+                newRoutePoint.setTime(routePoint.getTime());
+                newRoutePoint.setVdop(routePoint.getVdop());
+
+                copy.addRoutePoint(newRoutePoint);
+            }
+        }
+        return copy;
+    }
+
 }

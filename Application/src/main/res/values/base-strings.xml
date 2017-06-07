@@ -17,6 +17,7 @@
 <resources>
     <string name="app_name">Rambler GPX Editor</string>
     <string name="route_creator_name">Route Creator</string>
+    <string name="route_editor_name">Route Editor</string>
     <string name="route_picker_name">Route Manager</string>
 
 </resources>

@@ -567,6 +567,7 @@ public class RoutesBrowserActivity extends Utils
          * We'll enable/disable menu options here
          */
         menu.findItem(R.id.routes_delete_selected).setEnabled(Data.sSelectedRouteIdx != null);
+        menu.findItem(R.id.routes_edit_selected).setEnabled(Data.sSelectedRouteIdx != null);
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -581,6 +582,16 @@ public class RoutesBrowserActivity extends Utils
             case R.id.routes_new_autorute:
                 i = new Intent(RoutesBrowserActivity.this, RouteCreatorActivity.class);
                 startActivity(i);
+                return true;
+
+            case R.id.routes_edit_selected:
+                if(!Data.sFilteredRoutes.isEmpty()) {
+                    Data.sCopiedRoute = copyRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+
+                    Log.d(TAG, "Copied " + Data.sCopiedRoute.getName() + ", " + Data.sCopiedRoute.getRoutePoints().size() + " points");
+                    i = new Intent(RoutesBrowserActivity.this, RouteEditorActivity.class);
+                    startActivity(i);
+                }
                 return true;
 
             case R.id.routes_delete_selected:
