@@ -1,5 +1,9 @@
 CHANGELOG
 ===============
+**7th July, 2017**
+
+- **RouteEditorActivity** skeleton code added, some basic features already work. 
+
 **6th July, 2017**
 
 - Route labels in the browser touchable: click to select the route.
