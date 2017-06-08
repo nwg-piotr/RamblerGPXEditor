@@ -38,6 +38,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.events.MapListener;
+import org.osmdroid.events.ScrollEvent;
+import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -93,8 +96,6 @@ public class RouteEditorActivity extends Utils
     private IMapController mapController;
 
     private MapEventsReceiver mapEventsReceiver;
-
-    private Route selectedOsrmRoute;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -174,6 +175,19 @@ public class RouteEditorActivity extends Utils
 
         restoreMapPosition();
 
+        mMapView.setMapListener(new MapListener() {
+            @Override
+            public boolean onScroll(ScrollEvent event) {
+                refreshMap();
+                return false;
+            }
+
+            @Override
+            public boolean onZoom(ZoomEvent event) {
+                return false;
+            }
+        });
+
         setUpButtons();
         setButtonsState();
     }
@@ -214,18 +228,30 @@ public class RouteEditorActivity extends Utils
         Data.routeNodes = new ArrayList<>();
         markerToRoutePoint = new HashMap<>();
 
-        for (int i = 0; i < Data.sCopiedRoute.getRoutePoints().size(); i++) {
+        List<RoutePoint> allRoutePointsList = Data.sCopiedRoute.getRoutePoints();
 
-            RoutePoint routePoint = Data.sCopiedRoute.getRoutePoints().get(i);
+        /*
+         * Let's limit the number of markers to draw to up to 20 nearest to the center of the map
+         */
+        List<RoutePoint> limitedRoutePointsList = new ArrayList<>();
 
-            GeoPoint node = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
+        GpxUtils.getPointNamesSortedByDistance(allRoutePointsList, mMapView.getMapCenter().getLatitude(),
+                mMapView.getMapCenter().getLongitude(), 0.0, limitedRoutePointsList);
 
-            Data.routeNodes.add(node);
+        int limit = limitedRoutePointsList.size() <= 20 ?  limitedRoutePointsList.size() : 20;
 
-            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, String.valueOf(i)));
+        for (int i = 0; i < limit; i++) {
+
+            RoutePoint routePoint = limitedRoutePointsList.get(i);
+
+            GeoPoint markerPosition = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
+
+            String number = String.valueOf(allRoutePointsList.indexOf(routePoint));
+
+            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, String.valueOf(number)));
 
             Marker marker = new Marker(mMapView);
-            marker.setPosition(node);
+            marker.setPosition(markerPosition);
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             marker.setDraggable(true);
             marker.setIcon(icon);
@@ -235,12 +261,11 @@ public class RouteEditorActivity extends Utils
 
             marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
                 @Override
-                public void onMarkerDrag(Marker marker) {
-
-                }
+                public void onMarkerDrag(Marker marker) {}
 
                 @Override
                 public void onMarkerDragEnd(Marker marker) {
+
                     RoutePoint dragged = markerToRoutePoint.get(marker);
                     dragged.setLatitude(marker.getPosition().getLatitude());
                     dragged.setLongitude(marker.getPosition().getLongitude());
@@ -249,91 +274,23 @@ public class RouteEditorActivity extends Utils
                 }
 
                 @Override
-                public void onMarkerDragStart(Marker marker) {
-
-                }
+                public void onMarkerDragStart(Marker marker) {}
             });
+        }
 
+        /*
+         * And now we need all RoutePoints to draw the full path
+         */
+        for (int i = 0; i < allRoutePointsList.size(); i++) {
+
+            RoutePoint routePoint = allRoutePointsList.get(i);
+            GeoPoint node = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
+            Data.routeNodes.add(node);
         }
         routeOverlay.setPoints(Data.routeNodes);
         mMapView.getOverlays().add(routeOverlay);
+
         routePrompt.setText(String.format(getResources().getString(R.string.map_prompt_route), Data.routeNodes.size()));
-
-        /*
-        if (Data.osrmRoutes == null || Data.osrmRoutes.size() == 0) {
-
-            routeOverlay.setColor(Color.parseColor("#006666"));
-            routeOverlay.setPoints(Data.sCardinalGeoPoints);
-
-            routePrompt.setText(String.format(getResources().getString(R.string.map_prompt_route), Data.sCardinalGeoPoints.size()));
-
-        } else {
-
-            List<GeoPoint> geoPoints = new ArrayList<>();
-
-            if (Data.sSelectedAlternative == null) {
-                Data.sSelectedAlternative = 0;
-            }
-            selectedOsrmRoute = Data.osrmRoutes.get(Data.sSelectedAlternative);
-            for (int i = 0; i < selectedOsrmRoute.getRoutePoints().size(); i++) {
-                RoutePoint routePoint = selectedOsrmRoute.getRoutePoints().get(i);
-                geoPoints.add(new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude()));
-            }
-            routeOverlay.setColor(Color.parseColor("#0066ff"));
-            routeOverlay.setPoints(geoPoints);
-            routePrompt.setText(GpxUtils.getRouteNameAnnotated(selectedOsrmRoute, Units.METRIC));
-        }
-
-        mMapView.getOverlays().add(routeOverlay);
-
-        markerToCardinalWaypoint = new HashMap<>();
-
-        for (int i= 0; i < Data.sCardinalGeoPoints.size(); i++) {
-
-            GeoPoint geoPoint = Data.sCardinalGeoPoints.get(i);
-
-            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, String.valueOf(i)));
-
-            Marker marker = new Marker(mMapView);
-            marker.setPosition(geoPoint);
-            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            marker.setDraggable(true);
-            marker.setIcon(icon);
-
-            markerToCardinalWaypoint.put(marker, geoPoint);
-            mMapView.getOverlays().add(marker);
-
-            marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker, MapView mapView) {
-
-                    displayWaypointDialog(markerToCardinalWaypoint.get(marker));
-                    return false;
-                }
-            });
-            marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
-                @Override
-                public void onMarkerDrag(Marker marker) {
-
-                }
-
-                @Override
-                public void onMarkerDragEnd(Marker marker) {
-                    GeoPoint dragged = markerToCardinalWaypoint.get(marker);
-                    dragged.setCoords(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
-
-                    clearRoutes();
-                    refreshMap();
-                }
-
-                @Override
-                public void onMarkerDragStart(Marker marker) {
-
-                }
-            });
-
-        }
-        */
 
         mMapView.invalidate();
         setButtonsState();
@@ -386,12 +343,13 @@ public class RouteEditorActivity extends Utils
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedOsrmRoute != null) {
-                    Data.mRoutesGpx.addRoute(selectedOsrmRoute);
-                    clearRoutes();
-                    Data.sCardinalGeoPoints = new ArrayList<>();
-                    finish();
-                }
+
+                Data.mRoutesGpx.removeRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+                Data.mRoutesGpx.addRoute(Data.sCopiedRoute);
+
+                Data.sSelectedRouteIdx = null; // index might have changed, clear selection
+
+                finish();
             }
         });
 
@@ -423,7 +381,7 @@ public class RouteEditorActivity extends Utils
          * When the Route Manager main activity (picker) is ready, this button will be adding selected route
          * to Data.mRoutesGpx, and close the Creator.
          */
-        if (Data.osrmRoutes != null && Data.osrmRoutes.size() > 0 && Data.sSelectedAlternative != null) {
+        if (Data.sCopiedRoute.isChanged()) {
             saveButton.setEnabled(true);
             saveButton.getBackground().setAlpha(255);
         } else {
@@ -433,6 +391,9 @@ public class RouteEditorActivity extends Utils
 
     }
 
+    /**
+     * More code needed here!
+     */
     private void displayWaypointDialog(final GeoPoint geoPoint) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -444,8 +405,6 @@ public class RouteEditorActivity extends Utils
                     public void onClick(DialogInterface dialog, int id) {
 
                         Data.sCardinalGeoPoints.remove(geoPoint);
-
-                        clearRoutes();
                         refreshMap();
                     }
                 })
@@ -458,12 +417,6 @@ public class RouteEditorActivity extends Utils
         AlertDialog alert = builder.create();
         alert.show();
 
-    }
-
-    public void clearRoutes() {
-        Data.osrmRoutes = null;
-        Data.sAlternativesNumber = 0;
-        Data.sSelectedAlternative = null;
     }
 
     public void onResume(){

@@ -15,6 +15,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.text.InputFilter;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,10 +24,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +54,7 @@ import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +86,7 @@ public class RoutesBrowserActivity extends Utils
     private Button nextButton;
     private Button previousButton;
     private Button searchButton;
+    private Button editButton;
 
     private Button editRouteButton;
 
@@ -424,6 +430,14 @@ public class RoutesBrowserActivity extends Utils
             }
         });
 
+        editButton = (Button) findViewById(R.id.picker_edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayEditDialog();
+            }
+        });
+
         routesSummary = (TextView) findViewById(R.id.routes_summary);
 
         routePrompt = (TextView) findViewById(R.id.picker_route_prompt);
@@ -459,6 +473,14 @@ public class RoutesBrowserActivity extends Utils
         } else {
             searchButton.setEnabled(false);
             searchButton.getBackground().setAlpha(100);
+        }
+
+        if (!Data.sFilteredRoutes.isEmpty() && Data.sSelectedRouteIdx != null) {
+            editButton.setEnabled(true);
+            editButton.getBackground().setAlpha(255);
+        } else {
+            editButton.setEnabled(false);
+            editButton.getBackground().setAlpha(100);
         }
 
         if (Data.sViewRouteFilter.isEnabled()) {
@@ -585,13 +607,8 @@ public class RoutesBrowserActivity extends Utils
                 return true;
 
             case R.id.routes_edit_selected:
-                if(!Data.sFilteredRoutes.isEmpty()) {
-                    Data.sCopiedRoute = copyRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
 
-                    Log.d(TAG, "Copied " + Data.sCopiedRoute.getName() + ", " + Data.sCopiedRoute.getRoutePoints().size() + " points");
-                    i = new Intent(RoutesBrowserActivity.this, RouteEditorActivity.class);
-                    startActivity(i);
-                }
+                displayEditDialog();
                 return true;
 
             case R.id.routes_delete_selected:
@@ -925,13 +942,7 @@ public class RoutesBrowserActivity extends Utils
                 .setNegativeButton(getResources().getString(R.string.dialog_edit), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        /* todo this will need entirely new code
-                        Data.editRouteHereCenter = mMap.getCameraPosition().target;
-                        Data.editRouteZoom = mMap.getCameraPosition().zoom;
-
-                        displayEditDialog(Data.pickedRoute);
-                        */
-
+                        displayEditDialog();
                     }
                 });
 
@@ -955,12 +966,159 @@ public class RoutesBrowserActivity extends Utils
         alert.show();
 
         editRouteButton = alert.getButton(AlertDialog.BUTTON_NEUTRAL);
-        editRouteButton.setEnabled(Data.pickedRoute != null);
+        editRouteButton.setEnabled(Data.sSelectedRouteIdx != null);
 
         int width = (int)(getResources().getDisplayMetrics().widthPixels*0.90);
         int height = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
 
         alert.getWindow().setLayout(width, height);
+
+    }
+
+    private void displayEditDialog() {
+
+        if(Data.sFilteredRoutes.isEmpty() || Data.sSelectedRouteIdx == null) {
+
+            return;
+        }
+
+        final Route picked_route = Data.sFilteredRoutes.get(Data.sSelectedRouteIdx);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        final View routeEditLayout = inflater.inflate(R.layout.route_edit_dialog, null);
+
+        final EditText editName = (EditText) routeEditLayout.findViewById(R.id.route_name_edit);
+        editName.setFilters(new InputFilter[] {
+                new InputFilter.LengthFilter(99)
+        });
+
+        final EditText editNumber = (EditText) routeEditLayout.findViewById(R.id.route_number_edit);
+        final EditText editType = (EditText) routeEditLayout.findViewById(R.id.route_type_edit);
+        final EditText editDesc = (EditText) routeEditLayout.findViewById(R.id.route_description_edit);
+
+        final Spinner spinner = (Spinner) routeEditLayout.findViewById(R.id.route_type_spinner);
+        final List<String> rteTypes = GpxUtils.getDistinctRouteTypes(Data.mRoutesGpx.getRoutes());
+        rteTypes.add(0, getResources().getString(R.string.type));
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, rteTypes);
+
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(dataAdapter);
+        setUpSpinnerListener(spinner, editType);
+
+        if (picked_route.getNumber() != null) {
+            editNumber.setText(String.valueOf(picked_route.getNumber()));
+        } else {
+            editNumber.setText(String.valueOf(GpxUtils.getRoutesMaxNumber(Data.mRoutesGpx) + 1));
+        }
+
+        editName.setText(picked_route.getName());
+        if (picked_route.getType() != null) editType.setText(picked_route.getType());
+
+        if (picked_route.getDescription() != null) editDesc.setText(picked_route.getDescription());
+
+        String dialogTitle = getResources().getString(R.string.picker_edit_dialog_title);
+        String okText = getResources().getString(R.string.picker_edit_apply);
+
+        String editText = getResources().getString(R.string.dialog_edit_points);
+        String cancelText = getResources().getString(R.string.dialog_cancel);
+
+        builder.setTitle(dialogTitle)
+                .setIcon(R.drawable.map_edit)
+                .setView(routeEditLayout)
+                .setCancelable(true)
+                .setPositiveButton(okText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+
+                        if (editName.getText().toString().isEmpty()) {
+                            editName.setText(new Date().toString());
+                        }
+
+                        String name = editName.getText().toString();
+                        if (!name.isEmpty()) {
+                            if (name.length() > 99) name = name.substring(0, 100);
+                            picked_route.setName(name);
+
+                        } else {
+                            picked_route.setName(null);
+                        }
+
+                        if (!editNumber.getText().toString().isEmpty()) {
+                            picked_route.setNumber(Integer.valueOf(editNumber.getText().toString()));
+                        } else {
+                            picked_route.setNumber(null);
+                        }
+
+                        if (!editDesc.getText().toString().isEmpty()) {
+                            picked_route.setDescription(editDesc.getText().toString().trim());
+                        } else {
+                            picked_route.setDescription(null);
+                        }
+
+                        if (!editType.getText().toString().isEmpty()) {
+                            picked_route.setType(editType.getText().toString().trim());
+                        } else {
+                            picked_route.setType(null);
+                        }
+
+                        // Change time of the 1st waypoint to avoid purging the route when sent to the watch
+                        List<RoutePoint> rtePts = picked_route.getRoutePoints();
+                        RoutePoint firstRtePt = rtePts.get(0);
+                        firstRtePt.setTime(new Date());
+                        picked_route.setRoutePoints(rtePts);
+
+                        routePrompt.setText(GpxUtils.getRouteNameAnnotated(picked_route, Data.sUnitsInUse));
+
+                    }
+                })
+                .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setNeutralButton(editText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        /*
+                         * We'll edit a copy of selected route!
+                         */
+                        Data.sCopiedRoute = copyRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+                        Data.sCopiedRoute.resetIsChanged();
+
+                        Intent i = new Intent(RoutesBrowserActivity.this, RouteEditorActivity.class);
+                        startActivityForResult(i, 90);
+
+                    }
+                });
+
+        final AlertDialog alert = builder.create();
+
+        if (alert.getWindow() != null) {
+            alert.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        }
+        alert.show();
+    }
+
+    private void setUpSpinnerListener(Spinner spinner, final EditText edit_text) {
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+
+                if (pos != 0) {
+                    String item = adapterView.getItemAtPosition(pos).toString();
+                    edit_text.setText(item);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
     }
 }

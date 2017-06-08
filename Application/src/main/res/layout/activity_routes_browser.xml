@@ -33,10 +33,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:background="@drawable/map_empty_btn"
+                            android:background="@drawable/map_edit_route"
                             android:maxWidth="0dp"
                             android:maxHeight="0dp"
-                            android:id="@+id/picker_empty_button" />
+                            android:id="@+id/picker_edit_button" />
 
                         <Button
                             style="?android:attr/buttonStyleSmall"
