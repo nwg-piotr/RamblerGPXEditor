@@ -1,5 +1,13 @@
 CHANGELOG
 ===============
+**8th July, 2017**
+
+- In the Routes Browser selecting 'Edit' launches the route properties dialog first. You'll find the 'Edit points' button inside.
+Also the on-screen 'Edit' button added (pencil).
+- Route Editor: the number of route points (markers) to draw at a time limited to 20 nearest to the center of the map.
+- Google Play Services version updated (11.0.0).
+- Fresh build uploaded (0.0.2.5).
+
 **7th July, 2017**
 
 - **RouteEditorActivity** skeleton code added, some basic features already work. 
