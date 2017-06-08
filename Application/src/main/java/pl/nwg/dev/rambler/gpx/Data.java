@@ -69,4 +69,6 @@ public final class Data {
     public static Route pickedRoute;
     public static Units sUnitsInUse = Units.METRIC; // this will have to be user-configurable
 
+    public static final int POINTS_DISPLAY_LIMIT = 20;
+
 }

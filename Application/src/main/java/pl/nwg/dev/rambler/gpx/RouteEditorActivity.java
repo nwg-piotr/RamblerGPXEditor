@@ -11,7 +11,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
@@ -22,7 +21,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,11 +28,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
@@ -50,21 +43,12 @@ import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pt.karambola.geo.Units;
-import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.RoutePoint;
-import pt.karambola.gpx.util.GpxUtils;
 
 import static pl.nwg.dev.rambler.gpx.R.id.osmmap;
 
@@ -233,16 +217,9 @@ public class RouteEditorActivity extends Utils
         /*
          * Let's limit the number of markers to draw to up to 20 nearest to the center of the map
          */
-        List<RoutePoint> limitedRoutePointsList = new ArrayList<>();
+        List<RoutePoint> nearestRoutePoints = Utils.getNearestRoutePoints(mMapView.getMapCenter(), Data.sCopiedRoute);
 
-        GpxUtils.getPointNamesSortedByDistance(allRoutePointsList, mMapView.getMapCenter().getLatitude(),
-                mMapView.getMapCenter().getLongitude(), 0.0, limitedRoutePointsList);
-
-        int limit = limitedRoutePointsList.size() <= 20 ?  limitedRoutePointsList.size() : 20;
-
-        for (int i = 0; i < limit; i++) {
-
-            RoutePoint routePoint = limitedRoutePointsList.get(i);
+        for (RoutePoint routePoint : nearestRoutePoints) {
 
             GeoPoint markerPosition = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
 

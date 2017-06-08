@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 
@@ -30,7 +32,10 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.RoutePoint;
@@ -413,6 +418,49 @@ public class Utils extends Activity {
             }
         }
         return copy;
+    }
+
+    /*
+     * In case user attempted to edit a multi-pointed route (e.g. imported GPX track)
+     * we may draw plenty of (useless) route point markers at a time, which will surely
+     * slow the device down. To avoid this, let's sort route points by their distance
+     * to the map center, and draw first int Data.POINTS_DISPLAY_LIMIT.
+     */
+    public static List<RoutePoint> getNearestRoutePoints(IGeoPoint mapCenter, Route route) {
+
+        Location mapCenterLoc = new Location("dummy");
+        mapCenterLoc.setLatitude(mapCenter.getLatitude());
+        mapCenterLoc.setLongitude(mapCenter.getLongitude());
+
+        List<RoutePoint> allRoutePoints = route.getRoutePoints();
+
+        Map<Float,RoutePoint> distanceToRoutePoint = new HashMap<>();
+
+        List<RoutePoint> limitedRoutePoints = new ArrayList<>();
+
+        for (RoutePoint routePoint : allRoutePoints) {
+
+            Location pointLoc = new Location("dummy");
+            pointLoc.setLatitude(routePoint.getLatitude());
+            pointLoc.setLongitude(routePoint.getLongitude());
+            distanceToRoutePoint.put(mapCenterLoc.distanceTo(pointLoc), routePoint);
+        }
+        List<Float> mapKeys = new ArrayList<>(distanceToRoutePoint.keySet());
+        Collections.sort(mapKeys);
+
+        int counter = 0;
+        for (Float distance : mapKeys) {
+
+            if (counter == Data.POINTS_DISPLAY_LIMIT) {
+                break;
+            }
+
+            RoutePoint routePoint = distanceToRoutePoint.get(distance);
+            limitedRoutePoints.add(routePoint);
+
+            counter++;
+        }
+        return limitedRoutePoints;
     }
 
 }
