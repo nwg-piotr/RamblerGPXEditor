@@ -4,7 +4,9 @@ CHANGELOG
 
 - In the Routes Browser selecting 'Edit' launches the route properties dialog first. You'll find the 'Edit points' button inside.
 Also the on-screen 'Edit' button added (pencil).
-- Route Editor: the number of route points (markers) to draw at a time limited to 20 nearest to the center of the map.
+- Route Editor: the number of route points (markers) to draw at a time limited to 20 nearest 
+to the center of the map. Utils.getNearestRoutePoints(IGeoPoint mapCenter, Route route) used instead 
+of original GpxUtils.getPointNamesSortedByDistance).
 - Google Play Services version updated (11.0.0).
 - Fresh build uploaded (0.0.2.5).
 
