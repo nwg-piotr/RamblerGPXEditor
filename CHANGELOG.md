@@ -1,6 +1,12 @@
 CHANGELOG
 ===============
-**8th July, 2017**
+**9th June, 2017**
+
+- Route Point properties dialog added (touch the point to open the dialog popup).
+- Last route point marker added (touch to select the route).
+- Pencil button in the Routes Browser has now two actions attached: touch to edit route points, long press to edit route properties.
+
+**8th June, 2017**
 
 - In the Routes Browser selecting 'Edit' launches the route properties dialog first. You'll find the 'Edit points' button inside.
 Also the on-screen 'Edit' button added (pencil).
@@ -10,11 +16,11 @@ of original GpxUtils.getPointNamesSortedByDistance).
 - Google Play Services version updated (11.0.0).
 - Fresh build uploaded (0.0.2.5).
 
-**7th July, 2017**
+**7th June, 2017**
 
 - **RouteEditorActivity** skeleton code added, some basic features already work. 
 
-**6th July, 2017**
+**6th June, 2017**
 
 - Route labels in the browser touchable: click to select the route.
 
