@@ -15,6 +15,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.InputFilter;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -246,6 +247,7 @@ public class RoutesBrowserActivity extends Utils
             List<RoutePoint> routePoints = route.getRoutePoints();
 
             int halfWayPoint = routePoints.size() / 2;
+            int lastWayPoint = routePoints.size() -1;
 
             List<GeoPoint> geoPoints = new ArrayList<>();
 
@@ -277,12 +279,36 @@ public class RoutesBrowserActivity extends Utils
                                  */
                                 Data.sSelectedRouteIdx = markerToRouteIdx.get(marker);
                                 refreshMap(false);
-
                                 return true;
                             }
                         });
 
                         mMapView.getOverlays().add(marker);
+                    }
+
+                    if (j == lastWayPoint) {
+
+                        Marker marker = new Marker(mMapView);
+                        markerToRouteIdx.put(marker, i);
+                        marker.setPosition(geoPoint);
+                        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                        marker.setDraggable(false);
+                        marker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.route_end, null));
+                        marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker, MapView mapView) {
+
+                                /*
+                                 * Click the route label marker to select the route
+                                 */
+                                Data.sSelectedRouteIdx = markerToRouteIdx.get(marker);
+                                refreshMap(false);
+                                return true;
+                            }
+                        });
+
+                        mMapView.getOverlays().add(marker);
+
                     }
 
                 } else {
@@ -305,12 +331,27 @@ public class RoutesBrowserActivity extends Utils
                                     return false;
                                 }
                             });
+                            mMapView.getOverlays().add(marker);
+                        }
 
+                        if (j == lastWayPoint) {
+
+                            Marker marker = new Marker(mMapView);
+                            markerToRouteIdx.put(marker, i);
+                            marker.setPosition(geoPoint);
+                            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                            marker.setDraggable(false);
+                            marker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.route_end, null));
+                            marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                    return false;
+                                }
+                            });
                             mMapView.getOverlays().add(marker);
                         }
                     }
                 }
-
             }
 
             final Polyline routeOverlay = new Polyline();
