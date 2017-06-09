@@ -3,7 +3,7 @@ CHANGELOG
 **9th June, 2017**
 
 - Route Point properties dialog added (touch the point to open the dialog popup).
-- Last route point marker added (touch to select the route).
+- Last route point marker added (checkered flag - touch to select the route).
 - Pencil button in the Routes Browser has now two actions attached: touch to edit route points, long press to edit route properties.
 
 **8th June, 2017**
