@@ -5,7 +5,7 @@ CHANGELOG
 - Route Point properties dialog added (touch the point to open the dialog popup).
 - Last route point marker added (checkered flag - touch to select the route).
 - Pencil button in the Routes Browser has now two actions attached: touch to edit route points, long press to edit route properties.
-- [Build 0.0.2.7](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.2.7.apk) uploaded.
+- [Build 0.0.2.7](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.2.7.apk) uploaded.
 
 **8th June, 2017**
 
