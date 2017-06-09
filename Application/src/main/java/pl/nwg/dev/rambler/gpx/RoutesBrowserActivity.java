@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.text.InputFilter;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -434,7 +435,20 @@ public class RoutesBrowserActivity extends Utils
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Data.sCopiedRoute = copyRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+                Data.sCopiedRoute.resetIsChanged();
+
+                Intent i = new Intent(RoutesBrowserActivity.this, RouteEditorActivity.class);
+                startActivityForResult(i, 90);
+            }
+        });
+        editButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
                 displayEditDialog();
+                return false;
             }
         });
 

@@ -14,12 +14,16 @@ import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.text.InputFilter;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -215,7 +219,7 @@ public class RouteEditorActivity extends Utils
         List<RoutePoint> allRoutePointsList = Data.sCopiedRoute.getRoutePoints();
 
         /*
-         * Let's limit the number of markers to draw to up to 20 nearest to the center of the map
+         * Let's limit the number of markers to draw to up to Data.POINTS_DISPLAY_LIMIT nearest to the center of the map
          */
         List<RoutePoint> nearestRoutePoints = Utils.getNearestRoutePoints(mMapView.getMapCenter(), Data.sCopiedRoute);
 
@@ -223,9 +227,14 @@ public class RouteEditorActivity extends Utils
 
             GeoPoint markerPosition = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
 
-            String number = String.valueOf(allRoutePointsList.indexOf(routePoint));
+            String displayName;
+            if(routePoint.getName() != null && !routePoint.getName().isEmpty()) {
+                displayName = routePoint.getName();
+            } else {
+                displayName = String.valueOf(allRoutePointsList.indexOf(routePoint));
+            }
 
-            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, String.valueOf(number)));
+            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, displayName));
 
             Marker marker = new Marker(mMapView);
             marker.setPosition(markerPosition);
@@ -243,15 +252,26 @@ public class RouteEditorActivity extends Utils
                 @Override
                 public void onMarkerDragEnd(Marker marker) {
 
-                    RoutePoint dragged = markerToRoutePoint.get(marker);
-                    dragged.setLatitude(marker.getPosition().getLatitude());
-                    dragged.setLongitude(marker.getPosition().getLongitude());
+                    RoutePoint draggedPoint = markerToRoutePoint.get(marker);
+                    draggedPoint.setLatitude(marker.getPosition().getLatitude());
+                    draggedPoint.setLongitude(marker.getPosition().getLongitude());
 
                     refreshMap();
                 }
 
                 @Override
                 public void onMarkerDragStart(Marker marker) {}
+            });
+
+            marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker, MapView mapView) {
+
+                    RoutePoint clickedPoint = markerToRoutePoint.get(marker);
+                    displayEditDialog(clickedPoint);
+
+                    return false;
+                }
             });
         }
 
@@ -354,10 +374,6 @@ public class RouteEditorActivity extends Utils
             zoomOutButton.getBackground().setAlpha(100);
         }
 
-        /*
-         * When the Route Manager main activity (picker) is ready, this button will be adding selected route
-         * to Data.mRoutesGpx, and close the Creator.
-         */
         if (Data.sCopiedRoute.isChanged()) {
             saveButton.setEnabled(true);
             saveButton.getBackground().setAlpha(255);
@@ -369,31 +385,168 @@ public class RouteEditorActivity extends Utils
     }
 
     /**
-     * More code needed here!
+     * Route Point edition
      */
-    private void displayWaypointDialog(final GeoPoint geoPoint) {
+    private void displayEditDialog(final RoutePoint routePoint) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle(getResources().getString(R.string.waypoint_delete))
-                .setIcon(R.drawable.map_question)
+        LayoutInflater inflater = getLayoutInflater();
+        final View layout = inflater.inflate(R.layout.waypoint_edit_dialog, null);
+
+        final EditText editName = (EditText) layout.findViewById(R.id.wp_edit_name);
+        editName.setFilters(new InputFilter[] {
+                new InputFilter.LengthFilter(19)
+        });
+        if (routePoint.getName() != null) {
+            editName.setText(routePoint.getName());
+        }
+
+        String dialogTitle = getResources().getString(R.string.waypoint_edit_title);
+        String okText = getResources().getString(R.string.dialog_apply);
+
+        String deleteText = getResources().getString(R.string.dialog_delete);
+        String insertText = getResources().getString(R.string.dialog_insert_b4);
+
+        builder.setTitle(dialogTitle)
+                .setView(layout)
+                .setIcon(R.drawable.map_edit)
                 .setCancelable(true)
-                .setPositiveButton(getResources().getString(R.string.dialog_delete), new DialogInterface.OnClickListener() {
+                .setPositiveButton(okText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Data.sCardinalGeoPoints.remove(geoPoint);
+
+                        String name = editName.getText().toString().trim();
+                        if (!name.isEmpty()) {
+                            if (name.length() > 20) name = name.substring(0, 21);
+                            routePoint.setName(name);
+
+                        } else {
+                            routePoint.setName(null);
+                        }
+
                         refreshMap();
                     }
                 })
-                .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                .setNegativeButton(insertText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+                        int idx = Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint);
+                        double this_point_lat = routePoint.getLatitude();
+                        double this_point_lon = routePoint.getLongitude();
+
+                        RoutePoint previousPoint = Data.sCopiedRoute.getRoutePoints().get(idx - 1);
+                        double previous_point_lat = previousPoint.getLatitude();
+                        double previous_point_lon = previousPoint.getLongitude();
+
+                        RoutePoint halfway_point = new RoutePoint();
+                        Data.sCopiedRoute.addRoutePoint(idx, halfway_point);
+                        halfway_point.setLatitude((this_point_lat + previous_point_lat) * 0.5);
+                        halfway_point.setLongitude((this_point_lon + previous_point_lon) * 0.5);
+
+                        refreshMap();
+                    }
+                })
+                .setNeutralButton(deleteText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        Data.sCopiedRoute.removeRoutePoint(routePoint);
+
+                        refreshMap();
                     }
                 });
 
-        AlertDialog alert = builder.create();
-        alert.show();
 
+        final AlertDialog alert = builder.create();
+
+        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                if (Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint) == 0) {
+                    ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
+                }
+            }
+        });
+
+        final Button instertStartButton = (Button) layout.findViewById(R.id.start_end_button);
+        instertStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.dismiss();
+                insertStartEnd(routePoint);
+            }
+        });
+
+        final Button endHereButton = (Button) layout.findViewById(R.id.end_here_button);
+        endHereButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.dismiss();
+                endHere(routePoint);
+            }
+        });
+
+        if (Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint) == 0 ||
+                Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint) == Data.sCopiedRoute.getRoutePoints().size() -1) {
+            instertStartButton.setEnabled(false);
+            instertStartButton.setTextColor(Color.argb(80, 50, 50, 50));
+
+            endHereButton.setEnabled(false);
+            endHereButton.setTextColor(Color.argb(80, 50, 50, 50));
+        }
+        alert.show();
+    }
+
+    private void insertStartEnd (RoutePoint routePoint) {
+
+        int idx = Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint);
+
+        List<RoutePoint> oldRoute = Data.sCopiedRoute.getRoutePoints();
+
+        List<RoutePoint> newRoute = new ArrayList<>();
+
+        for (int i = idx; i < oldRoute.size(); i++) {
+
+            newRoute.add(oldRoute.get(i));
+
+        }
+
+        for (int i = 1; i < idx; i++) {
+
+            newRoute.add(oldRoute.get(i));
+
+        }
+
+        RoutePoint lastPoint = new RoutePoint();
+        lastPoint.setLatitude(newRoute.get(0).getLatitude() - 0.0002d);
+        lastPoint.setLongitude(newRoute.get(0).getLongitude() - 0.0002d);
+
+        newRoute.add(lastPoint);
+
+        Data.sCopiedRoute.setRoutePoints(newRoute);
+
+        refreshMap();
+    }
+
+    private void endHere(RoutePoint routePoint) {
+
+        int idx = Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint);
+
+        List<RoutePoint> oldRoute = Data.sCopiedRoute.getRoutePoints();
+
+        List<RoutePoint> newRoute = new ArrayList<>();
+
+        for (int i = 0; i < idx+1; i++) {
+
+            newRoute.add(oldRoute.get(i));
+
+        }
+
+        Data.sCopiedRoute.setRoutePoints(newRoute);
+
+        refreshMap();
     }
 
     public void onResume(){
@@ -476,5 +629,62 @@ public class RouteEditorActivity extends Utils
         }
         Data.sLastZoom = mMapView.getZoomLevel();
         Data.sLastCenter = new GeoPoint(mMapView.getMapCenter().getLatitude(), mMapView.getMapCenter().getLongitude());
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        /*
+         * Handle the back button
+         */
+        if(keyCode == KeyEvent.KEYCODE_BACK ) {
+
+            /*
+             * If data changed
+             */
+            if (Data.sCopiedRoute.isChanged() && Data.sCopiedRoute.getRoutePoints().size() > 1) {
+                new AlertDialog.Builder(this)
+                        .setIcon(R.drawable.map_warning)
+                        .setTitle(R.string.dialog_save_changes_title)
+                        .setMessage(R.string.dialog_route_changed_message)
+
+                        .setPositiveButton(R.string.dialog_apply, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                if (!Data.sCopiedRoute.getRoutePoints().isEmpty()) {
+
+                                    Data.mRoutesGpx.removeRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+                                    Data.mRoutesGpx.addRoute(Data.sCopiedRoute);
+
+                                    Data.sSelectedRouteIdx = null; // index might have changed, clear selection
+
+                                    finish();
+
+                                }
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(R.string.dialog_discard, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                finish();
+                            }
+
+                        })
+                        .show();
+                return true;
+
+            } else {
+
+                finish();
+                return true;
+            }
+
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 }

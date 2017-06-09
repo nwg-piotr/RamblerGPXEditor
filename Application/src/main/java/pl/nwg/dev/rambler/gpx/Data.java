@@ -66,7 +66,6 @@ public final class Data {
      * Comparator used in the Select Route dialog popup
      */
     public static Comparator<Route> rteComparator = RouteComparator.NAME;
-    public static Route pickedRoute;
     public static Units sUnitsInUse = Units.METRIC; // this will have to be user-configurable
 
     public static final int POINTS_DISPLAY_LIMIT = 20;
