@@ -2,7 +2,7 @@ CHANGELOG
 ===============
 **10th June, 2017**
 
-- 'Draw manually' added to the Routes Browser menu. Creates a new, empty route and launches the Route Editor.
+- 'Draw manually' entry added to the Routes Browser menu. Creates a new, empty route and launches the Route Editor.
 - [Build 0.0.2.8](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.2.7.apk) uploaded.
 
 **9th June, 2017**
