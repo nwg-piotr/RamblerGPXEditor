@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -341,11 +342,20 @@ public class RouteEditorActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                Data.mRoutesGpx.removeRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
-                Data.mRoutesGpx.addRoute(Data.sCopiedRoute);
+                Intent i = new Intent(RouteEditorActivity.this, RoutesBrowserActivity.class);
 
-                Data.sSelectedRouteIdx = null; // index might have changed, clear selection
+                if (Data.sSelectedRouteIdx != null) {
 
+                    Data.mRoutesGpx.removeRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+                    Data.mRoutesGpx.addRoute(Data.sCopiedRoute);
+                    Data.sSelectedRouteIdx = Data.mRoutesGpx.getRoutes().indexOf(Data.sCopiedRoute);
+
+                } else {
+
+                    Data.mRoutesGpx.addRoute(Data.sCopiedRoute);
+                    Data.sSelectedRouteIdx = Data.mRoutesGpx.getRoutes().indexOf(Data.sCopiedRoute);
+                    setResult(Data.NEW_ROUTE_ADDED, i);
+                }
                 finish();
             }
         });

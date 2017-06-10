@@ -6,8 +6,7 @@
 
     <item android:orderInCategory="100"
         android:id="@+id/routes_new_route"
-        android:title="@string/routes_new_manually"
-        android:enabled="false" />
+        android:title="@string/routes_new_manually" />
 
     <item android:orderInCategory="105"
         android:id="@+id/routes_new_autorute"

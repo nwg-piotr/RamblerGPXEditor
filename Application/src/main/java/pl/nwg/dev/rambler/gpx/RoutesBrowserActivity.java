@@ -318,7 +318,8 @@ public class RoutesBrowserActivity extends Utils
 
                         if (j == halfWayPoint) {
 
-                            Drawable icon = new BitmapDrawable(getResources(), makeRouteNameBitmap(this, route.getName()));
+                            String name = route.getName() != null ? route.getName() : "?";
+                            Drawable icon = new BitmapDrawable(getResources(), makeRouteNameBitmap(this, name));
 
                             Marker marker = new Marker(mMapView);
                             marker.setPosition(geoPoint);
@@ -656,6 +657,18 @@ public class RoutesBrowserActivity extends Utils
 
         switch (item.getItemId()) {
 
+            case R.id.routes_new_route:
+
+                Data.sCopiedRoute = new Route();
+                Data.sCopiedRoute.setName(getResources().getString(R.string.unnamed));
+                Data.sCopiedRoute.resetIsChanged();
+                Data.sSelectedRouteIdx = null;
+
+                i = new Intent(RoutesBrowserActivity.this, RouteEditorActivity.class);
+                startActivityForResult(i, 90);
+
+                return true;
+
             case R.id.routes_new_autorute:
                 i = new Intent(RoutesBrowserActivity.this, RouteCreatorActivity.class);
                 startActivity(i);
@@ -705,6 +718,18 @@ public class RoutesBrowserActivity extends Utils
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode, Intent data) {
+
+            if (resultCode == Data.NEW_ROUTE_ADDED) {
+
+                refreshMap();
+                displayEditDialog();
+
+            }
     }
 
     private void displayFilterDialog() {
@@ -1127,6 +1152,8 @@ public class RoutesBrowserActivity extends Utils
                         picked_route.setRoutePoints(rtePts);
 
                         routePrompt.setText(GpxUtils.getRouteNameAnnotated(picked_route, Data.sUnitsInUse));
+
+                        refreshMap();
 
                     }
                 })

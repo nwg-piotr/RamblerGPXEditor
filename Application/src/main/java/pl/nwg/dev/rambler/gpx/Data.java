@@ -70,4 +70,9 @@ public final class Data {
 
     public static final int POINTS_DISPLAY_LIMIT = 20;
 
+    /*
+     * Activity results
+     */
+    public static final int NEW_ROUTE_ADDED = 70;
+
 }
