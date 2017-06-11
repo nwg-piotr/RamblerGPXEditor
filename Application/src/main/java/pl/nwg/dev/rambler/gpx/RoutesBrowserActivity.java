@@ -262,7 +262,8 @@ public class RoutesBrowserActivity extends Utils
 
                     if (j == halfWayPoint) {
 
-                        Drawable icon = new BitmapDrawable(getResources(), makeRouteNameBitmap(this, route.getName()));
+                        String name = route.getName() != null ? route.getName() : "?";
+                        Drawable icon = new BitmapDrawable(getResources(), makeRouteNameBitmap(this, name));
 
                         Marker marker = new Marker(mMapView);
                         markerToRouteIdx.put(marker, i);
