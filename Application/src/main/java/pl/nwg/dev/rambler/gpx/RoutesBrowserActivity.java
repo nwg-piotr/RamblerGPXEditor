@@ -697,7 +697,7 @@ public class RoutesBrowserActivity extends Utils
 
             case R.id.routes_new_autorute:
                 i = new Intent(RoutesBrowserActivity.this, RouteCreatorActivity.class);
-                startActivity(i);
+                startActivityForResult(i, 90);
                 return true;
 
             case R.id.routes_edit_selected:

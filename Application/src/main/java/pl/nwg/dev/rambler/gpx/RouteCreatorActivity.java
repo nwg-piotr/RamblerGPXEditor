@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -388,6 +389,11 @@ public class RouteCreatorActivity extends Utils
                     Data.mRoutesGpx.addRoute(selectedOsrmRoute);
                     clearRoutes();
                     Data.sCardinalGeoPoints = new ArrayList<>();
+
+                    Intent i = new Intent(RouteCreatorActivity.this, RoutesBrowserActivity.class);
+                    Data.sSelectedRouteIdx = Data.mRoutesGpx.getRoutes().indexOf(selectedOsrmRoute);
+                    setResult(Data.NEW_ROUTE_ADDED, i);
+
                     finish();
                 }
             }
