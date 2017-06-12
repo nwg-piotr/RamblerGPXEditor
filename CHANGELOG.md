@@ -1,6 +1,8 @@
 CHANGELOG
 ===============
 **12th July, 2017**
+
+- A null pointer exception bug fixed in the Routes Browser. 
 - Routes Browser: importing routes and tracks from external gpx files adde.
 - Build 0.0.2.9 uploaded (not really tested, seems to work pretty well at first sight).
 
