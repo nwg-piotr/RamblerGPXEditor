@@ -1,5 +1,9 @@
 CHANGELOG
 ===============
+**12th July, 2017**
+- Routes Browser: importing routes and tracks from external gpx files adde.
+- Build 0.0.2.9 uploaded (not really tested, seems to work pretty well at first sight).
+
 **10th June, 2017**
 
 - 'Draw manually' entry added to the Routes Browser menu. Creates a new, empty route and launches the Route Editor.
