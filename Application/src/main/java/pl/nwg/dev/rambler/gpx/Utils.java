@@ -39,6 +39,8 @@ import java.util.Map;
 
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.RoutePoint;
+import pt.karambola.gpx.beans.Track;
+import pt.karambola.gpx.beans.TrackPoint;
 import pt.karambola.gpx.util.GpxUtils;
 
 import static android.graphics.Bitmap.Config.ARGB_8888;
@@ -461,6 +463,47 @@ public class Utils extends Activity {
             counter++;
         }
         return limitedRoutePoints;
+    }
+
+    public static Route convertTrackToRoute(Track track) {
+
+        Route route = new Route();
+
+        route.setName(track.getName());
+        route.setDescription(track.getDescription());
+        route.setType(track.getType());
+        route.setComment(track.getComment());
+        route.setSrc(track.getSrc());
+        route.setNumber(track.getNumber());
+
+        for (TrackPoint trackPoint : track.getTrackPoints()) {
+
+            RoutePoint routePoint = new RoutePoint();
+
+            routePoint.setName(trackPoint.getName());
+            routePoint.setType(trackPoint.getType());
+            routePoint.setLatitude(trackPoint.getLatitude());
+            routePoint.setLongitude(trackPoint.getLongitude());
+            routePoint.setElevation(trackPoint.getElevation());
+            routePoint.setTime(trackPoint.getTime());
+            routePoint.setMagneticDeclination(trackPoint.getMagneticDeclination());
+            routePoint.setGeoidHeight(trackPoint.getGeoidHeight());
+            routePoint.setComment(trackPoint.getComment());
+            routePoint.setDescription(trackPoint.getDescription());
+            routePoint.setSrc(trackPoint.getSrc());
+            routePoint.setSym(trackPoint.getSym());
+            routePoint.setFix(trackPoint.getFix());
+            routePoint.setSat(trackPoint.getSat());
+            routePoint.setHdop(trackPoint.getHdop());
+            routePoint.setVdop(trackPoint.getVdop());
+            routePoint.setPdop(trackPoint.getPdop());
+            routePoint.setAgeOfGpsData(trackPoint.getAgeOfGpsData());
+            routePoint.setDgpsid(trackPoint.getDgpsid());
+
+            route.addRoutePoint(routePoint);
+        }
+
+        return route;
     }
 
 }

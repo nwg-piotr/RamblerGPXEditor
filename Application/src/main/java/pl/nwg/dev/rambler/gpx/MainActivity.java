@@ -268,6 +268,8 @@ public class MainActivity extends Utils {
                     Data.mRoutesGpx.resetIsChanged();
                     Data.mTracksGpx.resetIsChanged();
 
+                    Data.sSelectedRouteIdx = null;
+
                     refreshLoadedDataInfo();
                 }
 

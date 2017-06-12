@@ -33,13 +33,11 @@
 
     <item android:orderInCategory="150"
         android:id="@+id/routes_import_routes"
-        android:title="@string/routes_edit_import_routes"
-        android:enabled="false" />
+        android:title="@string/routes_edit_import_routes" />
 
     <item android:orderInCategory="160"
         android:id="@+id/convert_tracks"
-        android:title="@string/routes_edit_convert_tracks"
-        android:enabled="false" />
+        android:title="@string/routes_edit_convert_tracks" />
 
 
     <item android:orderInCategory="170"
