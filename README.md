@@ -11,6 +11,6 @@ but this time using opensource APIs and open data.
 - **Route Creator** *ready* | Automatically creates a route based on cardinal waypoints; 
 uses [Open Source Routing Machine](http://project-osrm.org) and their Demo Server (at least temporarily); 
 uses GeoKarambola GpxUtils.simplifyRoute to reduce waypoints number;
-- **Route Simplifier** *planned* | Reduces waypoints number to desired amount on the fly; uses GeoKarambola library;
-- **POI** (Points Of Interest) Manager *planned*;
+- **Route Optimizer** *started* | Reduces waypoints number to desired amount on the fly; uses GeoKarambola library;
+- **POI** (Points Of Interest) **Manager** *planned*;
 - *Enter an idea here.*
