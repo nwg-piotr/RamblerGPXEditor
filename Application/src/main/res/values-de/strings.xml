@@ -301,9 +301,9 @@
   <string name="simplification_error">Maximale Abweichung: %1$d m</string>
   <string name="pro_feature">Pro Funktionen</string>
   <string name="routes_new_manually">Zeichnen manuell</string>
-  <string name="routes_edit_import_routes">Importieren</string>
+  <string name="routes_edit_import_routes">Importiere Routen</string>
   <string name="routes_edit_convert_tracks">Importiere Touren</string>
-  <string name="routes_clear">Lösche alle</string>
+  <string name="routes_clear">Lösche alle Routen</string>
   <string name="routes_edit_export_multiple">Exportieren</string>
   <string name="routes_edit_selected">Bearbeite selektierte</string>
   <string name="routes_simplify_selected">Vereinfache selektierte</string>

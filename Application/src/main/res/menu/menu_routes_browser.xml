@@ -28,8 +28,7 @@
 
     <item android:orderInCategory="140"
         android:id="@+id/routes_clear"
-        android:title="@string/routes_clear"
-        android:enabled="false" />
+        android:title="@string/routes_clear" />
 
     <item android:orderInCategory="150"
         android:id="@+id/routes_import_routes"

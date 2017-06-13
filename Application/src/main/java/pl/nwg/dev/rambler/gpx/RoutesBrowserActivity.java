@@ -662,6 +662,7 @@ public class RoutesBrowserActivity extends Utils
          */
         menu.findItem(R.id.routes_delete_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_edit_selected).setEnabled(Data.sSelectedRouteIdx != null);
+        menu.findItem(R.id.routes_clear).setEnabled(Data.mRoutesGpx.getRoutes().size() > 0);
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -738,6 +739,15 @@ public class RoutesBrowserActivity extends Utils
 
                         })
                         .show();
+                return true;
+
+            case R.id.routes_clear:
+
+                if(Data.mRoutesGpx.getRoutes().size() > 0) {
+                    clearRoutes();
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.no_routes_to_clear), Toast.LENGTH_LONG).show();
+                }
                 return true;
 
             case R.id.routes_import_routes:
@@ -1624,8 +1634,34 @@ public class RoutesBrowserActivity extends Utils
 
             AlertDialog alert = builder.create();
             alert.show();
-
         }
+    }
 
+    public void clearRoutes() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String clearTextTitle = getResources().getString(R.string.dialog_clear_routes);
+        String clearText = getResources().getString(R.string.dialog_clear);
+        String cancelText = getResources().getString(R.string.dialog_cancel);
+
+        builder.setCancelable(true)
+                .setTitle(clearTextTitle)
+                .setPositiveButton(clearText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        Data.mRoutesGpx.clearRoutes();
+                        Data.sFilteredRoutes.clear();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.routes_cleared), Toast.LENGTH_SHORT).show();
+                        refreshMap();
+                    }
+                })
+                .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

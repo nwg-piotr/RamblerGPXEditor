@@ -396,9 +396,9 @@
 
     <string name="routes_new_manually">Draw manually</string>
     <string name="routes_new_auto">Draw automatically</string>
-    <string name="routes_edit_import_routes">Import</string>
+    <string name="routes_edit_import_routes">Import routes</string>
     <string name="routes_edit_convert_tracks">Import tracks</string>
-    <string name="routes_clear">Clear all</string>
+    <string name="routes_clear">Clear all routes</string>
 
     <string name="routes_edit_export_multiple">Export</string>
     <string name="routes_edit_selected">Edit selected</string>
