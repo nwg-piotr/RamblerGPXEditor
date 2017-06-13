@@ -3,6 +3,8 @@ CHANGELOG
 **13th June, 2017**
 
 - Route Creator sets activity result NEW_ROUTE_ADDED to force the Routes Browser open the just created route properties dialog.
+- 'Clear all routes' activated in the Browser menu.
+- [Build 0.0.3.0](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.2.8.apk) uploaded.
 
 **12th June, 2017**
 
@@ -13,7 +15,7 @@ CHANGELOG
 **10th June, 2017**
 
 - 'Draw manually' entry added to the Routes Browser menu. Creates a new, empty route and launches the Route Editor.
-- [Build 0.0.2.8](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.2.8.apk) uploaded.
+- Build 0.0.2.8 uploaded.
 
 **9th June, 2017**
 
