@@ -1,6 +1,10 @@
 CHANGELOG
 ===============
-**12th July, 2017**
+**13th June, 2017**
+
+- Route Creator sets activity result NEW_ROUTE_ADDED to force the Routes Browser open the just created route properties dialog.
+
+**12th June, 2017**
 
 - A null pointer exception bug fixed in the Routes Browser. 
 - Routes Browser: importing routes and tracks from external gpx files added.
