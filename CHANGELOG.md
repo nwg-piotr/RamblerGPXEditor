@@ -4,7 +4,7 @@ CHANGELOG
 
 - Route Creator sets activity result NEW_ROUTE_ADDED to force the Routes Browser open the just created route properties dialog.
 - 'Clear all routes' activated in the Browser menu.
-- [Build 0.0.3.0](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.2.8.apk) uploaded.
+- [Build 0.0.3.0](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.3.0.apk) uploaded.
 
 **12th June, 2017**
 
