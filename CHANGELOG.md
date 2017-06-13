@@ -1,5 +1,9 @@
 CHANGELOG
 ===============
+**14th June, 2017**
+
+- A skeleton for RouteOptimizerActivity added (just a copy of the RouteEditorActivity).
+
 **13th June, 2017**
 
 - Route Creator sets activity result NEW_ROUTE_ADDED to force the Routes Browser open the just created route properties dialog.
