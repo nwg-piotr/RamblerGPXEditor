@@ -19,8 +19,7 @@
 
     <item android:orderInCategory="120"
         android:id="@+id/routes_simplify_selected"
-        android:title="@string/routes_simplify_selected"
-        android:enabled="false" />
+        android:title="@string/routes_simplify_selected" />
 
     <item android:orderInCategory="130"
         android:id="@+id/routes_delete_selected"

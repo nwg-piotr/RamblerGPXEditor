@@ -662,6 +662,7 @@ public class RoutesBrowserActivity extends Utils
          */
         menu.findItem(R.id.routes_delete_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_edit_selected).setEnabled(Data.sSelectedRouteIdx != null);
+        menu.findItem(R.id.routes_simplify_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_clear).setEnabled(Data.mRoutesGpx.getRoutes().size() > 0);
 
         return super.onPrepareOptionsMenu(menu);
@@ -704,6 +705,14 @@ public class RoutesBrowserActivity extends Utils
             case R.id.routes_edit_selected:
 
                 displayEditDialog();
+                return true;
+
+            case R.id.routes_simplify_selected:
+                Data.sCopiedRoute = copyRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+                Data.sCopiedRoute.resetIsChanged();
+
+                i = new Intent(RoutesBrowserActivity.this, RouteOptimizerActivity.class);
+                startActivityForResult(i, 90);
                 return true;
 
             case R.id.routes_delete_selected:
