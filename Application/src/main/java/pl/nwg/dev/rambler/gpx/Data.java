@@ -14,74 +14,74 @@ import pt.karambola.gpx.predicate.RouteFilter;
 
 /**
  * Created by piotr on 16.05.17.
- * Common data stored here
+ * Common static data defined here
  */
 
-public final class Data {
+final class Data {
 
-    public static List<GeoPoint> sCardinalGeoPoints;
-    public static GeoPoint sCurrentPosition;
-    public static List<Route> osrmRoutes;
+    static List<GeoPoint> sCardinalGeoPoints;
+    static GeoPoint sCurrentPosition;
+    static List<Route> osrmRoutes;
 
-    public static String sRoutingProfile;
+    static String sRoutingProfile;
 
-    public static int sAlternativesNumber;
-    public static Integer sSelectedAlternative;
+    static int sAlternativesNumber;
+    static Integer sSelectedAlternative;
 
-    public static Gpx mGpx = null;
+    static Gpx mGpx = null;
 
-    public static Gpx mPoisGpx = null;
-    public static Gpx mRoutesGpx = null;
-    public static Gpx mTracksGpx = null;
+    static Gpx mPoisGpx = null;
+    static Gpx mRoutesGpx = null;
+    static Gpx mTracksGpx = null;
 
-    public static String lastOpenFile = null;
+    static String lastOpenFile = null;
 
-    public static Integer sLastZoom;
-    public static GeoPoint sLastCenter;
+    static Integer sLastZoom;
+    static GeoPoint sLastCenter;
 
     /**
      * Index of currently selected route on the Data.sFilteredRoutes list
      * (Routes Browser - filtered view); null if nothing selected
      */
-    public static Integer sSelectedRouteIdx = null;
+    static Integer sSelectedRouteIdx = null;
 
     /**
      * We'll edit a copy of selected route in case user given up
      */
-    public static Route sCopiedRoute;
-    public static List<GeoPoint> routeNodes;
+    static Route sCopiedRoute;
+    static List<GeoPoint> routeNodes;
 
     /**
      * view filtering
      */
-    public static List<String> sSelectedRouteTypes;
-    public static Double sDstStartMinValue = null;
-    public static Double sDstStartMaxValue = null;
-    public static Double sLengthMinValue = null;
-    public static Double sLengthMaxValue = null;
-    public static List<Route> sFilteredRoutes = new ArrayList<>();
-    public static RouteFilter sViewRouteFilter = new RouteFilter();
+    static List<String> sSelectedRouteTypes;
+    static Double sDstStartMinValue = null;
+    static Double sDstStartMaxValue = null;
+    static Double sLengthMinValue = null;
+    static Double sLengthMaxValue = null;
+    static List<Route> sFilteredRoutes = new ArrayList<>();
+    static RouteFilter sViewRouteFilter = new RouteFilter();
 
     /**
      * Comparator used in the Select Route dialog popup
      */
-    public static Comparator<Route> rteComparator = RouteComparator.NAME;
-    public static Units sUnitsInUse = Units.METRIC; // this will have to be user-configurable
+    static Comparator<Route> rteComparator = RouteComparator.NAME;
+    static Units sUnitsInUse = Units.METRIC; // this will have to be user-configurable
 
-    public static final int POINTS_DISPLAY_LIMIT = 20;
+    static final int POINTS_DISPLAY_LIMIT = 20;
 
     /*
      * Activity results
      */
-    public static final int NEW_ROUTE_ADDED = 70;
+    static final int NEW_ROUTE_ADDED = 70;
 
     /**
      * Route Optimizer
      */
-    public static int sSourceRoutePointsNumber;
-    public static int sCurrentMaxPointsNumber;
-    public static double currentMaxErrorMtr = 0.00;
+    static int sSourceRoutePointsNumber;
+    static int sCurrentMaxPointsNumber;
+    static double currentMaxErrorMtr = 0.00;
 
-    public static final int OPTIMIZER_POINTS_LIMIT = 1000;
+    static final int OPTIMIZER_POINTS_LIMIT = 1000;
 
 }
