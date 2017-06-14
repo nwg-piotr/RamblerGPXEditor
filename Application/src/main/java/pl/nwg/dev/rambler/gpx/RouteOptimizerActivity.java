@@ -426,10 +426,7 @@ public class RouteOptimizerActivity extends Utils
 
                                     Data.mRoutesGpx.removeRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
                                     Data.mRoutesGpx.addRoute(Data.sCopiedRoute);
-
-                                    Data.sSelectedRouteIdx = null; // index might have changed, clear selection
-
-                                    finish();
+                                    Data.sSelectedRouteIdx = Data.mRoutesGpx.getRoutes().indexOf(Data.sCopiedRoute);
 
                                 }
                                 finish();
@@ -460,27 +457,7 @@ public class RouteOptimizerActivity extends Utils
 
     private void simplifyRoute(final int source_route_points_number) {
 
-        final String errorMessageFormat = getResources().getString(R.string.simplification_error);
-
-        double simplificationError;
-
-        if (source_route_points_number > Data.sCurrentMaxPointsNumber) {
-
-            simplificationError = routeUtils.simplify(Data.sCurrentMaxPointsNumber, Data.currentMaxErrorMtr);
-
-        } else {
-
-            simplificationError = routeUtils.simplify(source_route_points_number, Data.currentMaxErrorMtr);
-        }
-
-        refreshMap();
-
-        String errorMessageMessage = String.format(errorMessageFormat, (int) simplificationError);
-        displayError.setText(errorMessageMessage);
-
         final String promptFormat = getResources().getString(R.string.optimizer_prompt);
-        String promptMessage = String.format(promptFormat, Data.routeNodes.size() -1, (int)simplificationError);
-        routePrompt.setText(promptMessage);
 
         maxPointsPicker.setEnabled(true);
         maxPointsPicker.setAlpha(0.8f);
@@ -515,13 +492,20 @@ public class RouteOptimizerActivity extends Utils
 
                 refreshMap();
 
-                String errorMessageMessage = String.format(errorMessageFormat, (int) simplificationError);
-                displayError.setText(errorMessageMessage);
-
-                String promptMessage = String.format(promptFormat, Data.routeNodes.size() -1, (int)simplificationError);
+                String promptMessage = String.format(promptFormat, Data.sCurrentMaxPointsNumber, (int)simplificationError);
                 routePrompt.setText(promptMessage);
             }
         });
 
+        /*
+         * The code below will be executed only once. Each real modification is being done by the
+         * onValueChange method above. Let's reset the isChanged boolean, to avoid being asked
+         * if to save data on exit when we didn't use the picker.
+         */
+        double simplificationError = routeUtils.simplify(Data.sCurrentMaxPointsNumber, Data.currentMaxErrorMtr);
+        Data.sCopiedRoute.resetIsChanged();
+        String promptMessage = String.format(promptFormat, source_route_points_number, (int)simplificationError);
+        routePrompt.setText(promptMessage);
+        refreshMap();
     }
 }

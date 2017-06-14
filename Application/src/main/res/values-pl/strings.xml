@@ -181,7 +181,7 @@
     <string name="routes_edit_import_routes">Importuj trasy</string>
     <string name="routes_edit_selected">Edytuj wybraną</string>
     <string name="routes_new_manually">Rysuj ręcznie</string>
-    <string name="routes_simplify_selected">Uprość wybraną</string>
+    <string name="routes_simplify_selected">Optymalizuj wybraną</string>
     <string name="sending_settings">Wysyłam ustawienia do zegarka</string>
     <string name="set1">Zestaw 1</string>
     <string name="set2">Zestaw 2</string>
@@ -212,7 +212,7 @@
     <string name="time_to_sunrise">2SR (Czas do wschodu)</string>
     <string name="time_to_sunset">2SS (Do zachodu)</string>
     <string name="title_no_device_connected">Nie podłączono zegarka</string>
-    <string name="track_reduce">Uprość zaimportowane</string>
+    <string name="track_reduce">Optymalizacja</string>
     <string name="unlicensed_dialog_retry_body">Nie udało się sprawdzić licencji. Sprawdź połączenie sieciowe. Jeśli działa, zapewne serwer  Google Play chwilowo nie odpowiada. Spróbuj ponownie za kilka minut.</string>
     <string name="unlicensed_dialog_title">Alikacja nielicencjonowana</string>
     <string name="unnamed">bez nazwy</string>
@@ -415,6 +415,6 @@ PL Piotr Miller</string>
     <string name="osm_copyright">&#169; autorzy <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a></string>
     <string name="route_editor_name">Edytor trasy</string>
     <string name="route_optimizer_name">Optymalizator trasy</string>
-    <string name="optimizer_prompt">%1$d punktów, błąd: %2$d m</string>
+    <string name="optimizer_prompt">%1$d punktów, maksymalny błąd: %2$d m</string>
 
 </resources>

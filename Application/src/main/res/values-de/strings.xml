@@ -169,7 +169,7 @@
   <string name="wp_name">Namen eingeben</string>
   <string name="route_hintify">Hinweis anfügen</string>
   <string name="route_dehintify">Hinweise löschen</string>
-  <string name="track_reduce">Vereinfache importierte Routen</string>
+  <string name="track_reduce">Optimierung</string>
   <string name="restore_defaults">Standardeinstellungen wiederherstellen</string>
   <string name="restore_defaults_message">Wird Standardeinstellungen wiederherstellen. Weiterfahren?</string>
   <string name="dialog_advanced">Navigationseinstellungen</string>
@@ -306,7 +306,7 @@
   <string name="routes_clear">Lösche alle Routen</string>
   <string name="routes_edit_export_multiple">Exportieren</string>
   <string name="routes_edit_selected">Bearbeite selektierte</string>
-  <string name="routes_simplify_selected">Vereinfache selektierte</string>
+  <string name="routes_simplify_selected">Optimiere selektierte</string>
   <string name="routes_delete_selected">Lösche selektierte</string>
   <string name="routes_display">Sichtbarkeit</string>
   <string name="routes_display_show_start">Startpunkte</string>
@@ -496,6 +496,6 @@ PL Piotr Miller</string>
   <string name="osm_copyright">&#169; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende</string>
     <string name="route_editor_name">Route Editor</string>
     <string name="route_optimizer_name">Route Optimierer</string>
-  <string name="optimizer_prompt">%1$d Punkte, Fehler: %2$d m</string>
+  <string name="optimizer_prompt">%1$d Punkte, der Höchstfehler: %2$d m</string>
 
 </resources>

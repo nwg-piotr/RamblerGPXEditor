@@ -30,15 +30,6 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="e"
-        android:background="#6fff"
-        android:id="@+id/simplification_error"
-        android:layout_below="@+id/maxPointsPicker"
-        android:layout_alignParentStart="true" />
-
-    <TextView
         android:id="@+id/route_prompt"
         android:text="@string/map_prompt"
         android:layout_width="match_parent"

@@ -208,7 +208,7 @@
     <string name="route_hintify">Add hints</string>
     <string name="route_dehintify">Clear hints</string>
 
-    <string name="track_reduce">Simplify imported routes</string>
+    <string name="track_reduce">Optimization</string>
     <string name="restore_defaults">Restore defaults</string>
     <string name="restore_defaults_message">This will restore default settings for both watch faces. Continue?</string>
 
@@ -391,7 +391,7 @@
     <string name="map_waypoints">%1$d way points</string>
 
     <string name="simplification_error">Max error: %1$d m</string>
-    <string name="optimizer_prompt">%1$d points, error: %2$d m</string>
+    <string name="optimizer_prompt">%1$d points, maximum error: %2$d m</string>
 
     <string name="route_points_limited">Points number reduced to %1$d</string>
 
@@ -403,7 +403,7 @@
 
     <string name="routes_edit_export_multiple">Export</string>
     <string name="routes_edit_selected">Edit selected</string>
-    <string name="routes_simplify_selected">Simplify selected</string>
+    <string name="routes_simplify_selected">Optimize selected</string>
     <string name="routes_delete_selected">Delete selected</string>
     <string name="routes_display">Visibility</string>
     <string name="routes_display_show_start">Start points</string>
