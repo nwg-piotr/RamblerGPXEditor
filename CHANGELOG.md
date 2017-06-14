@@ -2,13 +2,14 @@ CHANGELOG
 ===============
 **14th June, 2017**
 
-- RouteOptimizerActivity added, almost ready. 1 known bug must wait till tomorrow (as well as a new build).
+- Route Optimizer added.
+- [Build 0.0.3.1](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.3.1.apk) uploaded.
 
 **13th June, 2017**
 
 - Route Creator sets activity result NEW_ROUTE_ADDED to force the Routes Browser open the just created route properties dialog.
 - 'Clear all routes' activated in the Browser menu.
-- [Build 0.0.3.0](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.3.0.apk) uploaded.
+- Build 0.0.3.0 uploaded.
 
 **12th June, 2017**
 
