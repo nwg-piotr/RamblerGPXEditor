@@ -501,7 +501,7 @@ public class RouteOptimizerActivity extends Utils
 
             Data.sCurrentMaxPointsNumber = Data.OPTIMIZER_POINTS_LIMIT;
         }
-        
+
         maxPointsPicker.setWrapSelectorWheel(true);
 
         maxPointsPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {

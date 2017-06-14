@@ -2,7 +2,7 @@ CHANGELOG
 ===============
 **14th June, 2017**
 
-- A skeleton for RouteOptimizerActivity added (just a copy of the RouteEditorActivity).
+- RouteOptimizerActivity added, almost ready. 1 known bug must wait till tomorrow (as well as a new build).
 
 **13th June, 2017**
 
