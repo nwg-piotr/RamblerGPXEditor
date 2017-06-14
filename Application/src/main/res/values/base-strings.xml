@@ -19,5 +19,6 @@
     <string name="route_creator_name">Route Creator</string>
     <string name="route_editor_name">Route Editor</string>
     <string name="route_picker_name">Route Manager</string>
+    <string name="route_optimizer_name">Route Optimizer</string>
 
 </resources>

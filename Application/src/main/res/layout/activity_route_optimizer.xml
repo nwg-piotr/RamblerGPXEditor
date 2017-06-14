@@ -20,6 +20,24 @@
         android:layout_marginTop="55dp"
         android:enabled="false" />
 
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/maxPointsPicker"
+        android:clickable="false"
+        android:alpha="200"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="e"
+        android:background="#6fff"
+        android:id="@+id/simplification_error"
+        android:layout_below="@+id/maxPointsPicker"
+        android:layout_alignParentStart="true" />
+
     <TextView
         android:id="@+id/route_prompt"
         android:text="@string/map_prompt"

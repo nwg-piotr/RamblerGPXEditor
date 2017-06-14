@@ -299,7 +299,7 @@
   <string name="map_prompt_route">%1$d POI, lang drücken um POI zu erstellen</string>
   <string name="map_waypoints">%1$d Wegpunkte</string>
   <string name="simplification_error">Maximale Abweichung: %1$d m</string>
-  <string name="pro_feature">Pro Funktionen</string>
+  <string name="route_points_limited">Punkte Anzahl reduziert auf %1$d</string>
   <string name="routes_new_manually">Zeichnen manuell</string>
   <string name="routes_edit_import_routes">Importiere Routen</string>
   <string name="routes_edit_convert_tracks">Importiere Touren</string>
@@ -495,5 +495,7 @@ PL Piotr Miller</string>
 
   <string name="osm_copyright">&#169; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende</string>
     <string name="route_editor_name">Route Editor</string>
+    <string name="route_optimizer_name">Route Optimierer</string>
+  <string name="optimizer_prompt">%1$d Punkte, Fehler: %2$d m</string>
 
 </resources>

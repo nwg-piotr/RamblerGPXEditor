@@ -75,4 +75,13 @@ public final class Data {
      */
     public static final int NEW_ROUTE_ADDED = 70;
 
+    /**
+     * Route Optimizer
+     */
+    public static int sSourceRoutePointsNumber;
+    public static int sCurrentMaxPointsNumber;
+    public static double currentMaxErrorMtr = 0.00;
+
+    public static final int OPTIMIZER_POINTS_LIMIT = 1000;
+
 }

@@ -110,7 +110,7 @@
         <activity
             android:name="pl.nwg.dev.rambler.gpx.RouteOptimizerActivity"
             android:theme="@android:style/Theme.Holo.Light"
-            android:label="@string/route_editor_name">
+            android:label="@string/route_optimizer_name">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

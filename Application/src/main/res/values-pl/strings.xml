@@ -160,7 +160,7 @@
     <string name="pro_checking">Licencja: sprawdzam</string>
     <string name="pro_disabled">Licencja: darmowa</string>
     <string name="pro_enabled">Licencja: pro</string>
-    <string name="pro_feature">Opcja pro</string>
+    <string name="route_points_limited">Liczba punktów ograniczona do %1$d</string>
     <string name="pro_unknown">Licencja: status nieznany</string>
     <string name="quit_button">Zamknij</string>
     <string name="restore_defaults">Przywróć domyślne</string>
@@ -414,5 +414,7 @@ PL Piotr Miller</string>
 
     <string name="osm_copyright">&#169; autorzy <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a></string>
     <string name="route_editor_name">Edytor trasy</string>
+    <string name="route_optimizer_name">Optymalizator trasy</string>
+    <string name="optimizer_prompt">%1$d punktów, błąd: %2$d m</string>
 
 </resources>

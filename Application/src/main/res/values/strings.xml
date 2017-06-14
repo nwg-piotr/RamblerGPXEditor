@@ -391,8 +391,9 @@
     <string name="map_waypoints">%1$d way points</string>
 
     <string name="simplification_error">Max error: %1$d m</string>
+    <string name="optimizer_prompt">%1$d points, error: %2$d m</string>
 
-    <string name="pro_feature">Pro feature</string>
+    <string name="route_points_limited">Points number reduced to %1$d</string>
 
     <string name="routes_new_manually">Draw manually</string>
     <string name="routes_new_auto">Draw automatically</string>
