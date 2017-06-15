@@ -266,9 +266,12 @@
     <string name="error">Błąd:</string>
     <string name="poi_sent">POI wysłano do zegarka</string>
     <string name="poi_sending_error">Błąd podczas wysyłania POI</string>
-    <string name="about">Nawigacja dla Android Wear i edytor GPX dla Androida ©2015–2017 nwg (Piotr Miller). Wszelkie prawa zastrzeżone.\n
-        \nBiblioteka GeoKarambola ©2016 Karambola (Afonso Santos).\n
-        \nZobacz też podziękowania.</string>
+
+    <string name="about">Otwartoźródłowy edytor GPX &#169;2015–2017 nwg (Piotr Miller).</string>
+    <string name="gnugpl">Niniejszy program jest wolnym oprogramowaniem; możesz go
+    rozprowadzać dalej i/lub modyfikować na warunkach <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">Powszechnej
+    Licencji Publicznej GNU wersja 3.0</a>, wydanej przez Fundację Wolnego Oprogramowania.</string>
+
     <string name="added_captured_poi">Dodano %1$d POI</string>
     <string name="poi_in_cache">%1$d POI w buforze</string>
     <string name="poi_cache_contains">Bufor POI zawiera %1$s punktów. Naciśnij długo przycisk POI w menu nawigacji zegarka, by wyczyścić bufor.</string>
@@ -416,5 +419,7 @@ PL Piotr Miller</string>
     <string name="route_editor_name">Edytor trasy</string>
     <string name="route_optimizer_name">Optymalizator trasy</string>
     <string name="optimizer_prompt">%1$d punktów, maksymalny błąd: %2$d m</string>
+
+    <string name="github"><a href="https://github.com/nwg-piotr/RamblerGPXEditor">Projekt na GitHub</a></string>
 
 </resources>

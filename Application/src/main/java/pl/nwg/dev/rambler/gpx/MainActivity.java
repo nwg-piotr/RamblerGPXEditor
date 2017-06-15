@@ -538,7 +538,8 @@ public class MainActivity extends Utils {
         LayoutInflater inflater = getLayoutInflater();
         final View layout = inflater.inflate(R.layout.about_dialog, null);
 
-        final TextView gPlus = (TextView) layout.findViewById(R.id.gplus);
+        final TextView gnu = (TextView) layout.findViewById(R.id.gnu);
+        final TextView github = (TextView) layout.findViewById(R.id.github);
 
         String dialogTitle = getResources().getString(R.string.dialog_about) + " " + versionName;
         String okText = getResources().getString(R.string.dialog_ok);
@@ -555,23 +556,32 @@ public class MainActivity extends Utils {
                 .setNeutralButton(creditsText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        displayCreditsDialog();
+                        //displayCreditsDialog();
+                        Uri uri = Uri.parse("https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/CREDITS.md");
+
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+
                     }
                 })
                 .setNegativeButton(websiteText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+                        Toast.makeText(getApplicationContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+                        /*
                         Uri uri = Uri.parse("http://dev.nwg.pl/rambler-user-guide");
 
                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                         startActivity(intent);
+                        */
 
                     }
                 });
 
         AlertDialog alert = builder.create();
 
-        gPlus.setMovementMethod(LinkMovementMethod.getInstance());
+        gnu.setMovementMethod(LinkMovementMethod.getInstance());
+        github.setMovementMethod(LinkMovementMethod.getInstance());
 
         alert.show();
     }

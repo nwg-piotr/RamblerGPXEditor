@@ -26,13 +26,10 @@
     <string name="action_classic">Classic watch face</string>
     <string name="action_exit">Exit</string>
 
-
-    <string name="analog_config_text" translatable="false">Rambler Navigation pro by nwg.</string>
-
-    <string name="about">Android Wear navigation and Android GPX edition software.\n
-        \n&#169;2015&#8211;2016 nwg (Piotr Miller). All rights reserved.\n
-        \nGeoKarambola library &#169;2016 Karambola (Afonso Santos).\n
-        \nSee credits for more details.</string>
+    <string name="about">Opensource GPX edition software, &#169;2015&#8211;2017 nwg (Piotr Miller).</string>
+    <string name="gnugpl">This program is free software; you can redistribute it and/or modify
+    it under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License version 3.0</a>, as published by
+    the Free Software Foundation.</string>
 
     <string name="credits_btn">Credits</string>
     <string name="manual_btn">Manual</string>
@@ -212,7 +209,7 @@
     <string name="restore_defaults">Restore defaults</string>
     <string name="restore_defaults_message">This will restore default settings for both watch faces. Continue?</string>
 
-    <string name="dialog_about" translatable="false">Rambler Navigation pro</string>
+    <string name="dialog_about" translatable="false">Rambler GPX Editor</string>
     <string name="dialog_advanced">Navigation settings</string>
     <string name="dialog_stats">Statistics</string>
     <string name="dialog_ok">OK</string>
@@ -604,5 +601,6 @@
     <string name="no_osrm_reponse">Routing server did not respond</string>
 
     <string name="osm_copyright">&#169; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</string>
+    <string name="github"><a href="https://github.com/nwg-piotr/RamblerGPXEditor">Project on GitHub</a></string>
 
 </resources>

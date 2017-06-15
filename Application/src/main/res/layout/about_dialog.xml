@@ -27,14 +27,25 @@
             android:text="@string/about"/>
 
         <TextView
-            android:id="@+id/gplus"
+            android:id="@+id/gnu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="@string/gnugpl"
+
+            android:linksClickable="true" />
+
+        <TextView
+            android:id="@+id/github"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textColor="#333"
             android:textSize="14sp"
             android:layout_marginTop="10dp"
-            android:text="@string/gplus_url"
+            android:text="@string/github"
 
             android:linksClickable="true" />
 
