@@ -39,9 +39,8 @@
 
 
     <item android:orderInCategory="170"
-        android:id="@+id/export_multiple"
-        android:title="@string/routes_edit_export_multiple"
-        android:enabled="false" />
+        android:id="@+id/export"
+        android:title="@string/routes_edit_export_multiple" />
 
     <item android:orderInCategory="180"
         android:id="@+id/routes_display"
