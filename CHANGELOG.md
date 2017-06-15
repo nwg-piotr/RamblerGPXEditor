@@ -1,9 +1,15 @@
 CHANGELOG
 ===============
+**15th June, 2017**
+
+- Exporting routes code added, menu entry activated. The last Router Manager menu entry ('Visibility') 
+is POI-related, and will be added later.
+- [Build 0.0.3.2](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.3.2.apk) uploaded.
+
 **14th June, 2017**
 
 - Route Optimizer added.
-- [Build 0.0.3.1](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.3.1.apk) uploaded.
+- Build 0.0.3.1 uploaded.
 
 **13th June, 2017**
 
