@@ -4,6 +4,7 @@ CHANGELOG
 
 - Exporting routes code added, menu entry activated. The last inactive Router Manager menu entry 
 ('Visibility') is POI-related, and will be added later.
+- 'About' dialog updated; 'Credits' coming soon.
 - [Build 0.0.3.2](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.3.2.apk) uploaded.
 
 **14th June, 2017**
