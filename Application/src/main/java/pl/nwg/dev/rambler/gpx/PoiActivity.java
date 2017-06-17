@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.text.InputFilter;
@@ -19,6 +20,7 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -45,6 +47,7 @@ import org.osmdroid.events.MapListener;
 import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
@@ -63,7 +66,6 @@ import java.util.Map;
 
 import pt.karambola.commons.collections.ListUtils;
 import pt.karambola.gpx.beans.Point;
-import pt.karambola.gpx.beans.RoutePoint;
 import pt.karambola.gpx.predicate.PointFilter;
 import pt.karambola.gpx.util.GpxUtils;
 
@@ -111,6 +113,10 @@ public class PoiActivity extends Utils
     Integer ageMinValue = null;
     Integer ageMaxValue = null;
 
+    private boolean mMapDragged = false;
+
+    BoundingBox mMapViewBoundingBox;
+
     List<String> selectedPOITypes;
 
     @Override
@@ -140,15 +146,20 @@ public class PoiActivity extends Utils
                 .addApi(LocationServices.API)
                 .build();
 
-        if (Data.sCardinalGeoPoints == null) {
-            Data.sCardinalGeoPoints = new ArrayList<>();
-        }
-
-        Data.sSelectedAlternative = null;
-
         setUpMap();
 
-        refreshMap();
+        /*
+         * A workaround for mMapView.getBoundingBox() returning rubbish values when executed
+         * immediately here: let's wait 100ms. Possibly the delay could be adjusted in some way.
+         */
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                refreshMap();
+            }
+        }, 100);
     }
 
     private void setUpMap() {
@@ -197,17 +208,27 @@ public class PoiActivity extends Utils
             }
         };
 
-        restoreMapPosition();
-
+        /*
+         * If we want to limit the amount of markers to draw in the refreshMap() method to some
+         * nearest to the map center, we should refresh the map after it has been scrolled or zoomed.
+         * However, I didn't manage to locate any onMapDragEnd method. If so, let's set the
+         * mMapDragged boolean here, check it on the @onTouchEvent / MotionEvent.ACTION_UP,
+         * and refresh the map view if dragged.
+         */
         mMapView.setMapListener(new MapListener() {
             @Override
             public boolean onScroll(ScrollEvent event) {
-                //refreshMap();
+
+                mMapDragged = true;
+
                 return false;
             }
 
             @Override
             public boolean onZoom(ZoomEvent event) {
+
+                mMapDragged = true;
+
                 return false;
             }
         });
@@ -229,9 +250,12 @@ public class PoiActivity extends Utils
         } else {
             mapController.setCenter(Data.sLastCenter);
         }
+        mMapDragged = false;
     }
 
     private void refreshMap() {
+
+        mMapViewBoundingBox = mMapView.getBoundingBox();
 
         Data.sFilteredPoi = ListUtils.filter(Data.sCopiedPoiGpx.getPoints(), Data.sViewPoiFilter);
 
@@ -295,7 +319,9 @@ public class PoiActivity extends Utils
 
             markerToPoi.put(marker, poi);
 
-            mMapView.getOverlays().add(marker);
+            if (mMapViewBoundingBox.contains(markerPosition)) {
+                mMapView.getOverlays().add(marker);
+            }
 
             marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
                 @Override
@@ -340,6 +366,7 @@ public class PoiActivity extends Utils
             public void onClick(View v) {
                 mapController.setZoom(18);
                 mapController.setCenter(Data.sCurrentPosition);
+                refreshMap();
                 setButtonsState();
             }
         });
@@ -351,6 +378,7 @@ public class PoiActivity extends Utils
                 if (Data.sFilteredPoi != null && Data.sFilteredPoi.size() > 0) {
                     mMapView.zoomToBoundingBox(findBoundingBox(pointsToGeoPoints(Data.sFilteredPoi)), true);
                 }
+                refreshMap();
                 setButtonsState();
             }
         });
@@ -367,6 +395,7 @@ public class PoiActivity extends Utils
             public void onClick(View v) {
 
                 mapController.setZoom(mMapView.getProjection().getZoomLevel() +1);
+                refreshMap();
                 setButtonsState();
             }
         });
@@ -376,6 +405,7 @@ public class PoiActivity extends Utils
             public void onClick(View v) {
 
                 mapController.setZoom(mMapView.getProjection().getZoomLevel() -1);
+                refreshMap();
                 setButtonsState();
             }
         });
@@ -924,5 +954,24 @@ public class PoiActivity extends Utils
         } else {
             return super.onKeyDown(keyCode, event);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+
+            case MotionEvent.ACTION_UP:
+
+                if (mMapDragged) {
+
+                    mMapDragged = false;
+
+                    refreshMap();
+                }
+                break;
+        }
+        return true;
+
     }
 }
