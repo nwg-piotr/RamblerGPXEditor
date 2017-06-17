@@ -40,6 +40,7 @@ final class Data {
 
     static Integer sLastZoom;
     static GeoPoint sLastCenter;
+    static Float sLastRotation;
 
     /**
      * Index of currently selected route on the Data.sFilteredRoutes list

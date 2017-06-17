@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 
 import java.io.BufferedReader;
 import java.io.File;

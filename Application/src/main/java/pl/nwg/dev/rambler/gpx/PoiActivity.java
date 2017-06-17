@@ -51,6 +51,7 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
+import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -98,6 +99,8 @@ public class PoiActivity extends Utils
     private MapEventsReceiver mapEventsReceiver;
 
     private MyLocationNewOverlay mLocationOverlay;
+
+    private RotationGestureOverlay mRotationGestureOverlay;
 
     boolean enable_type;
     boolean enable_dst;
@@ -161,6 +164,9 @@ public class PoiActivity extends Utils
 
         mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
         mLocationOverlay.enableMyLocation();
+
+        mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
+        mRotationGestureOverlay.setEnabled(true);
 
         mMapView.setMaxZoomLevel(MAX_ZOOM_LEVEL);
         mMapView.setMinZoomLevel(MIN_ZOOM_LEVEL);
@@ -246,6 +252,8 @@ public class PoiActivity extends Utils
         mMapView.getOverlays().add(0, mapEventsOverlay);
 
         mMapView.getOverlays().add(mLocationOverlay);
+
+        mMapView.getOverlays().add(this.mRotationGestureOverlay);
 
         ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
         mMapView.getOverlays().add(mScaleBarOverlay);

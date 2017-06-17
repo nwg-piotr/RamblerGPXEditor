@@ -55,6 +55,7 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
+import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -122,10 +123,11 @@ public class RoutesBrowserActivity extends Utils
 
     private MyLocationNewOverlay mLocationOverlay;
 
+    private RotationGestureOverlay mRotationGestureOverlay;
+
     private List<GeoPoint> mAllGeopoints;
 
     private int mFilteredRoutesNumber = 0;
-    private int mAllRoutesNumber = 0;
 
     private Gpx gpxOut = new Gpx();
     String fileName = "myfile";
@@ -153,8 +155,8 @@ public class RoutesBrowserActivity extends Utils
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#33ffffff")));
-            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#55ffffff")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3300ffff")));
+            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#ccffffff")));
         }
 
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
@@ -188,6 +190,9 @@ public class RoutesBrowserActivity extends Utils
         mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
         mLocationOverlay.enableMyLocation();
 
+        mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
+        mRotationGestureOverlay.setEnabled(true);
+
         mMapView.setMaxZoomLevel(MAX_ZOOM_LEVEL);
         mMapView.setMinZoomLevel(MIN_ZOOM_LEVEL);
 
@@ -220,21 +225,16 @@ public class RoutesBrowserActivity extends Utils
 
     private void restoreMapPosition() {
 
-        if (Data.sLastZoom == null && Data.sLastCenter == null && mAllGeopoints != null) {
-            mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), true);
+        if (Data.sLastZoom == null) {
+            mapController.setZoom(3);
         } else {
+            mapController.setZoom(Data.sLastZoom);
+        }
 
-            if (Data.sLastZoom == null) {
-                mapController.setZoom(3);
-            } else {
-                mapController.setZoom(Data.sLastZoom);
-            }
-
-            if (Data.sLastCenter == null) {
-                mapController.setCenter(new GeoPoint(0d, 0d));
-            } else {
-                mapController.setCenter(Data.sLastCenter);
-            }
+        if (Data.sLastCenter == null) {
+            mapController.setCenter(new GeoPoint(0d, 0d));
+        } else {
+            mapController.setCenter(Data.sLastCenter);
         }
     }
 
@@ -246,6 +246,8 @@ public class RoutesBrowserActivity extends Utils
         mMapView.getOverlays().add(0, mapEventsOverlay);
 
         mMapView.getOverlays().add(mLocationOverlay);
+
+        mMapView.getOverlays().add(this.mRotationGestureOverlay);
 
         ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
         mMapView.getOverlays().add(mScaleBarOverlay);
@@ -259,7 +261,7 @@ public class RoutesBrowserActivity extends Utils
          */
         mAllGeopoints = new ArrayList<>();
 
-        mAllRoutesNumber = Data.sRoutesGpx.getRoutes().size();
+        final int allRoutesNumber = Data.sRoutesGpx.getRoutes().size();
 
         Data.sFilteredRoutes = ListUtils.filter(Data.sRoutesGpx.getRoutes(), Data.sViewRouteFilter);
 
@@ -411,7 +413,7 @@ public class RoutesBrowserActivity extends Utils
         } else {
             routePrompt.setText(getResources().getString(R.string.route_edit_prompt));
         }
-        routesSummary.setText(String.format(getResources().getString(R.string.x_of_y_routes), mFilteredRoutesNumber, mAllRoutesNumber));
+        routesSummary.setText(String.format(getResources().getString(R.string.x_of_y_routes), mFilteredRoutesNumber, allRoutesNumber));
 
         if(zoom_to_fit && mAllGeopoints.size() > 0) {
             mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), false);

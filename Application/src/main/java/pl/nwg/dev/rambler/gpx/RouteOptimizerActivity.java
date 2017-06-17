@@ -41,6 +41,7 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
+import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -83,6 +84,8 @@ public class RouteOptimizerActivity extends Utils
     private IMapController mapController;
 
     private MyLocationNewOverlay mLocationOverlay;
+
+    private RotationGestureOverlay mRotationGestureOverlay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,6 +138,9 @@ public class RouteOptimizerActivity extends Utils
         mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
         mLocationOverlay.enableMyLocation();
 
+        mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
+        mRotationGestureOverlay.setEnabled(true);
+
         mMapView.setMaxZoomLevel(MAX_ZOOM_LEVEL);
         mMapView.setMinZoomLevel(MIN_ZOOM_LEVEL);
 
@@ -183,6 +189,8 @@ public class RouteOptimizerActivity extends Utils
         mMapView.getOverlays().add(mScaleBarOverlay);
 
         mMapView.getOverlays().add(mLocationOverlay);
+
+        mMapView.getOverlays().add(this.mRotationGestureOverlay);
 
         mScaleBarOverlay.setScaleBarOffset(
                 (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()
@@ -409,6 +417,7 @@ public class RouteOptimizerActivity extends Utils
         }
         Data.sLastZoom = mMapView.getZoomLevel();
         Data.sLastCenter = new GeoPoint(mMapView.getMapCenter().getLatitude(), mMapView.getMapCenter().getLongitude());
+        Data.sLastRotation = mMapView.getRotation();
     }
 
     @Override
