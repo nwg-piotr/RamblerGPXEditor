@@ -3,8 +3,8 @@ CHANGELOG
 **17th June, 2017**
 
 - Basic POI Manager added. Missing menu: New from..., Clear all, Import, Export.
-- MyLocationNewOverlay added.
-- RotationGestureOverlay added.
+- MyLocationNewOverlay added (show my position on the map).
+- RotationGestureOverlay added (enables rotation gestures).
 
 **15th June, 2017**
 
