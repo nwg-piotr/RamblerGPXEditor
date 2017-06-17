@@ -25,7 +25,7 @@ manage to find in OSM-related libs. To achieve this, I set the `mMapDragged` boo
 
 **13th June, 2017**
 
-- Route Creator sets activity result NEW_ROUTE_ADDED to force the Routes Browser open the just created route properties dialog.
+- Route Creator sets activity result `NEW_ROUTE_ADDED` to force the Routes Browser open the just created route properties dialog.
 - 'Clear all routes' activated in the Browser menu.
 - Build 0.0.3.0 uploaded.
 
@@ -52,8 +52,8 @@ manage to find in OSM-related libs. To achieve this, I set the `mMapDragged` boo
 - In the Routes Browser selecting 'Edit' launches the route properties dialog first. You'll find the 'Edit points' button inside.
 Also the on-screen 'Edit' button added (pencil).
 - Route Editor: the number of route points (markers) to draw at a time limited to 20 nearest 
-to the center of the map. Utils.getNearestRoutePoints(IGeoPoint mapCenter, Route route) used instead 
-of original GpxUtils.getPointNamesSortedByDistance).
+to the center of the map. `Utils.getNearestRoutePoints(IGeoPoint mapCenter, Route route)` used instead 
+of original `GpxUtils.getPointNamesSortedByDistance)`.
 - Google Play Services version updated (11.0.0).
 - Fresh build uploaded (0.0.2.5).
 
