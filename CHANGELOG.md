@@ -6,7 +6,10 @@ CHANGELOG
 - MyLocationNewOverlay added (show my position on the map).
 - RotationGestureOverlay added (enables rotation gestures).
 - POI Manager / refreshMap() only draws markers which are going to be visible: 
-if (mMapViewBoundingBox.contains(markerPosition)).
+`if (mMapViewBoundingBox.contains(markerPosition))`.
+- As well above as the RouteEditor needed a substitute for the onMapDragEnd class, which I did not
+manage to find in OSM-related libs. To achieve this, I set the `mMapDragged` boolean true, and then
+ check the value in `onTouchEvent(MotionEvent motionEvent)`.
 
 **15th June, 2017**
 
