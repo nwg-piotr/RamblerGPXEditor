@@ -341,7 +341,7 @@ public class RouteCreatorActivity extends Utils
             @Override
             public void onClick(View v) {
                 if (Data.sCardinalGeoPoints != null && Data.sCardinalGeoPoints.size() > 1) {
-                    mMapView.zoomToBoundingBox(findBoundingBox(Data.sCardinalGeoPoints), true);
+                    mMapView.zoomToBoundingBox(findBoundingBox(Data.sCardinalGeoPoints), false);
                 }
                 setButtonsState();
             }
