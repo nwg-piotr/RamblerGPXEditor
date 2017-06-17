@@ -55,6 +55,8 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -117,6 +119,8 @@ public class RoutesBrowserActivity extends Utils
     private IMapController mapController;
 
     private MapEventsReceiver mapEventsReceiver;
+
+    private MyLocationNewOverlay mLocationOverlay;
 
     private List<GeoPoint> mAllGeopoints;
 
@@ -181,6 +185,9 @@ public class RoutesBrowserActivity extends Utils
         TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
+        mLocationOverlay.enableMyLocation();
+
         mMapView.setMaxZoomLevel(MAX_ZOOM_LEVEL);
         mMapView.setMinZoomLevel(MIN_ZOOM_LEVEL);
 
@@ -238,14 +245,14 @@ public class RoutesBrowserActivity extends Utils
         MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(mapEventsReceiver);
         mMapView.getOverlays().add(0, mapEventsOverlay);
 
+        mMapView.getOverlays().add(mLocationOverlay);
+
         ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
         mMapView.getOverlays().add(mScaleBarOverlay);
-        // Scale bar tries to draw as 1-inch, so to put it in the top center, set x offset to
-        // half screen width, minus half an inch.
+
         mScaleBarOverlay.setScaleBarOffset(
                 (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()
                         .getDisplayMetrics().xdpi / 2), 10);
-
 
         /*
          * We'll create bounding box around this

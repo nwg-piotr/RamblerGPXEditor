@@ -51,6 +51,8 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -94,6 +96,8 @@ public class PoiActivity extends Utils
     private IMapController mapController;
 
     private MapEventsReceiver mapEventsReceiver;
+
+    private MyLocationNewOverlay mLocationOverlay;
 
     boolean enable_type;
     boolean enable_dst;
@@ -154,6 +158,9 @@ public class PoiActivity extends Utils
 
         TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
+
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
+        mLocationOverlay.enableMyLocation();
 
         mMapView.setMaxZoomLevel(MAX_ZOOM_LEVEL);
         mMapView.setMinZoomLevel(MIN_ZOOM_LEVEL);
@@ -237,6 +244,8 @@ public class PoiActivity extends Utils
 
         MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(mapEventsReceiver);
         mMapView.getOverlays().add(0, mapEventsOverlay);
+
+        mMapView.getOverlays().add(mLocationOverlay);
 
         ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
         mMapView.getOverlays().add(mScaleBarOverlay);

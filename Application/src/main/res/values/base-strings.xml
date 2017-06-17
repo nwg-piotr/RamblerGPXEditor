@@ -20,5 +20,6 @@
     <string name="route_editor_name">Route Editor</string>
     <string name="route_picker_name">Route Manager</string>
     <string name="route_optimizer_name">Route Optimizer</string>
+    <string name="poi_manager_name">POI Manager</string>
 
 </resources>

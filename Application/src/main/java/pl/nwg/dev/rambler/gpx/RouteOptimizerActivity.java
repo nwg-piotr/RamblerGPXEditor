@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationServices;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -40,6 +41,8 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.TilesOverlay;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +81,8 @@ public class RouteOptimizerActivity extends Utils
 
     private MapView mMapView;
     private IMapController mapController;
+
+    private MyLocationNewOverlay mLocationOverlay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,6 +132,9 @@ public class RouteOptimizerActivity extends Utils
         TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
+        mLocationOverlay.enableMyLocation();
+
         mMapView.setMaxZoomLevel(MAX_ZOOM_LEVEL);
         mMapView.setMinZoomLevel(MIN_ZOOM_LEVEL);
 
@@ -173,6 +181,8 @@ public class RouteOptimizerActivity extends Utils
 
         ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
         mMapView.getOverlays().add(mScaleBarOverlay);
+
+        mMapView.getOverlays().add(mLocationOverlay);
 
         mScaleBarOverlay.setScaleBarOffset(
                 (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()
