@@ -252,9 +252,9 @@ public class RoutesBrowserActivity extends Utils
          */
         mAllGeopoints = new ArrayList<>();
 
-        mAllRoutesNumber = Data.mRoutesGpx.getRoutes().size();
+        mAllRoutesNumber = Data.sRoutesGpx.getRoutes().size();
 
-        Data.sFilteredRoutes = ListUtils.filter(Data.mRoutesGpx.getRoutes(), Data.sViewRouteFilter);
+        Data.sFilteredRoutes = ListUtils.filter(Data.sRoutesGpx.getRoutes(), Data.sViewRouteFilter);
 
         mFilteredRoutesNumber = Data.sFilteredRoutes.size();
 
@@ -668,8 +668,8 @@ public class RoutesBrowserActivity extends Utils
         menu.findItem(R.id.routes_delete_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_edit_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_simplify_selected).setEnabled(Data.sSelectedRouteIdx != null);
-        menu.findItem(R.id.routes_clear).setEnabled(Data.mRoutesGpx.getRoutes().size() > 0);
-        menu.findItem(R.id.export).setEnabled(Data.mRoutesGpx.getRoutes().size() > 0);
+        menu.findItem(R.id.routes_clear).setEnabled(Data.sRoutesGpx.getRoutes().size() > 0);
+        menu.findItem(R.id.export).setEnabled(Data.sRoutesGpx.getRoutes().size() > 0);
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -740,7 +740,7 @@ public class RoutesBrowserActivity extends Utils
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                Data.mRoutesGpx.removeRoute(route);
+                                Data.sRoutesGpx.removeRoute(route);
                                 Data.sSelectedRouteIdx = null;
                                 refreshMap();
 
@@ -758,7 +758,7 @@ public class RoutesBrowserActivity extends Utils
 
             case R.id.routes_clear:
 
-                if(Data.mRoutesGpx.getRoutes().size() > 0) {
+                if(Data.sRoutesGpx.getRoutes().size() > 0) {
                     clearRoutes();
                 } else {
                     Toast.makeText(this, getResources().getString(R.string.no_routes_to_clear), Toast.LENGTH_LONG).show();
@@ -857,7 +857,7 @@ public class RoutesBrowserActivity extends Utils
 
     private void displayFilterDialog() {
 
-        final List<String> rteTypes = GpxUtils.getDistinctRouteTypes(Data.mRoutesGpx.getRoutes());
+        final List<String> rteTypes = GpxUtils.getDistinctRouteTypes(Data.sRoutesGpx.getRoutes());
 
         // just used to build the multichoice selector
         final String[] all_types = rteTypes.toArray(new String[rteTypes.size()]);
@@ -1090,7 +1090,7 @@ public class RoutesBrowserActivity extends Utils
 
     private void displaySelectRouteDialog() {
 
-        if (Data.mRoutesGpx.getRoutes().size() == 0 || Data.sFilteredRoutes.size() == 0) {
+        if (Data.sRoutesGpx.getRoutes().size() == 0 || Data.sFilteredRoutes.size() == 0) {
 
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_routes_memory), Toast.LENGTH_LONG).show();
             return;
@@ -1202,7 +1202,7 @@ public class RoutesBrowserActivity extends Utils
         final EditText editDesc = (EditText) routeEditLayout.findViewById(R.id.route_description_edit);
 
         final Spinner spinner = (Spinner) routeEditLayout.findViewById(R.id.route_type_spinner);
-        final List<String> rteTypes = GpxUtils.getDistinctRouteTypes(Data.mRoutesGpx.getRoutes());
+        final List<String> rteTypes = GpxUtils.getDistinctRouteTypes(Data.sRoutesGpx.getRoutes());
         rteTypes.add(0, getResources().getString(R.string.type));
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, rteTypes);
@@ -1215,7 +1215,7 @@ public class RoutesBrowserActivity extends Utils
         if (picked_route.getNumber() != null) {
             editNumber.setText(String.valueOf(picked_route.getNumber()));
         } else {
-            editNumber.setText(String.valueOf(GpxUtils.getRoutesMaxNumber(Data.mRoutesGpx) + 1));
+            editNumber.setText(String.valueOf(GpxUtils.getRoutesMaxNumber(Data.sRoutesGpx) + 1));
         }
 
         editName.setText(picked_route.getName());
@@ -1394,9 +1394,9 @@ public class RoutesBrowserActivity extends Utils
                                     gpxRoutesPickedByUser.add(sortedRoutes.get(idxOfRoute));
                                 }
 
-                                Data.mRoutesGpx.addRoutes(gpxRoutesPickedByUser);
+                                Data.sRoutesGpx.addRoutes(gpxRoutesPickedByUser);
 
-                                int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.mRoutesGpx);
+                                int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.sRoutesGpx);
 
                                 if (purged_routes != 0) {
 
@@ -1428,9 +1428,9 @@ public class RoutesBrowserActivity extends Utils
                                 gpxRoutesPickedByUser.add(sortedRoutes.get(idxOfRoute));
                             }
 
-                            Data.mRoutesGpx.addRoutes(gpxRoutesPickedByUser);
+                            Data.sRoutesGpx.addRoutes(gpxRoutesPickedByUser);
 
-                            int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.mRoutesGpx);
+                            int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.sRoutesGpx);
 
                             if (purged_routes != 0) {
 
@@ -1576,9 +1576,9 @@ public class RoutesBrowserActivity extends Utils
 
                                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.simplifying), Toast.LENGTH_SHORT).show();
                                 }
-                                Data.mRoutesGpx.addRoutes(gpxRoutesPickedByUser);
+                                Data.sRoutesGpx.addRoutes(gpxRoutesPickedByUser);
 
-                                int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.mRoutesGpx);
+                                int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.sRoutesGpx);
 
                                 if (purged_routes != 0) {
 
@@ -1620,9 +1620,9 @@ public class RoutesBrowserActivity extends Utils
                                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.simplifying), Toast.LENGTH_SHORT).show();
                             }
 
-                            Data.mRoutesGpx.addRoutes(importedRoutes);
+                            Data.sRoutesGpx.addRoutes(importedRoutes);
 
-                            int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.mRoutesGpx);
+                            int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.sRoutesGpx);
 
                             if (purged_routes != 0) {
 
@@ -1667,7 +1667,7 @@ public class RoutesBrowserActivity extends Utils
                 .setPositiveButton(clearText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Data.mRoutesGpx.clearRoutes();
+                        Data.sRoutesGpx.clearRoutes();
                         Data.sFilteredRoutes.clear();
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.routes_cleared), Toast.LENGTH_SHORT).show();
                         refreshMap();
@@ -1683,14 +1683,14 @@ public class RoutesBrowserActivity extends Utils
 
     private void displayExportMultipleDialog() {
 
-        if (Data.mRoutesGpx.getRoutes().size() == 0) {
+        if (Data.sRoutesGpx.getRoutes().size() == 0) {
 
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_routes_memory), Toast.LENGTH_LONG).show();
             return;
         }
 
         final List<Route> sortedRoutes = new ArrayList<>();
-        final List<String> gpxRteDisplayNames = GpxUtils.getRouteNamesSortedAlphabeticaly(Data.mRoutesGpx.getRoutes(), sortedRoutes);
+        final List<String> gpxRteDisplayNames = GpxUtils.getRouteNamesSortedAlphabeticaly(Data.sRoutesGpx.getRoutes(), sortedRoutes);
 
         final List<String> allNames = new ArrayList<>();
         allNames.addAll(gpxRteDisplayNames);

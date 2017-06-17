@@ -146,9 +146,9 @@ public class MainActivity extends Utils {
         if (!defaultPoisFile.exists()) {
             try {
                 defaultPoisFile.createNewFile();
-                Data.mPoisGpx = new Gpx();
-                GpxFileIo.parseOut(Data.mPoisGpx, defaultPoisFile);
-                Data.mPoisGpx.resetIsChanged();
+                Data.sPoiGpx = new Gpx();
+                GpxFileIo.parseOut(Data.sPoiGpx, defaultPoisFile);
+                Data.sPoiGpx.resetIsChanged();
 
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), getString(R.string.failed_rambler_pois), Toast.LENGTH_SHORT).show();
@@ -157,9 +157,9 @@ public class MainActivity extends Utils {
         if (!defaultRoutesFile.exists()) {
             try {
                 defaultRoutesFile.createNewFile();
-                Data.mRoutesGpx = new Gpx();
-                GpxFileIo.parseOut(Data.mRoutesGpx, defaultRoutesFile);
-                Data.mRoutesGpx.resetIsChanged();
+                Data.sRoutesGpx = new Gpx();
+                GpxFileIo.parseOut(Data.sRoutesGpx, defaultRoutesFile);
+                Data.sRoutesGpx.resetIsChanged();
 
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), getString(R.string.failed_rambler_routes), Toast.LENGTH_SHORT).show();
@@ -168,9 +168,9 @@ public class MainActivity extends Utils {
         if (!defaultTracksFile.exists()) {
             try {
                 defaultTracksFile.createNewFile();
-                Data.mTracksGpx = new Gpx();
-                GpxFileIo.parseOut(Data.mTracksGpx, defaultTracksFile);
-                Data.mTracksGpx.resetIsChanged();
+                Data.sTracksGpx = new Gpx();
+                GpxFileIo.parseOut(Data.sTracksGpx, defaultTracksFile);
+                Data.sTracksGpx.resetIsChanged();
 
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), getString(R.string.failed_rambler_tracks), Toast.LENGTH_SHORT).show();
@@ -189,9 +189,9 @@ public class MainActivity extends Utils {
 
                 Gpx inputGpx = GpxStreamIo.parseIn(new GpxParser(), inputStream);
 
-                Data.mPoisGpx.setPoints(inputGpx.getPoints());
+                Data.sPoiGpx.setPoints(inputGpx.getPoints());
 
-                Data.mRoutesGpx.setRoutes(inputGpx.getRoutes());
+                Data.sRoutesGpx.setRoutes(inputGpx.getRoutes());
 
                 refreshLoadedDataInfo();
                 TextView openFile = (TextView) findViewById(R.id.open_file);
@@ -212,14 +212,15 @@ public class MainActivity extends Utils {
             public void onClick(View arg0) {
 
                 /*
-                Intent i;
-                i = new Intent(MainActivity.this, PoisActivity.class);
-                i.putExtra("current_lat", String.valueOf(currentLat));
-                i.putExtra("current_lon", String.valueOf(currentLon));
-                i.putExtra("current_ele", String.valueOf(currentAlt));
+                 * Let's work on a copy of POI data, (to be saved or not on exit).
+                 */
+                Data.sCopiedPoiGpx = Utils.copyPoiGpx(Data.sPoiGpx);
+                Data.sCopiedPoiGpx.resetIsChanged();
 
-                startActivityForResult(i, 90);
-                */
+                Intent i;
+                i = new Intent(MainActivity.this, PoiActivity.class);
+
+                startActivity(i);
             }
 
         });
@@ -229,16 +230,6 @@ public class MainActivity extends Utils {
 
             @Override
             public void onClick(View arg0) {
-
-                /*
-                Intent i;
-                i = new Intent(MainActivity.this, RoutesBrowserActivity.class);
-                i.putExtra("current_lat", String.valueOf(currentLat));
-                i.putExtra("current_lon", String.valueOf(currentLon));
-                i.putExtra("current_ele", String.valueOf(currentAlt));
-
-                startActivityForResult(i, 90);
-                */
 
                 Intent i;
                 i = new Intent(MainActivity.this, RoutesBrowserActivity.class);
@@ -254,28 +245,28 @@ public class MainActivity extends Utils {
             @Override
             public void onClick(View arg0) {
 
-                if (Data.mPoisGpx.isChanged() || Data.mRoutesGpx.isChanged() || Data.mTracksGpx.isChanged()) {
+                if (Data.sPoiGpx.isChanged() || Data.sRoutesGpx.isChanged() || Data.sTracksGpx.isChanged()) {
 
                     displayDataChangedDialog();
 
                 } else {
 
-                    Data.mPoisGpx = new Gpx();
-                    Data.mRoutesGpx = new Gpx();
-                    Data.mTracksGpx = new Gpx();
+                    Data.sPoiGpx = new Gpx();
+                    Data.sRoutesGpx = new Gpx();
+                    Data.sTracksGpx = new Gpx();
 
-                    Data.mPoisGpx.resetIsChanged();
-                    Data.mRoutesGpx.resetIsChanged();
-                    Data.mTracksGpx.resetIsChanged();
+                    Data.sPoiGpx.resetIsChanged();
+                    Data.sRoutesGpx.resetIsChanged();
+                    Data.sTracksGpx.resetIsChanged();
 
                     Data.sSelectedRouteIdx = null;
 
                     refreshLoadedDataInfo();
                 }
 
-                Data.mPoisGpx = new Gpx();
-                Data.mRoutesGpx = new Gpx();
-                Data.mTracksGpx = new Gpx();
+                Data.sPoiGpx = new Gpx();
+                Data.sRoutesGpx = new Gpx();
+                Data.sTracksGpx = new Gpx();
 
                 refreshLoadedDataInfo();
 
@@ -391,26 +382,26 @@ public class MainActivity extends Utils {
 
                 switch (position) {
                     case 0:
-                        if (Data.mPoisGpx.isChanged() || Data.mRoutesGpx.isChanged() || Data.mTracksGpx.isChanged()) {
+                        if (Data.sPoiGpx.isChanged() || Data.sRoutesGpx.isChanged() || Data.sTracksGpx.isChanged()) {
 
                             displayDataChangedDialog();
 
                         } else {
 
-                            Data.mPoisGpx = new Gpx();
-                            Data.mRoutesGpx = new Gpx();
-                            Data.mTracksGpx = new Gpx();
+                            Data.sPoiGpx = new Gpx();
+                            Data.sRoutesGpx = new Gpx();
+                            Data.sTracksGpx = new Gpx();
 
-                            Data.mPoisGpx.resetIsChanged();
-                            Data.mRoutesGpx.resetIsChanged();
-                            Data.mTracksGpx.resetIsChanged();
+                            Data.sPoiGpx.resetIsChanged();
+                            Data.sRoutesGpx.resetIsChanged();
+                            Data.sTracksGpx.resetIsChanged();
 
                             refreshLoadedDataInfo();
                         }
 
-                        Data.mPoisGpx = new Gpx();
-                        Data.mRoutesGpx = new Gpx();
-                        Data.mTracksGpx = new Gpx();
+                        Data.sPoiGpx = new Gpx();
+                        Data.sRoutesGpx = new Gpx();
+                        Data.sTracksGpx = new Gpx();
 
                         refreshLoadedDataInfo();
 
@@ -758,16 +749,16 @@ public class MainActivity extends Utils {
 
                     case ACTION_SAVE_AS:
                         // Save all to the picked file
-                        String savingPoi = String.format(getString(R.string.poi_loaded), Data.mPoisGpx.getPoints().size());
-                        String savingRoutes = String.format(getString(R.string.routes_loaded), Data.mRoutesGpx.getRoutes().size());
-                        String savingTracks = String.format(getString(R.string.tracks_loaded), Data.mTracksGpx.getTracks().size());
+                        String savingPoi = String.format(getString(R.string.poi_loaded), Data.sPoiGpx.getPoints().size());
+                        String savingRoutes = String.format(getString(R.string.routes_loaded), Data.sRoutesGpx.getRoutes().size());
+                        String savingTracks = String.format(getString(R.string.tracks_loaded), Data.sTracksGpx.getTracks().size());
                         Toast.makeText(getApplicationContext(), getString(R.string.saving) + " " + savingPoi + ", " + savingRoutes + ", " + savingTracks, Toast.LENGTH_LONG).show();
 
                         Data.mGpx = new Gpx();
 
-                        Data.mGpx.addPoints(Data.mPoisGpx.getPoints());
-                        Data.mGpx.addRoutes(Data.mRoutesGpx.getRoutes());
-                        Data.mGpx.addTracks(Data.mTracksGpx.getTracks());
+                        Data.mGpx.addPoints(Data.sPoiGpx.getPoints());
+                        Data.mGpx.addRoutes(Data.sRoutesGpx.getRoutes());
+                        Data.mGpx.addTracks(Data.sTracksGpx.getTracks());
 
                         GpxFileIo.parseOut(Data.mGpx, fileFullPath);
 
@@ -883,7 +874,7 @@ public class MainActivity extends Utils {
 
     private void saveGpxDestructive(String filename) {
 
-        if (Data.mPoisGpx.getPoints().size() == 0 && Data.mRoutesGpx.getRoutes().size() == 0 && Data.mTracksGpx.getTracks().size() == 0) {
+        if (Data.sPoiGpx.getPoints().size() == 0 && Data.sRoutesGpx.getRoutes().size() == 0 && Data.sTracksGpx.getTracks().size() == 0) {
             Toast.makeText(this, getString(R.string.nothing_to_save), Toast.LENGTH_LONG).show();
             return;
         }
@@ -918,16 +909,16 @@ public class MainActivity extends Utils {
                         .setPositiveButton(saveText, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                String savingPoi = String.format(getString(R.string.poi_loaded), Data.mPoisGpx.getPoints().size());
-                                String savingRoutes = String.format(getString(R.string.routes_loaded), Data.mRoutesGpx.getRoutes().size());
-                                String savingTracks = String.format(getString(R.string.tracks_loaded), Data.mTracksGpx.getTracks().size());
+                                String savingPoi = String.format(getString(R.string.poi_loaded), Data.sPoiGpx.getPoints().size());
+                                String savingRoutes = String.format(getString(R.string.routes_loaded), Data.sRoutesGpx.getRoutes().size());
+                                String savingTracks = String.format(getString(R.string.tracks_loaded), Data.sTracksGpx.getTracks().size());
                                 Toast.makeText(getApplicationContext(), getString(R.string.saving) + " " + savingPoi + ", " + savingRoutes + ", " + savingTracks, Toast.LENGTH_LONG).show();
 
                                 Data.mGpx = new Gpx();
 
-                                Data.mGpx.addPoints(Data.mPoisGpx.getPoints());
-                                Data.mGpx.addRoutes(Data.mRoutesGpx.getRoutes());
-                                Data.mGpx.addTracks(Data.mTracksGpx.getTracks());
+                                Data.mGpx.addPoints(Data.sPoiGpx.getPoints());
+                                Data.mGpx.addRoutes(Data.sRoutesGpx.getRoutes());
+                                Data.mGpx.addTracks(Data.sTracksGpx.getTracks());
 
                                 GpxFileIo.parseOut(Data.mGpx, new_file) ;
                             }
@@ -940,16 +931,16 @@ public class MainActivity extends Utils {
             } else {
 
                 // Just save
-                String savingPoi = String.format(getString(R.string.poi_loaded), Data.mPoisGpx.getPoints().size());
-                String savingRoutes = String.format(getString(R.string.routes_loaded), Data.mRoutesGpx.getRoutes().size());
-                String savingTracks = String.format(getString(R.string.tracks_loaded), Data.mTracksGpx.getTracks().size());
+                String savingPoi = String.format(getString(R.string.poi_loaded), Data.sPoiGpx.getPoints().size());
+                String savingRoutes = String.format(getString(R.string.routes_loaded), Data.sRoutesGpx.getRoutes().size());
+                String savingTracks = String.format(getString(R.string.tracks_loaded), Data.sTracksGpx.getTracks().size());
                 Toast.makeText(getApplicationContext(), getString(R.string.saving) + " " + savingPoi + ", " + savingRoutes + ", " + savingTracks, Toast.LENGTH_LONG).show();
 
                 Data.mGpx = new Gpx();
 
-                Data.mGpx.addPoints(Data.mPoisGpx.getPoints());
-                Data.mGpx.addRoutes(Data.mRoutesGpx.getRoutes());
-                Data.mGpx.addTracks(Data.mTracksGpx.getTracks());
+                Data.mGpx.addPoints(Data.sPoiGpx.getPoints());
+                Data.mGpx.addRoutes(Data.sRoutesGpx.getRoutes());
+                Data.mGpx.addTracks(Data.sTracksGpx.getTracks());
 
                 GpxFileIo.parseOut(Data.mGpx, new_file) ;
 
@@ -981,9 +972,9 @@ public class MainActivity extends Utils {
         openFile.setText("");
 
         try {
-            String loadedPoi = String.format(getString(R.string.poi_loaded), Data.mPoisGpx.getPoints().size()) + ", ";
-            String loadedRoutes = String.format(getString(R.string.routes_loaded), Data.mRoutesGpx.getRoutes().size()) + ", ";
-            String loadedTracks = String.format(getString(R.string.tracks_loaded), Data.mTracksGpx.getTracks().size());
+            String loadedPoi = String.format(getString(R.string.poi_loaded), Data.sPoiGpx.getPoints().size()) + ", ";
+            String loadedRoutes = String.format(getString(R.string.routes_loaded), Data.sRoutesGpx.getRoutes().size()) + ", ";
+            String loadedTracks = String.format(getString(R.string.tracks_loaded), Data.sTracksGpx.getTracks().size());
             String setMe = loadedPoi + loadedRoutes + loadedTracks;
             loadedData.setText(setMe);
         } catch(Exception e) {
@@ -1013,13 +1004,13 @@ public class MainActivity extends Utils {
                 .setNegativeButton(dontSaveText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Data.mPoisGpx = new Gpx();
-                        Data.mRoutesGpx = new Gpx();
-                        Data.mTracksGpx = new Gpx();
+                        Data.sPoiGpx = new Gpx();
+                        Data.sRoutesGpx = new Gpx();
+                        Data.sTracksGpx = new Gpx();
 
-                        Data.mPoisGpx.resetIsChanged();
-                        Data.mRoutesGpx.resetIsChanged();
-                        Data.mTracksGpx.resetIsChanged();
+                        Data.sPoiGpx.resetIsChanged();
+                        Data.sRoutesGpx.resetIsChanged();
+                        Data.sTracksGpx.resetIsChanged();
 
                         refreshLoadedDataInfo();
                     }
@@ -1045,60 +1036,60 @@ public class MainActivity extends Utils {
         @Override
         protected Void doInBackground(Void... params) {
 
-            if(Data.mPoisGpx == null) {
+            if(Data.sPoiGpx == null) {
 
                 try {
-                    Data.mPoisGpx = GpxFileIo.parseIn(defaultPoisFile);
+                    Data.sPoiGpx = GpxFileIo.parseIn(defaultPoisFile);
 
-                    int purged_pois = GpxUtils.purgePointsSimilar(Data.mPoisGpx);
+                    int purged_pois = GpxUtils.purgePointsSimilar(Data.sPoiGpx);
 
                     if (purged_pois != 0) {
                         Toast.makeText(getApplicationContext(), getString(R.string.removed) + " " + purged_pois + " " + getString(R.string.duplicated_poi), Toast.LENGTH_SHORT).show();
                     }
-                    Data.mPoisGpx.resetIsChanged();
+                    Data.sPoiGpx.resetIsChanged();
 
                 } catch (Exception e) {
 
                     errorMessage = "ramblerPois.gpx";
                     corruptedFile = defaultPoisFile;
-                    corruptedGpx = Data.mPoisGpx;
+                    corruptedGpx = Data.sPoiGpx;
                 }
             }
 
 
-            if(Data.mRoutesGpx == null) {
+            if(Data.sRoutesGpx == null) {
 
                 try {
-                    Data.mRoutesGpx = GpxFileIo.parseIn(defaultRoutesFile);
+                    Data.sRoutesGpx = GpxFileIo.parseIn(defaultRoutesFile);
 
-                    int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.mRoutesGpx);
+                    int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.sRoutesGpx);
 
                     if (purged_routes != 0) {
                         Toast.makeText(getApplicationContext(), getString(R.string.removed) + " " + purged_routes + " " + getString(R.string.overlapping_routes), Toast.LENGTH_SHORT).show();
                     }
-                    Data.mRoutesGpx.resetIsChanged();
+                    Data.sRoutesGpx.resetIsChanged();
 
                 } catch (Exception e) {
 
                     errorMessage = "ramblerRoutes.gpx";
                     corruptedFile = defaultRoutesFile;
-                    corruptedGpx = Data.mRoutesGpx;
+                    corruptedGpx = Data.sRoutesGpx;
                 }
             }
 
 
-            if (Data.mTracksGpx == null) {
+            if (Data.sTracksGpx == null) {
 
                 try {
-                    Data.mTracksGpx = GpxFileIo.parseIn(defaultTracksFile);
+                    Data.sTracksGpx = GpxFileIo.parseIn(defaultTracksFile);
 
-                    Data.mTracksGpx.resetIsChanged();
+                    Data.sTracksGpx.resetIsChanged();
 
                 } catch (Exception e) {
 
                     errorMessage = "ramblerTracks.gpx";
                     corruptedFile = defaultTracksFile;
-                    corruptedGpx = Data.mTracksGpx;
+                    corruptedGpx = Data.sTracksGpx;
                 }
             }
             return null;
@@ -1125,7 +1116,7 @@ public class MainActivity extends Utils {
         @Override
         protected void onPreExecute() {
 
-            if(Data.mPoisGpx == null || Data.mRoutesGpx == null || Data.mTracksGpx == null) {
+            if(Data.sPoiGpx == null || Data.sRoutesGpx == null || Data.sTracksGpx == null) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
@@ -1143,20 +1134,20 @@ public class MainActivity extends Utils {
 
         try {
             file.createNewFile();
-            if (gpx == Data.mPoisGpx) {
+            if (gpx == Data.sPoiGpx) {
 
-                Data.mPoisGpx = new Gpx();
-                GpxFileIo.parseOut(Data.mPoisGpx, file);
+                Data.sPoiGpx = new Gpx();
+                GpxFileIo.parseOut(Data.sPoiGpx, file);
 
-            } else if (gpx == Data.mRoutesGpx) {
+            } else if (gpx == Data.sRoutesGpx) {
 
-                Data.mRoutesGpx = new Gpx();
-                GpxFileIo.parseOut(Data.mRoutesGpx, file);
+                Data.sRoutesGpx = new Gpx();
+                GpxFileIo.parseOut(Data.sRoutesGpx, file);
 
-            } else if (gpx == Data.mTracksGpx) {
+            } else if (gpx == Data.sTracksGpx) {
 
-                Data.mTracksGpx = new Gpx();
-                GpxFileIo.parseOut(Data.mTracksGpx, file);
+                Data.sTracksGpx = new Gpx();
+                GpxFileIo.parseOut(Data.sTracksGpx, file);
             }
 
 
@@ -1177,16 +1168,16 @@ public class MainActivity extends Utils {
 
             try {
 
-                if (Data.mPoisGpx.isChanged()) {
-                    GpxFileIo.parseOut(Data.mPoisGpx, defaultPoisFile);
+                if (Data.sPoiGpx.isChanged()) {
+                    GpxFileIo.parseOut(Data.sPoiGpx, defaultPoisFile);
                 }
 
-                if (Data.mRoutesGpx.isChanged()) {
-                    GpxFileIo.parseOut(Data.mRoutesGpx, defaultRoutesFile);
+                if (Data.sRoutesGpx.isChanged()) {
+                    GpxFileIo.parseOut(Data.sRoutesGpx, defaultRoutesFile);
                 }
 
-                if (Data.mTracksGpx.isChanged()) {
-                    GpxFileIo.parseOut(Data.mTracksGpx, defaultTracksFile);
+                if (Data.sTracksGpx.isChanged()) {
+                    GpxFileIo.parseOut(Data.sTracksGpx, defaultTracksFile);
                 }
 
             } catch (Exception e) {
@@ -1208,7 +1199,7 @@ public class MainActivity extends Utils {
         @Override
         protected void onPreExecute() {
 
-            if (Data.mPoisGpx.isChanged() || Data.mRoutesGpx.isChanged() || Data.mTracksGpx.isChanged()) {
+            if (Data.sPoiGpx.isChanged() || Data.sRoutesGpx.isChanged() || Data.sTracksGpx.isChanged()) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
@@ -1245,24 +1236,24 @@ public class MainActivity extends Utils {
 
             if (gpxIn != null) {
 
-                Data.mPoisGpx = new Gpx();
-                Data.mPoisGpx.setPoints(gpxIn.getPoints());
+                Data.sPoiGpx = new Gpx();
+                Data.sPoiGpx.setPoints(gpxIn.getPoints());
 
-                purger_pois = GpxUtils.purgePointsSimilar(Data.mPoisGpx);
+                purger_pois = GpxUtils.purgePointsSimilar(Data.sPoiGpx);
 
-                Data.mPoisGpx.resetIsChanged();
+                Data.sPoiGpx.resetIsChanged();
 
-                Data.mRoutesGpx = new Gpx();
-                Data.mRoutesGpx.setRoutes(gpxIn.getRoutes());
+                Data.sRoutesGpx = new Gpx();
+                Data.sRoutesGpx.setRoutes(gpxIn.getRoutes());
 
-                purged_routes = GpxUtils.purgeRoutesOverlapping(Data.mRoutesGpx);
+                purged_routes = GpxUtils.purgeRoutesOverlapping(Data.sRoutesGpx);
 
-                Data.mRoutesGpx.resetIsChanged();
+                Data.sRoutesGpx.resetIsChanged();
 
-                Data.mTracksGpx = new Gpx();
-                Data.mTracksGpx.setTracks(gpxIn.getTracks());
+                Data.sTracksGpx = new Gpx();
+                Data.sTracksGpx.setTracks(gpxIn.getTracks());
 
-                Data.mTracksGpx.resetIsChanged();
+                Data.sTracksGpx.resetIsChanged();
 
             }
             return null;
@@ -1324,14 +1315,14 @@ public class MainActivity extends Utils {
 
                 try {
 
-                    GpxFileIo.parseOut(Data.mPoisGpx, defaultPoisFile);
-                    Data.mPoisGpx.resetIsChanged();
+                    GpxFileIo.parseOut(Data.sPoiGpx, defaultPoisFile);
+                    Data.sPoiGpx.resetIsChanged();
 
-                    GpxFileIo.parseOut(Data.mRoutesGpx, defaultRoutesFile);
-                    Data.mRoutesGpx.resetIsChanged();
+                    GpxFileIo.parseOut(Data.sRoutesGpx, defaultRoutesFile);
+                    Data.sRoutesGpx.resetIsChanged();
 
-                    GpxFileIo.parseOut(Data.mTracksGpx, defaultTracksFile);
-                    Data.mTracksGpx.resetIsChanged();
+                    GpxFileIo.parseOut(Data.sTracksGpx, defaultTracksFile);
+                    Data.sTracksGpx.resetIsChanged();
 
                 } catch (Exception e) {
 

@@ -386,12 +386,12 @@ public class RouteCreatorActivity extends Utils
             @Override
             public void onClick(View v) {
                 if (selectedOsrmRoute != null) {
-                    Data.mRoutesGpx.addRoute(selectedOsrmRoute);
+                    Data.sRoutesGpx.addRoute(selectedOsrmRoute);
                     clearRoutes();
                     Data.sCardinalGeoPoints = new ArrayList<>();
 
                     Intent i = new Intent(RouteCreatorActivity.this, RoutesBrowserActivity.class);
-                    Data.sSelectedRouteIdx = Data.mRoutesGpx.getRoutes().indexOf(selectedOsrmRoute);
+                    Data.sSelectedRouteIdx = Data.sRoutesGpx.getRoutes().indexOf(selectedOsrmRoute);
                     setResult(Data.NEW_ROUTE_ADDED, i);
 
                     finish();
@@ -448,7 +448,7 @@ public class RouteCreatorActivity extends Utils
 
         /*
          * When the Route Manager main activity (picker) is ready, this button will be adding selected route
-         * to Data.mRoutesGpx, and close the Creator.
+         * to Data.sRoutesGpx, and close the Creator.
          */
         if (Data.osrmRoutes != null && Data.osrmRoutes.size() > 0 && Data.sSelectedAlternative != null) {
             saveButton.setEnabled(true);

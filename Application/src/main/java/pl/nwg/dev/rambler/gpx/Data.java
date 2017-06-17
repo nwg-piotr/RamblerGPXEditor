@@ -8,8 +8,10 @@ import java.util.List;
 
 import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Gpx;
+import pt.karambola.gpx.beans.Point;
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.comparator.RouteComparator;
+import pt.karambola.gpx.predicate.PointFilter;
 import pt.karambola.gpx.predicate.RouteFilter;
 
 /**
@@ -30,9 +32,9 @@ final class Data {
 
     static Gpx mGpx = null;
 
-    static Gpx mPoisGpx = null;
-    static Gpx mRoutesGpx = null;
-    static Gpx mTracksGpx = null;
+    static Gpx sPoiGpx = null;
+    static Gpx sRoutesGpx = null;
+    static Gpx sTracksGpx = null;
 
     static String lastOpenFile = null;
 
@@ -52,7 +54,7 @@ final class Data {
     static List<GeoPoint> routeNodes;
 
     /**
-     * view filtering
+     * Routes view filtering
      */
     static List<String> sSelectedRouteTypes;
     static Double sDstStartMinValue = null;
@@ -84,4 +86,10 @@ final class Data {
 
     static final int OPTIMIZER_POINTS_LIMIT = 1000;
 
+    /**
+     * POI view filtering
+     */
+    static List<Point> sFilteredPoi = new ArrayList<>();
+    static PointFilter sViewPoiFilter = new PointFilter();
+    static Gpx sCopiedPoiGpx;
 }

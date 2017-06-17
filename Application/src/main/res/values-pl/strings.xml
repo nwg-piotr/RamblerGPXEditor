@@ -421,5 +421,6 @@ PL Piotr Miller</string>
     <string name="optimizer_prompt">%1$d punktów, maksymalny błąd: %2$d m</string>
 
     <string name="github"><a href="https://github.com/nwg-piotr/RamblerGPXEditor">Projekt na GitHub</a></string>
+    <string name="dialog_poi_changed_message">POI zmodyfikowane. Zapisać zmiany?</string>
 
 </resources>

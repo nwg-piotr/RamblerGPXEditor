@@ -268,14 +268,14 @@ public class RouteOptimizerActivity extends Utils
 
                 if (Data.sSelectedRouteIdx != null) {
 
-                    Data.mRoutesGpx.removeRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
-                    Data.mRoutesGpx.addRoute(Data.sCopiedRoute);
-                    Data.sSelectedRouteIdx = Data.mRoutesGpx.getRoutes().indexOf(Data.sCopiedRoute);
+                    Data.sRoutesGpx.removeRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+                    Data.sRoutesGpx.addRoute(Data.sCopiedRoute);
+                    Data.sSelectedRouteIdx = Data.sRoutesGpx.getRoutes().indexOf(Data.sCopiedRoute);
 
                 } else {
 
-                    Data.mRoutesGpx.addRoute(Data.sCopiedRoute);
-                    Data.sSelectedRouteIdx = Data.mRoutesGpx.getRoutes().indexOf(Data.sCopiedRoute);
+                    Data.sRoutesGpx.addRoute(Data.sCopiedRoute);
+                    Data.sSelectedRouteIdx = Data.sRoutesGpx.getRoutes().indexOf(Data.sCopiedRoute);
                     setResult(Data.NEW_ROUTE_ADDED, i);
                 }
                 finish();
@@ -424,9 +424,9 @@ public class RouteOptimizerActivity extends Utils
 
                                 if (!Data.sCopiedRoute.getRoutePoints().isEmpty()) {
 
-                                    Data.mRoutesGpx.removeRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
-                                    Data.mRoutesGpx.addRoute(Data.sCopiedRoute);
-                                    Data.sSelectedRouteIdx = Data.mRoutesGpx.getRoutes().indexOf(Data.sCopiedRoute);
+                                    Data.sRoutesGpx.removeRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
+                                    Data.sRoutesGpx.addRoute(Data.sCopiedRoute);
+                                    Data.sSelectedRouteIdx = Data.sRoutesGpx.getRoutes().indexOf(Data.sCopiedRoute);
 
                                 }
                                 finish();

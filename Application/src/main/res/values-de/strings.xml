@@ -498,5 +498,6 @@ PL Piotr Miller</string>
     <string name="route_optimizer_name">Route Optimierer</string>
   <string name="optimizer_prompt">%1$d Punkte, der Höchstfehler: %2$d m</string>
     <string name="github"><a href="https://github.com/nwg-piotr/RamblerGPXEditor">Das Projekt auf GitHub</a></string>
+    <string name="dialog_poi_changed_message">POI modifiziert. Änderungen anwenden?</string>
 
 </resources>

@@ -253,6 +253,7 @@
     <string name="dialog_sending_results">Sending results</string>
 
     <string name="dialog_route_changed_message">The route has been modified. Apply changes?</string>
+    <string name="dialog_poi_changed_message">POI modified. Apply changes?</string>
 
     <string name="dialog_savegpx_saveasnew">Save to GPX file</string>
     <string name="dialog_savegpx_extension" translatable="false">.gpx</string>

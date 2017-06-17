@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.location.Location;
@@ -37,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pt.karambola.gpx.beans.Gpx;
+import pt.karambola.gpx.beans.Point;
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.RoutePoint;
 import pt.karambola.gpx.beans.Track;
@@ -68,6 +72,8 @@ public class Utils extends Activity {
 
     /**
      * Calculate bounding box for given List of GeoPoints
+     * Based on the osmdroid code by Nicolas Gramlich, released under the Apache License 2.0
+     * https://github.com/osmdroid/osmdroid/blob/master/osmdroid-android/src/main/java/org/osmdroid/util/BoundingBox.java
      */
     protected BoundingBox findBoundingBox(List<GeoPoint> geoPoints) {
 
@@ -90,16 +96,54 @@ public class Utils extends Activity {
         return new BoundingBox(maxLat, maxLon, minLat, minLon);
     }
 
-    protected Bitmap makeMarkerBitmap(Context context, String hoverText) {
+    protected List<GeoPoint> pointsToGeoPoints(List<Point> source) {
+
+        List<GeoPoint> geopoints = new ArrayList<>();
+
+        for(Point point : source) {
+            GeoPoint geoPoint = new GeoPoint(point.getLatitude(), point.getLongitude());
+            geopoints.add(geoPoint);
+        }
+        return geopoints;
+    }
+
+    protected String shortenDouble(double dblValue) {
+
+        String string = String.valueOf(dblValue);
+        if (string.length() > 9) {
+            string = string.substring(0, 9);
+        }
+        return string;
+    }
+
+    /**
+     * This will return a marker bitmap.
+     * @param hoverText - is the name of the route point or POI displayed above;
+     * @param color - if passed, we create a bitmap for POI, it should be coloured by the POI type
+     */
+    protected Bitmap makeMarkerBitmap(Context context, String hoverText, Integer color) {
 
         Resources resources = context.getResources();
         float scale = resources.getDisplayMetrics().density;
 
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.wp);
+        Bitmap bitmap;
+        if (color == null) {
+            bitmap = BitmapFactory.decodeResource(resources, R.drawable.wp);
+        } else {
+            bitmap = BitmapFactory.decodeResource(resources, R.drawable.poi_grey);
+        }
 
         bitmap = bitmap.copy(ARGB_8888, true);
 
         Canvas canvas = new Canvas(bitmap);
+
+        if (color != null) {
+            Paint p = new Paint();
+            ColorFilter filter = new LightingColorFilter(color, 1);
+            p.setColorFilter(filter);
+            canvas.drawBitmap(bitmap, 0, 0, p);
+        }
+
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.DKGRAY);
         paint.setTextSize(14 * scale);
@@ -114,6 +158,13 @@ public class Utils extends Activity {
         canvas.drawText(hoverText, x, y, paint);
 
         return  bitmap;
+    }
+
+    /**
+     * Color value not passed: create the route point bitmap (w/o a color filter).
+     */
+    protected Bitmap makeMarkerBitmap(Context context, String hoverText) {
+        return makeMarkerBitmap(context, hoverText, null);
     }
 
     protected Bitmap makeRouteNameBitmap(Context context, String name) {
@@ -334,8 +385,8 @@ public class Utils extends Activity {
                     Log.d(TAG, "Simplified: " + route);
 
                     /*
-                     * Let's use the last waypoint name (if received) as a temporary route name
-                     * In case we received nothing, use a generic, Linux timestamp based name
+                     * Let's use the last route point name (if received) as a temporary route name
+                     * In case we received nothing, use a generic, timestamp-based name
                      */
                     String tmpName = "OSMR_" + String.valueOf(System.currentTimeMillis()).substring(7);
 
@@ -352,7 +403,8 @@ public class Utils extends Activity {
 
             } else {
 
-                Toast.makeText(getApplicationContext(), receivedJson.getString("code") + ": " + receivedJson.getString("message"), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), receivedJson.getString("code") + ": "
+                        + receivedJson.getString("message"), Toast.LENGTH_LONG).show();
             }
 
         } catch(JSONException e){
@@ -419,6 +471,43 @@ public class Utils extends Activity {
                 copy.addRoutePoint(newRoutePoint);
             }
         }
+        return copy;
+    }
+
+    protected static Gpx copyPoiGpx(Gpx source) {
+
+        Gpx copy = new Gpx();
+
+        List<Point> sourcePoints = source.getPoints();
+
+        List<Point> copiedPoints = new ArrayList<>();
+
+        for (Point point : sourcePoints) {
+
+            Point copiedPoint = new Point();
+
+            copiedPoint.setName(point.getName());
+            copiedPoint.setLatitude(point.getLatitude());
+            copiedPoint.setLongitude(point.getLongitude());
+            copiedPoint.setElevation(point.getElevation());
+            copiedPoint.setDescription(point.getDescription());
+            copiedPoint.setComment(point.getComment());
+            copiedPoint.setTime(point.getTime());
+            copiedPoint.setType(point.getType());
+            copiedPoint.setAgeOfGpsData(point.getAgeOfGpsData());
+            copiedPoint.setDgpsid(point.getDgpsid());
+            copiedPoint.setGeoidHeight(point.getGeoidHeight());
+            copiedPoint.setMagneticDeclination(point.getMagneticDeclination());
+            copiedPoint.setSrc(point.getSrc());
+            copiedPoint.setSat(point.getSat());
+            copiedPoint.setSym(point.getSym());
+            copiedPoint.setHdop(point.getHdop());
+            copiedPoint.setVdop(point.getVdop());
+            copiedPoint.setPdop(point.getPdop());
+
+            copiedPoints.add(copiedPoint);
+        }
+        copy.setPoints(copiedPoints);
         return copy;
     }
 
@@ -502,8 +591,6 @@ public class Utils extends Activity {
 
             route.addRoutePoint(routePoint);
         }
-
         return route;
     }
-
 }
