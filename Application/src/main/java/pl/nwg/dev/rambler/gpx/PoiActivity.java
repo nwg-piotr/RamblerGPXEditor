@@ -196,14 +196,16 @@ public class PoiActivity extends Utils
             @Override
             public boolean longPressHelper(GeoPoint p) {
 
-                /*
-                RoutePoint routePoint = new RoutePoint();
-                routePoint.setLatitude(p.getLatitude());
-                routePoint.setLongitude(p.getLongitude());
-                Data.sCopiedRoute.addRoutePoint(routePoint);
 
-                refreshMap();
-                */
+                mMapDragged = false;
+
+                Point point = new Point();
+                point.setLatitude(p.getLatitude());
+                point.setLongitude(p.getLongitude());
+                Data.sCopiedPoiGpx.addPoint(point);
+
+                displayEditDialog(point);
+
                 return false;
             }
         };
@@ -376,7 +378,7 @@ public class PoiActivity extends Utils
             @Override
             public void onClick(View v) {
                 if (Data.sFilteredPoi != null && Data.sFilteredPoi.size() > 0) {
-                    mMapView.zoomToBoundingBox(findBoundingBox(pointsToGeoPoints(Data.sFilteredPoi)), true);
+                    mMapView.zoomToBoundingBox(findBoundingBox(pointsToGeoPoints(Data.sFilteredPoi)), false);
                 }
                 refreshMap();
                 setButtonsState();
