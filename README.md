@@ -12,5 +12,5 @@ but this time using opensource APIs and open data.
 uses [Open Source Routing Machine](http://project-osrm.org) and their Demo Server (at least temporarily); 
 uses GeoKarambola GpxUtils.simplifyRoute to reduce waypoints number;
 - **Route Optimizer** *ready* | Reduces waypoints number to desired amount on the fly; uses [GeoKarambola library](https://sourceforge.net/projects/geokarambola);
-- **POI** (Points Of Interest) **Manager** *in progress, basic features ready*;
+- **POI** (Points Of Interest) **Manager** *in progress, basic features ready* | Allows to browse and manage your POI data;
 - *Enter an idea here.*
