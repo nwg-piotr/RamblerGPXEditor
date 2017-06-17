@@ -3,14 +3,15 @@ CHANGELOG
 **17th June, 2017**
 
 - Basic POI Manager added. Missing menu: New from..., Clear all, Import, Export.
-- Build 0.0.3.3. uploaded.
+- MyLocationNewOverlay added.
+- RotationGestureOverlay added.
 
 **15th June, 2017**
 
 - Exporting routes code added, menu entry activated. The last inactive Router Manager menu entry 
 ('Visibility') is POI-related, and will be added later.
 - 'About' dialog updated; 'Credits' coming soon, temporarily linked to the website.
-- [Build 0.0.3.2](https://github.com/nwg-piotr/RamblerGPXEditor/raw/master/Application/RamblerGPXeditor-release-0.0.3.2.apk) uploaded.
+- Build 0.0.3.2 uploaded.
 
 **14th June, 2017**
 
