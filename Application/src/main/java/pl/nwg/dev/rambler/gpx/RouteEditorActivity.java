@@ -20,6 +20,7 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -40,6 +41,7 @@ import org.osmdroid.events.MapListener;
 import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
@@ -92,6 +94,8 @@ public class RouteEditorActivity extends Utils
     private MyLocationNewOverlay mLocationOverlay;
 
     private RotationGestureOverlay mRotationGestureOverlay;
+
+    private boolean mMapDragged = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -180,12 +184,17 @@ public class RouteEditorActivity extends Utils
         mMapView.setMapListener(new MapListener() {
             @Override
             public boolean onScroll(ScrollEvent event) {
-                refreshMap();
+
+                mMapDragged = true;
+                //refreshMap();
                 return false;
             }
 
             @Override
             public boolean onZoom(ZoomEvent event) {
+
+                mMapDragged = true;
+
                 return false;
             }
         });
@@ -320,6 +329,8 @@ public class RouteEditorActivity extends Utils
             public void onClick(View v) {
                 mapController.setZoom(18);
                 mapController.setCenter(Data.sCurrentPosition);
+
+                refreshMap();
                 setButtonsState();
             }
         });
@@ -331,6 +342,7 @@ public class RouteEditorActivity extends Utils
                 if (Data.routeNodes != null && Data.routeNodes.size() > 1) {
                     mMapView.zoomToBoundingBox(findBoundingBox(Data.routeNodes), true);
                 }
+                refreshMap();
                 setButtonsState();
             }
         });
@@ -340,6 +352,8 @@ public class RouteEditorActivity extends Utils
             public void onClick(View v) {
 
                 mapController.setZoom(mMapView.getProjection().getZoomLevel() +1);
+
+                refreshMap();
                 setButtonsState();
             }
         });
@@ -349,6 +363,8 @@ public class RouteEditorActivity extends Utils
             public void onClick(View v) {
 
                 mapController.setZoom(mMapView.getProjection().getZoomLevel() -1);
+
+                refreshMap();
                 setButtonsState();
             }
         });
@@ -709,5 +725,24 @@ public class RouteEditorActivity extends Utils
         } else {
             return super.onKeyDown(keyCode, event);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+
+            case MotionEvent.ACTION_UP:
+
+                if (mMapDragged) {
+
+                    mMapDragged = false;
+
+                    refreshMap();
+                }
+                break;
+        }
+        return true;
+
     }
 }
