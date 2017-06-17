@@ -10,6 +10,7 @@ CHANGELOG
 - As well above as the RouteEditor needed a substitute for the onMapDragEnd class, which I did not
 manage to find in OSM-related libs. To achieve this, I set the `mMapDragged` boolean true, and then
  check the value in `onTouchEvent(MotionEvent motionEvent)`.
+- In zoom-to-fit buttons animation turned off.
 
 **15th June, 2017**
 
