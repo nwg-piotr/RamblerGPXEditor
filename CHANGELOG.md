@@ -2,7 +2,7 @@ CHANGELOG
 ===============
 **18th July, 2017**
 
-- Animation turned off in zoom-to-fit buttons.
+- Animation turned off in all zoom-to-fit buttons.
 
 
 **17th June, 2017**
