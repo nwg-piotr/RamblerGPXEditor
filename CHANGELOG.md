@@ -5,6 +5,8 @@ CHANGELOG
 - Basic POI Manager added. Missing menu: New from..., Clear all, Import, Export.
 - MyLocationNewOverlay added (show my position on the map).
 - RotationGestureOverlay added (enables rotation gestures).
+- POI Manager / refreshMap() only draws markers which are going to be visible: 
+if (mMapViewBoundingBox.contains(markerPosition)).
 
 **15th June, 2017**
 
