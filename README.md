@@ -14,3 +14,5 @@ uses GeoKarambola GpxUtils.simplifyRoute to reduce waypoints number;
 - **Route Optimizer** *ready* | Reduces waypoints number to desired amount on the fly; uses [GeoKarambola library](https://sourceforge.net/projects/geokarambola);
 - **POI** (Points Of Interest) **Manager** *in progress, basic features ready* | Allows to browse and manage your POI data;
 - *Enter an idea here.*
+
+See [CHANGELOG](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/CHANGELOG.md) to learn more.
