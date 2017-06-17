@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**18th July, 2017**
+
+- Animation turned off in zoom-to-fit buttons.
+
+
 **17th June, 2017**
 
 - Basic POI Manager added. Missing menu: New from..., Clear all, Import, Export.
@@ -10,7 +15,6 @@ CHANGELOG
 - As well above as the RouteEditor needed a substitute for the onMapDragEnd method, which I did not
 manage to find in OSM-related libs. To achieve this, I set the `mMapDragged` boolean true, and then
  check the value in `onTouchEvent(MotionEvent motionEvent)`.
-- In zoom-to-fit buttons animation turned off.
 
 **15th June, 2017**
 
