@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**17th June, 2017**
+
+- Basic POI Manager added. Missing menu: New from..., Clear all, Import, Export.
+- Build 0.0.3.3. uploaded.
+
 **15th June, 2017**
 
 - Exporting routes code added, menu entry activated. The last inactive Router Manager menu entry 
