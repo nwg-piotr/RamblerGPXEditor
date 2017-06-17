@@ -253,7 +253,7 @@ public class RouteOptimizerActivity extends Utils
             @Override
             public void onClick(View v) {
                 if (Data.routeNodes != null && Data.routeNodes.size() > 1) {
-                    mMapView.zoomToBoundingBox(findBoundingBox(Data.routeNodes), true);
+                    mMapView.zoomToBoundingBox(findBoundingBox(Data.routeNodes), false);
                 }
                 setButtonsState();
             }
