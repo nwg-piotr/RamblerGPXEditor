@@ -1337,6 +1337,8 @@ public class RoutesBrowserActivity extends Utils
 
     private void displayImportRoutesDialog(final String path_to_file) {
 
+        Data.sSelectedRouteIdx = null;
+
         /*
          * Check if the file contains routes
          */

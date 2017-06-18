@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,14 +13,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -58,6 +64,7 @@ import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,7 +72,11 @@ import java.util.List;
 import java.util.Map;
 
 import pt.karambola.commons.collections.ListUtils;
+import pt.karambola.geo.Units;
+import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.beans.Point;
+import pt.karambola.gpx.io.GpxFileIo;
+import pt.karambola.gpx.parser.GpxParserOptions;
 import pt.karambola.gpx.predicate.PointFilter;
 import pt.karambola.gpx.util.GpxUtils;
 
@@ -118,6 +129,8 @@ public class PoiActivity extends Utils
     BoundingBox mMapViewBoundingBox;
 
     List<String> selectedPOITypes;
+
+    Gpx gpxIn = new Gpx();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -416,12 +429,10 @@ public class PoiActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                if (!Data.sCopiedPoiGpx.getPoints().isEmpty()) {
+                Data.sPoiGpx = copyPoiGpx(Data.sCopiedPoiGpx);
 
-                    Data.sPoiGpx = copyPoiGpx(Data.sCopiedPoiGpx);
-                }
                 Data.sCopiedPoiGpx.resetIsChanged();
-                refreshMap();
+                finish();
             }
         });
 
@@ -825,6 +836,416 @@ public class PoiActivity extends Utils
         });
     }
 
+    private void showImportPoisDialog(final String path_to_file) {
+
+        // Check if the file contains any POI
+        gpxIn = GpxFileIo.parseIn(path_to_file, GpxParserOptions.ONLY_POINTS);
+
+        if (gpxIn == null) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_poi_not_gpx), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        //final Map<String,Object> gpxWptMap = new HashMap<String,Object>() ;
+        List<String> gpxWptDisplayNames	= null ;
+        final List<Point> sortedPoi = new ArrayList<>();
+
+        if (Data.sCurrentPosition != null) {
+            // Pre-sort by ascending distance to current location.
+            gpxWptDisplayNames = GpxUtils.getPointNamesSortedByDistance_Distance(gpxIn.getPoints(),
+                    Data.sCurrentPosition.getLatitude(), Data.sCurrentPosition.getLongitude(), Data.sCurrentPosition.getAltitude(), Units.METRIC, sortedPoi);
+        } else {
+            // Sorted by ascending alphabetical name.
+            gpxWptDisplayNames = GpxUtils.getPointNamesSortedAlphabeticaly(gpxIn.getPoints(), sortedPoi);
+        }
+
+        if (gpxWptDisplayNames.isEmpty()) {
+            // No POI found, don't show the dialog
+            Toast.makeText(PoiActivity.this, getResources().getString(R.string.no_named_poi), Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            final List<String> allNames = new ArrayList<>();
+            allNames.addAll(gpxWptDisplayNames);
+
+            String[] menu_entries = new String[allNames.size()];
+            menu_entries = allNames.toArray(menu_entries);
+
+            final boolean selected_values[] = new boolean[allNames.size()];
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            String dialogTitle = getResources().getString(R.string.dialog_select_pois);
+            String buttonAll = getResources().getString(R.string.dialog_all);
+            String buttonSelected = getResources().getString(R.string.dialog_selected);
+            String buttonCancel = getResources().getString(R.string.dialog_cancel);
+
+            builder.setTitle(dialogTitle)
+                    .setIcon(R.drawable.ico_pick_many)
+                    .setCancelable(true)
+
+                    .setNeutralButton(buttonSelected, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            List<String> selectedNames = new ArrayList<>();
+
+                            for (int i = 0; i < selected_values.length; i++) {
+
+                                if (selected_values[i]) {
+                                    selectedNames.add(allNames.get(i));
+                                }
+                            }
+
+                            if (selectedNames.size() == 0) {
+
+                                Toast.makeText(PoiActivity.this, getResources().getString(R.string.no_poi_selected), Toast.LENGTH_SHORT).show();
+
+                            } else {
+
+                                ArrayList<Point> gpxPointsPickedByUser = new ArrayList<>();
+
+                                for (String nameOfGPXwaypointPickedByUser: selectedNames) {
+
+                                    int idxOfPoi = allNames.indexOf(nameOfGPXwaypointPickedByUser);
+                                    gpxPointsPickedByUser.add(sortedPoi.get(idxOfPoi));
+                                }
+                                Data.sCopiedPoiGpx.addPoints(gpxPointsPickedByUser);
+
+                                int purged_pois = GpxUtils.purgePointsSimilar(Data.sCopiedPoiGpx);
+
+                                if (purged_pois != 0) {
+
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.removed) + " "
+                                            + purged_pois + " " + getResources().getString(R.string.duplicates), Toast.LENGTH_SHORT).show();
+
+                                } else {
+
+                                    Toast.makeText(PoiActivity.this, gpxPointsPickedByUser.size() + " "
+                                            + getResources().getString(R.string.poi_imported), Toast.LENGTH_LONG).show();
+                                }
+                                refreshMap();
+                            }
+                        }
+                    })
+                    .setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) { }
+                    })
+                    .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            List<String> selectedNames = new ArrayList<>();
+                            selectedNames.addAll(allNames);
+
+                            ArrayList<Point> gpxPointsPickedByUser = new ArrayList<>();
+
+                            for (String nameOfGPXwaypointPickedByUser: selectedNames) {
+
+                                int idxOfPoi = allNames.indexOf(nameOfGPXwaypointPickedByUser);
+                                gpxPointsPickedByUser.add(sortedPoi.get(idxOfPoi));
+                            }
+
+                            Data.sCopiedPoiGpx.addPoints(gpxPointsPickedByUser);
+
+                            int purged_pois = GpxUtils.purgePointsSimilar(Data.sCopiedPoiGpx);
+
+                            if (purged_pois != 0) {
+
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.removed) + " "
+                                        + purged_pois + " " + getResources().getString(R.string.duplicates), Toast.LENGTH_SHORT).show();
+
+                            } else {
+
+                                Toast.makeText(PoiActivity.this, gpxPointsPickedByUser.size() + " "
+                                        + getResources().getString(R.string.poi_imported), Toast.LENGTH_LONG).show();
+                            }
+                            refreshMap();
+                        }
+                    });
+
+            builder.setMultiChoiceItems(menu_entries, selected_values, new DialogInterface.OnMultiChoiceClickListener() {
+
+                @Override
+                public void onClick(DialogInterface arg0, int arg1, boolean arg2) {
+
+                    selected_values[arg1] = arg2;
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
+
+    private void showSaveAsDialog(final boolean save_view) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        final View saveAsLayout = inflater.inflate(R.layout.save_gpx_dialog_layout, null);
+
+        final EditText filename = (EditText) saveAsLayout.findViewById(R.id.save_new_filename);
+
+        File rambler_folder = new File(Environment.getExternalStorageDirectory() + "/Rambler");
+        final String path = rambler_folder.toString();
+
+        final Intent fileExploreIntent = new Intent(
+                FileBrowserActivity.INTENT_ACTION_SELECT_FILE,
+                null,
+                this,
+                FileBrowserActivity.class
+        );
+
+        filename.setText(fileName);
+
+        String dialogTitle = getResources().getString(R.string.dialog_savegpx_saveasnew);
+        String saveText = getResources().getString(R.string.dialog_save_changes_save);
+        String saveAsText = getResources().getString(R.string.file_pick);
+        String cancelText = getResources().getString(R.string.dialog_cancel);
+
+        builder.setTitle(dialogTitle)
+                .setView(saveAsLayout)
+                .setIcon(R.drawable.map_save)
+                .setCancelable(true)
+                .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setNeutralButton(saveAsText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        if (save_view) {
+                            fileActionRequested = SAVE_VISIBLE_POIS;
+                        } else {
+                            fileActionRequested = SAVE_ALL_POIS;
+                        }
+
+                        fileExploreIntent.putExtra(
+                                FileBrowserActivity.startDirectoryParameter,
+                                path
+                        );
+                        startActivityForResult(
+                                fileExploreIntent,
+                                REQUEST_CODE_PICK_FILE
+                        );
+                    }
+                })
+                .setPositiveButton(saveText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        fileName = filename.getText().toString().trim();
+                        savePoisDestructive(fileName, save_view);
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+
+        alert.show();
+
+        final Button saveButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
+
+        final TextWatcher validate_name = new TextWatcher(){
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+                saveButton.setEnabled(!arg0.toString().equals(""));
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int a, int b, int c) {
+
+                saveButton.setEnabled(!s.toString().equals(""));
+
+            }};
+        filename.addTextChangedListener(validate_name);
+
+    }
+
+    private void savePoisDestructive(String filename, final boolean save_view) {
+
+        if (Data.sCopiedPoiGpx.getPoints().size() == 0) {
+            Toast.makeText(this, getResources().getString(R.string.nothing_to_save), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        boolean path_ok;
+        File rambler_folder = new File(Environment.getExternalStorageDirectory() + "/Rambler");
+
+        path_ok = rambler_folder.exists() || rambler_folder.mkdirs();
+
+        if (path_ok) {
+
+            final String new_file = rambler_folder.toString() + "/" + filename + ".gpx";
+
+            if (new File(new_file).exists()) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                String dialogTitle = getResources().getString(R.string.dialog_overwrite_title);
+                String dialogMessage = getResources().getString(R.string.dialog_overwrite_message);
+                String saveText = getResources().getString(R.string.dialog_save_changes_save);
+                String cancelText = getResources().getString(R.string.dialog_cancel);
+
+                builder.setTitle(dialogTitle)
+                        .setIcon(R.drawable.map_warning)
+                        .setMessage(dialogMessage)
+                        .setCancelable(true)
+                        .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        })
+                        .setPositiveButton(saveText, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                Toast.makeText(getApplicationContext(), getResources()
+                                                .getString(R.string.poi_saved_as) + " " + new_file,
+                                        Toast.LENGTH_LONG).show();
+
+                                Gpx gpx = new Gpx( ) ;
+
+                                if (save_view) {
+                                    gpx.addPoints(Data.sFilteredPoi);
+                                } else {
+                                    gpx.addPoints(Data.sCopiedPoiGpx.getPoints());
+                                }
+                                GpxFileIo.parseOut(gpx, new_file, GpxParserOptions.ONLY_POINTS) ;
+                            }
+                        });
+
+                AlertDialog alert = builder.create();
+
+                alert.show();
+
+            } else {
+
+                // Just save
+                Toast.makeText(getApplicationContext(), getResources()
+                                .getString(R.string.poi_saved_as) + " " + new_file,
+                        Toast.LENGTH_LONG).show();
+
+                Gpx gpx = new Gpx( );
+
+                if (save_view) {
+                    gpx.addPoints(Data.sFilteredPoi);
+                } else {
+                    gpx.addPoints(Data.sCopiedPoiGpx.getPoints());
+                }
+                GpxFileIo.parseOut(gpx, new_file, GpxParserOptions.ONLY_POINTS) ;
+            }
+
+        } else {
+
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.failed_writing_gpx), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    public void clearPois() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String clearTextTitle = getResources().getString(R.string.dialog_clear_pois);
+        String clearText = getResources().getString(R.string.dialog_clear);
+        String cancelText = getResources().getString(R.string.dialog_cancel);
+
+        builder.setCancelable(true)
+                .setTitle(clearTextTitle)
+                .setPositiveButton(clearText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        Data.sCopiedPoiGpx.clearPoints();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.poi_cleared), Toast.LENGTH_SHORT).show();
+                        refreshMap();
+
+                    }
+                })
+                .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) { }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void displayManuallyDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        final View manualLayout = inflater.inflate(R.layout.lat_lon_dialog, null);
+
+        final EditText manualName = (EditText) manualLayout.findViewById(R.id.manually_name_edit);
+        final EditText manualLat = (EditText) manualLayout.findViewById(R.id.manually_lat_edit);
+        final EditText manualLon = (EditText) manualLayout.findViewById(R.id.manually_lon_edit);
+        final EditText manualDesc = (EditText) manualLayout.findViewById(R.id.manual_description_edit);
+
+        String dialogTitle = getResources().getString(R.string.dialog_manually);
+        String okText = getResources().getString(R.string.dialog_set_lat_lon);
+        String resetText = getResources().getString(R.string.dialog_cancel);
+        builder.setTitle(dialogTitle)
+                .setIcon(R.drawable.map_edit)
+                .setCancelable(true)
+                .setView(manualLayout)
+                .setPositiveButton(okText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        String nameTxt = manualName.getText().toString();
+                        String latTxt = manualLat.getText().toString();
+                        String lonTxt = manualLon.getText().toString();
+                        String descTxt = manualDesc.getText().toString();
+
+                        if (nameTxt.length() > 20) nameTxt = nameTxt.substring(0, 20);
+                        if (descTxt.length() > 99) descTxt = descTxt.substring(0, 99);
+
+                        if (!latTxt.isEmpty() && !lonTxt.isEmpty()) {
+                            double lat, lon;
+                            try {
+                                lat = Double.valueOf(latTxt);
+                                lon = Double.valueOf(lonTxt);
+                            } catch (Exception e) {
+                                lat = 0d;
+                                lon = 0d;
+                            }
+
+                            GeoPoint pos = new GeoPoint(lat, lon);
+
+                            if (lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180) {
+
+                                Point newPoint = new Point();
+
+                                newPoint.setName(nameTxt);
+                                newPoint.setLatitude(pos.getLatitude());
+                                newPoint.setLongitude(pos.getLongitude());
+                                newPoint.setDescription(descTxt);
+                                newPoint.setTime(new Date());
+
+                                Data.sCopiedPoiGpx.addPoint(newPoint);
+
+                                refreshMap();
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.lat_lon_should_be), Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                    }
+                })
+                .setNeutralButton(resetText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+
+        alert.show();
+
+    }
+
     public void onResume(){
         super.onResume();
         //this will refresh the osmdroid configuration on resuming.
@@ -908,6 +1329,154 @@ public class PoiActivity extends Utils
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_pois, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        menu.findItem(R.id.pois_clear_pois).setEnabled(Data.sCopiedPoiGpx.getPoints().size() > 0);
+        menu.findItem(R.id.pois_save).setEnabled(Data.sCopiedPoiGpx.getPoints().size() > 0);
+        menu.findItem(R.id.pois_save_view).setEnabled(Data.sViewPoiFilter.isEnabled() && Data.sCopiedPoiGpx.getPoints().size() > 0);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        File rambler_folder = new File(Environment.getExternalStorageDirectory() + "/Rambler");
+        String path = rambler_folder.toString();
+
+        Intent fileExploreIntent = new Intent(
+                FileBrowserActivity.INTENT_ACTION_SELECT_FILE,
+                null,
+                this,
+                FileBrowserActivity.class
+        );
+
+        switch (item.getItemId()) {
+
+            case R.id.pois_import_pois:
+
+                fileActionRequested = IMPORT_FROM_GPX;
+
+                fileExploreIntent.putExtra(
+                        FileBrowserActivity.startDirectoryParameter,
+                        path
+                );
+                startActivityForResult(
+                        fileExploreIntent,
+                        REQUEST_CODE_PICK_FILE
+                );
+
+                return true;
+
+            case R.id.pois_save_all:
+
+                if (Data.sCopiedPoiGpx.getPoints().isEmpty()) {
+                    Toast.makeText(this, getResources().getString(R.string.nothing_to_save), Toast.LENGTH_LONG).show();
+                    return true;
+                } else {
+                    showSaveAsDialog(false);
+                }
+                return true;
+
+            case R.id.pois_save_view:
+
+                if (Data.sFilteredPoi.size() == 0) {
+                    Toast.makeText(this, getResources().getString(R.string.nothing_to_save), Toast.LENGTH_LONG).show();
+                    return true;
+                } else {
+                    showSaveAsDialog(true);
+                }
+                return true;
+
+            case R.id.pois_clear_pois:
+                if(Data.sCopiedPoiGpx.getPoints().size() > 0) {
+                    clearPois();
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.no_poi_to_clear), Toast.LENGTH_LONG).show();
+                }
+                return true;
+
+            case R.id.pois_enter_latlon:
+                displayManuallyDialog();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_CODE_PICK_DIR) {
+            if(resultCode == RESULT_OK) {
+                String newDir = data.getStringExtra(
+                        pl.nwg.dev.rambler.gpx.FileBrowserActivity.returnDirectoryParameter);
+                Toast.makeText(
+                        this,
+                        "Received DIRECTORY ramblerPath from file browser:\n"+newDir,
+                        Toast.LENGTH_LONG).show();
+
+            } else {
+                Toast.makeText(
+                        this,
+                        "Nothing selected",
+                        Toast.LENGTH_LONG).show();
+            }
+
+        } else if (requestCode == REQUEST_CODE_PICK_FILE) {
+            if(resultCode == RESULT_OK) {
+
+                File sd_root = new File(Environment.getExternalStorageDirectory() + "");
+                sdRoot = sd_root.toString();
+
+                fileFullPath = data.getStringExtra(
+                        pl.nwg.dev.rambler.gpx.FileBrowserActivity.returnFileParameter);
+
+                fileFolderAndName = fileFullPath.replace(sdRoot, "");
+
+                String[] split_name = fileFolderAndName.split("/");
+                fileName = split_name[split_name.length -1].replace(".gpx", "");
+
+                switch (fileActionRequested) {
+
+                    case SAVE_ALL_POIS:
+                        savePoisDestructive(fileName, false);
+                        break;
+
+                    case SAVE_VISIBLE_POIS:
+                        savePoisDestructive(fileName, true);
+                        break;
+
+                    case IMPORT_FROM_GPX:
+                        showImportPoisDialog(fileFullPath);
+                        break;
+
+                }
+
+            } else {//if(resultCode == this.RESULT_OK) {
+                Toast.makeText(
+                        this,
+                        "No file selected",
+                        Toast.LENGTH_LONG).show();
+            }
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         /*
          * Handle the back button
@@ -928,10 +1497,9 @@ public class PoiActivity extends Utils
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                if (!Data.sCopiedPoiGpx.getPoints().isEmpty()) {
+                                Data.sPoiGpx = copyPoiGpx(Data.sCopiedPoiGpx);
 
-                                    Data.sPoiGpx = copyPoiGpx(Data.sCopiedPoiGpx);
-                                }
+                                Data.sCopiedPoiGpx.resetIsChanged();
                                 finish();
                             }
                         })

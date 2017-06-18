@@ -671,6 +671,10 @@ public class MainActivity extends Utils {
     @Override
     protected void onResume() {
         super.onResume();
+
+        //if (Data.sPoiGpx != null && Data.sPoiGpx.isChanged()) {
+            refreshLoadedDataInfo();
+        //}
     }
 
     @Override
@@ -966,11 +970,11 @@ public class MainActivity extends Utils {
 
     public void refreshLoadedDataInfo() {
 
-        TextView openFile = (TextView) findViewById(R.id.open_file);
+        if (Data.sPoiGpx == null || Data.sRoutesGpx == null || Data.sTracksGpx == null) {
+            return;
+        }
+
         TextView loadedData = (TextView) findViewById(R.id.loaded_data);
-
-        openFile.setText("");
-
         try {
             String loadedPoi = String.format(getString(R.string.poi_loaded), Data.sPoiGpx.getPoints().size()) + ", ";
             String loadedRoutes = String.format(getString(R.string.routes_loaded), Data.sRoutesGpx.getRoutes().size()) + ", ";

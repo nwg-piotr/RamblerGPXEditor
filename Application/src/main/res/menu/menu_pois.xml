@@ -9,10 +9,6 @@
         android:orderInCategory="100"
         android:title="@string/map_pois_enter_latlon" />
 
-    <item android:id="@+id/pois_from_places"
-        android:orderInCategory="110"
-        android:title="@string/map_pois_from_places" />
-
     <item android:id="@+id/pois_clear_pois"
         android:orderInCategory="120"
         android:title="@string/map_pois_clear" />

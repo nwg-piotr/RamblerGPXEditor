@@ -71,6 +71,20 @@ public class Utils extends Activity {
 
     protected String externalGpxFile;
 
+    protected final int REQUEST_CODE_PICK_DIR = 1;
+    protected final int REQUEST_CODE_PICK_FILE = 2;
+
+    protected int fileActionRequested;
+    protected final int OPEN_GPX_FILE = 0;
+    protected final int SAVE_ALL_POIS = 1;
+    protected final int SAVE_VISIBLE_POIS = 2;
+    protected final int IMPORT_FROM_GPX = 3;
+
+    protected String fileFullPath = "";
+    protected String sdRoot = "";
+    protected String fileName = "myfile";
+    protected String fileFolderAndName = "";
+
     /**
      * Calculate bounding box for given List of GeoPoints
      * Based on the osmdroid code by Nicolas Gramlich, released under the Apache License 2.0
