@@ -3,6 +3,9 @@ CHANGELOG
 **18th July, 2017**
 
 - Animation turned off in all zoom-to-fit buttons.
+- Missing I/O code added to the POI Manager menu (New from coordinates / Clear all / Import / Export).
+Possibly buggy at the moment.
+- Also some modifications to Routes Browser and Main Activity.
 
 
 **17th June, 2017**
