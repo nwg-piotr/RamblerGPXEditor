@@ -6,7 +6,7 @@ CHANGELOG
 - Missing I/O code added to the POI Manager menu (New from coordinates / Clear all / Import / Export).
 Possibly buggy at the moment.
 - Also some modifications to Routes Browser and Main Activity.
-- [Build 0.0.3.4](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.3.4.apk) uploaded.
+- [Build 0.0.3.4](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.3.4.apk?raw=true) uploaded.
 
 
 **17th June, 2017**
