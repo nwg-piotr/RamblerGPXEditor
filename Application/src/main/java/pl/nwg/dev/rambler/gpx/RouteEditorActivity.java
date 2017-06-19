@@ -670,6 +670,24 @@ public class RouteEditorActivity extends Utils
 
     public void addFromPoi(final Point poi) {
 
+        /*
+         * The issue to workaround: a marker drawn over another one (in the same place) does not
+         * cover it for some mysterious reason, so OnMarkerClickListener will be executed for both
+         * of them (Why?!). Let's check if the just clicked POI coordinates already exist as
+         * a cardinal way point. If so - let's skip this dialog.
+         * NOTE: this will not work for overlapping markers of slightly different coordinates.
+         */
+        boolean pointExists = false;
+        for (RoutePoint routePoint : Data.sCopiedRoute.getRoutePoints()) {
+            if (routePoint.getLatitude().equals(poi.getLatitude()) && routePoint.getLongitude().equals(poi.getLongitude())) {
+                pointExists = true;
+                break;
+            }
+        }
+        if (pointExists) {
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String titleText = getResources().getString(R.string.dialog_poi2wpt);
         String insertText = getResources().getString(R.string.dialog_insert);

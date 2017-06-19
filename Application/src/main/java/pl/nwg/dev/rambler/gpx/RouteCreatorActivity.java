@@ -677,6 +677,7 @@ public class RouteCreatorActivity extends Utils
         restoreMapPosition();
 
         loadSettings();
+        refreshMap();
     }
 
     @Override
