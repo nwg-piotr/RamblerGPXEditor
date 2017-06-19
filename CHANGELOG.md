@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**19th June, 2007**
+
+- POI layer added to the Route Editor and Route Creator. In the Editor you can insert or append POI
+coordinates as a route point. In the Creator you can append POI as a cardinal way point.
+
 **18th July, 2017**
 
 - Animation turned off in all zoom-to-fit buttons.
