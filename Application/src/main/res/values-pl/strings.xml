@@ -424,5 +424,6 @@ PL Piotr Miller</string>
     <string name="dialog_poi_changed_message">POI zmodyfikowane. Zapisać zmiany?</string>
     <string name="poi_manager_name">Menadżer POI</string>
     <string name="poi_saved_as">POI zapisano jako</string>
+    <string name="show_poi">Pokaż POI</string>
 
 </resources>

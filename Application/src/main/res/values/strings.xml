@@ -559,6 +559,8 @@
     <string name="dialog_poi2wpt">POI to Wpt</string>
     <string name="dialog_insert_message">Add %1$s as a way point?</string>
 
+    <string name="show_poi">Show POI</string>
+
     <string name="routes_sort_by">Sort routes by</string>
     <string name="routes_sort_by_name">Name</string>
     <string name="routes_sort_by_time">Time</string>

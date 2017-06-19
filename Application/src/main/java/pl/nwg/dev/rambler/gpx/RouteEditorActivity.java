@@ -20,6 +20,8 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -58,7 +60,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pt.karambola.commons.collections.ListUtils;
+import pt.karambola.gpx.beans.Point;
 import pt.karambola.gpx.beans.RoutePoint;
+import pt.karambola.gpx.util.GpxRouteUtils;
+import pt.karambola.gpx.util.GpxUtils;
 
 import static pl.nwg.dev.rambler.gpx.R.id.osmmap;
 
@@ -73,6 +79,8 @@ public class RouteEditorActivity extends Utils
     private final String TAG = "Creator";
 
     private Map<Marker,RoutePoint> markerToRoutePoint;
+
+    private Map<Marker,Point> markerToPoi;
 
     private final int MAX_ZOOM_LEVEL = 19;
     private final int MIN_ZOOM_LEVEL = 4;
@@ -236,6 +244,10 @@ public class RouteEditorActivity extends Utils
                 (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()
                         .getDisplayMetrics().xdpi / 2), 10);
 
+        if (showPoi) {
+            drawPoi();
+        }
+
         Polyline routeOverlay = new Polyline();
         routeOverlay.setColor(Color.parseColor("#0066ff"));
 
@@ -317,6 +329,71 @@ public class RouteEditorActivity extends Utils
 
         mMapView.invalidate();
         setButtonsState();
+    }
+
+    private void drawPoi() {
+
+        BoundingBox mMapViewBoundingBox = mMapView.getBoundingBox();
+
+        Data.sFilteredPoi = ListUtils.filter(Data.sPoiGpx.getPoints(), Data.sViewPoiFilter);
+
+        /*
+         * Let's assign a color to each existing POI type
+         */
+        List<String> wptTypes = GpxUtils.getDistinctPointTypes(Data.sFilteredPoi);
+
+        Map<String,Integer>	wptTypeColourMap = new HashMap<>();
+        int colourIdx = 0;
+        for (String wptType: wptTypes) {
+            wptTypeColourMap.put(wptType, typeColors[colourIdx++ % N_COLOURS]);
+        }
+
+        markerToPoi = new HashMap<>();
+
+        for (Point poi : Data.sFilteredPoi) {
+
+            GeoPoint markerPosition = new GeoPoint(poi.getLatitude(), poi.getLongitude());
+
+            String displayName;
+            if(poi.getName() != null && !poi.getName().isEmpty()) {
+                displayName = poi.getName();
+            } else {
+                displayName = String.valueOf(Data.sFilteredPoi.indexOf(poi));
+            }
+
+            /*
+             * Use the color from the map if the POI has a type defined.
+             * If not - paint in grey.
+             */
+            int color;
+            if (poi.getType() == null) {
+                color = Color.parseColor("#999999");
+            } else {
+                color = wptTypeColourMap.get(poi.getType());
+            }
+            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, displayName, color));
+
+            Marker marker = new Marker(mMapView);
+            marker.setPosition(markerPosition);
+            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            marker.setDraggable(false);
+            marker.setIcon(icon);
+
+            markerToPoi.put(marker, poi);
+
+            if (mMapViewBoundingBox.contains(markerPosition)) {
+                mMapView.getOverlays().add(marker);
+            }
+
+            marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker, MapView mapView) {
+
+                    addFromPoi(markerToPoi.get(marker));
+                    return false;
+                }
+            });
+        }
     }
 
     private void setUpButtons() {
@@ -591,6 +668,75 @@ public class RouteEditorActivity extends Utils
         refreshMap();
     }
 
+    public void addFromPoi(final Point poi) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String titleText = getResources().getString(R.string.dialog_poi2wpt);
+        String insertText = getResources().getString(R.string.dialog_insert);
+        String appendText = getResources().getString(R.string.dialog_append);
+        String cancelText = getResources().getString(R.string.dialog_cancel);
+
+        String messageText = "POI-> Way point";
+        if (poi.getName() != null) {
+            messageText = String.format(getString(R.string.dialog_insert_message), poi.getName());
+        }
+
+        builder.setCancelable(true)
+                .setTitle(titleText)
+                .setMessage(messageText)
+                .setIcon(R.drawable.map_poi)
+                .setPositiveButton(appendText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        RoutePoint routePoint = new RoutePoint();
+
+                        routePoint.setLatitude(poi.getLatitude());
+                        routePoint.setLongitude(poi.getLongitude());
+
+                        Data.sCopiedRoute.addRoutePoint(routePoint);
+
+                        refreshMap();
+                    }
+                })
+                .setNeutralButton(insertText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        double[] dstToRoute = GpxUtils.distanceToRoute(poi, Data.sCopiedRoute);
+
+                        RoutePoint routePoint = new RoutePoint();
+
+                        routePoint.setName(poi.getName());
+                        routePoint.setLatitude(poi.getLatitude());
+                        routePoint.setLongitude(poi.getLongitude());
+
+
+                        Data.sCopiedRoute.addRoutePoint((int)dstToRoute[1] + 1, routePoint);
+                        refreshMap();
+
+                    }
+                })
+                .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+
+        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                if (Data.sCopiedRoute.getRoutePoints().size() < 2) {
+                    ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL).setEnabled(false);
+                }
+
+            }
+        });
+        alert.show();
+    }
+
     public void onResume(){
         super.onResume();
         //this will refresh the osmdroid configuration on resuming.
@@ -601,6 +747,8 @@ public class RouteEditorActivity extends Utils
 
         mGoogleApiClient.connect();
         restoreMapPosition();
+
+        loadSettings();
     }
 
     @Override
@@ -671,6 +819,48 @@ public class RouteEditorActivity extends Utils
         }
         Data.sLastZoom = mMapView.getZoomLevel();
         Data.sLastCenter = new GeoPoint(mMapView.getMapCenter().getLatitude(), mMapView.getMapCenter().getLongitude());
+
+        saveSettings();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_route_editor, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        menu.findItem(R.id.show_poi).setChecked(showPoi);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.route_reverse:
+
+                new GpxRouteUtils(Data.sCopiedRoute).reverse();
+                refreshMap();
+                return true;
+
+            case R.id.show_poi:
+
+                showPoi = !showPoi;
+                saveSettings();
+                refreshMap();
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

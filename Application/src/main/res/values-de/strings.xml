@@ -501,5 +501,6 @@ PL Piotr Miller</string>
     <string name="dialog_poi_changed_message">POI modifiziert. Änderungen anwenden?</string>
     <string name="poi_manager_name">POI Manager</string>
     <string name="poi_saved_as">Gespeichert POI als</string>
+    <string name="show_poi">POI anzeigen</string>
 
 </resources>

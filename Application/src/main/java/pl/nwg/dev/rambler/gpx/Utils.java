@@ -2,6 +2,7 @@ package pl.nwg.dev.rambler.gpx;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,7 +24,6 @@ import org.json.JSONObject;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -84,6 +84,11 @@ public class Utils extends Activity {
     protected String sdRoot = "";
     protected String fileName = "myfile";
     protected String fileFolderAndName = "";
+
+    protected SharedPreferences preferences;
+    protected boolean showPoi;
+
+    boolean mMapDragged = false;
 
     /**
      * Calculate bounding box for given List of GeoPoints
@@ -607,5 +612,22 @@ public class Utils extends Activity {
             route.addRoutePoint(routePoint);
         }
         return route;
+    }
+
+    protected void loadSettings() {
+
+        preferences = getSharedPreferences("RamblerEditor", MODE_PRIVATE);
+
+        showPoi = preferences.getBoolean("showPoi", false);
+
+    }
+
+    protected void saveSettings() {
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean("showPoi", showPoi);
+
+        editor.apply();
     }
 }

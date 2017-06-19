@@ -5,10 +5,6 @@
     tools:context=".RouteEditorActivity">
 
     <item android:orderInCategory="100"
-        android:id="@+id/route_reverse"
-        android:title="@string/map_reverse_route" />
-
-    <item android:orderInCategory="130"
         android:id="@+id/show_poi"
         android:checkable="true"
         android:title="@string/show_poi" />
