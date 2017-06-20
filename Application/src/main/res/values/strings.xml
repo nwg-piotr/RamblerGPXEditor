@@ -464,7 +464,9 @@
     <string name="failed_rambler_tracks">Failed creating ramblerTracks.gpx</string>
     <string name="sample_loaded">Sample data loaded. Take a look at them.</string>
     <string name="rambler_folder_created">Rambler folder created</string>
+    <string name="shared_folder_created">SharedData folder created</string>
     <string name="rambler_folder_failure">Failed creating Rambler folder</string>
+    <string name="shared_folder_failure">Failed creating SharedData folder</string>
     <string name="saving_wait">Saving files, please wait</string>
     <string name="saving">Saving</string>
     <string name="no_file_selected">No file selected</string>

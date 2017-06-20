@@ -425,5 +425,7 @@ PL Piotr Miller</string>
     <string name="poi_manager_name">Menadżer POI</string>
     <string name="poi_saved_as">POI zapisano jako</string>
     <string name="show_poi">Pokaż POI</string>
+    <string name="shared_folder_created">Utworzono folder udostępniony</string>
+    <string name="shared_folder_failure">Nie udało się utworzyć foderu SharedData</string>
 
 </resources>

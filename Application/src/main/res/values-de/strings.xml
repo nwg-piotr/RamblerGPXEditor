@@ -357,7 +357,7 @@
   <string name="failed_rambler_tracks">Erstellung von ramblerTracks.gpx misslungen</string>
   <string name="sample_loaded">Beispieldaten geladen. Schau sie Dir an.</string>
   <string name="rambler_folder_created">Rambler Ordner erstellt</string>
-  <string name="rambler_folder_failure">Erstellung von von Rambler Ordner misslungen</string>
+  <string name="rambler_folder_failure">Erstellung von Rambler Ordner misslungen</string>
   <string name="saving_wait">Speichere Dateien. Bitte warten.</string>
   <string name="saving">Speichere</string>
   <string name="no_file_selected">Keine Datei ausgewählt</string>
@@ -502,5 +502,7 @@ PL Piotr Miller</string>
     <string name="poi_manager_name">POI Manager</string>
     <string name="poi_saved_as">Gespeichert POI als</string>
     <string name="show_poi">POI anzeigen</string>
+    <string name="shared_folder_created">SharedData Ordner erstellt</string>
+  <string name="shared_folder_failure">Erstellung von SharedData Ordner misslungen</string>
 
 </resources>

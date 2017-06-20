@@ -63,8 +63,6 @@ public class Utils extends Activity {
 
     protected String sdRootTxt = "";
 
-    protected File defaultRamblerFile;
-
     protected File defaultPoisFile;
     protected File defaultRoutesFile;
     protected File defaultTracksFile;
@@ -393,7 +391,7 @@ public class Utils extends Activity {
 
                     JSONObject osrmRoute = osrmRoutes.getJSONObject(i);
                     String encodedPolyline = osrmRoute.getString("geometry");
-                    //Log.d(TAG, "EncPolyline: " + encodedPolyline);
+
                     route.setRoutePoints(decodeToRoutePoints(encodedPolyline));
 
                     Log.d(TAG, "Route: " + route);

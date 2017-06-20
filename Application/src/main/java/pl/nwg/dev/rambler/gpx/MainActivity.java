@@ -135,11 +135,29 @@ public class MainActivity extends Utils {
         addDrawerItems();
         setupDrawer();
 
-        defaultRamblerFile = new File((this).getExternalFilesDir(null), "Rambler.gpx");
+        /*
+         * In case you wanted to use the app standalone, it would be enough to store the current
+         * data set in a private folder, which is being deleted after uninstalling the app
+         * or clearing data. However, I'd like the application to share data with other apps.
+         * Disadvantage: the folder will have to be deleted manually when no longer necessary.
+         *
+         * defaultPoisFile = new File((this).getExternalFilesDir(null), "ramblerPois.gpx");
+         * defaultRoutesFile = new File((this).getExternalFilesDir(null), "ramblerRoutes.gpx");
+         * defaultTracksFile = new File((this).getExternalFilesDir(null), "ramblerTracks.gpx");
+         */
 
-        defaultPoisFile = new File((this).getExternalFilesDir(null), "ramblerPois.gpx");
-        defaultRoutesFile = new File((this).getExternalFilesDir(null), "ramblerRoutes.gpx");
-        defaultTracksFile = new File((this).getExternalFilesDir(null), "ramblerTracks.gpx");
+        if (!sharedFolderExists()) {
+            if (sharedFolderCreate()) {
+                Toast.makeText(MainActivity.this, getString(R.string.shared_folder_created), Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(MainActivity.this, getString(R.string.shared_folder_failure), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        defaultPoisFile = new File(Environment.getExternalStorageDirectory() + "/RamblerSharedData/ramblerPois.gpx");
+        defaultRoutesFile = new File(Environment.getExternalStorageDirectory() + "/RamblerSharedData/ramblerRoutes.gpx");
+        defaultTracksFile = new File(Environment.getExternalStorageDirectory() + "/RamblerSharedData/ramblerTracks.gpx");
 
         boolean firstInstall = !defaultPoisFile.exists() || !defaultRoutesFile.exists() || !defaultTracksFile.exists();
 
@@ -365,6 +383,18 @@ public class MainActivity extends Utils {
     public static boolean ramblerFolderCreate() {
 
         File folder = new File(Environment.getExternalStorageDirectory() + "/Rambler");
+        return folder.mkdirs();
+    }
+
+    public static boolean sharedFolderExists() {
+
+        File folder = new File(Environment.getExternalStorageDirectory() + "/RamblerSharedData");
+        return folder.exists();
+    }
+
+    public static boolean sharedFolderCreate() {
+
+        File folder = new File(Environment.getExternalStorageDirectory() + "/RamblerSharedData");
         return folder.mkdirs();
     }
 
@@ -970,6 +1000,9 @@ public class MainActivity extends Utils {
 
     public void refreshLoadedDataInfo() {
 
+        TextView openFile = (TextView) findViewById(R.id.open_file);
+        openFile.setText("");
+
         if (Data.sPoiGpx == null || Data.sRoutesGpx == null || Data.sTracksGpx == null) {
             return;
         }
@@ -1217,7 +1250,7 @@ public class MainActivity extends Utils {
         }
     }
 
-    public class openExternalGpxFile extends
+    private class openExternalGpxFile extends
             AsyncTask<Void, Boolean, Void> {
 
         AlertDialog alert;
