@@ -48,7 +48,7 @@ android {
         exclude 'META-INF/LICENSE'
     }
     defaultConfig {
-        applicationId "pl.nwg.dev.wear.gpx"
+        applicationId "pl.nwg.dev.rambler.gpx"
         minSdkVersion 18
         targetSdkVersion 25
         versionCode 37

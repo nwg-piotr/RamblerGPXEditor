@@ -504,5 +504,10 @@ PL Piotr Miller</string>
     <string name="show_poi">POI anzeigen</string>
     <string name="shared_folder_created">SharedData Ordner erstellt</string>
   <string name="shared_folder_failure">Erstellung von SharedData Ordner misslungen</string>
+    <string name="dialog_clear_all">Löschen</string>
+  <string name="track_manager_name">Touren Manager</string>
+    <string name="main_poi_loaded">POI Manager (%1$d geladen)</string>
+  <string name="main_routes_loaded">Routen Manager (%1$d geladen)</string>
+  <string name="main_tracks_loaded">Touren Manager (%1$d geladen)</string>
 
 </resources>

@@ -427,5 +427,10 @@ PL Piotr Miller</string>
     <string name="show_poi">Pokaż POI</string>
     <string name="shared_folder_created">Utworzono folder udostępniony</string>
     <string name="shared_folder_failure">Nie udało się utworzyć foderu SharedData</string>
+    <string name="dialog_clear_all">Wyczyścić wszystkie dane?</string>
+    <string name="track_manager_name">Menadżer śladów</string>
+    <string name="main_poi_loaded">Menadżer POI (%1$d w pamięci)</string>
+    <string name="main_routes_loaded">Menadżer tras (%1$d w pamięci)</string>
+    <string name="main_tracks_loaded">Menadżer śladów (%1$d w pamięci)</string>
 
 </resources>

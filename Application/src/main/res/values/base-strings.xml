@@ -21,5 +21,6 @@
     <string name="route_picker_name">Route Manager</string>
     <string name="route_optimizer_name">Route Optimizer</string>
     <string name="poi_manager_name">POI Manager</string>
+    <string name="track_manager_name">Track Manager</string>
 
 </resources>

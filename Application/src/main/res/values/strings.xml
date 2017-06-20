@@ -231,6 +231,7 @@
 
     <string name="dialog_clear_pois">Clear all POI?</string>
     <string name="dialog_clear_routes">Clear all routes?</string>
+    <string name="dialog_clear_all">Clear all data?</string>
     <string name="dialog_clear">Clear</string>
 
     <string name="dialog_data_changed_title">Data changed</string>
@@ -609,5 +610,9 @@
 
     <string name="osm_copyright">&#169; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</string>
     <string name="github"><a href="https://github.com/nwg-piotr/RamblerGPXEditor">Project on GitHub</a></string>
+
+    <string name="main_poi_loaded">POI Manager (%1$d loaded)</string>
+    <string name="main_routes_loaded">Route Manager (%1$d loaded)</string>
+    <string name="main_tracks_loaded">Track Manager (%1$d loaded)</string>
 
 </resources>

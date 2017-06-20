@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,8 +81,9 @@ public class MainActivity extends Utils {
 
     boolean mLocationAcquired = false;
 
-    Button poisButton;
-    Button routesButton;
+    TableRow poisButton;
+    TableRow routesButton;
+    TableRow tracksButton;
 
     ListView list;
 
@@ -217,7 +219,7 @@ public class MainActivity extends Utils {
             }
         }
 
-        poisButton = (Button) findViewById(R.id.main_pois);
+        poisButton = (TableRow) findViewById(R.id.main_poi_btn);
         poisButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -237,7 +239,7 @@ public class MainActivity extends Utils {
 
         });
 
-        routesButton = (Button) findViewById(R.id.main_routes);
+        routesButton = (TableRow) findViewById(R.id.main_routes_btn);
         routesButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -247,6 +249,16 @@ public class MainActivity extends Utils {
                 i = new Intent(MainActivity.this, RoutesBrowserActivity.class);
 
                 startActivity(i);
+            }
+
+        });
+
+        tracksButton = (TableRow) findViewById(R.id.main_tracks_btn);
+        tracksButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
             }
 
         });
@@ -931,13 +943,15 @@ public class MainActivity extends Utils {
             return;
         }
 
-        TextView loadedData = (TextView) findViewById(R.id.loaded_data);
         try {
-            String loadedPoi = String.format(getString(R.string.poi_loaded), Data.sPoiGpx.getPoints().size()) + ", ";
-            String loadedRoutes = String.format(getString(R.string.routes_loaded), Data.sRoutesGpx.getRoutes().size()) + ", ";
-            String loadedTracks = String.format(getString(R.string.tracks_loaded), Data.sTracksGpx.getTracks().size());
-            String setMe = loadedPoi + loadedRoutes + loadedTracks;
-            loadedData.setText(setMe);
+            TextView poiStatus = (TextView) findViewById(R.id.poi_manager_text);
+            poiStatus.setText(String.format(getString(R.string.main_poi_loaded), Data.sPoiGpx.getPoints().size()));
+
+            TextView routesStatus = (TextView) findViewById(R.id.route_manager_text);
+            routesStatus.setText(String.format(getString(R.string.main_routes_loaded), Data.sRoutesGpx.getRoutes().size()));
+
+            TextView tracksStatus = (TextView) findViewById(R.id.track_manager_text);
+            tracksStatus.setText(String.format(getString(R.string.main_tracks_loaded), Data.sTracksGpx.getTracks().size()));
         } catch(Exception e) {
             Toast.makeText(getApplicationContext(), getString(R.string.read_error) + e, Toast.LENGTH_SHORT).show();
         }

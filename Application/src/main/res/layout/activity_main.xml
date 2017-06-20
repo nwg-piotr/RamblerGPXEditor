@@ -10,78 +10,103 @@
         android:layout_height="match_parent"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
+        android:background="#eeeeee"
         tools:context=".MainActivity">
 
-        <TableLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="5dp"
-            android:gravity="center_horizontal"
-            android:id="@+id/tableLayout3">
+            android:layout_height="match_parent"
+            android:background="@drawable/background">
 
-            <TableRow android:id="@+id/managers"
-
-                android:gravity="center_horizontal"
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
 
-                <Button  style="?android:attr/buttonStyleSmall"
-                    android:id="@+id/main_pois"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/main_pois"
+                android:id="@+id/tableLayout3">
+
+                <TableRow
+                    android:id="@+id/main_poi_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:padding="3dp"
+                    android:layout_margin="5dp">
 
-            </TableRow>
+                    <ImageView android:contentDescription="@string/poi_manager_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:src="@mipmap/main_btn_poi" />
 
-            <TableRow  android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/poi_manager_text"
+                        android:gravity="start"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/poi_manager_name" />
 
-                <Button  style="?android:attr/buttonStyleSmall"
-                    android:id="@+id/main_routes"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/main_routes"
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/main_routes_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:padding="3dp"
+                    android:layout_margin="5dp">
 
-            </TableRow>
+                    <ImageView android:contentDescription="@string/route_picker_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:src="@mipmap/main_btn_routes" />
 
-            <TableRow android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/route_manager_text"
+                        android:gravity="start"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/route_picker_name" />
 
-                <Button  style="?android:attr/buttonStyleSmall"
-                    android:id="@+id/main_tracks"
-                    android:layout_width="wrap_content"
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/main_tracks_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:padding="3dp"
+                    android:layout_margin="5dp">
+
+                    <ImageView android:contentDescription="@string/route_picker_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:src="@mipmap/main_btn_tracks" />
+
+                    <TextView
+                        android:id="@+id/track_manager_text"
+                        android:gravity="start"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/track_manager_name" />
+
+                </TableRow>
+
+                <TextView
+                    android:id="@+id/open_file"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/main_tracks"/>
+                    android:text="file"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="top" />
 
-            </TableRow>
+            </TableLayout>
 
-            <TextView
-                android:id="@+id/loaded_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="data"
-                android:padding="6dp"
-                android:textColor="#999999"
-                android:gravity="center_horizontal"
-
-                android:layout_gravity="top" />
-
-            <TextView
-                android:id="@+id/open_file"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="file"
-                android:textColor="#333333"
-                android:textSize="14sp"
-                android:gravity="center_horizontal"
-
-                android:layout_gravity="top" />
-
-        </TableLayout>
+        </ScrollView>
 
     </RelativeLayout>
 
