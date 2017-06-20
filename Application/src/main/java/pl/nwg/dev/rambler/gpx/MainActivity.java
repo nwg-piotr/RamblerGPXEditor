@@ -82,11 +82,6 @@ public class MainActivity extends Utils {
 
     Button poisButton;
     Button routesButton;
-    Button newButton;
-    Button openButton;
-    Button saveButton;
-
-    double currentLat, currentLon, currentAlt;
 
     ListView list;
 
@@ -220,7 +215,6 @@ public class MainActivity extends Utils {
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-
         }
 
         poisButton = (Button) findViewById(R.id.main_pois);
@@ -253,74 +247,6 @@ public class MainActivity extends Utils {
                 i = new Intent(MainActivity.this, RoutesBrowserActivity.class);
 
                 startActivity(i);
-            }
-
-        });
-
-        newButton = (Button) findViewById(R.id.main_new);
-        newButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                if (Data.sPoiGpx.isChanged() || Data.sRoutesGpx.isChanged() || Data.sTracksGpx.isChanged()) {
-
-                    displayDataChangedDialog();
-
-                } else {
-
-                    Data.sPoiGpx = new Gpx();
-                    Data.sRoutesGpx = new Gpx();
-                    Data.sTracksGpx = new Gpx();
-
-                    Data.sPoiGpx.resetIsChanged();
-                    Data.sRoutesGpx.resetIsChanged();
-                    Data.sTracksGpx.resetIsChanged();
-
-                    Data.sSelectedRouteIdx = null;
-
-                    refreshLoadedDataInfo();
-                }
-
-                Data.sPoiGpx = new Gpx();
-                Data.sRoutesGpx = new Gpx();
-                Data.sTracksGpx = new Gpx();
-
-                refreshLoadedDataInfo();
-
-            }
-
-        });
-
-        openButton = (Button) findViewById(R.id.main_open);
-        openButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                filePickerAction = ACTION_OPEN;
-
-                fileExploreIntent.putExtra(
-                        FileBrowserActivity.startDirectoryParameter,
-                        ramblerPath
-                );
-                startActivityForResult(
-                        fileExploreIntent,
-                        REQUEST_CODE_PICK_FILE
-                );
-
-            }
-
-        });
-
-        saveButton = (Button) findViewById(R.id.main_save);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                showSaveAsDialog();
-
             }
 
         });
@@ -763,7 +689,6 @@ public class MainActivity extends Utils {
         super.onActivityResult(requestCode, resultCode, data);
 
         TextView openFile = (TextView) findViewById(R.id.open_file);
-        TextView loadedData = (TextView) findViewById(R.id.loaded_data);
 
         if (requestCode == REQUEST_CODE_PICK_FILE) {
             if (resultCode == RESULT_OK) {
@@ -995,7 +920,6 @@ public class MainActivity extends Utils {
 
             Toast.makeText(getApplicationContext(), getString(R.string.failed_writing_gpx), Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void refreshLoadedDataInfo() {
