@@ -136,15 +136,4 @@
 
     </RelativeLayout>
 
-    <!-- The navigation drawer -->
-    <ListView android:id="@+id/left_drawer"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start|center_vertical"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#33ffffff"
-        android:paddingTop="60dp" />
-
 </android.support.v4.widget.DrawerLayout>
