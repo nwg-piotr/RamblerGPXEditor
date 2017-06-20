@@ -14,7 +14,7 @@ temporarily);
 uses GeoKarambola GpxUtils.simplifyRoute to reduce waypoints number;
 - **Route Optimizer** Reduces waypoints number to desired amount on the fly; uses 
 [GeoKarambola library](https://sourceforge.net/projects/geokarambola);
-- **POI** (Points Of Interest) **Manager** Allows to browse and manage your POI data;
+- **POI Manager** Allows to browse and manage your POI (Points Of Interest) data;
 - **Track Manager** *planned* | The activity to  browse, delete, import, export tracks. Also 
 conversion to routes could be done here.
 - *Enter an idea here.*
