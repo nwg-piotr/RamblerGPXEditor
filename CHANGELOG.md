@@ -1,17 +1,26 @@
 CHANGELOG
 ===============
+**20th June, 2017**
+
+- Current data files root changed: originally files containing current state of Data.sPoisGpx, 
+Data.sRoutesGpx and Data.sTracksGpx used to be stored in the apps private folder. Since I'd like 
+them to be accessible to other apps,  I changed their location to sdRoot/RamblerSharedData.
+- Main screen rearranged: added the Track Manager" button (inactive at the moment). File operation
+buttons from now on in the drawer only.
+- [Build 0.0.3.7](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.3.7.apk?raw=true) uploaded.
+
 **19th June, 2007**
 
 - POI layer added to the Route Editor and Route Creator. In the Editor you can insert or append POI
 coordinates as a route point. In the Creator you can append POI as a cardinal way point.
 
-**18th July, 2017**
+**18th June, 2017**
 
 - Animation turned off in all zoom-to-fit buttons.
 - Missing I/O code added to the POI Manager menu (New from coordinates / Clear all / Import / Export).
 Possibly buggy at the moment.
 - Also some modifications to Routes Browser and Main Activity.
-- [Build 0.0.3.4](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.3.4.apk?raw=true) uploaded.
+- Build 0.0.3.4 uploaded.
 
 
 **17th June, 2017**
