@@ -111,13 +111,13 @@
             android:enabled="false"/>
 
         <Button style="?android:attr/buttonStyleSmall"
+            android:contentDescription="My Location"
             android:id="@+id/picker_location_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
             android:layout_marginTop="67dp"
             android:background="@drawable/location_button"
-            android:contentDescription="My Location"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
 
