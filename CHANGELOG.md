@@ -12,10 +12,10 @@ the Zoom-to-fit button.
 
 **20th June, 2017**
 
-- Current data files root changed: originally files containing current state of Data.sPoisGpx, 
-Data.sRoutesGpx and Data.sTracksGpx used to be stored in the apps private folder. Since I'd like 
-them to be accessible to other apps,  I changed their location to sdRoot/RamblerSharedData.
-- Main screen rearranged: added the Track Manager" button (inactive at the moment). File operation
+- Current data files root changed: originally files containing current state of `Data.sPoisGpx`, 
+`Data.sRoutesGpx` and `Data.sTracksGpx` used to be stored in the apps private folder. Since I'd like 
+them to be accessible to other apps,  I changed their location to `sdRoot/RamblerSharedData`.
+- Main screen rearranged: added the Track Manager button (inactive at the moment). File operation
 buttons from now on available in the drawer only.
 - Build 0.0.3.8 uploaded.
 
