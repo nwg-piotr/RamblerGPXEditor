@@ -15,8 +15,10 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -34,6 +36,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,6 +91,16 @@ public class RoutesBrowserActivity extends Utils
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+
+    ListView list;
+
+    String[] web = new String[1];
+
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+
     private final String TAG = "Picker";
 
     private final int MAX_ZOOM_LEVEL = 19;
@@ -107,7 +120,7 @@ public class RoutesBrowserActivity extends Utils
     private Button fitButton;
     private Button nextButton;
     private Button previousButton;
-    private Button searchButton;
+    private Button filterButton;
     private Button editButton;
 
     private Button editRouteButton;
@@ -138,6 +151,11 @@ public class RoutesBrowserActivity extends Utils
     private Map<Marker,Integer> markerToRouteIdx;
 
     /**
+     * Drawer entry -> route index
+     */
+    private Map<Integer,Integer> drawerIdxToRouteIdx;
+
+    /**
      * View filtering
      */
     boolean enable_type;
@@ -164,6 +182,15 @@ public class RoutesBrowserActivity extends Utils
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_routes_browser);
+
+        mTitle = mDrawerTitle = getTitle();
+
+        web[0] = getResources().getString(R.string.no_routes_loaded);
+
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout_routes);
+
+        addDrawerItems(web);
+        setupDrawer();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -264,6 +291,16 @@ public class RoutesBrowserActivity extends Utils
         final int allRoutesNumber = Data.sRoutesGpx.getRoutes().size();
 
         Data.sFilteredRoutes = ListUtils.filter(Data.sRoutesGpx.getRoutes(), Data.sViewRouteFilter);
+
+        if(Data.sFilteredRoutes == null || Data.sFilteredRoutes.isEmpty()) {
+            Data.sSelectedRouteIdx = null;
+        }
+
+        if (updateDrawerItems() != null) {
+            addDrawerItems(updateDrawerItems());
+        } else {
+            addDrawerItems(web);
+        }
 
         mFilteredRoutesNumber = Data.sFilteredRoutes.size();
 
@@ -453,13 +490,7 @@ public class RoutesBrowserActivity extends Utils
                 }
             }
         });
-        fitButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                displayFilterDialog();
-                return false;
-            }
-        });
+
         nextButton = (Button) findViewById(R.id.picker_next_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -495,11 +526,11 @@ public class RoutesBrowserActivity extends Utils
             }
         });
 
-        searchButton = (Button) findViewById(R.id.picker_search_button);
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        filterButton = (Button) findViewById(R.id.picker_filter_button);
+        filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displaySelectRouteDialog();
+                displayFilterDialog();
             }
         });
 
@@ -554,11 +585,11 @@ public class RoutesBrowserActivity extends Utils
          * Open a dialog to select a route by name
          */
         if (Data.sFilteredRoutes != null && Data.sFilteredRoutes.size() > 0) {
-            searchButton.setEnabled(true);
-            searchButton.getBackground().setAlpha(255);
+            filterButton.setEnabled(true);
+            filterButton.getBackground().setAlpha(255);
         } else {
-            searchButton.setEnabled(false);
-            searchButton.getBackground().setAlpha(100);
+            filterButton.setEnabled(false);
+            filterButton.getBackground().setAlpha(100);
         }
 
         if (!Data.sFilteredRoutes.isEmpty() && Data.sSelectedRouteIdx != null) {
@@ -658,6 +689,19 @@ public class RoutesBrowserActivity extends Utils
         }
         Data.sLastZoom = mMapView.getZoomLevel();
         Data.sLastCenter = new GeoPoint(mMapView.getMapCenter().getLatitude(), mMapView.getMapCenter().getLongitude());
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(android.content.res.Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -767,7 +811,7 @@ public class RoutesBrowserActivity extends Utils
 
             case R.id.routes_clear:
 
-                if(Data.sRoutesGpx.getRoutes().size() > 0) {
+                if (Data.sRoutesGpx.getRoutes().size() > 0) {
                     clearRoutes();
                 } else {
                     Toast.makeText(this, getResources().getString(R.string.no_routes_to_clear), Toast.LENGTH_LONG).show();
@@ -807,10 +851,61 @@ public class RoutesBrowserActivity extends Utils
                 filePickerAction = SAVE_MULTIPLE_ROUTES;
                 displayExportMultipleDialog();
                 return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
         }
+
+        // Activate the navigation drawer toggle
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addDrawerItems(String items[]) {
+
+        CustomListNoIcons adapter = new
+                CustomListNoIcons(RoutesBrowserActivity.this, items);
+        list=(ListView)findViewById(R.id.routesNavList);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                if (drawerIdxToRouteIdx != null && !drawerIdxToRouteIdx.isEmpty()) {
+                    Data.sSelectedRouteIdx = drawerIdxToRouteIdx.get(position);
+                    refreshMap();
+                }
+            }
+        });
+    }
+
+    private void setupDrawer() {
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
+
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(mTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
     }
 
     @Override
@@ -1095,6 +1190,38 @@ public class RoutesBrowserActivity extends Utils
                 }
             }
         });
+    }
+
+    private String[] updateDrawerItems() {
+
+        if (Data.sRoutesGpx.getRoutes().size() == 0 || Data.sFilteredRoutes.size() == 0) {
+            return null;
+        }
+
+        Route[] sortedRoutesArray = new Route[Data.sFilteredRoutes.size()];
+        sortedRoutesArray = Data.sFilteredRoutes.toArray(sortedRoutesArray);
+
+        Arrays.sort(sortedRoutesArray, Data.rteComparator);
+
+        List<String> gpxRteDisplayNames = new ArrayList<>();
+
+        drawerIdxToRouteIdx = new HashMap<>();
+        for (int i = 0; i < sortedRoutesArray.length; i++) {
+
+            Route route = sortedRoutesArray[i];
+
+            gpxRteDisplayNames.add(route.getName());
+
+            drawerIdxToRouteIdx.put(i, Data.sFilteredRoutes.indexOf(route));
+        }
+
+        List<String> allNames = new ArrayList<>();
+        allNames.addAll(gpxRteDisplayNames);
+
+        String[] drawer_entries = new String[allNames.size()];
+        drawer_entries = allNames.toArray(drawer_entries);
+
+        return drawer_entries;
     }
 
     private void displaySelectRouteDialog() {

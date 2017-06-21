@@ -42,14 +42,14 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/empty_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/map_empty_btn"
+                android:background="@drawable/map_edit_filter"
+                android:maxWidth="0dp"
                 android:maxHeight="0dp"
-                android:maxWidth="0dp" />
+                android:id="@+id/poi_filter_button" />
 
             <Button
                 android:id="@+id/zoom_out_button"

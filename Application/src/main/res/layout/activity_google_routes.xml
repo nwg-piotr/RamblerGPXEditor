@@ -82,7 +82,7 @@
                             android:background="@drawable/map_search"
                             android:maxWidth="0dp"
                             android:maxHeight="0dp"
-                            android:id="@+id/picker_search_button" />
+                            android:id="@+id/picker_filter_button" />
 
                     </TableRow>
 
