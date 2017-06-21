@@ -30,6 +30,9 @@ http://project-osrm.org
 
 © OSRM licensed under 2-clause BSD license.
 
+The Route Creator activity depends on the routing from OSRM Demo Server, and the 
+[ODbl license](https://opendatacommons.org/licenses/odbl) applies to it. 
+
 ## AndroidFileBrowser
 by Alexey Vassiliev https://github.com/vaal12/AndroidFileBrowser
 
