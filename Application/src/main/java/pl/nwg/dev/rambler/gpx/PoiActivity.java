@@ -97,12 +97,12 @@ public class PoiActivity extends Utils
     private final int MAX_ZOOM_LEVEL = 19;
     private final int MIN_ZOOM_LEVEL = 4;
 
-    Button locationButton;
-
-    Button fitButton;
-    Button zoomInButton;
-    Button zoomOutButton;
-    Button saveButton;
+    private Button locationButton;
+    private Button fitButton;
+    private Button zoomInButton;
+    private Button zoomOutButton;
+    private Button saveButton;
+    private Button filterButton;
 
     TextView poiPrompt;
 
@@ -392,18 +392,15 @@ public class PoiActivity extends Utils
             public void onClick(View v) {
                 if (Data.sFilteredPoi != null && Data.sFilteredPoi.size() > 0) {
                     mMapView.zoomToBoundingBox(findBoundingBox(pointsToGeoPoints(Data.sFilteredPoi)), false);
+                    refreshMap();
+                    setButtonsState();
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.no_poi_in_view), Toast.LENGTH_SHORT).show();
                 }
-                refreshMap();
-                setButtonsState();
+
             }
         });
-        fitButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                displayFilterDialog();
-                return false;
-            }
-        });
+
         zoomInButton = (Button) findViewById(R.id.zoom_in_button);
         zoomInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -433,6 +430,13 @@ public class PoiActivity extends Utils
 
                 Data.sCopiedPoiGpx.resetIsChanged();
                 finish();
+            }
+        });
+        filterButton = (Button) findViewById(R.id.poi_filter_button);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayFilterDialog();
             }
         });
 
@@ -466,6 +470,14 @@ public class PoiActivity extends Utils
         } else {
             saveButton.setEnabled(false);
             saveButton.getBackground().setAlpha(100);
+        }
+
+        if (Data.sFilteredPoi != null && Data.sFilteredPoi.size() > 0) {
+            filterButton.setEnabled(true);
+            filterButton.getBackground().setAlpha(255);
+        } else {
+            filterButton.setEnabled(false);
+            filterButton.getBackground().setAlpha(100);
         }
 
         if (Data.sViewPoiFilter.isEnabled()) {

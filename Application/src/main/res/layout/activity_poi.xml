@@ -97,7 +97,6 @@
             android:id="@+id/copyright"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttons"
             android:gravity="start"
             android:textSize="12sp"
             android:textColor="#444"

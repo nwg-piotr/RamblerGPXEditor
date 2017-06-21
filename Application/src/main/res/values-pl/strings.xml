@@ -277,7 +277,7 @@
     <string name="poi_cache_contains">Bufor POI zawiera %1$s punktów. Naciśnij długo przycisk POI w menu nawigacji zegarka, by wyczyścić bufor.</string>
     <string name="no_poi_in_cache">Brak POI w buforze</string>
     <string name="sending_n_poi">Wysyłam %1$s POI</string>
-    <string name="no_poi_in_view">Brak POI w aktualnym widoku</string>
+    <string name="no_poi_in_view">Brak POI w tym widoku</string>
     <string name="no_poi_to_clear">Brak POI do usunięcia</string>
     <string name="play_services_check">Usługi Google Play niedostępne. Sprawdź czy ta sama wersja jest zainstalowana w telefonie i zegarku.</string>
     <string name="play_services_unavailable">Usługi Google Play niedostępne</string>
