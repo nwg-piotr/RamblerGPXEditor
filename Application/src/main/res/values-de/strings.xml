@@ -22,14 +22,11 @@
   <string name="action_lv">Active Zifferblatt</string>
   <string name="action_classic">Classic Zifferblatt</string>
   <string name="action_exit">Beenden</string>
-  <string name="about">Open Source GPX Applikation, &#169;2015&#8211;2017 nwg (Piotr Miller).</string>
-    <string name="gnugpl">This program is free software; you can redistribute it and/or modify
+  <string name="gnugpl">This program is free software; you can redistribute it and/or modify
     it under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License version 3.0</a>, as published by
     the Free Software Foundation.</string>
-  <string name="credits_btn">Danke</string>
-  <string name="manual_btn">Handbuch</string>
 
-    <string name="karambola">
+  <string name="karambola">
         - Werkzeuge für GPX Format import/export/manipulieren;
         \n- POI/routen ansehen/filtern/sortieren;
         \n- Pfad Vereinfacher - die Track2Route Echzeit Engine für konversionieren und vereinfachon von Routen;
@@ -509,5 +506,6 @@ PL Piotr Miller</string>
     <string name="main_poi_loaded">POI Manager (%1$d geladen)</string>
   <string name="main_routes_loaded">Routen Manager (%1$d geladen)</string>
   <string name="main_tracks_loaded">Touren Manager (%1$d geladen)</string>
+  <string name="about_app">&#169;2015&#8211;2017 nwg (Piotr Miller)</string>
 
 </resources>

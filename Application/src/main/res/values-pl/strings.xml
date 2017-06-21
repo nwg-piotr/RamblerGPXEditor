@@ -26,7 +26,6 @@
     <string name="convert_corners_dst">Min odległość narożników (m)</string>
     <string name="convert_min_points_dst">Min odległość punktów</string>
     <string name="creating_properties">Tworzę nowy plik ustawień</string>
-    <string name="credits_btn">Podziękowania</string>
     <string name="current_speed">SPD (Prędkość)</string>
     <string name="deviation">DEV (Dewiacja)</string>
     <string name="dialog_advanced">Ustawienia nawigacji</string>
@@ -223,7 +222,6 @@
     <string name="waypoint_hint_none">brak</string>
     <string name="waypoint_hint_right">W prawo</string>
     <string name="waypoint_hint_stop">Stop</string>
-    <string name="manual_btn">Podręcznik</string>
     <string name="widget_empty">---</string>
     <string name="widget_off">Wyłączone</string>
     <string name="wp_name">Podaj nazwę</string>
@@ -267,7 +265,6 @@
     <string name="poi_sent">POI wysłano do zegarka</string>
     <string name="poi_sending_error">Błąd podczas wysyłania POI</string>
 
-    <string name="about">Otwartoźródłowy edytor GPX &#169;2015–2017 nwg (Piotr Miller).</string>
     <string name="gnugpl">Niniejszy program jest wolnym oprogramowaniem; możesz go
     rozprowadzać dalej i/lub modyfikować na warunkach <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">Powszechnej
     Licencji Publicznej GNU wersja 3.0</a>, wydanej przez Fundację Wolnego Oprogramowania.</string>
@@ -432,5 +429,6 @@ PL Piotr Miller</string>
     <string name="main_poi_loaded">Menadżer POI (%1$d w pamięci)</string>
     <string name="main_routes_loaded">Menadżer tras (%1$d w pamięci)</string>
     <string name="main_tracks_loaded">Menadżer śladów (%1$d w pamięci)</string>
+    <string name="about_app">&#169;2015–2017 nwg (Piotr Miller)</string>
 
 </resources>

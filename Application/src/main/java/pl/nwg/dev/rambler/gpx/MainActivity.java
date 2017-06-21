@@ -483,29 +483,31 @@ public class MainActivity extends Utils {
 
     private void displayAboutDialog() {
 
-        String versionName = "-.-.-";
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            versionName = packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
         final View layout = inflater.inflate(R.layout.about_dialog, null);
 
+        PackageInfo packageInfo =  null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (packageInfo != null) {
+            TextView version = (TextView) layout.findViewById(R.id.version_name);
+            version.setText(String.format(getResources().getString(R.string.version_name), packageInfo.versionName));
+        }
+
         final TextView gnu = (TextView) layout.findViewById(R.id.gnu);
         final TextView github = (TextView) layout.findViewById(R.id.github);
 
-        String dialogTitle = getResources().getString(R.string.dialog_about) + " " + versionName;
+        String dialogTitle = getResources().getString(R.string.dialog_about);
         String okText = getResources().getString(R.string.dialog_ok);
         String creditsText = getResources().getString(R.string.credits_btn);
         String websiteText = getResources().getString(R.string.manual_btn);
         builder.setTitle(dialogTitle)
-                .setIcon(R.drawable.ico_info)
+                .setIcon(R.drawable.icon)
                 .setCancelable(false)
                 .setView(layout)
                 .setPositiveButton(okText, new DialogInterface.OnClickListener() {
