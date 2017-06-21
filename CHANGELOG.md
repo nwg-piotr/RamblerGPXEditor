@@ -6,7 +6,8 @@ CHANGELOG
 drawer.
 - Route Manager and POI Manager: a separate Filter button added, instead of the long press action on 
 the Zoom-to-fit button.
-- [Build 0.0.3.9](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.3.9.apk?raw=true) uploaded.
+- Various layout improvements (new app icon, About dialog reformatted etc.). 
+- [Build 0.0.4.0](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.0.apk?raw=true) uploaded.
 
 
 **20th June, 2017**
