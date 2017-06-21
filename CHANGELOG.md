@@ -1,5 +1,14 @@
 CHANGELOG
 ===============
+**21th June, 2017**
+
+- Route Manager: the menu to select routes by name (former magnifier icon) moved to the application 
+drawer.
+- Route Manager and POI Manager: a separate Filter button added, instead of the long press action on 
+the Zoom-to-fit button.
+- [Build 0.0.3.9](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.3.9.apk?raw=true) uploaded.
+
+
 **20th June, 2017**
 
 - Current data files root changed: originally files containing current state of Data.sPoisGpx, 
@@ -7,7 +16,7 @@ Data.sRoutesGpx and Data.sTracksGpx used to be stored in the apps private folder
 them to be accessible to other apps,  I changed their location to sdRoot/RamblerSharedData.
 - Main screen rearranged: added the Track Manager" button (inactive at the moment). File operation
 buttons from now on available in the drawer only.
-- [Build 0.0.3.8](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.3.8.apk?raw=true) uploaded.
+- Build 0.0.3.8 uploaded.
 
 **19th June, 2007**
 
