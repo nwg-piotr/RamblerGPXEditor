@@ -10,6 +10,7 @@ import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.beans.Point;
 import pt.karambola.gpx.beans.Route;
+import pt.karambola.gpx.beans.Track;
 import pt.karambola.gpx.comparator.RouteComparator;
 import pt.karambola.gpx.predicate.PointFilter;
 import pt.karambola.gpx.predicate.RouteFilter;
@@ -93,4 +94,16 @@ final class Data {
     static List<Point> sFilteredPoi = new ArrayList<>();
     static PointFilter sViewPoiFilter = new PointFilter();
     static Gpx sCopiedPoiGpx;
+
+    /**
+     * Not tracks vew filtering, at least for now
+     */
+    static List<Track> sAllTracks = new ArrayList<>();
+
+    /**
+     * Index of currently selected track
+     */
+    static Integer sSelectedTrackIdx = null;
+
+    static List<GeoPoint> trackNodes;
 }

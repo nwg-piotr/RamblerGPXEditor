@@ -429,6 +429,11 @@ PL Piotr Miller</string>
     <string name="main_poi_loaded">Menadżer POI (%1$d w pamięci)</string>
     <string name="main_routes_loaded">Menadżer tras (%1$d w pamięci)</string>
     <string name="main_tracks_loaded">Menadżer śladów (%1$d w pamięci)</string>
-    <string name="about_app">&#169;2015–2017 nwg (Piotr Miller)</string>
+    <string name="x_tracks">%1$d śladów</string>
+    <string name="tracks_clear_all">Usuń wszystkie ślady</string>
+    <string name="tracks_edit_properties">Edytuj właściwości</string>
+    <string name="tracks_export">Eksportuj ślady</string>
+    <string name="tracks_import">Importuj ślady</string>
+    <string name="tracks_delete_selected">Usuń wybrany</string>
 
 </resources>

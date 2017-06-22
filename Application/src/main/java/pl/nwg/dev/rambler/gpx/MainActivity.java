@@ -259,6 +259,10 @@ public class MainActivity extends Utils {
             @Override
             public void onClick(View arg0) {
 
+                Intent i;
+                i = new Intent(MainActivity.this, TracksBrowserActivity.class);
+
+                startActivity(i);
             }
 
         });

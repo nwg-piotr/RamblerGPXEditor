@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RouteEditorActivity">
+
+
+    <item android:orderInCategory="100"
+        android:id="@+id/routes_edit_selected"
+        android:title="@string/tracks_edit_properties"
+        android:enabled="false" />
+
+    <item android:orderInCategory="110"
+        android:id="@+id/routes_delete_selected"
+        android:title="@string/routes_delete_selected"
+        android:enabled="false" />
+
+    <item android:orderInCategory="120"
+        android:id="@+id/routes_clear"
+        android:title="@string/tracks_clear_all"
+        android:enabled="false" />
+
+    <item android:orderInCategory="130"
+        android:id="@+id/routes_import_routes"
+        android:title="@string/tracks_import"
+        android:enabled="false" />
+
+    <item android:orderInCategory="140"
+        android:id="@+id/export"
+        android:title="@string/tracks_export"
+        android:enabled="false" />
+
+    <item android:orderInCategory="150"
+        android:id="@+id/routes_display"
+        android:title="@string/routes_display"
+        android:enabled="false" >
+
+        <menu >
+            <group android:id="@+id/display_group" android:checkableBehavior="all">
+                <item android:id="@+id/show_start" android:title="@string/routes_display_show_start" />
+                <item android:id="@+id/show_end" android:title="@string/routes_display_show_end" />
+                <item android:id="@+id/show_labels" android:title="@string/routes_display_show_labels" />
+                <item android:id="@+id/show_poi" android:title="@string/poi" />
+            </group>
+        </menu>
+
+    </item>
+
+</menu>

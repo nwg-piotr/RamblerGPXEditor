@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+
 import android.widget.TextView;
 
 public class CustomListNoIcons extends ArrayAdapter<String>{
@@ -28,10 +28,14 @@ public class CustomListNoIcons extends ArrayAdapter<String>{
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.list_single_no_icons, null, true);
+
         TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
 
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
-        txtTitle.setText(web[position]);
+        String entry = web[position];
+        if (entry.length() > 35) {
+            entry = entry.substring(0,34);
+        }
+        txtTitle.setText(entry);
 
         return rowView;
     }

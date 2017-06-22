@@ -27,7 +27,7 @@
     <string name="action_exit">Exit</string>
 
     <string name="version_name" translatable="false">versionName: %1$s</string>
-    <string name="about_app">&#169;2015&#8211;2017 nwg (Piotr Miller)</string>
+    <string name="about_app" translatable="false">&#169;2015&#8211;2017 nwg (Piotr Miller)</string>
     <string name="gnugpl">This program is free software; you can redistribute it and/or modify
     it under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License version 3.0</a>, as published by
     the Free Software Foundation.</string>
@@ -410,6 +410,12 @@
     <string name="routes_display_show_end">End points</string>
     <string name="routes_display_show_labels">Name labels</string>
 
+    <string name="tracks_edit_properties">Edit properties</string>
+    <string name="tracks_delete_selected">Delete selected</string>
+    <string name="tracks_clear_all">Clear all tracks</string>
+    <string name="tracks_import">Import tracks</string>
+    <string name="tracks_export">Export tracks</string>
+
     <string name="file_pick">Pick file</string>
 
     <string name="manually_name_desc">POI name:</string>
@@ -539,6 +545,7 @@
     <string name="no_routes_not_gpx">No routes or not a GPX file!</string>
     <string name="no_named_routes">The GPX file has no named routes</string>
     <string name="x_of_y_routes">%1$d of %2$d routes</string>
+    <string name="x_tracks">%1$d tracks</string>
     <string name="no_data">No data!</string>
     <string name="geo_karambola">GeoKarambola library</string>
     <!-- File Picker -->

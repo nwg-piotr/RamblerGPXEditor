@@ -506,6 +506,11 @@ PL Piotr Miller</string>
     <string name="main_poi_loaded">POI Manager (%1$d geladen)</string>
   <string name="main_routes_loaded">Routen Manager (%1$d geladen)</string>
   <string name="main_tracks_loaded">Touren Manager (%1$d geladen)</string>
-  <string name="about_app">&#169;2015&#8211;2017 nwg (Piotr Miller)</string>
+    <string name="x_tracks">%1$d Touren</string>
+  <string name="tracks_clear_all">Alle Touren löschen</string>
+  <string name="tracks_edit_properties">Eigenschaften bearbeiten</string>
+  <string name="tracks_export">Touren exportieren</string>
+  <string name="tracks_import">Touren importieren</string>
+  <string name="tracks_delete_selected">"Ausgewählte löschen "</string>
 
 </resources>

@@ -126,6 +126,15 @@
         </activity>
 
         <activity
+            android:name="pl.nwg.dev.rambler.gpx.TracksBrowserActivity"
+            android:theme="@android:style/Theme.Holo.Light"
+            android:label="@string/track_manager_name">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="pl.nwg.dev.rambler.gpx.PoiActivity"
             android:theme="@android:style/Theme.Holo.Light"
             android:label="@string/poi_manager_name">

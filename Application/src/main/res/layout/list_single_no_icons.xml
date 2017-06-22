@@ -8,7 +8,7 @@
             android:id="@+id/txt"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textColor="#fff"
             android:layout_marginStart="10dp"
             android:gravity="center_vertical|left" />
