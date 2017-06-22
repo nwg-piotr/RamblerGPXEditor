@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**22nd June, 2017**
+
+- A skeleton for the Track Manager activity added: just a copy of the Route Manager with several
+adaptations. Not even half-baked yet. 
+
 **21th June, 2017**
 
 - Route Manager: the menu to select routes by name (former magnifier icon) moved to the application 
