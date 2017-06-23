@@ -68,7 +68,7 @@
     <string name="dialog_select_pois">Wybierz POI</string>
     <string name="dialog_select_routes_export">Wybierz trasy</string>
     <string name="dialog_select_routes_import">Wybierz trasy</string>
-    <string name="dialog_select_tracks">Ścieżki do konwersji</string>
+    <string name="dialog_select_tracks">Ślady do konwersji</string>
     <string name="dialog_selected">Wybrane</string>
     <string name="dialog_sending_results">Wysyłanie wyników</string>
     <string name="dialog_set_lat_lon">Dodaj</string>
@@ -168,6 +168,7 @@
     <string name="route_dehintify">Czyść wskazówki</string>
     <string name="route_edit_number_label">Numer</string>
     <string name="route_edit_prompt">Wybierz trasę</string>
+    <string name="track_edit_prompt">Wybierz ślad</string>
     <string name="route_hintify">Dodaj wskazówki</string>
     <string name="routes_clear">Usuń wszystkie trasy</string>
     <string name="routes_delete_selected">Usuń wybraną</string>
@@ -435,5 +436,8 @@ PL Piotr Miller</string>
     <string name="tracks_export">Eksportuj ślady</string>
     <string name="tracks_import">Importuj ślady</string>
     <string name="tracks_delete_selected">Usuń wybrany</string>
+    <string name="dialog_select_tracks_import">Wybierz ślady</string>
+    <string name="dialog_clear_tracks">Usunąć wszystkie ślady?</string>
+    <string name="tracks_cleared">Usunięto wszystkie ślady</string>
 
 </resources>

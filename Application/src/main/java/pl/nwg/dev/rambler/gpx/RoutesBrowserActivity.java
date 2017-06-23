@@ -716,7 +716,7 @@ public class RoutesBrowserActivity extends Utils
         /*
          * We'll enable/disable menu options here
          */
-        menu.findItem(R.id.routes_delete_selected).setEnabled(Data.sSelectedRouteIdx != null);
+        menu.findItem(R.id.tracks_delete_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_edit_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_simplify_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_clear).setEnabled(Data.sRoutesGpx.getRoutes().size() > 0);
@@ -772,7 +772,7 @@ public class RoutesBrowserActivity extends Utils
                 startActivityForResult(i, 90);
                 return true;
 
-            case R.id.routes_delete_selected:
+            case R.id.tracks_delete_selected:
 
                 final Route route = Data.sFilteredRoutes.get(Data.sSelectedRouteIdx);
                 String deleteMessage;

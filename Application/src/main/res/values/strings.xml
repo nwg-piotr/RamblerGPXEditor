@@ -226,12 +226,14 @@
     <string name="dialog_select_pois">Select POI to import</string>
     <string name="dialog_select_routes_import">Select Routes to import</string>
     <string name="dialog_select_routes_export">Select Routes to export</string>
+    <string name="dialog_select_tracks_import">Select Tracks to import</string>
     <string name="dialog_select_tracks">Select Tracks to convert</string>
     <string name="dialog_selected">Selected</string>
     <string name="dialog_all">All</string>
 
     <string name="dialog_clear_pois">Clear all POI?</string>
     <string name="dialog_clear_routes">Clear all routes?</string>
+    <string name="dialog_clear_tracks">Clear all tracks?</string>
     <string name="dialog_clear_all">Clear all data?</string>
     <string name="dialog_clear">Clear</string>
 
@@ -537,13 +539,12 @@
     <string name="failed_creating_file">Failed creating file</string>
     <string name="neither_single_nor_multiple">Neither single nor multiple routes selected</string>
     <string name="routes_cleared">Routes cleared</string>
+    <string name="tracks_cleared">Routes cleared</string>
     <string name="no_routes_selected">No routes selected</string>
     <string name="no_routes_memory">No routes in memory or current view</string>
     <string name="tracks_converted">%1$d tracks converted</string>
     <string name="simplifying">Simplifying...</string>
     <string name="no_tracks_selected">No tracks selected</string>
-    <string name="no_routes_not_gpx">No routes or not a GPX file!</string>
-    <string name="no_named_routes">The GPX file has no named routes</string>
     <string name="x_of_y_routes">%1$d of %2$d routes</string>
     <string name="x_tracks">%1$d tracks</string>
     <string name="no_data">No data!</string>
@@ -622,5 +623,8 @@
     <string name="main_poi_loaded">POI Manager (%1$d loaded)</string>
     <string name="main_routes_loaded">Route Manager (%1$d loaded)</string>
     <string name="main_tracks_loaded">Track Manager (%1$d loaded)</string>
+    <string name="no_named_routes">The GPX file has no named routes</string>
+    <string name="no_routes_not_gpx">No routes or not a GPX file</string>
+    <string name="track_edit_prompt">Select a track</string>
 
 </resources>

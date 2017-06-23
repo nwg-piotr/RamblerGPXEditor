@@ -12,6 +12,7 @@ import pt.karambola.gpx.beans.Point;
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.Track;
 import pt.karambola.gpx.comparator.RouteComparator;
+import pt.karambola.gpx.comparator.TrackComparator;
 import pt.karambola.gpx.predicate.PointFilter;
 import pt.karambola.gpx.predicate.RouteFilter;
 
@@ -67,9 +68,10 @@ final class Data {
     static RouteFilter sViewRouteFilter = new RouteFilter();
 
     /**
-     * Comparator used in the Select Route dialog popup
+     * Comparator used in browsers
      */
     static Comparator<Route> rteComparator = RouteComparator.NAME;
+    static Comparator<Track> trkComparator = TrackComparator.NAME;
     static Units sUnitsInUse = Units.METRIC; // this will have to be user-configurable
 
     static final int POINTS_DISPLAY_LIMIT = 20;

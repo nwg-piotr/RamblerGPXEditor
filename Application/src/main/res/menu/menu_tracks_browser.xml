@@ -11,19 +11,18 @@
         android:enabled="false" />
 
     <item android:orderInCategory="110"
-        android:id="@+id/routes_delete_selected"
+        android:id="@+id/tracks_delete_selected"
         android:title="@string/routes_delete_selected"
         android:enabled="false" />
 
     <item android:orderInCategory="120"
-        android:id="@+id/routes_clear"
+        android:id="@+id/tracks_clear"
         android:title="@string/tracks_clear_all"
         android:enabled="false" />
 
     <item android:orderInCategory="130"
-        android:id="@+id/routes_import_routes"
-        android:title="@string/tracks_import"
-        android:enabled="false" />
+        android:id="@+id/tracks_import_tracks"
+        android:title="@string/tracks_import" />
 
     <item android:orderInCategory="140"
         android:id="@+id/export"

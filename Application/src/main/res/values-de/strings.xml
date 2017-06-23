@@ -512,5 +512,9 @@ PL Piotr Miller</string>
   <string name="tracks_export">Touren exportieren</string>
   <string name="tracks_import">Touren importieren</string>
   <string name="tracks_delete_selected">"Ausgewählte löschen "</string>
+    <string name="dialog_select_tracks_import">Touren für Import auswählen</string>
+    <string name="dialog_clear_tracks">Alle Touren löschen?</string>
+  <string name="tracks_cleared">Touren gelöscht</string>
+    <string name="track_edit_prompt">Wählen Sie eine Toure aus</string>
 
 </resources>
