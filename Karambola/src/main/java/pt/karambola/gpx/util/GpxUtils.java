@@ -1151,7 +1151,7 @@ GpxUtils
 	public static <R extends Track>
 	List<String>
 	getDistinctTrackTypes(final Iterable<R> tracks) {
-		return TypedUtils.getTypes( tracks ) ;
+		return TypedUtils.getTypes(tracks);
 	}
 
 
