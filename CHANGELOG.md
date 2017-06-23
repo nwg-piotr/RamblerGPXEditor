@@ -2,7 +2,7 @@ CHANGELOG
 ===============
 **23rd June, 2017**
 
-- First I/O added to the Track Manager: import, delete selected, delete all tracks.
+- The Track Manager partially works. First I/O added: import, delete selected, delete all tracks.
 - [Build 0.0.4.1](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.1.apk?raw=true) uploaded.
 
 **22nd June, 2017**
