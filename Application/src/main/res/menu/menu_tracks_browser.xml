@@ -6,13 +6,13 @@
 
 
     <item android:orderInCategory="100"
-        android:id="@+id/routes_edit_selected"
+        android:id="@+id/tracks_edit_properties"
         android:title="@string/tracks_edit_properties"
         android:enabled="false" />
 
     <item android:orderInCategory="110"
         android:id="@+id/tracks_delete_selected"
-        android:title="@string/routes_delete_selected"
+        android:title="@string/tracks_delete_selected"
         android:enabled="false" />
 
     <item android:orderInCategory="120"

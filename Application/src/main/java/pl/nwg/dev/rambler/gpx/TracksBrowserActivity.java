@@ -73,7 +73,6 @@ import java.util.Map;
 import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.beans.Route;
-import pt.karambola.gpx.beans.RoutePoint;
 import pt.karambola.gpx.beans.Track;
 import pt.karambola.gpx.beans.TrackPoint;
 import pt.karambola.gpx.io.GpxFileIo;
@@ -526,19 +525,7 @@ public class TracksBrowserActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                Data.sCopiedRoute = copyRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
-                Data.sCopiedRoute.resetIsChanged();
-
-                Intent i = new Intent(TracksBrowserActivity.this, RouteEditorActivity.class);
-                startActivityForResult(i, 90);
-            }
-        });
-        editButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
                 displayEditDialog();
-                return false;
             }
         });
 
@@ -568,7 +555,7 @@ public class TracksBrowserActivity extends Utils
             previousButton.getBackground().setAlpha(100);
         }
 
-        if (!Data.sFilteredRoutes.isEmpty() && Data.sSelectedRouteIdx != null) {
+        if (!Data.sAllTracks.isEmpty() && Data.sSelectedTrackIdx != null) {
             editButton.setEnabled(true);
             editButton.getBackground().setAlpha(255);
         } else {
@@ -697,6 +684,7 @@ public class TracksBrowserActivity extends Utils
 
         menu.findItem(R.id.tracks_delete_selected).setEnabled(Data.sSelectedTrackIdx != null);
         menu.findItem(R.id.tracks_clear).setEnabled(Data.sTracksGpx.getTracks().size() > 0);
+        menu.findItem(R.id.tracks_edit_properties).setEnabled(Data.sSelectedTrackIdx != null);
         /*
         menu.findItem(R.id.routes_edit_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_simplify_selected).setEnabled(Data.sSelectedRouteIdx != null);
@@ -724,24 +712,7 @@ public class TracksBrowserActivity extends Utils
 
         switch (item.getItemId()) {
 
-            case R.id.routes_new_route:
-
-                Data.sCopiedRoute = new Route();
-                Data.sCopiedRoute.setName(getResources().getString(R.string.unnamed));
-                Data.sCopiedRoute.resetIsChanged();
-                Data.sSelectedRouteIdx = null;
-
-                i = new Intent(TracksBrowserActivity.this, RouteEditorActivity.class);
-                startActivityForResult(i, 90);
-
-                return true;
-
-            case R.id.routes_new_autorute:
-                i = new Intent(TracksBrowserActivity.this, RouteCreatorActivity.class);
-                startActivityForResult(i, 90);
-                return true;
-
-            case R.id.routes_edit_selected:
+            case R.id.tracks_edit_properties:
 
                 displayEditDialog();
                 return true;
@@ -1211,48 +1182,42 @@ public class TracksBrowserActivity extends Utils
 
     private void displayEditDialog() {
 
-        if(Data.sFilteredRoutes.isEmpty() || Data.sSelectedRouteIdx == null) {
+        if(Data.sAllTracks.isEmpty() || Data.sSelectedTrackIdx == null) {
 
             return;
         }
 
-        final Route picked_route = Data.sFilteredRoutes.get(Data.sSelectedRouteIdx);
+        final Track picked_track = Data.sAllTracks.get(Data.sSelectedTrackIdx);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
-        final View routeEditLayout = inflater.inflate(R.layout.route_edit_dialog, null);
+        final View trackEditLayout = inflater.inflate(R.layout.track_edit_dialog, null);
 
-        final EditText editName = (EditText) routeEditLayout.findViewById(R.id.route_name_edit);
+
+        final EditText editName = (EditText) trackEditLayout.findViewById(R.id.track_name_edit);
         editName.setFilters(new InputFilter[] {
                 new InputFilter.LengthFilter(99)
         });
 
-        final EditText editNumber = (EditText) routeEditLayout.findViewById(R.id.route_number_edit);
-        final EditText editType = (EditText) routeEditLayout.findViewById(R.id.route_type_edit);
-        final EditText editDesc = (EditText) routeEditLayout.findViewById(R.id.route_description_edit);
+        final EditText editType = (EditText) trackEditLayout.findViewById(R.id.track_type_edit);
+        final EditText editDesc = (EditText) trackEditLayout.findViewById(R.id.track_description_edit);
 
-        final Spinner spinner = (Spinner) routeEditLayout.findViewById(R.id.route_type_spinner);
-        final List<String> rteTypes = GpxUtils.getDistinctRouteTypes(Data.sRoutesGpx.getRoutes());
-        rteTypes.add(0, getResources().getString(R.string.type));
+        final Spinner spinner = (Spinner) trackEditLayout.findViewById(R.id.track_type_spinner);
+        final List<String> trkTypes = GpxUtils.getDistinctTrackTypes(Data.sTracksGpx.getTracks());
+        trkTypes.add(0, getResources().getString(R.string.type));
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, rteTypes);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, trkTypes);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(dataAdapter);
         setUpSpinnerListener(spinner, editType);
 
-        if (picked_route.getNumber() != null) {
-            editNumber.setText(String.valueOf(picked_route.getNumber()));
-        } else {
-            editNumber.setText(String.valueOf(GpxUtils.getRoutesMaxNumber(Data.sRoutesGpx) + 1));
-        }
+        editName.setText(picked_track.getName());
+        if (picked_track.getType() != null) editType.setText(picked_track.getType());
 
-        editName.setText(picked_route.getName());
-        if (picked_route.getType() != null) editType.setText(picked_route.getType());
-
-        if (picked_route.getDescription() != null) editDesc.setText(picked_route.getDescription());
+        if (picked_track.getDescription() != null) editDesc.setText(picked_track.getDescription());
 
         String dialogTitle = getResources().getString(R.string.picker_edit_dialog_title);
         String okText = getResources().getString(R.string.picker_edit_apply);
@@ -1262,7 +1227,7 @@ public class TracksBrowserActivity extends Utils
 
         builder.setTitle(dialogTitle)
                 .setIcon(R.drawable.map_edit)
-                .setView(routeEditLayout)
+                .setView(trackEditLayout)
                 .setCancelable(true)
                 .setPositiveButton(okText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -1275,37 +1240,25 @@ public class TracksBrowserActivity extends Utils
                         String name = editName.getText().toString();
                         if (!name.isEmpty()) {
                             if (name.length() > 99) name = name.substring(0, 100);
-                            picked_route.setName(name);
+                            picked_track.setName(name);
 
                         } else {
-                            picked_route.setName(null);
-                        }
-
-                        if (!editNumber.getText().toString().isEmpty()) {
-                            picked_route.setNumber(Integer.valueOf(editNumber.getText().toString()));
-                        } else {
-                            picked_route.setNumber(null);
+                            picked_track.setName(null);
                         }
 
                         if (!editDesc.getText().toString().isEmpty()) {
-                            picked_route.setDescription(editDesc.getText().toString().trim());
+                            picked_track.setDescription(editDesc.getText().toString().trim());
                         } else {
-                            picked_route.setDescription(null);
+                            picked_track.setDescription(null);
                         }
 
                         if (!editType.getText().toString().isEmpty()) {
-                            picked_route.setType(editType.getText().toString().trim());
+                            picked_track.setType(editType.getText().toString().trim());
                         } else {
-                            picked_route.setType(null);
+                            picked_track.setType(null);
                         }
 
-                        // Change time of the 1st waypoint to avoid purging the route when sent to the watch
-                        List<RoutePoint> rtePts = picked_route.getRoutePoints();
-                        RoutePoint firstRtePt = rtePts.get(0);
-                        firstRtePt.setTime(new Date());
-                        picked_route.setRoutePoints(rtePts);
-
-                        trackPrompt.setText(GpxUtils.getRouteNameAnnotated(picked_route, Data.sUnitsInUse));
+                        trackPrompt.setText(GpxUtils.getTrackNameAnnotated(picked_track, Data.sUnitsInUse));
 
                         refreshMap();
 
@@ -1313,20 +1266,6 @@ public class TracksBrowserActivity extends Utils
                 })
                 .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                })
-                .setNeutralButton(editText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        /*
-                         * We'll edit a copy of selected route!
-                         */
-                        Data.sCopiedRoute = copyRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
-                        Data.sCopiedRoute.resetIsChanged();
-
-                        Intent i = new Intent(TracksBrowserActivity.this, RouteEditorActivity.class);
-                        startActivityForResult(i, 90);
 
                     }
                 });

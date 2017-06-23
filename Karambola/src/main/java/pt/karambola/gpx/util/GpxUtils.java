@@ -1144,6 +1144,16 @@ GpxUtils
 		return TypedUtils.getTypes( rtes ) ;
 	}
 
+    /**
+     * Piotr Miller 24th June, 2017
+	 * Missing from the original library. Needed in the Track Manager / edit properties
+     */
+	public static <R extends Track>
+	List<String>
+	getDistinctTrackTypes(final Iterable<R> tracks) {
+		return TypedUtils.getTypes( tracks ) ;
+	}
+
 
 	public static
 	int

@@ -716,7 +716,7 @@ public class RoutesBrowserActivity extends Utils
         /*
          * We'll enable/disable menu options here
          */
-        menu.findItem(R.id.tracks_delete_selected).setEnabled(Data.sSelectedRouteIdx != null);
+        menu.findItem(R.id.routes_delete_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_edit_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_simplify_selected).setEnabled(Data.sSelectedRouteIdx != null);
         menu.findItem(R.id.routes_clear).setEnabled(Data.sRoutesGpx.getRoutes().size() > 0);
@@ -1312,7 +1312,7 @@ public class RoutesBrowserActivity extends Utils
                             picked_route.setType(null);
                         }
 
-                        // Change time of the 1st waypoint to avoid purging the route when sent to the watch
+                        // Change time of the 1st waypoint to avoid purging the route
                         List<RoutePoint> rtePts = picked_route.getRoutePoints();
                         RoutePoint firstRtePt = rtePts.get(0);
                         firstRtePt.setTime(new Date());

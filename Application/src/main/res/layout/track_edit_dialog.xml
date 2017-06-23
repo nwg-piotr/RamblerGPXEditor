@@ -18,7 +18,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/route_name_edit"
+        android:id="@+id/track_name_edit"
         android:text="@string/poi_edit_name_edit"
         android:singleLine="true"
         android:selectAllOnFocus="true"
@@ -35,16 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:id="@+id/route_type_spinner"
+                android:id="@+id/track_type_spinner"
                 android:layout_weight="4"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/route_edit_number_label"
-                android:layout_weight="1"
-                android:layout_gravity="bottom" />
 
         </TableRow>
 
@@ -53,19 +45,11 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/route_type_edit"
+                android:id="@+id/track_type_edit"
                 android:text=""
                 android:singleLine="true"
                 android:maxLength="20"
                 android:layout_weight="4" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/route_number_edit"
-                android:inputType="number"
-                android:layout_weight="1"/>
 
         </TableRow>
 
@@ -77,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/poi_edit_description_label"
-        android:id="@+id/route_description"
+        android:id="@+id/track_description"
         android:layout_weight="2"
         android:gravity="center_vertical" />
 
@@ -87,10 +71,8 @@
         android:inputType="textMultiLine"
         android:maxLength="99"
         android:ems="10"
-        android:id="@+id/route_description_edit"
+        android:id="@+id/track_description_edit"
         android:text=""
         android:layout_weight="1" />
-
-
 
 </LinearLayout>
