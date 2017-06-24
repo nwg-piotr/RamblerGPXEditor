@@ -107,7 +107,6 @@ public class TracksBrowserActivity extends Utils
 
     private int filePickerAction;
     private final int ACTION_IMPORT_TRACKS = 1;
-    private final int ACTION_CONVERT_TRACKS = 2;
 
     private final int SAVE_SELECTED_ROUTE = 4;
     private final int SAVE_MULTIPLE_ROUTES = 5;
@@ -140,6 +139,13 @@ public class TracksBrowserActivity extends Utils
     private List<GeoPoint> mAllGeopoints;
 
     private Gpx gpxOut = new Gpx();
+
+    /**
+     * Used in the displayConvertTracksDialog()
+     */
+    private boolean mDeleteSourceTracks = false;
+    private int maxPathWpt = 300;
+    private double maxPathError = 10d;
 
     /**
      * Track label marker -> index of selected track
@@ -684,6 +690,7 @@ public class TracksBrowserActivity extends Utils
 
         menu.findItem(R.id.tracks_delete_selected).setEnabled(Data.sSelectedTrackIdx != null);
         menu.findItem(R.id.tracks_clear).setEnabled(Data.sTracksGpx.getTracks().size() > 0);
+        menu.findItem(R.id.tracks_convert).setEnabled(Data.sTracksGpx.getTracks().size() > 0);
         menu.findItem(R.id.tracks_edit_properties).setEnabled(Data.sSelectedTrackIdx != null);
         /*
         menu.findItem(R.id.routes_edit_selected).setEnabled(Data.sSelectedRouteIdx != null);
@@ -717,12 +724,9 @@ public class TracksBrowserActivity extends Utils
                 displayEditDialog();
                 return true;
 
-            case R.id.routes_simplify_selected:
-                Data.sCopiedRoute = copyRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
-                Data.sCopiedRoute.resetIsChanged();
+            case R.id.tracks_convert:
 
-                i = new Intent(TracksBrowserActivity.this, RouteOptimizerActivity.class);
-                startActivityForResult(i, 90);
+                displayConvertTracksDialog();
                 return true;
 
             case R.id.tracks_delete_selected:
@@ -730,10 +734,10 @@ public class TracksBrowserActivity extends Utils
                 final Track track = Data.sTracksGpx.getTracks().get(Data.sSelectedTrackIdx);
                 String deleteMessage;
                 if (track.getName() != null) {
-                    String deleteMessageFormat = getResources().getString(R.string.dialog_delete_route_message);
+                    String deleteMessageFormat = getResources().getString(R.string.dialog_delete_track_message);
                     deleteMessage = String.format(deleteMessageFormat, track.getName());
                 } else {
-                    deleteMessage = getResources().getString(R.string.about_to_delete_route);
+                    deleteMessage = getResources().getString(R.string.about_to_delete_track);
                 }
                 new AlertDialog.Builder(this)
                         .setIcon(R.drawable.map_warning)
@@ -790,16 +794,7 @@ public class TracksBrowserActivity extends Utils
 
             case R.id.convert_tracks:
 
-                filePickerAction = ACTION_CONVERT_TRACKS;
-
-                fileExploreIntent.putExtra(
-                        FileBrowserActivity.startDirectoryParameter,
-                        path
-                );
-                startActivityForResult(
-                        fileExploreIntent,
-                        REQUEST_CODE_PICK_FILE
-                );
+                displayConvertTracksDialog();
                 return true;
 
             case R.id.export:
@@ -878,10 +873,6 @@ public class TracksBrowserActivity extends Utils
 
                     case ACTION_IMPORT_TRACKS:
                         displayImportTracksDialog(fileFullPath);
-                        break;
-
-                    case ACTION_CONVERT_TRACKS:
-                        displayConvertTracksDialog(fileFullPath);
                         break;
 
                     case SAVE_SELECTED_ROUTE:
@@ -1222,7 +1213,6 @@ public class TracksBrowserActivity extends Utils
         String dialogTitle = getResources().getString(R.string.picker_edit_dialog_title);
         String okText = getResources().getString(R.string.picker_edit_apply);
 
-        String editText = getResources().getString(R.string.dialog_edit_points);
         String cancelText = getResources().getString(R.string.dialog_cancel);
 
         builder.setTitle(dialogTitle)
@@ -1231,7 +1221,6 @@ public class TracksBrowserActivity extends Utils
                 .setCancelable(true)
                 .setPositiveButton(okText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
 
                         if (editName.getText().toString().isEmpty()) {
                             editName.setText(new Date().toString());
@@ -1261,7 +1250,6 @@ public class TracksBrowserActivity extends Utils
                         trackPrompt.setText(GpxUtils.getTrackNameAnnotated(picked_track, Data.sUnitsInUse));
 
                         refreshMap();
-
                     }
                 })
                 .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
@@ -1311,7 +1299,7 @@ public class TracksBrowserActivity extends Utils
         }
 
         /*
-         * Check for tracks with no name (e.g. Endomondo exports like this)
+         * Check for tracks with no name (e.g. Endomondo exports like this), insert generics if so
          */
         final List<Track> foundTracks = gpxIn.getTracks();
 
@@ -1379,8 +1367,6 @@ public class TracksBrowserActivity extends Utils
                                     gpxTracksPickedByUser.add(sortedTracks.get(idxOfTrack));
                                 }
 
-                                Log.d(TAG, "********* gpxTracksPickedByUser.size() = " + gpxTracksPickedByUser.size());
-
                                 Data.sTracksGpx.addTracks(gpxTracksPickedByUser);
 
                                 refreshMap();
@@ -1405,12 +1391,7 @@ public class TracksBrowserActivity extends Utils
                                 gpxTracksPickedByUser.add(sortedTracks.get(idxOfTrack));
                             }
 
-                            Log.d(TAG, "********** Data.sTracksGpx.getTracks().size() = " + Data.sTracksGpx.getTracks().size());
-                            Log.d(TAG, "* adding * gpxTracksPickedByUser.size() = " + gpxTracksPickedByUser.size());
-
                             Data.sTracksGpx.addTracks(gpxTracksPickedByUser);
-
-                            Log.d(TAG, "********** Data.sTracksGpx.getTracks().size() = " + Data.sTracksGpx.getTracks().size());
 
                             refreshMap();
                         }
@@ -1429,43 +1410,27 @@ public class TracksBrowserActivity extends Utils
         }
     }
 
-    private void displayConvertTracksDialog(final String path_to_file) {
+    private void displayConvertTracksDialog() {
 
-        Gpx gpxOnlyTrks = GpxFileIo.parseIn(path_to_file, GpxParserOptions.ONLY_TRACKS) ;
-
-        List<Track> tracksIn;
-        try {
-            tracksIn = gpxOnlyTrks.getTracks();
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), getString(R.string.no_tracks_not_gpx), Toast.LENGTH_LONG).show();
+        if (Data.sAllTracks.size() == 0) {
+            Toast.makeText(getApplicationContext(), getString(R.string.no_tracks_in_memory), Toast.LENGTH_LONG).show();
             return;
         }
 
-        final List<Route> importedRoutes	= new ArrayList<>();
+        final List<Track> sortedTracks = new ArrayList<>();
 
-        if (gpxOnlyTrks.getTracks().size() == 0) {
-            Toast.makeText(getApplicationContext(), getString(R.string.no_tracks_not_gpx), Toast.LENGTH_LONG).show();
-            return;
-        }
+        final List<String> gpxTrkDisplayNames = GpxUtils.getTrackNamesSortedAlphabeticaly(Data.sAllTracks, Data.sUnitsInUse, sortedTracks);
 
-        for (Track track : tracksIn) {
-
-            importedRoutes.add(Utils.convertTrackToRoute(track));
-        }
-
-        final List<Route> sortedRoutes = new ArrayList<>();
-        final List<String> gpxRteDisplayNames = GpxUtils.getRouteNamesSortedAlphabeticaly(importedRoutes, sortedRoutes);
-
-
-        if (gpxRteDisplayNames != null && gpxRteDisplayNames.isEmpty()) {
+        if (gpxTrkDisplayNames != null && gpxTrkDisplayNames.isEmpty()) {
 
             Toast.makeText(TracksBrowserActivity.this, getString(R.string.no_named_tracks), Toast.LENGTH_SHORT).show();
 
         } else {
 
             final List<String> allNames = new ArrayList<>();
-            if (gpxRteDisplayNames != null) {
-                allNames.addAll(gpxRteDisplayNames);
+
+            if (gpxTrkDisplayNames != null) {
+                allNames.addAll(gpxTrkDisplayNames);
             }
 
             String[] menu_entries = new String[allNames.size()];
@@ -1480,7 +1445,10 @@ public class TracksBrowserActivity extends Utils
 
             final EditText maxWptEditText = (EditText) layout.findViewById(R.id.reduceMaxPoints);
 
+            maxWptEditText.setText(String.valueOf(maxPathWpt));
+
             final EditText maxError = (EditText) layout.findViewById(R.id.reduceMaxError);
+            maxError.setText(String.valueOf(maxPathError));
 
             final CheckBox reduceCheckBox = (CheckBox) layout.findViewById(R.id.reduceTrackCheckbox);
             reduceCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -1488,6 +1456,14 @@ public class TracksBrowserActivity extends Utils
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     maxWptEditText.setEnabled(isChecked);
                     maxError.setEnabled(isChecked);
+                }
+            });
+
+            final CheckBox deleteSourceCheckBox = (CheckBox) layout.findViewById(R.id.deleteSorceCheckbox);
+            deleteSourceCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mDeleteSourceTracks = isChecked;
                 }
             });
 
@@ -1518,19 +1494,18 @@ public class TracksBrowserActivity extends Utils
 
                             } else {
 
-                                ArrayList<Route> gpxRoutesPickedByUser = new ArrayList<>();
+                                ArrayList<Track> gpxTracksPickedByUser = new ArrayList<>();
 
                                 for (String nameOfGPXroutePickedByUser : selectedNames) {
 
-                                    int idxOfRoute = gpxRteDisplayNames.indexOf(nameOfGPXroutePickedByUser);
-                                    gpxRoutesPickedByUser.add(sortedRoutes.get(idxOfRoute));
-
+                                    int idxOfRoute = gpxTrkDisplayNames.indexOf(nameOfGPXroutePickedByUser);
+                                    gpxTracksPickedByUser.add(sortedTracks.get(idxOfRoute));
                                 }
 
-                                if (reduceCheckBox.isChecked()) {
+                                final List<Route> importedRoutes = new ArrayList<>();
 
-                                    int maxPathWpt = 100;
-                                    double maxPathError = 10d;
+                                if (reduceCheckBox.isChecked()) {
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.simplifying), Toast.LENGTH_SHORT).show();
 
                                     if (!maxWptEditText.getText().toString().isEmpty()) {
                                         maxPathWpt = Integer.valueOf(maxWptEditText.getText().toString());
@@ -1539,16 +1514,36 @@ public class TracksBrowserActivity extends Utils
                                     if (!maxError.getText().toString().isEmpty()) {
                                         maxPathError = Double.valueOf(maxError.getText().toString());
                                     }
+                                }
 
-                                    for (Route rteToSimplify : gpxRoutesPickedByUser) {
+                                for (Track track : gpxTracksPickedByUser) {
 
-                                        GpxUtils.simplifyRoute(rteToSimplify, maxPathWpt, maxPathError);
+                                    Route importedRoute = Utils.convertTrackToRoute(track);
 
+                                    if (reduceCheckBox.isChecked()) {
+
+                                        GpxUtils.simplifyRoute(importedRoute, maxPathWpt, maxPathError);
                                     }
 
-                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.simplifying), Toast.LENGTH_SHORT).show();
+                                    importedRoutes.add(importedRoute);
+
+                                    Data.sRoutesGpx.addRoutes(importedRoutes);
                                 }
-                                Data.sRoutesGpx.addRoutes(gpxRoutesPickedByUser);
+
+                                if (mDeleteSourceTracks) {
+
+                                    for (String name : selectedNames) {
+
+                                        int index = gpxTrkDisplayNames.indexOf(name);
+
+                                        /*
+                                         * We definitely need removeTrack(track)
+                                         * in the GeoKarambola lib!
+                                         */
+                                        Data.sAllTracks.remove(index);
+                                        Data.sTracksGpx.setTracks(Data.sAllTracks);
+                                    }
+                                }
 
                                 int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.sRoutesGpx);
 
@@ -1559,7 +1554,7 @@ public class TracksBrowserActivity extends Utils
 
                                 } else {
 
-                                    Toast.makeText(TracksBrowserActivity.this, String.format(getResources().getString(R.string.tracks_converted), gpxRoutesPickedByUser.size()), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(TracksBrowserActivity.this, String.format(getResources().getString(R.string.tracks_converted), gpxTracksPickedByUser.size()), Toast.LENGTH_LONG).show();
                                 }
                                 refreshMap();
                             }
@@ -1571,45 +1566,61 @@ public class TracksBrowserActivity extends Utils
                     .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
-                            if (reduceCheckBox.isChecked()) {
+                            if (Data.sAllTracks == null || Data.sAllTracks.isEmpty()) {
 
-                                int maxPathWpt = 100;
-                                double maxPathError = 50d;
-
-                                if (!maxWptEditText.getText().toString().isEmpty()) {
-                                    maxPathWpt = Integer.valueOf(maxWptEditText.getText().toString());
-                                }
-
-                                if (!maxError.getText().toString().isEmpty()) {
-                                    maxPathError = Double.valueOf(maxError.getText().toString());
-                                }
-
-                                for (Route rteToSimplify : importedRoutes) {
-
-                                    GpxUtils.simplifyRoute(rteToSimplify, maxPathWpt, maxPathError);
-
-                                }
-                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.simplifying), Toast.LENGTH_SHORT).show();
-                            }
-
-                            Data.sRoutesGpx.addRoutes(importedRoutes);
-
-                            int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.sRoutesGpx);
-
-                            if (purged_routes != 0) {
-
-                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.removed) + " " + purged_routes + " "
-                                        + getResources().getString(R.string.duplicates) + " ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TracksBrowserActivity.this, getResources().getString(R.string.no_tracks_in_memory), Toast.LENGTH_SHORT).show();
 
                             } else {
 
-                                if (importedRoutes != null) {
+                                if (reduceCheckBox.isChecked()) {
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.simplifying), Toast.LENGTH_SHORT).show();
 
-                                    Toast.makeText(TracksBrowserActivity.this, String.format(getResources().getString(R.string.tracks_converted),
-                                            importedRoutes.size()), Toast.LENGTH_LONG).show();
+                                    if (!maxWptEditText.getText().toString().isEmpty()) {
+                                        maxPathWpt = Integer.valueOf(maxWptEditText.getText().toString());
+                                    }
+
+                                    if (!maxError.getText().toString().isEmpty()) {
+                                        maxPathError = Double.valueOf(maxError.getText().toString());
+                                    }
                                 }
+
+                                final List<Route> importedRoutes = new ArrayList<>();
+
+                                int counter = 0;
+
+                                for (Track track : Data.sAllTracks) {
+
+                                    Route importedRoute = Utils.convertTrackToRoute(track);
+
+                                    if (reduceCheckBox.isChecked()) {
+
+                                        GpxUtils.simplifyRoute(importedRoute, maxPathWpt, maxPathError);
+                                    }
+
+                                    importedRoutes.add(importedRoute);
+
+                                    counter++;
+                                }
+
+                                Data.sRoutesGpx.addRoutes(importedRoutes);
+
+                                if (mDeleteSourceTracks) {
+                                    Data.sTracksGpx.clearTracks();
+                                }
+
+                                int purged_routes = GpxUtils.purgeRoutesOverlapping(Data.sRoutesGpx);
+
+                                if (purged_routes != 0) {
+
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.removed) + " " + purged_routes + " "
+                                            + getResources().getString(R.string.duplicates) + " ", Toast.LENGTH_SHORT).show();
+
+                                } else {
+
+                                    Toast.makeText(TracksBrowserActivity.this, String.format(getResources().getString(R.string.tracks_converted), counter), Toast.LENGTH_LONG).show();
+                                }
+                                refreshMap();
                             }
-                            refreshMap();
                         }
                     });
 

@@ -10,6 +10,11 @@
         android:title="@string/tracks_edit_properties"
         android:enabled="false" />
 
+    <item android:orderInCategory="105"
+        android:id="@+id/tracks_convert"
+        android:title="@string/tracks_convert"
+        android:enabled="false" />
+
     <item android:orderInCategory="110"
         android:id="@+id/tracks_delete_selected"
         android:title="@string/tracks_delete_selected"

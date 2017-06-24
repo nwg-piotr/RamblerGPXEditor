@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="number|numberSigned"
                 android:paddingLeft="10dp"
-                android:text="100"
+                android:text=""
                 android:maxLength="3"
                 android:ems="10"
                 android:id="@+id/reduceMaxPoints"
@@ -66,6 +66,18 @@
                 android:id="@+id/reduceMaxErrorLabel"
                 android:layout_weight="1"/>
 
+        </TableRow>
+
+        <TableRow>
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/delete_source_track"
+                android:checked="false"
+                android:id="@+id/deleteSorceCheckbox"
+                android:layout_weight="1"/>
         </TableRow>
 
     </TableLayout>

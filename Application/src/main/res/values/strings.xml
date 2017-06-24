@@ -246,7 +246,10 @@
 
     <string name="dialog_save_changes_title">Data changed</string>
     <string name="dialog_delete_route">Delete route?</string>
+    <string name="dialog_delete_track">Delete track?</string>
     <string name="dialog_delete_route_message">You are about to delete the \"%1$s\" route.</string>
+    <string name="dialog_delete_track_message">You are about to delete the \"%1$s\" track.</string>
+    <string name="delete_source_track">Delete source track</string>
     <string name="dialog_save_changes_save">Save</string>
     <string name="dialog_save_changes_exit">Don\'t save</string>
     <string name="dialog_apply">Apply</string>
@@ -413,6 +416,7 @@
     <string name="routes_display_show_labels">Name labels</string>
 
     <string name="tracks_edit_properties">Edit properties</string>
+    <string name="tracks_convert">Convert into routes</string>
     <string name="tracks_delete_selected">Delete selected</string>
     <string name="tracks_clear_all">Clear all tracks</string>
     <string name="tracks_import">Import tracks</string>
@@ -461,6 +465,7 @@
     <string name="duplicates">duplicates</string>
     <string name="routes_imported">Routes imported</string>
     <string name="no_tracks_not_gpx">No Tracks or not a GPX file!</string>
+    <string name="no_tracks_in_memory">No Tracks in memory!</string>
     <string name="no_named_tracks">The GPX file has no named Tracks</string>
     <string name="failed_writing_gpx">Failed writing GPX file</string>
     <string name="new_gpx">New GPX file</string>
@@ -532,6 +537,7 @@
     <string name="no_watch_connected">No watch connected</string>
     <string name="pick_a_route">Pick a route</string>
     <string name="about_to_delete_route">You\'re about to delete the route</string>
+    <string name="about_to_delete_track">You\'re about to delete the track</string>
     <string name="no_routes_to_clear">No routes to clear</string>
     <string name="no_routes_loaded">No routes loaded</string>
     <string name="not_gpx">Not a GPX file!</string>

@@ -439,5 +439,11 @@ PL Piotr Miller</string>
     <string name="dialog_select_tracks_import">Wybierz ślady</string>
     <string name="dialog_clear_tracks">Usunąć wszystkie ślady?</string>
     <string name="tracks_cleared">Usunięto wszystkie ślady</string>
+    <string name="no_tracks_in_memory">Brak tras w pamięci!</string>
+    <string name="tracks_convert">Konwertuj na trasy</string>
+    <string name="about_to_delete_track">Usuwasz ślad</string>
+    <string name="dialog_delete_track_message">Zamierzasz usunąć ślad \"%1$s\".</string>
+    <string name="dialog_delete_track">Usunąć ślad?</string>
+    <string name="delete_source_track">Usuń źródłowy ślad</string>
 
 </resources>

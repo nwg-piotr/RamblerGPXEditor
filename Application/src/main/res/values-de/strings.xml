@@ -516,5 +516,11 @@ PL Piotr Miller</string>
     <string name="dialog_clear_tracks">Alle Touren löschen?</string>
   <string name="tracks_cleared">Touren gelöscht</string>
     <string name="track_edit_prompt">Wählen Sie eine Toure aus</string>
+    <string name="no_tracks_in_memory">Keine Touren im Speicher!</string>
+  <string name="tracks_convert">Umwandeln in Routen</string>
+  <string name="about_to_delete_track">Du bist daran die Toure zu löschen</string>
+  <string name="dialog_delete_track_message">Du bist daran Toure \"%1$s\" zu löschen.</string>
+  <string name="dialog_delete_track">Tour löschen?</string>
+  <string name="delete_source_track">Entfernen die Quellspur</string>
 
 </resources>

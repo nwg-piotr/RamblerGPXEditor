@@ -772,7 +772,7 @@ public class RoutesBrowserActivity extends Utils
                 startActivityForResult(i, 90);
                 return true;
 
-            case R.id.tracks_delete_selected:
+            case R.id.routes_delete_selected:
 
                 final Route route = Data.sFilteredRoutes.get(Data.sSelectedRouteIdx);
                 String deleteMessage;
