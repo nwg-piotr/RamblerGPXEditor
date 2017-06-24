@@ -3,12 +3,13 @@ CHANGELOG
 **24th June, 2017**
 
 - Track Manager: track properties menu entry and the dialog popup added.
-
+- Conversion Track(s) into Route(s) added.
+- [Build 0.0.4.2](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.2.apk?raw=true) uploaded.
 
 **23rd June, 2017**
 
 - The Track Manager partially works. First I/O added: import, delete selected, delete all tracks.
-- [Build 0.0.4.1](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.1.apk?raw=true) uploaded.
+- Build 0.0.4.1 uploaded.
 
 **22nd June, 2017**
 
