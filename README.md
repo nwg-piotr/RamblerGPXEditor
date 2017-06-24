@@ -15,8 +15,8 @@ uses GeoKarambola GpxUtils.simplifyRoute to reduce waypoints number;
 - **Route Optimizer** Reduces waypoints number to desired amount on the fly; uses 
 [GeoKarambola library](https://sourceforge.net/projects/geokarambola);
 - **POI Manager** Allows to browse and manage your POI (Points Of Interest) data;
-- **Track Manager** *in progress* | The activity to  browse, delete, import, export tracks. Also 
-conversion to routes could be done here.
+- **Track Manager** *in progress* | Allows to browse, delete and import tracks. Converts Track(s) 
+to Route(s). Possibly also exporting tracks could be considered.
 - *Enter an idea here.*
 
 See [CHANGELOG](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/CHANGELOG.md) to learn more.
