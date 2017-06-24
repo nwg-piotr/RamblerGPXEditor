@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**24th June, 2017**
+
+- Track Manager: track properties menu entry and the dialog popup added.
+
+
 **23rd June, 2017**
 
 - The Track Manager partially works. First I/O added: import, delete selected, delete all tracks.
