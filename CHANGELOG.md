@@ -7,6 +7,8 @@ CHANGELOG
 - Route Manager: switchable POI layer added.
 - Credits popup updated.
 - [Build 0.0.4.4](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.4.apk?raw=true) uploaded.
+- Main activity: common settings added.
+- Common settings: measurement units added.
 
 **24th June, 2017**
 
