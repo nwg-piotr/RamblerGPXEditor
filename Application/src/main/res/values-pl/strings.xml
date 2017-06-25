@@ -423,5 +423,6 @@
     <string name="neither_single_nor_multiple_tracks">Nie wybrano jednego ani wielu śladów</string>
     <string name="credits">Uznanie autorstwa</string>
     <string name="settings_units_label">Jednostki</string>
+    <string name="settings_map_rotation">Zezwalaj na obracanie mapy</string>
 
 </resources>

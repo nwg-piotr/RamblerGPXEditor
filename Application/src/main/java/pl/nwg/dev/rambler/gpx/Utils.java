@@ -641,6 +641,8 @@ public class Utils extends Activity {
                 Data.sUnitsInUse = Units.NAUTICAL;
                 break;
         }
+
+        Data.sAllowRotation = preferences.getBoolean("rotation", false);
     }
 
     protected void saveSettings() {
@@ -649,6 +651,7 @@ public class Utils extends Activity {
 
         editor.putBoolean("showPoi", showPoi);
         editor.putInt("units", Data.sUnitsInUse.getCode());
+        editor.putBoolean("rotation", Data.sAllowRotation);
 
         editor.apply();
     }

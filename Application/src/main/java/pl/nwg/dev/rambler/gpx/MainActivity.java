@@ -623,6 +623,16 @@ public class MainActivity extends Utils {
             }
         });
 
+        final CheckBox rotationCheckBox = (CheckBox) layout.findViewById(R.id.rotationCheckBox);
+        rotationCheckBox.setChecked(Data.sAllowRotation);
+        rotationCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Data.sAllowRotation = !Data.sAllowRotation;
+                rotationCheckBox.setChecked(Data.sAllowRotation);
+            }
+        });
+
         builder.setTitle(getResources().getString(R.string.settings))
                 .setIcon(R.drawable.ico_info)
                 .setCancelable(true)

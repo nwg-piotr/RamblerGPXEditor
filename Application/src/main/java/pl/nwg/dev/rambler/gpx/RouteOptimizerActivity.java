@@ -190,7 +190,9 @@ public class RouteOptimizerActivity extends Utils
 
         mMapView.getOverlays().add(mLocationOverlay);
 
-        mMapView.getOverlays().add(this.mRotationGestureOverlay);
+        if(Data.sAllowRotation) {
+            mMapView.getOverlays().add(this.mRotationGestureOverlay);
+        }
 
         mScaleBarOverlay.setScaleBarOffset(
                 (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()

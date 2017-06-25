@@ -502,5 +502,6 @@
   <string name="neither_single_nor_multiple_tracks">Weder einzelne noch mehrere Touren ausgewählt</string>
   <string name="credits">Credits</string>
     <string name="settings_units_label">Einheiten</string>
+  <string name="settings_map_rotation">Kartenrotation zulassen</string>
 
 </resources>

@@ -77,6 +77,7 @@ final class Data {
      * Common setting in the main activity
      */
     static Units sUnitsInUse = Units.METRIC;
+    static boolean sAllowRotation = false;
 
     static final int POINTS_DISPLAY_LIMIT = 20;
 

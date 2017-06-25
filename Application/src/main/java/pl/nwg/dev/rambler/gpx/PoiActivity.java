@@ -292,7 +292,9 @@ public class PoiActivity extends Utils
 
         mMapView.getOverlays().add(mLocationOverlay);
 
-        mMapView.getOverlays().add(this.mRotationGestureOverlay);
+        if(Data.sAllowRotation) {
+            mMapView.getOverlays().add(this.mRotationGestureOverlay);
+        }
 
         ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
         mMapView.getOverlays().add(mScaleBarOverlay);
