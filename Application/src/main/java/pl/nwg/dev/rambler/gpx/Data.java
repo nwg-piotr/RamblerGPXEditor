@@ -72,7 +72,11 @@ final class Data {
      */
     static Comparator<Route> rteComparator = RouteComparator.NAME;
     static Comparator<Track> trkComparator = TrackComparator.NAME;
-    static Units sUnitsInUse = Units.METRIC; // this will have to be user-configurable
+
+    /**
+     * Common setting in the main activity
+     */
+    static Units sUnitsInUse = Units.METRIC;
 
     static final int POINTS_DISPLAY_LIMIT = 20;
 

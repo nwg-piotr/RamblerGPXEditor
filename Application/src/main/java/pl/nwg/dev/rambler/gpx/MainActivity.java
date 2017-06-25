@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.io.GpxFileIo;
 import pt.karambola.gpx.io.GpxStreamIo;
@@ -477,6 +479,10 @@ public class MainActivity extends Utils {
                 displayCreditsDialog();
                 return true;
 
+            case R.id.action_settings:
+                displaySettingsDialog();
+                return true;
+
             case R.id.action_exit:
                 finish();
         }
@@ -524,26 +530,12 @@ public class MainActivity extends Utils {
                     public void onClick(DialogInterface dialog, int id) {
 
                         displayCreditsDialog();
-                        /*
-                        Uri uri = Uri.parse("https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/CREDITS.md");
-
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                        */
-
                     }
                 })
                 .setNegativeButton(websiteText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         Toast.makeText(getApplicationContext(), "Coming soon", Toast.LENGTH_SHORT).show();
-                        /*
-                        Uri uri = Uri.parse("http://dev.nwg.pl/rambler-user-guide");
-
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                        */
-
                     }
                 });
 
@@ -595,6 +587,59 @@ public class MainActivity extends Utils {
 
         alert.show();
     }
+
+    private void displaySettingsDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        final View layout = inflater.inflate(R.layout.settings_dialog, null);
+
+        final Spinner spinner = (Spinner) layout.findViewById(R.id.units_spinner);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.units_array));
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        spinner.setSelection(Data.sUnitsInUse.getCode());
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+
+                switch(pos) {
+                    case 0:
+                        Data.sUnitsInUse = Units.METRIC;
+                        break;
+                    case 1:
+                        Data.sUnitsInUse = Units.IMPERIAL;
+                        break;
+                    case 2:
+                        Data.sUnitsInUse = Units.NAUTICAL;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        builder.setTitle(getResources().getString(R.string.settings))
+                .setIcon(R.drawable.ico_info)
+                .setCancelable(true)
+                .setView(layout)
+                .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        saveSettings();
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     private void displayWhatsNewDialog() {
 
@@ -648,9 +693,8 @@ public class MainActivity extends Utils {
     protected void onResume() {
         super.onResume();
 
-        //if (Data.sPoiGpx != null && Data.sPoiGpx.isChanged()) {
-            refreshLoadedDataInfo();
-        //}
+        refreshLoadedDataInfo();
+        loadSettings();
     }
 
     @Override

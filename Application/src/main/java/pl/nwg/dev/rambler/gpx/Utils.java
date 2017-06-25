@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.beans.Point;
 import pt.karambola.gpx.beans.Route;
@@ -629,6 +630,17 @@ public class Utils extends Activity {
 
         showPoi = preferences.getBoolean("showPoi", false);
 
+        switch(preferences.getInt("units", 0)) {
+            case 0:
+                Data.sUnitsInUse = Units.METRIC;
+                break;
+            case 1:
+                Data.sUnitsInUse = Units.IMPERIAL;
+                break;
+            case 2:
+                Data.sUnitsInUse = Units.NAUTICAL;
+                break;
+        }
     }
 
     protected void saveSettings() {
@@ -636,6 +648,7 @@ public class Utils extends Activity {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean("showPoi", showPoi);
+        editor.putInt("units", Data.sUnitsInUse.getCode());
 
         editor.apply();
     }

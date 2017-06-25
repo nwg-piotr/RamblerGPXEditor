@@ -858,14 +858,13 @@ public class PoiActivity extends Utils
             return;
         }
 
-        //final Map<String,Object> gpxWptMap = new HashMap<String,Object>() ;
         List<String> gpxWptDisplayNames	= null ;
         final List<Point> sortedPoi = new ArrayList<>();
 
         if (Data.sCurrentPosition != null) {
             // Pre-sort by ascending distance to current location.
             gpxWptDisplayNames = GpxUtils.getPointNamesSortedByDistance_Distance(gpxIn.getPoints(),
-                    Data.sCurrentPosition.getLatitude(), Data.sCurrentPosition.getLongitude(), Data.sCurrentPosition.getAltitude(), Units.METRIC, sortedPoi);
+                    Data.sCurrentPosition.getLatitude(), Data.sCurrentPosition.getLongitude(), Data.sCurrentPosition.getAltitude(), Data.sUnitsInUse, sortedPoi);
         } else {
             // Sorted by ascending alphabetical name.
             gpxWptDisplayNames = GpxUtils.getPointNamesSortedAlphabeticaly(gpxIn.getPoints(), sortedPoi);

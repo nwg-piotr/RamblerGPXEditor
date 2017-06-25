@@ -445,7 +445,7 @@ public class TracksBrowserActivity extends Utils
         }
 
         if (Data.sSelectedTrackIdx != null) {
-            trackPrompt.setText(GpxUtils.getTrackNameAnnotated(Data.sAllTracks.get(Data.sSelectedTrackIdx), Units.METRIC));
+            trackPrompt.setText(GpxUtils.getTrackNameAnnotated(Data.sAllTracks.get(Data.sSelectedTrackIdx), Data.sUnitsInUse));
         } else {
             trackPrompt.setText(getResources().getString(R.string.track_edit_prompt));
         }

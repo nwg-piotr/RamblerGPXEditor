@@ -291,7 +291,7 @@ public class RouteCreatorActivity extends Utils
             }
             routeOverlay.setColor(Color.parseColor("#0066ff"));
             routeOverlay.setPoints(geoPoints);
-            routePrompt.setText(GpxUtils.getRouteNameAnnotated(selectedOsrmRoute, Units.METRIC));
+            routePrompt.setText(GpxUtils.getRouteNameAnnotated(selectedOsrmRoute, Data.sUnitsInUse));
         }
 
         mMapView.getOverlays().add(routeOverlay);

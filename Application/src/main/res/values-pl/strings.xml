@@ -2,9 +2,7 @@
 <resources>
     <string name="action_about">O aplikacji</string>
 
-    <string name="action_classic">Tarcza Classic</string>
     <string name="action_exit">Wyjdź</string>
-    <string name="action_lv">Tarcza Active</string>
     <string name="action_units">Wybierz jednostki</string>
     <string name="active">Ekran aktywny</string>
     <string name="alt">ALT (Wysokość)</string>
@@ -183,9 +181,6 @@
     <string name="routes_new_manually">Rysuj ręcznie</string>
     <string name="routes_simplify_selected">Optymalizuj wybraną</string>
     <string name="sending_settings">Wysyłam ustawienia do zegarka</string>
-    <string name="set1">Zestaw 1</string>
-    <string name="set2">Zestaw 2</string>
-    <string name="set3">Zestaw 3</string>
     <string name="simplification_error">Max błąd: %1$d m</string>
     <string name="smg">SMG (Prędkość do celu)</string>
     <string name="square">Ekran prostokątny</string>
@@ -353,7 +348,7 @@
     <string name="doc">DOC (Odległość od trasy)</string>
     <string name="generate_auto_hints">Automatycznie dodawaj wskazówki</string>
     <string name="waypoint_hint_auto">Auto</string>
-    <string name="common_settings">Ustawienia wspólne</string>
+    <string name="settings">Ustawienia</string>
     <string name="button_clock">Format zegara:\n</string>
     <string name="help_clock_lbl">Format zegara</string>
     <string name="help_clock">Format wyświetlania czasu: 24 lub 12-godzinny</string>
@@ -427,5 +422,6 @@
     <string name="selected_tracks_exported">Wyeksportowano wybrane ślady</string>
     <string name="neither_single_nor_multiple_tracks">Nie wybrano jednego ani wielu śladów</string>
     <string name="credits">Uznanie autorstwa</string>
+    <string name="settings_units_label">Jednostki</string>
 
 </resources>

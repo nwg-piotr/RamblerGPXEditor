@@ -469,7 +469,7 @@ public class RoutesBrowserActivity extends Utils
         }
 
         if (Data.sSelectedRouteIdx != null) {
-            routePrompt.setText(GpxUtils.getRouteNameAnnotated(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx), Units.METRIC));
+            routePrompt.setText(GpxUtils.getRouteNameAnnotated(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx), Data.sUnitsInUse));
         } else {
             routePrompt.setText(getResources().getString(R.string.route_edit_prompt));
         }

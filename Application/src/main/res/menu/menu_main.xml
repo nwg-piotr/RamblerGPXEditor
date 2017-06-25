@@ -12,8 +12,12 @@
         android:title="@string/credits"
         android:orderInCategory="110"/>
 
+    <item android:id="@+id/action_settings"
+        android:title="@string/settings"
+        android:orderInCategory="120"/>
+
     <item android:id="@+id/action_exit"
         android:title="@string/action_exit"
-        android:orderInCategory="120"/>
+        android:orderInCategory="130"/>
 
 </menu>
