@@ -6,6 +6,7 @@ CHANGELOG
 - Route Manager: bugs fixed in exporting routes.
 - Route Manager: switchable POI layer added.
 - [Build 0.0.4.3](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.3.apk?raw=true) uploaded.
+- Project status changed to Alpha.
 
 **24th June, 2017**
 
