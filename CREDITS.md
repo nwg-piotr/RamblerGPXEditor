@@ -15,8 +15,7 @@ https://sourceforge.net/projects/geokarambola
 
 Licensed under the GNU General Public License v3.0.
 
-## osmdroid
-https://github.com/osmdroid/osmdroid
+## [osmdroid](https://github.com/osmdroid/osmdroid)
 
 Licensed under the Apache License 2.0.
 
