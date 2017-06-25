@@ -634,7 +634,7 @@ public class MainActivity extends Utils {
         });
 
         builder.setTitle(getResources().getString(R.string.settings))
-                .setIcon(R.drawable.ico_info)
+                .setIcon(R.drawable.ico_settings)
                 .setCancelable(true)
                 .setView(layout)
                 .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
