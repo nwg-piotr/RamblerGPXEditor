@@ -635,7 +635,7 @@
     <string name="credits_filebrowser_name" translatable="false"><a href="https://github.com/vaal12/AndroidFileBrowser">AndroidFileBrowser</a></string>
     <string name="credits_filebrowser_copy" translatable="false">&#169; Alexey Vassiliev</string>
 
-    <string name="credits_routing_source">Routing by <a href="http://project-osrm.org">OSRM</a> Demo Server</string>
+    <string name="credits_routing_source" translatable="false">Routing by <a href="http://project-osrm.org">OSRM</a> Demo Server</string>
 
 
 
