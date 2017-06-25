@@ -6,10 +6,10 @@ CHANGELOG
 - Route Manager: bugs fixed in exporting routes.
 - Route Manager: switchable POI layer added.
 - Credits popup updated.
-- [Build 0.0.4.4](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.4.apk?raw=true) uploaded.
 - Main activity: common settings added.
 - Common settings: measurement units selection added.
 - Common settings: switch to enable/disable map rotation added.
+- [Build 0.0.4.5](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.5.apk?raw=true) uploaded.
 
 **24th June, 2017**
 
