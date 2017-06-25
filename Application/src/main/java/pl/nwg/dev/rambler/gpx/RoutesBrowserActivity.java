@@ -529,7 +529,7 @@ public class RoutesBrowserActivity extends Utils
             } else {
                 color = wptTypeColourMap.get(poi.getType());
             }
-            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, displayName, color));
+            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, displayName, color, 180));
 
             Marker marker = new Marker(mMapView);
             marker.setPosition(markerPosition);
@@ -708,6 +708,7 @@ public class RoutesBrowserActivity extends Utils
 
         mGoogleApiClient.connect();
         restoreMapPosition();
+        mMapDragged = true;
         loadSettings();
         refreshMap(false);
     }

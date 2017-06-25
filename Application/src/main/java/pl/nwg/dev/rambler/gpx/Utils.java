@@ -139,7 +139,7 @@ public class Utils extends Activity {
      * @param hoverText - is the name of the route point or POI displayed above;
      * @param color - if passed, we create a bitmap for POI, it should be coloured by the POI type
      */
-    protected Bitmap makeMarkerBitmap(Context context, String hoverText, Integer color) {
+    protected Bitmap makeMarkerBitmap(Context context, String hoverText, Integer color, Integer alpha) {
 
         Resources resources = context.getResources();
         float scale = resources.getDisplayMetrics().density;
@@ -159,6 +159,10 @@ public class Utils extends Activity {
             Paint p = new Paint();
             ColorFilter filter = new LightingColorFilter(color, 1);
             p.setColorFilter(filter);
+
+            if (alpha != null) {
+                p.setAlpha(alpha);
+            }
             canvas.drawBitmap(bitmap, 0, 0, p);
         }
 
@@ -182,7 +186,14 @@ public class Utils extends Activity {
      * Color value not passed: create the route point bitmap (w/o a color filter).
      */
     protected Bitmap makeMarkerBitmap(Context context, String hoverText) {
-        return makeMarkerBitmap(context, hoverText, null);
+        return makeMarkerBitmap(context, hoverText, null, null);
+    }
+
+    /**
+     * Alpha value not passed: create 100% opaque
+     */
+    protected Bitmap makeMarkerBitmap(Context context, String hoverText, Integer color) {
+        return makeMarkerBitmap(context, hoverText, color, null);
     }
 
     protected Bitmap makeRouteNameBitmap(Context context, String name) {
