@@ -521,6 +521,9 @@ public class RouteCreatorActivity extends Utils
 
         final TextView copyright = (TextView) findViewById(R.id.copyright);
         copyright.setMovementMethod(LinkMovementMethod.getInstance());
+
+        final TextView routingBy = (TextView) findViewById(R.id.routing_by);
+        routingBy.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setButtonsState() {

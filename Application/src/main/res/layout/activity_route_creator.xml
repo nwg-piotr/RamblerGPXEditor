@@ -38,6 +38,19 @@
         android:layout_alignStart="@+id/pencil_button" />
 
     <TextView
+        android:id="@+id/routing_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:textSize="12sp"
+        android:textColor="#444"
+        android:padding="4dp"
+        android:text="@string/credits_routing_source"
+        android:linksClickable="true"
+        android:layout_alignTop="@+id/location_button"
+        android:layout_alignParentStart="true" />
+
+    <TextView
         android:id="@+id/route_prompt"
         android:text="@string/map_prompt"
         android:layout_width="match_parent"
@@ -112,9 +125,8 @@
 
         <TextView
             android:id="@+id/copyright"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttons"
             android:gravity="start"
             android:textSize="12sp"
             android:textColor="#444"
