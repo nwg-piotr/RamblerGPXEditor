@@ -5,12 +5,13 @@ CHANGELOG
 - Track Manager: exporting tracks added.
 - Route Manager: bugs fixed in exporting routes.
 - Route Manager: switchable POI layer added.
+- [Build 0.0.4.3](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.3.apk?raw=true) uploaded.
 
 **24th June, 2017**
 
 - Track Manager: track properties menu entry and the dialog popup added.
 - Conversion Track(s) into Route(s) added.
-- [Build 0.0.4.2](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.2.apk?raw=true) uploaded.
+- Build 0.0.4.2 uploaded.
 
 **23rd June, 2017**
 
