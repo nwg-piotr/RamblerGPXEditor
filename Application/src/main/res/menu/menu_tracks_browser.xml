@@ -33,20 +33,4 @@
         android:id="@+id/tracks_export"
         android:title="@string/tracks_export" />
 
-    <item android:orderInCategory="150"
-        android:id="@+id/routes_display"
-        android:title="@string/routes_display"
-        android:enabled="false" >
-
-        <menu >
-            <group android:id="@+id/display_group" android:checkableBehavior="all">
-                <item android:id="@+id/show_start" android:title="@string/routes_display_show_start" />
-                <item android:id="@+id/show_end" android:title="@string/routes_display_show_end" />
-                <item android:id="@+id/show_labels" android:title="@string/routes_display_show_labels" />
-                <item android:id="@+id/show_poi" android:title="@string/poi" />
-            </group>
-        </menu>
-
-    </item>
-
 </menu>
