@@ -511,7 +511,7 @@ public class RouteEditorActivity extends Utils
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
-        final View layout = inflater.inflate(R.layout.waypoint_edit_dialog, null);
+        final View layout = inflater.inflate(R.layout.waypoint_edit_dialog, mMapView, false);
 
         final EditText editName = (EditText) layout.findViewById(R.id.wp_edit_name);
         editName.setFilters(new InputFilter[] {
