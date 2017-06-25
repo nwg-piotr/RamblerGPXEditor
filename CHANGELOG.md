@@ -1,5 +1,11 @@
 CHANGELOG
 ===============
+**25th June, 2017**
+
+- Track Manager: exporting tracks added.
+- Route Manager: bugs fixed in exporting routes.
+- Route Manager: switchable POI layer added.
+
 **24th June, 2017**
 
 - Track Manager: track properties menu entry and the dialog popup added.
