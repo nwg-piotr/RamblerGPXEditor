@@ -310,7 +310,7 @@
     <string name="not_gpx">To nie jest plik GPX!</string>
     <string name="selected_routes_exported">Wyeksportowano wybrane trasy</string>
     <string name="failed_creating_file">Nie udało się utworzyć pliku</string>
-    <string name="neither_single_nor_multiple">Nie wybrano jednej ani wielu tras</string>
+    <string name="neither_single_nor_multiple_routes">Nie wybrano jednej ani wielu tras</string>
     <string name="routes_cleared">Usunięto wszystkie trasy</string>
     <string name="no_routes_selected">Nie wybrano żadnej trasy</string>
     <string name="no_routes_memory">Brak tras w pamięci lub aktualnym widoku</string>
@@ -445,5 +445,8 @@ PL Piotr Miller</string>
     <string name="dialog_delete_track_message">Zamierzasz usunąć ślad \"%1$s\".</string>
     <string name="dialog_delete_track">Usunąć ślad?</string>
     <string name="delete_source_track">Usuń źródłowy ślad</string>
+    <string name="dialog_select_tracks_export">Wybierz ścieżki</string>
+    <string name="selected_tracks_exported">Wyeksportowano wybrane ślady</string>
+    <string name="neither_single_nor_multiple_tracks">Nie wybrano jednego ani wielu śladów</string>
 
 </resources>

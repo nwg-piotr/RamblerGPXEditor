@@ -931,7 +931,7 @@ public class RoutesBrowserActivity extends Utils
                         break;
 
                     case SAVE_MULTIPLE_ROUTES:
-                        // saveSelectedRoutes(fileFullPath);
+                        saveSelectedRoutes(fileFullPath);
                         break;
 
                     default:
@@ -1794,6 +1794,7 @@ public class RoutesBrowserActivity extends Utils
                 .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+                        /*
                         List<String> selectedNames = new ArrayList<>();
                         selectedNames.addAll(allNames);
 
@@ -1804,7 +1805,8 @@ public class RoutesBrowserActivity extends Utils
                             int idxOfRoute = gpxRteDisplayNames.indexOf(nameOfGPXroutesPickedByUser);
                             gpxRoutesPickedByUser.add(sortedRoutes.get(idxOfRoute));
                         }
-                        gpxOut.addRoutes(gpxRoutesPickedByUser);
+                        */
+                        gpxOut.addRoutes(Data.sRoutesGpx.getRoutes());
 
                         showSaveRoutesDialog();
                     }
@@ -1960,7 +1962,7 @@ public class RoutesBrowserActivity extends Utils
                         break;
 
                     default:
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.neither_single_nor_multiple), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.neither_single_nor_multiple_routes), Toast.LENGTH_SHORT).show();
                         break;
                 }
 

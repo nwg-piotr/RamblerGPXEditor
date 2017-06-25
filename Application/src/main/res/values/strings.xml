@@ -226,6 +226,7 @@
     <string name="dialog_select_pois">Select POI to import</string>
     <string name="dialog_select_routes_import">Select Routes to import</string>
     <string name="dialog_select_routes_export">Select Routes to export</string>
+    <string name="dialog_select_tracks_export">Select Tracks to export</string>
     <string name="dialog_select_tracks_import">Select Tracks to import</string>
     <string name="dialog_select_tracks">Select Tracks to convert</string>
     <string name="dialog_selected">Selected</string>
@@ -542,8 +543,10 @@
     <string name="no_routes_loaded">No routes loaded</string>
     <string name="not_gpx">Not a GPX file!</string>
     <string name="selected_routes_exported">Selected routes exported</string>
+    <string name="selected_tracks_exported">Selected tracks exported</string>
     <string name="failed_creating_file">Failed creating file</string>
-    <string name="neither_single_nor_multiple">Neither single nor multiple routes selected</string>
+    <string name="neither_single_nor_multiple_routes">Neither single nor multiple routes selected</string>
+    <string name="neither_single_nor_multiple_tracks">Neither single nor multiple tracks selected</string>
     <string name="routes_cleared">Routes cleared</string>
     <string name="tracks_cleared">Routes cleared</string>
     <string name="no_routes_selected">No routes selected</string>

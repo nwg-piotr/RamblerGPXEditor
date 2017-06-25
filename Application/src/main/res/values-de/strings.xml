@@ -408,7 +408,7 @@
   <string name="not_gpx">Das ist keine GPX Datei!</string>
   <string name="selected_routes_exported">Ausgewählte Rounten exportiert</string>
   <string name="failed_creating_file">Erstellung von Datei misslungen</string>
-  <string name="neither_single_nor_multiple">Weder einzelne noch mehrere Routen ausgewählt</string>
+  <string name="neither_single_nor_multiple_routes">Weder einzelne noch mehrere Routen ausgewählt</string>
   <string name="routes_cleared">Routen gelöscht</string>
   <string name="no_routes_selected">Keine Routen ausgewählt</string>
   <string name="no_routes_memory">Keine Routen im Speicher oder aktueller Ansicht</string>
@@ -522,5 +522,8 @@ PL Piotr Miller</string>
   <string name="dialog_delete_track_message">Du bist daran Toure \"%1$s\" zu löschen.</string>
   <string name="dialog_delete_track">Tour löschen?</string>
   <string name="delete_source_track">Entfernen die Quellspur</string>
+    <string name="dialog_select_tracks_export">Touren für Export auswählen</string>
+  <string name="selected_tracks_exported">Ausgewählte Touren exportiert</string>
+  <string name="neither_single_nor_multiple_tracks">Weder einzelne noch mehrere Touren ausgewählt</string>
 
 </resources>
