@@ -44,6 +44,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.io.GpxFileIo;
@@ -411,20 +413,20 @@ public class MainActivity extends Utils {
 
 
         mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
+                this,
+                mDrawerLayout,
+                R.drawable.ic_drawer,
+                R.string.drawer_open,
+                R.string.drawer_close
         ) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(mDrawerTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                invalidateOptionsMenu();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -464,9 +466,6 @@ public class MainActivity extends Utils {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
 
         switch(item.getItemId()) {
 
@@ -474,11 +473,14 @@ public class MainActivity extends Utils {
                 displayAboutDialog();
                 return true;
 
+            case R.id.action_credits:
+                displayCreditsDialog();
+                return true;
+
             case R.id.action_exit:
                 finish();
         }
 
-        // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -521,11 +523,13 @@ public class MainActivity extends Utils {
                 .setNeutralButton(creditsText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        //displayCreditsDialog();
+                        displayCreditsDialog();
+                        /*
                         Uri uri = Uri.parse("https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/CREDITS.md");
 
                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                         startActivity(intent);
+                        */
 
                     }
                 })
@@ -558,29 +562,22 @@ public class MainActivity extends Utils {
         LayoutInflater inflater = getLayoutInflater();
         final View layout = inflater.inflate(R.layout.credits_dialog, null);
 
-        final Button karambola1Button = (Button) layout.findViewById(R.id.karambola_button);
-        final Button karambola2Button = (Button) layout.findViewById(R.id.karambola_txt_button);
+        final List<TextView> clickableFields = new ArrayList<>();
+        clickableFields.add((TextView) layout.findViewById(R.id.aosp_name));
+        clickableFields.add((TextView) layout.findViewById(R.id.aosp_license));
+        clickableFields.add((TextView) layout.findViewById(R.id.karambola_name));
+        clickableFields.add((TextView) layout.findViewById(R.id.karambola_license));
+        clickableFields.add((TextView) layout.findViewById(R.id.osmdroid_name));
+        clickableFields.add((TextView) layout.findViewById(R.id.osmdroid_license));
+        clickableFields.add((TextView) layout.findViewById(R.id.osmbp_name));
+        clickableFields.add((TextView) layout.findViewById(R.id.osmbp_license));
+        clickableFields.add((TextView) layout.findViewById(R.id.osrm_name));
+        clickableFields.add((TextView) layout.findViewById(R.id.osrm_license));
+        clickableFields.add((TextView) layout.findViewById(R.id.osrm_license_demo_server));
+        clickableFields.add((TextView) layout.findViewById(R.id.filebrowser_name));
+        clickableFields.add((TextView) layout.findViewById(R.id.filebrowser_license));
 
-        karambola1Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse("https://sourceforge.net/projects/geokarambola");
-
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-        karambola2Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse("https://sourceforge.net/projects/geokarambola");
-
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
-        String dialogTitle = getResources().getString(R.string.credits_btn);
+        String dialogTitle = getResources().getString(R.string.credits);
         String okText = getResources().getString(R.string.dialog_ok);
         builder.setTitle(dialogTitle)
                 .setIcon(R.drawable.ico_info)
@@ -591,6 +588,11 @@ public class MainActivity extends Utils {
                     }
                 });
         AlertDialog alert = builder.create();
+
+        for (TextView textView : clickableFields) {
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
         alert.show();
     }
 

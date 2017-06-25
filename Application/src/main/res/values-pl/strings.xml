@@ -213,8 +213,6 @@
     <string name="time_to_sunset">2SS (Do zachodu)</string>
     <string name="title_no_device_connected">Nie podłączono zegarka</string>
     <string name="track_reduce">Optymalizacja</string>
-    <string name="unlicensed_dialog_retry_body">Nie udało się sprawdzić licencji. Sprawdź połączenie sieciowe. Jeśli działa, zapewne serwer  Google Play chwilowo nie odpowiada. Spróbuj ponownie za kilka minut.</string>
-    <string name="unlicensed_dialog_title">Alikacja nielicencjonowana</string>
     <string name="unnamed">bez nazwy</string>
     <string name="warning_poi_filtered_out">POI będzie niewidoczny przy aktualnym fitrowaniu widoku</string>
     <string name="waypoint_edit_title">Edycja punktu</string>
@@ -322,22 +320,11 @@
     <string name="x_of_y_routes">%1$d z %2$d tras</string>
     <string name="no_data">Brak danych!</string>
 
-    <string name="karambola">
-        - narzędzia importu/eksportu/edycji plików ;
-        \n- filtrowanie widoku i sortowanie POI i tras;
-        \n- Path Simplifier - narzędzie do interaktywnej konwersji śladów na trasy i silnik redukcji trasy;
-        \n- auto-generowanie wskazówek trasy podczas edycji;
-        \n- zarządzanie danymi JSON;
+    <string name="credits_karambola_copy">- narzędzia importu/eksportu/edycji plików;
+        \n- filtrowanie widoku / sortowanie POI i tras;
+        \n- Path Simplifier - narzędzie do interaktywnej konwersji śladów na trasy i silnik optymalizacji trasy;
         \n©2016 Karambola (Afonso Santos).
     </string>
-
-    <string name="credits">
-        W aplikacji użyto kodu opublikowanego na licencji Apache 2.0:\n
-        \n- AOSP code Copyright ©2014-2016 The Android Open Source Project;\n
-        \n- Sunrise/SunsetLib by Mike Reedell;\n
-        \n- AndroidFileBrowser by Alexey Vassiliev.\n
-        \nKopię licencji znajdziesz pod adresem http://www.apache.org/licenses/LICENSE-2.0.\n
-        \nCzcionka SciFly-Sans jest darmowym krojem stworzonym przez by http://www.flyerzone.co.uk</string>
 
     <string name="geo_karambola">Biblioteka GeoKarambola</string>
     <string name="select_folder">Wybierz\n[ %1$s ]</string>
@@ -346,13 +333,7 @@
     <string name="folder_empty">Folder jest pusty</string>
     <string name="folder_up">W górę</string>
     <string name="folder_select">Wybierz</string>
-    <string name="unlicensed_dialog_body">Witaj! Chciałbym Cię tylko poinformować, że praca na tą aplikacją pochłania prawie cały mój wolny czas:
-tysiące godzin pracy, setki nieprzespanych nocy. Jeśli naprawdę nie możesz sobie pozwolić na zakup, napisz do mnie i zostań testerem.
-Otrzymasz kod do darmowej instalacji wersji pro i pomożesz w dalszym rozwoju aplikacji. W przeciwnym wypadku pamiętaj, że trzeba nie tylko nie tylko pisać,
-ale też testować, a kawa i nowy sprzęt nie rosną na drzewach. OK, kawa rośnie. Miałem na myśli piwo. ;) Pozdrawiam! </string>
-    <string name="languages">Tłumaczenia:\n\n
-DE Stefan Scherrer\n
-PL Piotr Miller</string>
+    <string name="translations">Tłumaczenie niemieckie: Stefan Scherrer</string>
     <string name="auto_pause_eta_ete">Autopauzuj ETA/ETE</string>
     <string name="auto_pause_ela">Autopauzuj ELA</string>
     <string name="twelve_hours_clock">Zegar 12-godzinny</string>
@@ -368,9 +349,6 @@ PL Piotr Miller</string>
     <string name="dialog_send">Wyślij</string>
     <string name="dialog_edit">Edytuj</string>
     <string name="waypoints_auto_skip">Auto-pomijanie punkty trasy</string>
-    <string name="vibrate_on_hints">Wibruj na wskazówkach punktu trasy</string>
-    <string name="vibrate_on_names">Wibruj na punktach z nazwą</string>
-    <string name="vibrate_on_transitions">Wibruj gdy odchodzę/wracam na trasę</string>
 
     <string name="doc">DOC (Odległość od trasy)</string>
     <string name="generate_auto_hints">Automatycznie dodawaj wskazówki</string>
@@ -448,5 +426,6 @@ PL Piotr Miller</string>
     <string name="dialog_select_tracks_export">Wybierz ścieżki</string>
     <string name="selected_tracks_exported">Wyeksportowano wybrane ślady</string>
     <string name="neither_single_nor_multiple_tracks">Nie wybrano jednego ani wielu śladów</string>
+    <string name="credits">Uznanie autorstwa</string>
 
 </resources>

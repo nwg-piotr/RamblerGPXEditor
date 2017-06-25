@@ -26,25 +26,14 @@
     it under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License version 3.0</a>, as published by
     the Free Software Foundation.</string>
 
-  <string name="karambola">
-        - Werkzeuge für GPX Format import/export/manipulieren;
+  <string name="credits_karambola_copy">- Werkzeuge für GPX Format import/export/manipulieren;
         \n- POI/routen ansehen/filtern/sortieren;
-        \n- Pfad Vereinfacher - die Track2Route Echzeit Engine für konversionieren und vereinfachon von Routen;
-        \n- Generieren von Routen Hinweisen;
-        \n- JSON" Datenaufbereitung;
+        \n- Pfad Vereinfacher - die Track2Route Echzeit Engine für konversionieren und optimierung von Routen;
         \n2016 Karambola (Afonso Santos).
     </string>
 
 
-    <string name="credits">
-
-        Die Anwendung verwendet auch Komponenten, die unter Apache 2.0 lizenziert sind:
-        \n- AOSP code Urheberrecht 2014-2016 The Android Open Source Project;
-        \n- Sunrise/SunsetLib von Mike Reedell;
-        \n- AndroidFileBrowser von Alexey Vassiliev.
-        \nEine Kopie für diese Lizenz ist unter http://www.apache.org/licenses/LICENSE-2.0 erhältlich.
-        \nDer SciFly-Sans Zeichensatz ist Freeware von http://www.flyerzone.co.uk</string>
-  <string name="title_no_device_connected">Aktuell kein tragbares Gerät aktuell verbunden.</string>
+    <string name="title_no_device_connected">Aktuell kein tragbares Gerät aktuell verbunden.</string>
   <string name="ok_no_device_connected">OK</string>
   <string name="gps_searching">GPS: Suchen</string>
   <string name="gps_poor">GPS: Schwach</string>
@@ -317,11 +306,7 @@
   <!-- License checking status messages -->
   <string name="application_error">Anwendungsfehler: %1$d</string>
   <!-- Unlicensed dialog messages -->
-  <string name="unlicensed_dialog_title">Anwendung nicht lizenziert</string>
-  <string name="unlicensed_dialog_body">Hi! Wollte Dich wissen lassen,  dass für die Arbeit an dieser App fast meine ganze Freizeit drauf geht: hunderte von Stunden und schlaflose Nächte. Falls Du Dir die Pro Version nicht leisten kannst: kontaktiere mich. Als Tester erhältst Du die Pro Version gratis. Sei Dir bewusst: die Pflege dieser App geschieht durch mich, Kaffee und neue Uhren wachsen nicht auf Bäumen. OK. Kaffee schon. Meinte eigentlich Bier. Prost. </string>
-  <string name="unlicensed_dialog_retry_body">Lizenz konnte nicht validiert werden. Prüfe, ob eine Netzwerkverbindung besteht. Wenn so, dann ist der Google Play Server im Moment nicht verfügbar. 
-	Bitte mehrere Minuten warten und nochmals versuchen. Tut mir Leit für die Unannehmlichkeit. Es wird nicht oft geschehen. </string>
-  <string name="buy_button">Kaufe App</string>
+    <string name="buy_button">Kaufe App</string>
   <string name="retry_button">Neu versuchen</string>
   <string name="quit_button">Beenden</string>
   <!-- Config activities -->
@@ -427,9 +412,7 @@
   <string name="folder_empty">Ordner ist leer</string>
   <string name="folder_up">Nach oben</string>
   <string name="folder_select">Auswählen</string>
-  <string name="languages">Übersetzungen:\n\n
-DE Stefan Scherrer\n
-PL Piotr Miller</string>
+  <string name="translations">Deutche Übersetzung: DE Stefan Scherrer</string>
   <string name="auto_pause_eta_ete">Auto-Pause</string>
   <string name="auto_pause_ela">Auto-Pause ELA</string>
   <string name="twelve_hours_clock">12 Stunden Uhr</string>
@@ -445,11 +428,8 @@ PL Piotr Miller</string>
   <string name="dialog_send">Send</string>
   <string name="dialog_edit">Editieren</string>
   <string name="waypoints_auto_skip">Auto-skip Wegpunkte</string>
-  <string name="vibrate_on_hints">Vibrate on way point hints</string>
-  <string name="vibrate_on_names">Vibrate on way point names</string>
-  <string name="vibrate_on_transitions">Vibrate on on/off course</string>
 
-  <string name="doc">DOC (Distance Off Course)</string>
+    <string name="doc">DOC (Distance Off Course)</string>
   <string name="generate_auto_hints">Generate auto-hints</string>
   <string name="waypoint_hint_auto">Auto</string>
   <string name="common_settings">Allgemeine Einstellungen</string>
@@ -525,5 +505,6 @@ PL Piotr Miller</string>
     <string name="dialog_select_tracks_export">Touren für Export auswählen</string>
   <string name="selected_tracks_exported">Ausgewählte Touren exportiert</string>
   <string name="neither_single_nor_multiple_tracks">Weder einzelne noch mehrere Touren ausgewählt</string>
+  <string name="credits">Credits</string>
 
 </resources>

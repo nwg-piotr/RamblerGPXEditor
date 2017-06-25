@@ -35,22 +35,12 @@
     <string name="credits_btn" translatable="false">Credits</string>
     <string name="manual_btn" translatable="false">Wiki</string>
 
-    <string name="karambola">
-        - GPX format import/export/manipulation tools;
+    <string name="credits_karambola_copy">- GPX format import/export/manipulation tools;
         \n- POI/routes view filtering and sorting;
-        \n- Path Simplifier - the Track2Route on the fly conversion and route reduction engine;
-        \n- Edit-time route hint generation;
-        \n- JSON" data marshaling;
+        \n- Path Simplifier - the Track2Route on the fly conversion and route optimization engine;
         \n&#169;2016 Karambola (Afonso Santos).
     </string>
-
-    <string name="credits">
-        The application utilizes code released under the Apache 2.0 license:
-        \n- AOSP code Copyright &#169;2014-2016 The Android Open Source Project;
-        \n- Sunrise/SunsetLib by Mike Reedell;
-        \n- AndroidFileBrowser by Alexey Vassiliev.
-        \nYou may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
-        \nThe SciFly-Sans font is a freeware typeface by http://www.flyerzone.co.uk</string>
+    <string name="credits">Credits</string>
 
     <string name="title_no_device_connected">No wearable device is currently connected.</string>
     <string name="ok_no_device_connected">OK</string>
@@ -435,14 +425,6 @@
     <string name="application_error">Application error: %1$d</string>
 
     <!-- Unlicensed dialog messages -->
-    <string name="unlicensed_dialog_title">Application not licensed</string>
-    <string name="unlicensed_dialog_body">Hi! Just wanted you to know, that working on this app consumes almost all my spare time:
-        hundreds of hours, many sleepless nights. If you really can not afford to buy it, drop me a line, and become a tester. You\'ll
-        contribute to the app development, and grab your pro license for free. Otherwise keep in mind that I need to develop and test
-        the app, while coffee and new watches don\'t grow on trees. OK, coffee does, but I meant beer in fact. Cheers!</string>
-    <string name="unlicensed_dialog_retry_body">Unable to validate license. Check to see if a network connection is available. If so,
-        probably the Google Play server doesn\'t respond at the moment. Please wait several minutes and try again. Sorry for the inconvenience.
-        It will not happen often.</string>
     <string name="buy_button">Buy app</string>
     <string name="retry_button">Retry</string>
     <string name="quit_button">Close</string>
@@ -565,7 +547,7 @@
     <string name="folder_empty">Folder is empty</string>
     <string name="folder_up">Up</string>
     <string name="folder_select">Select</string>
-    <string name="languages">German translations: Stefan Scherrer</string>
+    <string name="translations">German translations: Stefan Scherrer</string>
     <string name="auto_pause_eta_ete">Auto-pause ETA/ETE</string>
     <string name="auto_pause_ela">Auto-pause ELA</string>
     <string name="twelve_hours_clock">12-hours clock</string>
@@ -607,9 +589,6 @@
     <string name="splash_bottom_text">Pro version users: if you\'ve just installed Rambler for the first time, please remember to run this application (exit and launch again) after setting either Active or Classic watch face on the wearable device. This will transfer your license status to the watch.</string>
     <string name="help_clock">Time format: 24h / 12h</string>
     <string name="help_clock_lbl">Time format</string>
-    <string name="vibrate_on_hints">Vibrate on way point hints</string>
-    <string name="vibrate_on_names">Vibrate on way point names</string>
-    <string name="vibrate_on_transitions">Vibrate on on/off course</string>
     <string name="whats_new_title">What\'s new?</string>
     <string name="whats_new_dont_show">Don\'t show again</string>
     <string name="dialog_update">Update required</string>
@@ -635,5 +614,27 @@
     <string name="no_named_routes">The GPX file has no named routes</string>
     <string name="no_routes_not_gpx">No routes or not a GPX file</string>
     <string name="track_edit_prompt">Select a track</string>
+
+    <string name="license_apache20" translatable="false">Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></string>
+    <string name="license_gpl30" translatable="false">Licensed under the <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3.0</a></string>
+    <string name="license_gnuelesser" translatable="false">Licensed under the <a href="https://www.gnu.org/licenses/lgpl-3.0.en.html">GNU Lesser General Public License Version 3</a></string>
+    <string name="license_bsd2clause" translatable="false">Licensed under the <a href="https://opensource.org/licenses/BSD-2-Clause">2-clause BSD license</a></string>
+    <string name="license_demo_server" translatable="false">The Route Creator activity depends on routing from OSRM Demo Server, and the <a href="https://opendatacommons.org/licenses/odbl">ODbl license</a> applies to it.</string>
+
+    <string name="credits_aosp_name" translatable="false"><a href="https://source.android.com">Android Open Source Project</a></string>
+    <string name="credits_aosp_copy" translatable="false">&#169; 2017 The Android Open Source Project.</string>
+
+    <string name="credits_karambola_name" translatable="false"><a href="https://sourceforge.net/projects/geokarambola">GeoKarambola library</a></string>
+
+    <string name="credits_osmdroid_name" translatable="false"><a href="https://github.com/osmdroid/osmdroid">osmdroid</a></string>
+
+    <string name="credits_osmbonuspack_name" translatable="false"><a href="https://github.com/MKergall/osmbonuspack">OSMBonusPack</a></string>
+
+    <string name="credits_osrm_name" translatable="false"><a href="http://project-osrm.org">Open Source Routing Machine</a></string>
+
+    <string name="credits_filebrowser_name" translatable="false"><a href="https://github.com/vaal12/AndroidFileBrowser">AndroidFileBrowser</a></string>
+    <string name="credits_filebrowser_copy" translatable="false">&#169; Alexey Vassiliev</string>
+
+
 
 </resources>
