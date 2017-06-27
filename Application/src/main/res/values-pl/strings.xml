@@ -233,9 +233,9 @@
     <string name="no_tracks_not_gpx">Brak śladów lub nie jest to plik GPX!</string>
     <string name="no_named_tracks">Plik GPX nie zawiera śladów</string>
     <string name="failed_writing_gpx">Błąd zapisu pliku GPX</string>
-    <string name="new_gpx">Nowy plik GPX</string>
-    <string name="open_gpx">Otwórz plik GPX</string>
-    <string name="save_gpx">Zapisz plik GPX</string>
+    <string name="new_gpx">Nowy plik</string>
+    <string name="open_gpx">Otwórz plik</string>
+    <string name="save_gpx">Zapisz plik</string>
     <string name="stats_latest">Ostatnie:</string>
     <string name="connected_to">Połączony z: %1$s</string>
     <string name="not_connected">Niepołączony</string>
@@ -424,5 +424,6 @@
     <string name="credits">Uznanie autorstwa</string>
     <string name="settings_units_label">Jednostki</string>
     <string name="settings_map_rotation">Zezwalaj na obracanie mapy</string>
+    <string name="sync_data">Synchronizuj</string>
 
 </resources>

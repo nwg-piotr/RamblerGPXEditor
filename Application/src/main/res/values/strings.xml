@@ -445,9 +445,10 @@
     <string name="no_tracks_in_memory">No Tracks in memory!</string>
     <string name="no_named_tracks">The GPX file has no named Tracks</string>
     <string name="failed_writing_gpx">Failed writing GPX file</string>
-    <string name="new_gpx">New GPX file</string>
-    <string name="open_gpx">Open GPX file</string>
-    <string name="save_gpx">Save GPX file</string>
+    <string name="new_gpx">New file</string>
+    <string name="open_gpx">Open file</string>
+    <string name="save_gpx">Save file</string>
+    <string name="sync_data">Sync data</string>
     <string name="stats_latest">Latest:</string>
     <string name="connected_to">Connected to: %1$s</string>
     <string name="not_connected">Not connected</string>

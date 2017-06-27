@@ -14,15 +14,14 @@
         tools:context=".MainActivity">
 
         <ScrollView
+            android:id="@+id/scrolling_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/background">
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-
                 android:id="@+id/tableLayout3">
 
                 <TableRow
@@ -108,18 +107,106 @@
 
         </ScrollView>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#ffffff"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true">
+
+            <LinearLayout
+                android:id="@+id/bar_new"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bar_new" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="4dp"
+                    android:textSize="12sp"
+                    android:text="@string/new_gpx"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bar_open"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bar_open" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="4dp"
+                    android:textSize="12sp"
+                    android:text="@string/open_gpx"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bar_save"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bar_save" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="4dp"
+                    android:textSize="12sp"
+                    android:text="@string/save_gpx"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bar_sync"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bar_sync" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="4dp"
+                    android:textSize="12sp"
+                    android:text="@string/sync_data"/>
+            </LinearLayout>
+
+        </TableRow>
+
     </RelativeLayout>
 
     <ListView
         android:id="@+id/navList"
-        android:paddingTop="20dp"
-        android:layout_width="280dp"
+        android:paddingTop="10dp"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
-        android:background="#66ccccee" />
+        android:background="#fffefefe" />
 
     <!-- Side navigation drawer UI -->
-
-
 
 </android.support.v4.widget.DrawerLayout>

@@ -36,6 +36,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableRow;
@@ -89,14 +90,22 @@ public class MainActivity extends Utils {
     TableRow routesButton;
     TableRow tracksButton;
 
+    LinearLayout newButton;
+    LinearLayout openButton;
+    LinearLayout saveButton;
+    LinearLayout syncButton;
+
+    private boolean mOnSyncButton = false;
+
     ListView list;
 
-    String[] web = new String[3];
+    String[] web = new String[4];
 
     Integer[] imageId = {
-            R.drawable.button_new,
-            R.drawable.button_open,
-            R.drawable.map_save
+            R.drawable.bar_new,
+            R.drawable.bar_open,
+            R.drawable.bar_save,
+            R.drawable.bar_sync
     };
 
     @Override
@@ -128,6 +137,7 @@ public class MainActivity extends Utils {
         web[0] = getResources().getString(R.string.new_gpx);
         web[1] = getResources().getString(R.string.open_gpx);
         web[2] = getResources().getString(R.string.save_gpx);
+        web[3] = getResources().getString(R.string.sync_data);
 
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -271,6 +281,42 @@ public class MainActivity extends Utils {
 
         });
 
+        newButton = (LinearLayout) findViewById(R.id.bar_new);
+        newButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                fileNew();
+            }
+        });
+
+        openButton = (LinearLayout) findViewById(R.id.bar_open);
+        openButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                fileOpen();
+            }
+        });
+
+        saveButton = (LinearLayout) findViewById(R.id.bar_save);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showSaveAsDialog();
+            }
+        });
+
+        syncButton = (LinearLayout) findViewById(R.id.bar_sync);
+        syncButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                syncData();
+            }
+        });
+
         if (!ramblerFolderExists()) {
             if (ramblerFolderCreate()) {
                 Toast.makeText(MainActivity.this, getString(R.string.rambler_folder_created), Toast.LENGTH_SHORT).show();
@@ -358,46 +404,19 @@ public class MainActivity extends Utils {
 
                 switch (position) {
                     case 0:
-                        if (Data.sPoiGpx.isChanged() || Data.sRoutesGpx.isChanged() || Data.sTracksGpx.isChanged()) {
-
-                            displayDataChangedDialog();
-
-                        } else {
-
-                            Data.sPoiGpx = new Gpx();
-                            Data.sRoutesGpx = new Gpx();
-                            Data.sTracksGpx = new Gpx();
-
-                            Data.sPoiGpx.resetIsChanged();
-                            Data.sRoutesGpx.resetIsChanged();
-                            Data.sTracksGpx.resetIsChanged();
-
-                            refreshLoadedDataInfo();
-                        }
-
-                        Data.sPoiGpx = new Gpx();
-                        Data.sRoutesGpx = new Gpx();
-                        Data.sTracksGpx = new Gpx();
-
-                        refreshLoadedDataInfo();
-
+                        fileNew();
                         break;
 
                     case 1:
-                        filePickerAction = ACTION_OPEN;
-
-                        fileExploreIntent.putExtra(
-                                FileBrowserActivity.startDirectoryParameter,
-                                ramblerPath
-                        );
-                        startActivityForResult(
-                                fileExploreIntent,
-                                REQUEST_CODE_PICK_FILE
-                        );
+                        fileOpen();
                         break;
 
                     case 2:
                         showSaveAsDialog();
+                        break;
+
+                    case 3:
+                        syncData();
                         break;
 
                     default:
@@ -406,6 +425,56 @@ public class MainActivity extends Utils {
 
             }
         });
+    }
+
+    private void fileNew() {
+        if (Data.sPoiGpx.isChanged() || Data.sRoutesGpx.isChanged() || Data.sTracksGpx.isChanged()) {
+
+            displayDataChangedDialog();
+
+        } else {
+
+            Data.sPoiGpx = new Gpx();
+            Data.sRoutesGpx = new Gpx();
+            Data.sTracksGpx = new Gpx();
+
+            Data.sPoiGpx.resetIsChanged();
+            Data.sRoutesGpx.resetIsChanged();
+            Data.sTracksGpx.resetIsChanged();
+
+            refreshLoadedDataInfo();
+        }
+
+        Data.sPoiGpx = new Gpx();
+        Data.sRoutesGpx = new Gpx();
+        Data.sTracksGpx = new Gpx();
+
+        refreshLoadedDataInfo();
+    }
+    private void fileOpen() {
+        filePickerAction = ACTION_OPEN;
+
+        fileExploreIntent.putExtra(
+                FileBrowserActivity.startDirectoryParameter,
+                ramblerPath
+        );
+        startActivityForResult(
+                fileExploreIntent,
+                REQUEST_CODE_PICK_FILE
+        );
+    }
+    private void syncData() {
+
+        mOnSyncButton = true;
+
+        if (!saveInProgress) {
+
+            new saveDefaultDataFiles().execute();
+
+        } else {
+
+            Toast.makeText(getApplicationContext(), getString(R.string.saving_wait), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setupDrawer() {
@@ -745,6 +814,7 @@ public class MainActivity extends Utils {
                 new saveDefaultDataFiles().execute();
 
                 return true;
+
             } else {
 
                 Toast.makeText(this, getString(R.string.saving_wait), Toast.LENGTH_SHORT).show();
@@ -1217,6 +1287,11 @@ public class MainActivity extends Utils {
                     GpxFileIo.parseOut(Data.sTracksGpx, defaultTracksFile);
                 }
 
+                Data.sPoiGpx.resetIsChanged();
+                Data.sRoutesGpx.resetIsChanged();
+                Data.sTracksGpx.resetIsChanged();
+
+
             } catch (Exception e) {
 
                 Toast.makeText(getApplicationContext(), getString(R.string.error_saving_data) + " " + e, Toast.LENGTH_SHORT).show();
@@ -1229,7 +1304,14 @@ public class MainActivity extends Utils {
         @Override
         protected void onPostExecute(Void result) {
 
-            finish();
+            if (!mOnSyncButton) {
+                finish();
+            } else {
+                mOnSyncButton = false;
+                if(alert != null) {
+                    alert.dismiss();
+                }
+            }
 
         }
 

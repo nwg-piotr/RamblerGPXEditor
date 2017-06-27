@@ -323,9 +323,9 @@
   <string name="no_tracks_not_gpx">Keine Strecken oder keine GPX Datei!</string>
   <string name="no_named_tracks">Die GPX Datei enthält keine benannten Touren</string>
   <string name="failed_writing_gpx">Schreiben von GPX File misslungen</string>
-  <string name="new_gpx">Neue GPX Datei</string>
-  <string name="open_gpx">Öffne GPX Datei</string>
-  <string name="save_gpx">Speichere GPX Datei</string>
+  <string name="new_gpx">Neue Datei</string>
+  <string name="open_gpx">Öffne Datei</string>
+  <string name="save_gpx">Speichere Datei</string>
   <string name="stats_latest">Letzte:</string>
   <string name="connected_to">Verbunden zu: %1$s</string>
   <string name="not_connected">Nicht verbunden</string>
@@ -503,5 +503,6 @@
   <string name="credits">Credits</string>
     <string name="settings_units_label">Einheiten</string>
   <string name="settings_map_rotation">Kartenrotation zulassen</string>
+    <string name="sync_data">Synchronisierung</string>
 
 </resources>
