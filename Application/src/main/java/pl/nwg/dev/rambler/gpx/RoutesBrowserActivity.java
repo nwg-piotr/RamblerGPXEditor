@@ -657,7 +657,7 @@ public class RoutesBrowserActivity extends Utils
 
     private void setButtonsState() {
 
-        if (mFilteredRoutesNumber > 1) {
+        if (mFilteredRoutesNumber > 0) {
             nextButton.setEnabled(true);
             nextButton.getBackground().setAlpha(255);
         } else {
@@ -665,7 +665,7 @@ public class RoutesBrowserActivity extends Utils
             nextButton.getBackground().setAlpha(100);
         }
 
-        if (mFilteredRoutesNumber > 1) {
+        if (mFilteredRoutesNumber > 0) {
             previousButton.setEnabled(true);
             previousButton.getBackground().setAlpha(255);
         } else {
@@ -676,7 +676,7 @@ public class RoutesBrowserActivity extends Utils
         /*
          * Open a dialog to select a route by name
          */
-        if (Data.sFilteredRoutes != null && Data.sFilteredRoutes.size() > 0) {
+        if (Data.sRoutesGpx != null && Data.sRoutesGpx.getRoutes().size() > 0) {
             filterButton.setEnabled(true);
             filterButton.getBackground().setAlpha(255);
         } else {

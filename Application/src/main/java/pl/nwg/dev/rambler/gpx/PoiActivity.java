@@ -474,7 +474,7 @@ public class PoiActivity extends Utils
             saveButton.getBackground().setAlpha(100);
         }
 
-        if (Data.sFilteredPoi != null && Data.sFilteredPoi.size() > 0) {
+        if (Data.sPoiGpx != null && Data.sPoiGpx.getPoints().size() > 0) {
             filterButton.setEnabled(true);
             filterButton.getBackground().setAlpha(255);
         } else {
