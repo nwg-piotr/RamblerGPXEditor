@@ -5,6 +5,7 @@ CHANGELOG
 - Main screen rearranged: added the bottom bar with basic I/o buttons. Old entries in the drawer 
 kept as a placeholder for future buttons, e.g. project site, wiki etc.
 - [Build 0.0.4.7](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.7.apk?raw=true) uploaded.
+- Removed unused resources.
 
 **25th June, 2017**
 
