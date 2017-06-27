@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**27th June, 2017**
+
+- Main screen rearranged: added the bottom bar with basic I/o buttons. Old entries in the drawer 
+kept as a placeholder for future buttons, e.g. project site, wiki etc.
+
 **25th June, 2017**
 
 - Track Manager: exporting tracks added.
