@@ -4,6 +4,7 @@ CHANGELOG
 
 - Main screen rearranged: added the bottom bar with basic I/o buttons. Old entries in the drawer 
 kept as a placeholder for future buttons, e.g. project site, wiki etc.
+- [Build 0.0.4.7](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.7.apk?raw=true) uploaded.
 
 **25th June, 2017**
 
@@ -14,7 +15,7 @@ kept as a placeholder for future buttons, e.g. project site, wiki etc.
 - Main activity: common settings added.
 - Common settings: measurement units selection added.
 - Common settings: switch to enable/disable map rotation added.
-- [Build 0.0.4.5](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.5.apk?raw=true) uploaded.
+- Build 0.0.4.5 uploaded.
 
 **24th June, 2017**
 
