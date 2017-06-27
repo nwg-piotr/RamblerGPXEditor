@@ -106,6 +106,8 @@ public class PoiActivity extends Utils
 
     TextView poiPrompt;
 
+    AlertDialog mPoiEditDialog;
+
     private MapView mMapView;
     private IMapController mapController;
 
@@ -362,7 +364,13 @@ public class PoiActivity extends Utils
                 @Override
                 public boolean onMarkerClick(Marker marker, MapView mapView) {
 
-                    displayEditDialog(markerToPoi.get(marker));
+                    /*
+                     * @osmdroid allows to click multiple markers at a time. Here we need a workaround
+                     * to avoid opening a dialog for each clicked one.
+                     */
+                    if (mPoiEditDialog == null || !mPoiEditDialog.isShowing()) {
+                        displayEditDialog(markerToPoi.get(marker));
+                    }
                     return false;
                 }
             });
@@ -596,8 +604,8 @@ public class PoiActivity extends Utils
 
                     }
                 });
-        AlertDialog alert = builder.create();
-        alert.show();
+        mPoiEditDialog = builder.create();
+        mPoiEditDialog.show();
     }
 
     private void setUpSpinnerListener(Spinner spinner, final EditText edit_text) {
