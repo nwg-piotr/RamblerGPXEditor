@@ -16,13 +16,5 @@
 -->
 <resources>
 
- <color name="button_white_opaque">#ffffffff</color>
- <color name="button_white_transparent">#66ffffff</color>
- <color name="button_background_light">#eeeeee</color>
-    <color name="button_background_transparent">#66eeeeee</color>
- <color name="lv_green">#339966</color>
- <color name="lv_blue">#336699</color>
- <color name="menu_divider">#336699</color>
-
  <color name="semitransparent">#66FFFFFF</color>
 </resources>

@@ -719,7 +719,6 @@ public class MainActivity extends Utils {
         alert.show();
     }
 
-
     private void displayWhatsNewDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

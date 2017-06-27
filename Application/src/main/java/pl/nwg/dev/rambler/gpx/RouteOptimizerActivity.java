@@ -74,7 +74,6 @@ public class RouteOptimizerActivity extends Utils
     Button saveButton;
 
     TextView routePrompt;
-    TextView displayError;
 
     NumberPicker maxPointsPicker;
 
@@ -307,8 +306,6 @@ public class RouteOptimizerActivity extends Utils
         maxPointsPicker = (NumberPicker) findViewById(R.id.maxPointsPicker);
         maxPointsPicker.setEnabled(false);
         maxPointsPicker.setAlpha(0);
-
-        displayError = (TextView) findViewById(R.id.simplification_error);
 
         final TextView copyright = (TextView) findViewById(R.id.copyright);
         copyright.setMovementMethod(LinkMovementMethod.getInstance());
