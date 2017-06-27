@@ -552,7 +552,7 @@ public class PoiActivity extends Utils
         String cancelText = getResources().getString(R.string.dialog_cancel);
         builder.setTitle(dialogTitle)
                 .setIcon(R.drawable.map_poi)
-                .setCancelable(true)
+                .setCancelable(false)
                 .setView(poiEditLayout)
                 .setPositiveButton(okText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -602,6 +602,7 @@ public class PoiActivity extends Utils
                 .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+                        refreshMap();
                     }
                 });
         mPoiEditDialog = builder.create();
