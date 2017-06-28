@@ -32,6 +32,9 @@ public class Splash extends AppCompatActivity implements
         // If permissions granted, we start the main activity (shut this activity down).
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            setContentView(R.layout.activity_permission_request);
+
             startMainActivity();
             finish();
         }

@@ -175,12 +175,12 @@
 
     <string name="path_not_exists">Pfad existiert nicht oder kann nicht gelesen werden</string>
 
-    <string name="permissions_deny">Beenden Rambler</string>
+    <string name="permissions_deny">Beenden</string>
     <string name="permissions_files">Der Zugang zum Lesen und Schreiben von Dateien</string>
-    <string name="permissions_grant">Erteilen von Berechtigungen</string>
+    <string name="permissions_grant">Erteilen</string>
     <string name="permissions_insufficient">Konnte die App aufgrund von fehlenden Berechtigungen ausgeführt:</string>
     <string name="permissions_location">Der Zugriff auf den Gerätestandort</string>
-    <string name="permissions_required">Diese Anwendung benötigt Zugriff zum Lesen und Schreiben von Dateien, in denen Sie Ihre Einstellungen und Daten gespeichert sind. Es kann auch nicht funktionieren, ohne Ihre Standortdaten zugreifen.</string>
+    <string name="permissions_required">Diese Anwendung benötigt den Speicherzugriff auf das Lesen und Schreiben von GPX-Dateien. Es muss auch auf Ihre Standortdaten zugreifen.</string>
 
     <string name="picker_edit_apply">Anwenden</string>
     <string name="picker_edit_dialog_title">Routen Eigenschaften</string>
@@ -284,4 +284,5 @@
     <string name="x_of_y_poi_press">%1$d von %2$d POI, lang drücken um POI zu erstellen</string>
     <string name="x_of_y_routes">%1$d von %2$d Routen</string>
     <string name="x_tracks">%1$d Touren</string>
+    <string name="credits_logo">App-Logo von <a href="https://github.com/edskeye">edskeye</a></string>
 </resources>

@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:textColor="#333"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:text="@string/about_app"/>
 
         <TextView
@@ -46,7 +46,6 @@
             android:id="@+id/github"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:textColor="#333"
             android:textSize="14sp"
             android:layout_marginTop="10dp"

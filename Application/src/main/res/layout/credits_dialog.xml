@@ -154,6 +154,15 @@
             android:layout_marginTop="10dp"
             android:text="@string/translations"/>
 
+        <TextView
+            android:id="@+id/app_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="@string/credits_logo"/>
+
     </LinearLayout>
 
 </ScrollView>

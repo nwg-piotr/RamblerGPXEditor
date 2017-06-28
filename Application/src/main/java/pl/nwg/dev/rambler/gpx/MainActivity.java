@@ -115,7 +115,7 @@ public class MainActivity extends Utils {
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff00ffff")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff006cb5")));
             actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#5500ffff")));
         }
 
@@ -595,12 +595,6 @@ public class MainActivity extends Utils {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 })
-                .setNeutralButton(creditsText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        displayCreditsDialog();
-                    }
-                })
                 .setNegativeButton(websiteText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
@@ -637,6 +631,7 @@ public class MainActivity extends Utils {
         clickableFields.add((TextView) layout.findViewById(R.id.osrm_license_demo_server));
         clickableFields.add((TextView) layout.findViewById(R.id.filebrowser_name));
         clickableFields.add((TextView) layout.findViewById(R.id.filebrowser_license));
+        clickableFields.add((TextView) layout.findViewById(R.id.app_logo));
 
         String dialogTitle = getResources().getString(R.string.credits);
         String okText = getResources().getString(R.string.dialog_ok);
@@ -704,15 +699,11 @@ public class MainActivity extends Utils {
 
         builder.setTitle(getResources().getString(R.string.settings))
                 .setIcon(R.drawable.ico_settings)
-                .setCancelable(true)
+                .setCancelable(false)
                 .setView(layout)
                 .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         saveSettings();
-                    }
-                })
-                .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
                     }
                 });
         AlertDialog alert = builder.create();

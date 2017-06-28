@@ -3,55 +3,85 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:background="@color/dark_grey">
+    android:background="#006cb5">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:text="@string/permissions_required"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/splash">
 
-    <Button style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:id="@+id/grantButton"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/icon"
-        android:onClick="onClickApprovePermissionRequest" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:text="@string/permissions_required"
+            android:id="@+id/textView2" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/permissions_grant"
-        android:textColor="@color/white"
-        android:id="@+id/textView3" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
 
-    <Button style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
 
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/button_quit"
-        android:id="@+id/denyButton"
-        android:onClick="onClickDenyPermissionRequest" />
+                <ImageButton style="?android:attr/buttonStyleSmall"
+                    android:id="@+id/grantButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:src="@drawable/icon"
+                    android:background="@color/transparent"
+                    android:onClick="onClickApprovePermissionRequest" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/white"
-        android:text="@string/permissions_deny"
-        android:id="@+id/textView4" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/permissions_grant"
+                    android:textColor="@color/white" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageButton style="?android:attr/buttonStyleSmall"
+                    android:src="@drawable/button_quit"
+                    android:background="@color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:id="@+id/denyButton"
+                    android:onClick="onClickDenyPermissionRequest" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/permissions_deny"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -39,6 +39,8 @@
     </string>
     <string name="credits_routing_source" translatable="false">Routing by <a href="http://project-osrm.org">OSRM</a> Demo Server</string>
 
+    <string name="credits_logo">App logo by <a href="https://github.com/edskeye">edskeye</a></string>
+
     <string name="current_folder">Current folder: %1$s</string>
 
     <string name="default_file_corrupted">default file not found or corrupted - creating a new one</string>
@@ -211,12 +213,12 @@
 
     <string name="path_not_exists">Path does not exist or cannot be read</string>
 
-    <string name="permissions_deny">Exit Rambler</string>
+    <string name="permissions_deny">Exit</string>
     <string name="permissions_files">Access to read and write files</string>
-    <string name="permissions_grant">Grant permissions</string>
+    <string name="permissions_grant">Allow</string>
     <string name="permissions_insufficient">Couldn\'t run the app due to missing permissions:</string>
     <string name="permissions_location">Access to the device location</string>
-    <string name="permissions_required">This application needs the storage access to read and write files, where your settings and data are being stored. It also can not work without accessing your location data.</string>
+    <string name="permissions_required">This application needs the storage access to read and write GPX files. It also needs to access your location data.</string>
 
     <string name="picker_edit_apply">Apply</string>
     <string name="picker_edit_dialog_title">Route properties</string>

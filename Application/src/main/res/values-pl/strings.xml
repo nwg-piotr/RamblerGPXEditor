@@ -178,10 +178,10 @@
 
     <string name="permissions_deny">Zakończ</string>
     <string name="permissions_files">Dostęp do odczytu i zapisu plików</string>
-    <string name="permissions_grant">Przyznaj uprawnienia</string>
+    <string name="permissions_grant">Zezwalaj</string>
     <string name="permissions_insufficient">Nie udało się uruchomić aplikacji z powodu braku uprawnień:</string>
     <string name="permissions_location">Dostęp do lokalizacji urządzenia</string>
-    <string name="permissions_required">Ta aplikacja wymaga dostępu do odczytu i zapisu plików, gdzie przechowywane są ustawienia i dane, a także dostępu do lokalizacji urządzenia.</string>
+    <string name="permissions_required">Ta aplikacja potrzebuje dostępu do odczytu i zapisu plików GPX, gdzie przechowywane są dane, a także dostępu do lokalizacji urządzenia.</string>
 
     <string name="picker_edit_apply">Zastosuj</string>
     <string name="picker_edit_dialog_title">Właściwości trasy</string>
@@ -285,4 +285,5 @@
     <string name="x_of_y_poi_press">%1$d z %2$d POI, przytrzymaj by dodać</string>
     <string name="x_of_y_routes">%1$d z %2$d tras</string>
     <string name="x_tracks">%1$d śladów</string>
+    <string name="credits_logo">Logo aplikacji: <a href="https://github.com/edskeye">edskeye</a></string>
 </resources>

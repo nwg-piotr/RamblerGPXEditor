@@ -16,7 +16,7 @@
 -->
 <resources>
     <color name="semitransparent">#66FFFFFF</color>
-
+    <color name="transparent">#00FFFFFF</color>
     <color name="black">#000000</color>
     <color name="dark_grey">#424242</color>
     <color name="grey">#757575</color>
