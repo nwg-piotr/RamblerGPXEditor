@@ -248,7 +248,7 @@
 
     <string name="simplifying">Vereinfache₀</string>
 
-    <string name="sync_data">Synchronisierung</string>
+    <string name="sync_data">Sync Datei</string>
 
     <string name="track_edit_prompt">Wählen Sie eine Toure aus</string>
     <string name="track_manager_name">Touren Manager</string>
@@ -267,12 +267,6 @@
     <string name="translations">Deutche Übersetzung: DE Stefan Scherrer</string>
 
     <string name="type">Typ:</string>
-
-    <string-array name="units_array">
-        <item>@string/metric</item>
-        <item>@string/imperial</item>
-        <item>@string/nautical</item>
-    </string-array>
 
     <string name="unnamed">Unbenannt</string>
 
