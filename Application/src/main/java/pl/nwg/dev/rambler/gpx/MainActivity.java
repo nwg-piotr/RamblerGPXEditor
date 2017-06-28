@@ -222,6 +222,8 @@ public class MainActivity extends Utils {
 
                 Data.sRoutesGpx.setRoutes(inputGpx.getRoutes());
 
+                Data.sTracksGpx.setTracks(inputGpx.getTracks());
+
                 refreshLoadedDataInfo();
                 TextView openFile = (TextView) findViewById(R.id.open_file);
                 openFile.setText("sample.gpx");
