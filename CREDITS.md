@@ -36,3 +36,9 @@ Copyright @vaal12 Alexey Vassiliev
 
 Licensed under the Apache License, Version 2.0.
 
+## German Translation
+Stefan Scherrer
+
+## Application logo
+@edskeye https://github.com/edskeye
+
