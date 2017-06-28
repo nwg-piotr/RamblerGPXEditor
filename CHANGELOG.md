@@ -1,5 +1,9 @@
 CHANGELOG
 ===============
+**28th June, 2017**
+
+- New application logo, changes to the overall layout. 
+
 **27th June, 2017**
 
 - Main screen rearranged: added the bottom bar with basic I/o buttons. Old entries in the drawer 
