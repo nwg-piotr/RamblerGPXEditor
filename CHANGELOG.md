@@ -2,7 +2,8 @@ CHANGELOG
 ===============
 **28th June, 2017**
 
-- New application logo, changes to the overall layout. 
+- New application logo, changes to the overall layout.
+- [Build 0.0.4.8](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.8.apk?raw=true) uploaded.
 
 **27th June, 2017**
 
@@ -10,7 +11,7 @@ CHANGELOG
 kept as a placeholder for future buttons, e.g. project site, wiki etc.
 - Removed unused resources.
 - Small bug fixes in `PoiActivity` and `RoutesBrowserActivity`.
-- [Build 0.0.4.7](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.7.apk?raw=true) uploaded.
+- Build 0.0.4.7 uploaded.
 
 **25th June, 2017**
 
