@@ -1,9 +1,16 @@
 CHANGELOG
 ===============
+**29th June, 2017**
+
+- Bug in the main activity fixed: on the 1st installation tracks from the sample GPX file used not 
+to be parsed.
+- The `assets/sample.gpx` file replaced with a new one.
+- [Build 0.0.4.9](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.9.apk?raw=true) uploaded.
+
 **28th June, 2017**
 
 - New application logo, changes to the overall layout.
-- [Build 0.0.4.8](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/Application/RamblerGPXeditor-release-0.0.4.8.apk?raw=true) uploaded.
+- Build 0.0.4.8 uploaded.
 
 **27th June, 2017**
 
