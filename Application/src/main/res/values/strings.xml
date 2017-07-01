@@ -10,6 +10,8 @@
     <string name="button_end_here">End here</string>
     <string name="button_insert_start">Start/End</string>
 
+    <string name="creator_clear_waypoints">Clear waypoints</string>
+
     <string name="credits">Credits</string>
     <string name="credits_aosp_copy" translatable="false">©2017 The Android Open Source Project.</string>
     <string name="credits_aosp_name" translatable="false">

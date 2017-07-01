@@ -285,4 +285,5 @@
     <string name="x_of_y_routes">%1$d von %2$d Routen</string>
     <string name="x_tracks">%1$d Touren</string>
     <string name="credits_logo">App-Logo von <a href="https://github.com/edskeye">edskeye</a></string>
+    <string name="creator_clear_waypoints">Klare Wegpunkte</string>
 </resources>

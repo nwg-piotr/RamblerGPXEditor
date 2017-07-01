@@ -786,6 +786,11 @@ public class RouteCreatorActivity extends Utils
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
+        if(Data.sCardinalGeoPoints == null || Data.sCardinalGeoPoints.isEmpty()) {
+            menu.findItem(R.id.clear_waypoints).setEnabled(false);
+        } else {
+            menu.findItem(R.id.clear_waypoints).setEnabled(true);
+        }
         menu.findItem(R.id.show_poi).setChecked(showPoi);
 
         return super.onPrepareOptionsMenu(menu);
@@ -803,6 +808,11 @@ public class RouteCreatorActivity extends Utils
                 refreshMap();
                 return true;
 
+            case R.id.clear_waypoints:
+                Data.sCardinalGeoPoints = new ArrayList<>();
+                Data.osrmRoutes = null;
+                refreshMap();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

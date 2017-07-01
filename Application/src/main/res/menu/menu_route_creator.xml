@@ -5,6 +5,10 @@
     tools:context=".RouteEditorActivity">
 
     <item android:orderInCategory="100"
+        android:id="@+id/clear_waypoints"
+        android:title="@string/creator_clear_waypoints" />
+
+    <item android:orderInCategory="110"
         android:id="@+id/show_poi"
         android:checkable="true"
         android:title="@string/show_poi" />

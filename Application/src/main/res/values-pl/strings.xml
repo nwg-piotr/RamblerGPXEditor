@@ -286,4 +286,5 @@
     <string name="x_of_y_routes">%1$d z %2$d tras</string>
     <string name="x_tracks">%1$d śladów</string>
     <string name="credits_logo">Logo aplikacji: <a href="https://github.com/edskeye">edskeye</a></string>
+    <string name="creator_clear_waypoints">Wyczyść punkty</string>
 </resources>
