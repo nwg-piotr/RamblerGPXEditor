@@ -20,3 +20,5 @@ to Route(s).
 - *Enter an idea here.*
 
 See [CHANGELOG](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/CHANGELOG.md) to learn more.
+
+[Download from Google Play](https://play.google.com/store/apps/details?id=pl.nwg.dev.rambler.gpx) (beta version).

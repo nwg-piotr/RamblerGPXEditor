@@ -1,5 +1,9 @@
 CHANGELOG
 ===============
+**30th June, 2017**
+
+- latest build uploaded on the [Play store](https://play.google.com/store/apps/details?id=pl.nwg.dev.rambler.gpx) (beta channel).
+
 **29th June, 2017**
 
 - Bug in the main activity fixed: on the 1st installation tracks from the sample GPX file used not 
