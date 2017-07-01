@@ -4,6 +4,7 @@ CHANGELOG
 
 - The workaround to disallow overlapping dialog popups showing up on multiple marker clicks applied 
 to `RouteEditorActivity` and `RouteCreatorActivity`.
+- 'Clear waypoints' entry added to the Route Creator menu.
 
 **30th June, 2017**
 
