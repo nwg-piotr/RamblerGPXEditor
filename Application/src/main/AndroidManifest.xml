@@ -91,7 +91,7 @@
 
         <activity
             android:name="pl.nwg.dev.rambler.gpx.RouteCreatorActivity"
-            android:theme="@android:style/Theme.Holo.Light"
+            android:theme="@style/MapTheme"
             android:label="@string/route_creator_name">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -100,7 +100,7 @@
 
         <activity
             android:name="pl.nwg.dev.rambler.gpx.RouteEditorActivity"
-            android:theme="@android:style/Theme.Holo.Light"
+            android:theme="@style/MapTheme"
             android:label="@string/route_editor_name">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -109,7 +109,7 @@
 
         <activity
             android:name="pl.nwg.dev.rambler.gpx.RouteOptimizerActivity"
-            android:theme="@android:style/Theme.Holo.Light"
+            android:theme="@style/MapTheme"
             android:label="@string/route_optimizer_name">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -118,7 +118,7 @@
 
         <activity
             android:name="pl.nwg.dev.rambler.gpx.RoutesBrowserActivity"
-            android:theme="@android:style/Theme.Holo.Light"
+            android:theme="@style/MapTheme"
             android:label="@string/route_picker_name">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -127,7 +127,7 @@
 
         <activity
             android:name="pl.nwg.dev.rambler.gpx.TracksBrowserActivity"
-            android:theme="@android:style/Theme.Holo.Light"
+            android:theme="@style/MapTheme"
             android:label="@string/track_manager_name">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -136,7 +136,7 @@
 
         <activity
             android:name="pl.nwg.dev.rambler.gpx.PoiActivity"
-            android:theme="@android:style/Theme.Holo.Light"
+            android:theme="@style/MapTheme"
             android:label="@string/poi_manager_name">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />

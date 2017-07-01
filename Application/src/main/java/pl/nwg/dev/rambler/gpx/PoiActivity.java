@@ -145,8 +145,8 @@ public class PoiActivity extends Utils
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#33ffffff")));
-            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#55ffffff")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ffffff")));
+            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ffffff")));
         }
 
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);

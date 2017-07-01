@@ -44,8 +44,13 @@
         <item name="android:shadowRadius">2</item>
     </style>
 
+    <style name="MapTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
     <style name="MyTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">

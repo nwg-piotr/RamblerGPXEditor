@@ -177,8 +177,8 @@ public class RoutesBrowserActivity extends Utils
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3300ffff")));
-            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#ccffffff")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ffffff")));
+            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ffffff")));
         }
 
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
