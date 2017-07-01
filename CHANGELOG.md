@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**1st July, 2017**
+
+- The workaround to disallow overlapping dialog popups showing up on multiple marker clicks applied 
+to `RouteEditorActivity` and `RouteCreatorActivity`.
+
 **30th June, 2017**
 
 - latest build uploaded on the [Play store](https://play.google.com/store/apps/details?id=pl.nwg.dev.rambler.gpx) (beta channel).
