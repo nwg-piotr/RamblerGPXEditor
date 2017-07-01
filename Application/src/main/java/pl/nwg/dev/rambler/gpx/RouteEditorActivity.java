@@ -94,6 +94,9 @@ public class RouteEditorActivity extends Utils
 
     TextView routePrompt;
 
+    AlertDialog mEditDialog;
+    AlertDialog mAddFromPoiDialog;
+
     private MapView mMapView;
     private IMapController mapController;
 
@@ -307,8 +310,15 @@ public class RouteEditorActivity extends Utils
                 @Override
                 public boolean onMarkerClick(Marker marker, MapView mapView) {
 
-                    RoutePoint clickedPoint = markerToRoutePoint.get(marker);
-                    displayEditDialog(clickedPoint);
+                    /*
+                     * @osmdroid allows to click multiple markers at a time.
+                     * This is to avoid opening a dialog for each clicked one.
+                     */
+                    if (mEditDialog == null || !mEditDialog.isShowing()) {
+
+                        RoutePoint clickedPoint = markerToRoutePoint.get(marker);
+                        displayEditDialog(clickedPoint);
+                    }
 
                     return false;
                 }
@@ -391,7 +401,14 @@ public class RouteEditorActivity extends Utils
                 @Override
                 public boolean onMarkerClick(Marker marker, MapView mapView) {
 
-                    addFromPoi(markerToPoi.get(marker));
+                    /*
+                     * @osmdroid allows to click multiple markers at a time.
+                     * This is to avoid opening a dialog for each clicked one.
+                     */
+                    if (mAddFromPoiDialog == null || !mAddFromPoiDialog.isShowing()) {
+
+                        addFromPoi(markerToPoi.get(marker));
+                    }
                     return false;
                 }
             });
@@ -578,9 +595,9 @@ public class RouteEditorActivity extends Utils
                 });
 
 
-        final AlertDialog alert = builder.create();
+        mEditDialog  = builder.create();
 
-        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+        mEditDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
             @Override
             public void onShow(DialogInterface dialog) {
@@ -595,7 +612,7 @@ public class RouteEditorActivity extends Utils
         instertStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alert.dismiss();
+                mEditDialog.dismiss();
                 insertStartEnd(routePoint);
             }
         });
@@ -604,7 +621,7 @@ public class RouteEditorActivity extends Utils
         endHereButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alert.dismiss();
+                mEditDialog.dismiss();
                 endHere(routePoint);
             }
         });
@@ -617,7 +634,7 @@ public class RouteEditorActivity extends Utils
             endHereButton.setEnabled(false);
             endHereButton.setTextColor(Color.argb(80, 50, 50, 50));
         }
-        alert.show();
+        mEditDialog.show();
     }
 
     private void insertStartEnd (RoutePoint routePoint) {
@@ -741,9 +758,9 @@ public class RouteEditorActivity extends Utils
                     }
                 });
 
-        AlertDialog alert = builder.create();
+        mAddFromPoiDialog = builder.create();
 
-        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+        mAddFromPoiDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
             @Override
             public void onShow(DialogInterface dialog) {
@@ -754,7 +771,7 @@ public class RouteEditorActivity extends Utils
 
             }
         });
-        alert.show();
+        mAddFromPoiDialog.show();
     }
 
     public void onResume(){

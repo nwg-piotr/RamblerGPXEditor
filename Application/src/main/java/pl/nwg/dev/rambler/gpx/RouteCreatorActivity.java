@@ -70,7 +70,6 @@ import java.util.List;
 import java.util.Map;
 
 import pt.karambola.commons.collections.ListUtils;
-import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Point;
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.RoutePoint;
@@ -110,6 +109,9 @@ public class RouteCreatorActivity extends Utils
     Button saveButton;
 
     TextView routePrompt;
+
+    AlertDialog mDeleteWayPointDialog;
+    AlertDialog mAddFromPoiDialog;
 
     private MapView mMapView;
     private IMapController mapController;
@@ -319,7 +321,15 @@ public class RouteCreatorActivity extends Utils
                 @Override
                 public boolean onMarkerClick(Marker marker, MapView mapView) {
 
-                    displayWaypointDialog(markerToCardinalWaypoint.get(marker));
+                    /*
+                     * @osmdroid allows to click multiple markers at a time.
+                     * This is to avoid opening a dialog for each clicked one.
+                     */
+                    if (mDeleteWayPointDialog == null || !mDeleteWayPointDialog.isShowing()) {
+
+                        displayDeleteWaypointDialog(markerToCardinalWaypoint.get(marker));
+
+                    }
                     return false;
                 }
             });
@@ -407,7 +417,15 @@ public class RouteCreatorActivity extends Utils
                 @Override
                 public boolean onMarkerClick(Marker marker, MapView mapView) {
 
-                    addFromPoi(markerToPoi.get(marker));
+                    /*
+                     * @osmdroid allows to click multiple markers at a time.
+                     * This is to avoid opening a dialog for each clicked one.
+                     */
+                    if (mAddFromPoiDialog == null || !mAddFromPoiDialog.isShowing()) {
+
+                        addFromPoi(markerToPoi.get(marker));
+
+                    }
                     return false;
                 }
             });
@@ -583,7 +601,7 @@ public class RouteCreatorActivity extends Utils
 
     }
 
-    private void displayWaypointDialog(final GeoPoint geoPoint) {
+    private void displayDeleteWaypointDialog(final GeoPoint geoPoint) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -605,8 +623,8 @@ public class RouteCreatorActivity extends Utils
                     }
                 });
 
-        AlertDialog alert = builder.create();
-        alert.show();
+        mDeleteWayPointDialog = builder.create();
+        mDeleteWayPointDialog.show();
 
     }
 
@@ -660,8 +678,8 @@ public class RouteCreatorActivity extends Utils
                     }
                 });
 
-        AlertDialog alert = builder.create();
-        alert.show();
+        mAddFromPoiDialog = builder.create();
+        mAddFromPoiDialog.show();
     }
 
     public void clearRoutes() {
