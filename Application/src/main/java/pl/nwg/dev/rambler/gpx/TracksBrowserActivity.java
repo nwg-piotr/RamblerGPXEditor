@@ -546,7 +546,7 @@ public class TracksBrowserActivity extends Utils
 
     private void setButtonsState() {
 
-        if (mAllTracksNumber > 1) {
+        if (mAllTracksNumber > 0) {
             nextButton.setEnabled(true);
             nextButton.getBackground().setAlpha(255);
         } else {
@@ -554,7 +554,7 @@ public class TracksBrowserActivity extends Utils
             nextButton.getBackground().setAlpha(100);
         }
 
-        if (mAllTracksNumber > 1) {
+        if (mAllTracksNumber > 0) {
             previousButton.setEnabled(true);
             previousButton.getBackground().setAlpha(255);
         } else {

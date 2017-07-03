@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**3rd July, 2017**
+
+- 'New file' button replaced with 'New data'. It actually did not create a file, but a new data set,
+which is being 
+
 **1st July, 2017**
 
 - The workaround to disallow overlapping dialog popups showing up on multiple marker clicks applied 
