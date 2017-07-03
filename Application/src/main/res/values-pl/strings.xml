@@ -140,7 +140,7 @@
     <string name="neither_single_nor_multiple_routes">Nie wybrano jednej ani wielu tras</string>
     <string name="neither_single_nor_multiple_tracks">Nie wybrano jednego ani wielu śladów</string>
 
-    <string name="new_gpx">Nowy plik</string>
+    <string name="new_data">Nowe dane</string>
 
     <string name="no_file_selected">Nie wybrano pliku</string>
     <string name="no_named_poi">Plik GPX nie zawiera POI</string>
@@ -287,4 +287,6 @@
     <string name="x_tracks">%1$d śladów</string>
     <string name="credits_logo">Logo aplikacji: <a href="https://github.com/edskeye">edskeye</a></string>
     <string name="creator_clear_waypoints">Wyczyść punkty</string>
+    <string name="dialog_confirm_clear_message">Na pewno chcesz wyczyścić dane w pamięci?</string>
+    <string name="dialog_confirm_clear_title">Usuwanie danych</string>
 </resources>

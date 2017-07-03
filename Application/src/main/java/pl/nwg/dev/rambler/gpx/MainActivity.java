@@ -134,7 +134,7 @@ public class MainActivity extends Utils {
                 FileBrowserActivity.class
         );
 
-        web[0] = getResources().getString(R.string.new_gpx);
+        web[0] = getResources().getString(R.string.new_data);
         web[1] = getResources().getString(R.string.open_gpx);
         web[2] = getResources().getString(R.string.save_gpx);
         web[3] = getResources().getString(R.string.sync_data);
@@ -288,7 +288,7 @@ public class MainActivity extends Utils {
             @Override
             public void onClick(View v) {
 
-                fileNew();
+                clearData();
             }
         });
 
@@ -406,7 +406,7 @@ public class MainActivity extends Utils {
 
                 switch (position) {
                     case 0:
-                        fileNew();
+                        clearData();
                         break;
 
                     case 1:
@@ -429,27 +429,16 @@ public class MainActivity extends Utils {
         });
     }
 
-    private void fileNew() {
+    private void clearData() {
+
         if (Data.sPoiGpx.isChanged() || Data.sRoutesGpx.isChanged() || Data.sTracksGpx.isChanged()) {
 
             displayDataChangedDialog();
 
         } else {
 
-            Data.sPoiGpx = new Gpx();
-            Data.sRoutesGpx = new Gpx();
-            Data.sTracksGpx = new Gpx();
-
-            Data.sPoiGpx.resetIsChanged();
-            Data.sRoutesGpx.resetIsChanged();
-            Data.sTracksGpx.resetIsChanged();
-
-            refreshLoadedDataInfo();
+            displayConfirmClearDialog();
         }
-
-        Data.sPoiGpx = new Gpx();
-        Data.sRoutesGpx = new Gpx();
-        Data.sTracksGpx = new Gpx();
 
         refreshLoadedDataInfo();
     }
@@ -1123,7 +1112,35 @@ public class MainActivity extends Utils {
 
     }
 
-    public class loadDefaultDataFiles extends
+    private void displayConfirmClearDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(getResources().getString(R.string.dialog_confirm_clear_message))
+                .setTitle(getResources().getString(R.string.dialog_confirm_clear_title))
+                .setIcon(R.drawable.map_question)
+                .setCancelable(false)
+                .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        Data.sPoiGpx = new Gpx();
+                        Data.sRoutesGpx = new Gpx();
+                        Data.sTracksGpx = new Gpx();
+
+                        refreshLoadedDataInfo();
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private class loadDefaultDataFiles extends
             AsyncTask<Void, Boolean, Void> {
 
         AlertDialog alert;
@@ -1267,17 +1284,11 @@ public class MainActivity extends Utils {
 
             try {
 
-                if (Data.sPoiGpx.isChanged()) {
-                    GpxFileIo.parseOut(Data.sPoiGpx, defaultPoisFile);
-                }
+                GpxFileIo.parseOut(Data.sPoiGpx, defaultPoisFile);
 
-                if (Data.sRoutesGpx.isChanged()) {
-                    GpxFileIo.parseOut(Data.sRoutesGpx, defaultRoutesFile);
-                }
+                GpxFileIo.parseOut(Data.sRoutesGpx, defaultRoutesFile);
 
-                if (Data.sTracksGpx.isChanged()) {
-                    GpxFileIo.parseOut(Data.sTracksGpx, defaultTracksFile);
-                }
+                GpxFileIo.parseOut(Data.sTracksGpx, defaultTracksFile);
 
                 Data.sPoiGpx.resetIsChanged();
                 Data.sRoutesGpx.resetIsChanged();

@@ -140,7 +140,7 @@
     <string name="neither_single_nor_multiple_routes">Weder einzelne noch mehrere Routen ausgewählt</string>
     <string name="neither_single_nor_multiple_tracks">Weder einzelne noch mehrere Touren ausgewählt</string>
 
-    <string name="new_gpx">Neue Datei</string>
+    <string name="new_data">Neue Daten</string>
 
     <string name="no_file_selected">Keine Datei ausgewählt</string>
     <string name="no_named_poi">Die GPX Datei enthält keine benannte POI</string>
@@ -286,4 +286,6 @@
     <string name="x_tracks">%1$d Touren</string>
     <string name="credits_logo">App-Logo von <a href="https://github.com/edskeye">edskeye</a></string>
     <string name="creator_clear_waypoints">Klare Wegpunkte</string>
+    <string name="dialog_confirm_clear_message">Aktuellen Daten wirklich löschen?</string>
+    <string name="dialog_confirm_clear_title">Daten löschen</string>
 </resources>

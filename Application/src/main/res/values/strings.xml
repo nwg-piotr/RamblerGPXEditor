@@ -59,6 +59,8 @@
     <string name="dialog_clear_pois">Clear all POI?</string>
     <string name="dialog_clear_routes">Clear all routes?</string>
     <string name="dialog_clear_tracks">Clear all tracks?</string>
+    <string name="dialog_confirm_clear_title">Clearing data</string>
+    <string name="dialog_confirm_clear_message">Do you really want to clear current data?</string>
     <string name="dialog_data_changed_message">Changes you made have not yet been saved. Save now?</string>
     <string name="dialog_data_changed_title">Data changed</string>
     <string name="dialog_delete">Delete</string>
@@ -180,7 +182,7 @@
     <string name="neither_single_nor_multiple_routes">Neither single nor multiple routes selected</string>
     <string name="neither_single_nor_multiple_tracks">Neither single nor multiple tracks selected</string>
 
-    <string name="new_gpx">New file</string>
+    <string name="new_data">New data</string>
 
     <string name="no_file_selected">No file selected</string>
     <string name="no_named_poi">The GPX file has no named POI</string>
