@@ -12,9 +12,9 @@
     <string name="button_insert_start">Start/Ende</string>
 
     <string name="credits">Credits</string>
-    <string name="credits_karambola_copy">- Werkzeuge für GPX Format import/export/manipulieren;
+    <string name="credits_karambola_copy">- Werkzeuge um GPX Format import/export/manipulieren;
         \n- POI/routen ansehen/filtern/sortieren;
-        \n- Pfad Vereinfacher - die Track2Route Echzeit Engine für konversionieren und optimierung von Routen;
+        \n- Pfad Vereinfacher - die Track2Route Echzeit Engine für konversionieren und Optimierung von Routen;
         \n2016 Karambola (Afonso Santos).
     </string>
 
@@ -23,7 +23,7 @@
     <string name="default_file_corrupted">Defaultdatei nicht gefunden - erstelle eine neue</string>
     <string name="default_files_saved">Defaultdateien gespeichert</string>
 
-    <string name="delete_source_track">Entfernen die Quellspur</string>
+    <string name="delete_source_track">Entfernen die QuellTour</string>
 
     <string name="dialog_all">Alle</string>
     <string name="dialog_append">Anfügen</string>
@@ -38,7 +38,7 @@
     <string name="dialog_delete">Löschen</string>
     <string name="dialog_delete_route">Route löschen?</string>
     <string name="dialog_delete_route_message">Du bist daran Route \"%1$s\" zu löschen.</string>
-    <string name="dialog_delete_track_message">Du bist daran Toure \"%1$s\" zu löschen.</string>
+    <string name="dialog_delete_track_message">Du bist daran Tour \"%1$s\" zu löschen.</string>
     <string name="dialog_discard">Verwerfen</string>
     <string name="dialog_dont_save">Nicht speichern</string>
     <string name="dialog_edit_points">Punkte editieren</string>
@@ -46,24 +46,24 @@
     <string name="dialog_filter_clear">Löschen</string>
     <string name="dialog_filter_dst">nach Distanz (km)</string>
     <string name="dialog_filter_lenth">nach Länge (km)</string>
-    <string name="dialog_filter_routedst">nach Distanz zum Route (km)</string>
+    <string name="dialog_filter_routedst">nach Distanz zur Route (km)</string>
     <string name="dialog_filter_set">Setze Filter</string>
     <string name="dialog_filter_type">nach Typ</string>
     <string name="dialog_insert">Einfügen</string>
     <string name="dialog_insert_b4">Einfügen</string>
-    <string name="dialog_insert_message">Add %1$s as a way point?</string>
+    <string name="dialog_insert_message">%1$s as Wegpunkt hinzufügen?</string>
     <string name="dialog_loading_data">Daten werden geladen</string>
     <string name="dialog_manually">Breite/Länge (GPS Format)</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_overwrite_message">Aktuelle Datei überschreiben?</string>
     <string name="dialog_overwrite_title">Datei existiert</string>
-    <string name="dialog_poi2wpt">POI ins Wpt</string>
+    <string name="dialog_poi2wpt">POI als Wpt</string>
     <string name="dialog_poi_changed_message">POI modifiziert. Änderungen anwenden?</string>
     <string name="dialog_pois_filter_title">POI Ansicht Filter</string>
     <string name="dialog_route_changed_message">Route modifiziert. Änderungen anwenden?</string>
     <string name="dialog_routes_filter_title">Routen Ansicht Filter</string>
     <string name="dialog_save">Speichern</string>
-    <string name="dialog_save_changes_save">Speichern</string>
+    <string name="dialog_save_changes_save">Änderungen speichern</string>
     <string name="dialog_save_changes_title">Daten geändert</string>
     <string name="dialog_savegpx_saveasnew">Als GPX speichern</string>
     <string name="dialog_saving_data">Daten werden gespeichert</string>
@@ -105,9 +105,8 @@
         <a href="https://github.com/nwg-piotr/RamblerGPXEditor">Das Projekt auf GitHub</a>
     </string>
 
-    <string name="gnugpl">This program is free software; you can redistribute it and/or modify
-    it under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License version 3.0</a>, as published by
-    the Free Software Foundation.</string>
+    <string name="gnugpl">Dieses Programm ist open source; du kannst sie weiterverteilen unter den Bedingungen der
+         <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License version 3.0</a>, veröffentlicht von der Free Software Foundation.</string>
 
     <string name="imperial">Britisch</string>
 
@@ -129,8 +128,8 @@
     <string name="map_pois_save">Exportieren</string>
     <string name="map_pois_save_all">Exportiere alle</string>
     <string name="map_pois_save_view">Exportiere gefilterte Sicht</string>
-    <string name="map_prompt">0 Wegpunkten, lang drücken zu erstellen</string>
-    <string name="map_prompt_route">%1$d POI, lang drücken um POI zu erstellen</string>
+    <string name="map_prompt">0 Wegpunkte, lang drücken um Neuen zu erstellen</string>
+    <string name="map_prompt_route">%1$d POI, lang drücken um neuen POI zu erstellen</string>
     <string name="map_reverse_route">Route umkehren</string>
 
     <string name="metric">Metrisch</string>
@@ -180,7 +179,7 @@
     <string name="permissions_grant">Erteilen</string>
     <string name="permissions_insufficient">Konnte die App aufgrund von fehlenden Berechtigungen ausgeführt:</string>
     <string name="permissions_location">Der Zugriff auf den Gerätestandort</string>
-    <string name="permissions_required">Diese Anwendung benötigt den Speicherzugriff auf das Lesen und Schreiben von GPX-Dateien. Es muss auch auf Ihre Standortdaten zugreifen.</string>
+    <string name="permissions_required">Diese Anwendung benötigt den Speicherzugriff für das Lesen und Schreiben von GPX-Dateien. Es muss auch auf Ihre Standortdaten zugreifen.</string>
 
     <string name="picker_edit_apply">Anwenden</string>
     <string name="picker_edit_dialog_title">Routen Eigenschaften</string>
@@ -230,11 +229,11 @@
 
     <string name="saving">Speichere</string>
     <string name="saving_to">Speichern nach</string>
-    <string name="saving_wait">Speichere Dateien. Bitte warten.</string>
+    <string name="saving_wait">Daten werden gespeichert. Bitte warten.</string>
 
     <string name="select_folder">Auswählen\n[ %1$s ]</string>
 
-    <string name="selected_routes_exported">Ausgewählte Rounten exportiert</string>
+    <string name="selected_routes_exported">Ausgewählte Routen exportiert</string>
     <string name="selected_tracks_exported">Ausgewählte Touren exportiert</string>
 
     <string name="settings">Einstellungen</string>
@@ -246,11 +245,11 @@
 
     <string name="show_poi">POI anzeigen</string>
 
-    <string name="simplifying">Vereinfache₀</string>
+    <string name="simplifying">Vereinfache</string>
 
     <string name="sync_data">Sync Datei</string>
 
-    <string name="track_edit_prompt">Wählen Sie eine Toure aus</string>
+    <string name="track_edit_prompt">Wählen Sie eine Tour aus</string>
     <string name="track_manager_name">Touren Manager</string>
     <string name="track_reduce">Optimierung</string>
 
@@ -285,7 +284,7 @@
     <string name="x_of_y_routes">%1$d von %2$d Routen</string>
     <string name="x_tracks">%1$d Touren</string>
     <string name="credits_logo">App-Logo von <a href="https://github.com/edskeye">edskeye</a></string>
-    <string name="creator_clear_waypoints">Klare Wegpunkte</string>
+    <string name="creator_clear_waypoints">Wegpunkte löschen</string>
     <string name="dialog_confirm_clear_message">Aktuellen Daten wirklich löschen?</string>
     <string name="dialog_confirm_clear_title">Daten löschen</string>
 </resources>
