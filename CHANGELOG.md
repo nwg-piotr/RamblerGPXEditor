@@ -1,5 +1,9 @@
 CHANGELOG
 ===============
+**4th July, 2017**
+
+- German translation corrected by @RigiRitter (Many thanks!).
+
 **3rd July, 2017**
 
 - 'New file' button replaced with 'New data'. It actually did not create a file, but a new data set,
