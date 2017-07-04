@@ -3,6 +3,7 @@ CHANGELOG
 **4th July, 2017**
 
 - German translation corrected by @RigiRitter (Many thanks!).
+- Sample data will only be loaded if the app is launched for the first time.
 
 **3rd July, 2017**
 
