@@ -92,7 +92,7 @@ public class PoiActivity extends Utils
 
     private final String TAG = "Creator";
 
-    private Map<Marker,Point> markerToPoi;
+    private Map<Marker, Point> markerToPoi;
 
     private final int MAX_ZOOM_LEVEL = 19;
     private final int MIN_ZOOM_LEVEL = 4;
@@ -188,7 +188,7 @@ public class PoiActivity extends Utils
         TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
-        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), mMapView);
         mLocationOverlay.enableMyLocation();
 
         mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
@@ -281,9 +281,9 @@ public class PoiActivity extends Utils
          */
         List<String> wptTypes = GpxUtils.getDistinctPointTypes(Data.sFilteredPoi);
 
-        Map<String,Integer>	wptTypeColourMap = new HashMap<>();
+        Map<String, Integer> wptTypeColourMap = new HashMap<>();
         int colourIdx = 0;
-        for (String wptType: wptTypes) {
+        for (String wptType : wptTypes) {
             wptTypeColourMap.put(wptType, typeColors[colourIdx++ % N_COLOURS]);
         }
 
@@ -294,7 +294,7 @@ public class PoiActivity extends Utils
 
         mMapView.getOverlays().add(mLocationOverlay);
 
-        if(Data.sAllowRotation) {
+        if (Data.sAllowRotation) {
             mMapView.getOverlays().add(this.mRotationGestureOverlay);
         }
 
@@ -312,7 +312,7 @@ public class PoiActivity extends Utils
             GeoPoint markerPosition = new GeoPoint(poi.getLatitude(), poi.getLongitude());
 
             String displayName;
-            if(poi.getName() != null && !poi.getName().isEmpty()) {
+            if (poi.getName() != null && !poi.getName().isEmpty()) {
                 displayName = poi.getName();
             } else {
                 displayName = String.valueOf(Data.sFilteredPoi.indexOf(poi));
@@ -344,7 +344,8 @@ public class PoiActivity extends Utils
 
             marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
                 @Override
-                public void onMarkerDrag(Marker marker) {}
+                public void onMarkerDrag(Marker marker) {
+                }
 
                 @Override
                 public void onMarkerDragEnd(Marker marker) {
@@ -357,7 +358,8 @@ public class PoiActivity extends Utils
                 }
 
                 @Override
-                public void onMarkerDragStart(Marker marker) {}
+                public void onMarkerDragStart(Marker marker) {
+                }
             });
 
             marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
@@ -375,7 +377,7 @@ public class PoiActivity extends Utils
                 }
             });
         }
-        poiPrompt.setText(String.format(getResources().getString(R.string.x_of_y_poi_press),Data.sFilteredPoi.size(), Data.sCopiedPoiGpx.getPoints().size()));
+        poiPrompt.setText(String.format(getResources().getString(R.string.x_of_y_poi_press), Data.sFilteredPoi.size(), Data.sCopiedPoiGpx.getPoints().size()));
 
         mMapView.invalidate();
         setButtonsState();
@@ -416,7 +418,7 @@ public class PoiActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() +1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() + 1);
                 refreshMap();
                 setButtonsState();
             }
@@ -426,7 +428,7 @@ public class PoiActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() -1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() - 1);
                 refreshMap();
                 setButtonsState();
             }
@@ -508,7 +510,7 @@ public class PoiActivity extends Utils
         final View poiEditLayout = inflater.inflate(R.layout.poi_edit_dialog, null);
 
         final EditText editName = (EditText) poiEditLayout.findViewById(R.id.poi_name_edit);
-        editName.setFilters(new InputFilter[] {
+        editName.setFilters(new InputFilter[]{
                 new InputFilter.LengthFilter(19)
         });
         TextView displayTime = (TextView) poiEditLayout.findViewById(R.id.poi_time);
@@ -537,9 +539,9 @@ public class PoiActivity extends Utils
         }
         editName.setText(currentPOI.getName());
         if (currentPOI.getType() != null) {
-            editType.setText(currentPOI.getType()) ;
+            editType.setText(currentPOI.getType());
         }
-        if (currentPOI.getElevation() != null)  {
+        if (currentPOI.getElevation() != null) {
             editEle.setText(String.valueOf(currentPOI.getElevation()));
         }
         if (currentPOI.getDescription() != null) {
@@ -869,7 +871,7 @@ public class PoiActivity extends Utils
             return;
         }
 
-        List<String> gpxWptDisplayNames	= null ;
+        List<String> gpxWptDisplayNames = null;
         final List<Point> sortedPoi = new ArrayList<>();
 
         if (Data.sCurrentPosition != null) {
@@ -926,7 +928,7 @@ public class PoiActivity extends Utils
 
                                 ArrayList<Point> gpxPointsPickedByUser = new ArrayList<>();
 
-                                for (String nameOfGPXwaypointPickedByUser: selectedNames) {
+                                for (String nameOfGPXwaypointPickedByUser : selectedNames) {
 
                                     int idxOfPoi = allNames.indexOf(nameOfGPXwaypointPickedByUser);
                                     gpxPointsPickedByUser.add(sortedPoi.get(idxOfPoi));
@@ -950,7 +952,8 @@ public class PoiActivity extends Utils
                         }
                     })
                     .setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) { }
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
                     })
                     .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -960,7 +963,7 @@ public class PoiActivity extends Utils
 
                             ArrayList<Point> gpxPointsPickedByUser = new ArrayList<>();
 
-                            for (String nameOfGPXwaypointPickedByUser: selectedNames) {
+                            for (String nameOfGPXwaypointPickedByUser : selectedNames) {
 
                                 int idxOfPoi = allNames.indexOf(nameOfGPXwaypointPickedByUser);
                                 gpxPointsPickedByUser.add(sortedPoi.get(idxOfPoi));
@@ -1066,7 +1069,7 @@ public class PoiActivity extends Utils
 
         final Button saveButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
 
-        final TextWatcher validate_name = new TextWatcher(){
+        final TextWatcher validate_name = new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable arg0) {
@@ -1083,7 +1086,8 @@ public class PoiActivity extends Utils
 
                 saveButton.setEnabled(!s.toString().equals(""));
 
-            }};
+            }
+        };
         filename.addTextChangedListener(validate_name);
 
     }
@@ -1129,14 +1133,14 @@ public class PoiActivity extends Utils
                                                 .getString(R.string.poi_saved_as) + " " + new_file,
                                         Toast.LENGTH_LONG).show();
 
-                                Gpx gpx = new Gpx( ) ;
+                                Gpx gpx = new Gpx();
 
                                 if (save_view) {
                                     gpx.addPoints(Data.sFilteredPoi);
                                 } else {
                                     gpx.addPoints(Data.sCopiedPoiGpx.getPoints());
                                 }
-                                GpxFileIo.parseOut(gpx, new_file, GpxParserOptions.ONLY_POINTS) ;
+                                GpxFileIo.parseOut(gpx, new_file, GpxParserOptions.ONLY_POINTS);
                             }
                         });
 
@@ -1151,14 +1155,14 @@ public class PoiActivity extends Utils
                                 .getString(R.string.poi_saved_as) + " " + new_file,
                         Toast.LENGTH_LONG).show();
 
-                Gpx gpx = new Gpx( );
+                Gpx gpx = new Gpx();
 
                 if (save_view) {
                     gpx.addPoints(Data.sFilteredPoi);
                 } else {
                     gpx.addPoints(Data.sCopiedPoiGpx.getPoints());
                 }
-                GpxFileIo.parseOut(gpx, new_file, GpxParserOptions.ONLY_POINTS) ;
+                GpxFileIo.parseOut(gpx, new_file, GpxParserOptions.ONLY_POINTS);
             }
 
         } else {
@@ -1187,7 +1191,8 @@ public class PoiActivity extends Utils
                     }
                 })
                 .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) { }
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
                 });
 
         AlertDialog alert = builder.create();
@@ -1268,7 +1273,7 @@ public class PoiActivity extends Utils
 
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
@@ -1290,7 +1295,7 @@ public class PoiActivity extends Utils
             locationButton.setEnabled(true);
             locationButton.getBackground().setAlpha(255);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
 
             locationButton.setEnabled(false);
             locationButton.getBackground().setAlpha(0);
@@ -1419,7 +1424,7 @@ public class PoiActivity extends Utils
                 return true;
 
             case R.id.pois_clear_pois:
-                if(Data.sCopiedPoiGpx.getPoints().size() > 0) {
+                if (Data.sCopiedPoiGpx.getPoints().size() > 0) {
                     clearPois();
                 } else {
                     Toast.makeText(this, getResources().getString(R.string.no_poi_to_clear), Toast.LENGTH_LONG).show();
@@ -1440,12 +1445,12 @@ public class PoiActivity extends Utils
                                     int resultCode, Intent data) {
 
         if (requestCode == REQUEST_CODE_PICK_DIR) {
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 String newDir = data.getStringExtra(
                         pl.nwg.dev.rambler.gpx.FileBrowserActivity.returnDirectoryParameter);
                 Toast.makeText(
                         this,
-                        "Received DIRECTORY ramblerPath from file browser:\n"+newDir,
+                        "Received DIRECTORY ramblerPath from file browser:\n" + newDir,
                         Toast.LENGTH_LONG).show();
 
             } else {
@@ -1456,7 +1461,7 @@ public class PoiActivity extends Utils
             }
 
         } else if (requestCode == REQUEST_CODE_PICK_FILE) {
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
 
                 File sd_root = new File(Environment.getExternalStorageDirectory() + "");
                 sdRoot = sd_root.toString();
@@ -1467,7 +1472,7 @@ public class PoiActivity extends Utils
                 fileFolderAndName = fileFullPath.replace(sdRoot, "");
 
                 String[] split_name = fileFolderAndName.split("/");
-                fileName = split_name[split_name.length -1].replace(".gpx", "");
+                fileName = split_name[split_name.length - 1].replace(".gpx", "");
 
                 switch (fileActionRequested) {
 
@@ -1503,7 +1508,7 @@ public class PoiActivity extends Utils
         /*
          * Handle the back button
          */
-        if(keyCode == KeyEvent.KEYCODE_BACK ) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
             /*
              * If data changed

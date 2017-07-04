@@ -1,79 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp">
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp">
 
         <TextView
-            android:text="@string/manually_name_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="@string/manually_name_desc"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/manually_name_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/poi_edit_name_edit"
-            android:singleLine="true"
+            android:maxLength="20"
             android:selectAllOnFocus="true"
-            android:maxLength="20" />
+            android:singleLine="true"
+            android:text="@string/poi_edit_name_edit" />
 
         <TableRow>
+
             <TextView
-                android:text="@string/manually_lat_desc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@string/manually_lat_desc"
+                android:textSize="14sp" />
+
             <EditText
                 android:id="@+id/manually_lat_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned|numberDecimal"
-                android:layout_weight="2" />
+                android:layout_weight="2"
+                android:inputType="numberSigned|numberDecimal" />
         </TableRow>
 
         <TableRow>
+
             <TextView
-                android:text="@string/manually_lon_desc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@string/manually_lon_desc"
+                android:textSize="14sp" />
+
             <EditText
                 android:id="@+id/manually_lon_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned|numberDecimal"
-                android:layout_weight="2" />
+                android:layout_weight="2"
+                android:inputType="numberSigned|numberDecimal" />
         </TableRow>
 
         <TextView
+            android:id="@+id/manual_description_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/poi_edit_description_label"
-            android:id="@+id/manual_description_label"
             android:layout_weight="2"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:text="@string/poi_edit_description_label" />
 
         <EditText
+            android:id="@+id/manual_description_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
             android:inputType="textMultiLine"
             android:maxLength="99"
-            android:ems="10"
-            android:id="@+id/manual_description_edit"
-            android:text=""
-            android:layout_weight="1" />
+            android:text="" />
 
     </TableLayout>
 

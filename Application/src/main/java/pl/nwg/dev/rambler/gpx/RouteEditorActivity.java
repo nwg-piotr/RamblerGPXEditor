@@ -78,9 +78,9 @@ public class RouteEditorActivity extends Utils
 
     private final String TAG = "Creator";
 
-    private Map<Marker,RoutePoint> markerToRoutePoint;
+    private Map<Marker, RoutePoint> markerToRoutePoint;
 
-    private Map<Marker,Point> markerToPoi;
+    private Map<Marker, Point> markerToPoi;
 
     private final int MAX_ZOOM_LEVEL = 19;
     private final int MIN_ZOOM_LEVEL = 4;
@@ -157,7 +157,7 @@ public class RouteEditorActivity extends Utils
         TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
-        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), mMapView);
         mLocationOverlay.enableMyLocation();
 
         mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
@@ -238,7 +238,7 @@ public class RouteEditorActivity extends Utils
 
         mMapView.getOverlays().add(mLocationOverlay);
 
-        if(Data.sAllowRotation) {
+        if (Data.sAllowRotation) {
             mMapView.getOverlays().add(this.mRotationGestureOverlay);
         }
 
@@ -271,7 +271,7 @@ public class RouteEditorActivity extends Utils
             GeoPoint markerPosition = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
 
             String displayName;
-            if(routePoint.getName() != null && !routePoint.getName().isEmpty()) {
+            if (routePoint.getName() != null && !routePoint.getName().isEmpty()) {
                 displayName = routePoint.getName();
             } else {
                 displayName = String.valueOf(allRoutePointsList.indexOf(routePoint));
@@ -290,7 +290,8 @@ public class RouteEditorActivity extends Utils
 
             marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
                 @Override
-                public void onMarkerDrag(Marker marker) {}
+                public void onMarkerDrag(Marker marker) {
+                }
 
                 @Override
                 public void onMarkerDragEnd(Marker marker) {
@@ -303,7 +304,8 @@ public class RouteEditorActivity extends Utils
                 }
 
                 @Override
-                public void onMarkerDragStart(Marker marker) {}
+                public void onMarkerDragStart(Marker marker) {
+                }
             });
 
             marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
@@ -354,9 +356,9 @@ public class RouteEditorActivity extends Utils
          */
         List<String> wptTypes = GpxUtils.getDistinctPointTypes(Data.sFilteredPoi);
 
-        Map<String,Integer>	wptTypeColourMap = new HashMap<>();
+        Map<String, Integer> wptTypeColourMap = new HashMap<>();
         int colourIdx = 0;
-        for (String wptType: wptTypes) {
+        for (String wptType : wptTypes) {
             wptTypeColourMap.put(wptType, typeColors[colourIdx++ % N_COLOURS]);
         }
 
@@ -367,7 +369,7 @@ public class RouteEditorActivity extends Utils
             GeoPoint markerPosition = new GeoPoint(poi.getLatitude(), poi.getLongitude());
 
             String displayName;
-            if(poi.getName() != null && !poi.getName().isEmpty()) {
+            if (poi.getName() != null && !poi.getName().isEmpty()) {
                 displayName = poi.getName();
             } else {
                 displayName = String.valueOf(Data.sFilteredPoi.indexOf(poi));
@@ -447,7 +449,7 @@ public class RouteEditorActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() +1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() + 1);
 
                 refreshMap();
                 setButtonsState();
@@ -458,7 +460,7 @@ public class RouteEditorActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() -1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() - 1);
 
                 refreshMap();
                 setButtonsState();
@@ -533,7 +535,7 @@ public class RouteEditorActivity extends Utils
         final View layout = inflater.inflate(R.layout.waypoint_edit_dialog, mMapView, false);
 
         final EditText editName = (EditText) layout.findViewById(R.id.wp_edit_name);
-        editName.setFilters(new InputFilter[] {
+        editName.setFilters(new InputFilter[]{
                 new InputFilter.LengthFilter(19)
         });
         if (routePoint.getName() != null) {
@@ -595,7 +597,7 @@ public class RouteEditorActivity extends Utils
                 });
 
 
-        mEditDialog  = builder.create();
+        mEditDialog = builder.create();
 
         mEditDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
@@ -627,7 +629,7 @@ public class RouteEditorActivity extends Utils
         });
 
         if (Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint) == 0 ||
-                Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint) == Data.sCopiedRoute.getRoutePoints().size() -1) {
+                Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint) == Data.sCopiedRoute.getRoutePoints().size() - 1) {
             instertStartButton.setEnabled(false);
             instertStartButton.setTextColor(Color.argb(80, 50, 50, 50));
 
@@ -637,7 +639,7 @@ public class RouteEditorActivity extends Utils
         mEditDialog.show();
     }
 
-    private void insertStartEnd (RoutePoint routePoint) {
+    private void insertStartEnd(RoutePoint routePoint) {
 
         int idx = Data.sCopiedRoute.getRoutePoints().lastIndexOf(routePoint);
 
@@ -676,7 +678,7 @@ public class RouteEditorActivity extends Utils
 
         List<RoutePoint> newRoute = new ArrayList<>();
 
-        for (int i = 0; i < idx+1; i++) {
+        for (int i = 0; i < idx + 1; i++) {
 
             newRoute.add(oldRoute.get(i));
 
@@ -747,7 +749,7 @@ public class RouteEditorActivity extends Utils
                         routePoint.setLongitude(poi.getLongitude());
 
 
-                        Data.sCopiedRoute.addRoutePoint((int)dstToRoute[1] + 1, routePoint);
+                        Data.sCopiedRoute.addRoutePoint((int) dstToRoute[1] + 1, routePoint);
                         refreshMap();
 
                     }
@@ -774,7 +776,7 @@ public class RouteEditorActivity extends Utils
         mAddFromPoiDialog.show();
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
@@ -798,7 +800,7 @@ public class RouteEditorActivity extends Utils
             locationButton.setEnabled(true);
             locationButton.getBackground().setAlpha(255);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
 
             locationButton.setEnabled(false);
             locationButton.getBackground().setAlpha(0);
@@ -905,7 +907,7 @@ public class RouteEditorActivity extends Utils
         /*
          * Handle the back button
          */
-        if(keyCode == KeyEvent.KEYCODE_BACK ) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
             /*
              * If data changed

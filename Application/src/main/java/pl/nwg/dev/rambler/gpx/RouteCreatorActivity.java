@@ -87,7 +87,7 @@ public class RouteCreatorActivity extends Utils
 
     private final String TAG = "Creator";
 
-    private Map<Marker,GeoPoint> markerToCardinalWaypoint;
+    private Map<Marker, GeoPoint> markerToCardinalWaypoint;
 
     private final int MAX_ZOOM_LEVEL = 19;
     private final int MIN_ZOOM_LEVEL = 4;
@@ -124,7 +124,7 @@ public class RouteCreatorActivity extends Utils
 
     private Route selectedOsrmRoute;
 
-    private Map<Marker,Point> markerToPoi;
+    private Map<Marker, Point> markerToPoi;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -179,7 +179,7 @@ public class RouteCreatorActivity extends Utils
         TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
-        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), mMapView);
         mLocationOverlay.enableMyLocation();
 
         mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
@@ -257,7 +257,7 @@ public class RouteCreatorActivity extends Utils
 
         mMapView.getOverlays().add(mLocationOverlay);
 
-        if(Data.sAllowRotation) {
+        if (Data.sAllowRotation) {
             mMapView.getOverlays().add(this.mRotationGestureOverlay);
         }
 
@@ -302,7 +302,7 @@ public class RouteCreatorActivity extends Utils
 
         markerToCardinalWaypoint = new HashMap<>();
 
-        for (int i= 0; i < Data.sCardinalGeoPoints.size(); i++) {
+        for (int i = 0; i < Data.sCardinalGeoPoints.size(); i++) {
 
             GeoPoint geoPoint = Data.sCardinalGeoPoints.get(i);
 
@@ -370,9 +370,9 @@ public class RouteCreatorActivity extends Utils
          */
         List<String> wptTypes = GpxUtils.getDistinctPointTypes(Data.sFilteredPoi);
 
-        Map<String,Integer>	wptTypeColourMap = new HashMap<>();
+        Map<String, Integer> wptTypeColourMap = new HashMap<>();
         int colourIdx = 0;
-        for (String wptType: wptTypes) {
+        for (String wptType : wptTypes) {
             wptTypeColourMap.put(wptType, typeColors[colourIdx++ % N_COLOURS]);
         }
 
@@ -383,7 +383,7 @@ public class RouteCreatorActivity extends Utils
             GeoPoint markerPosition = new GeoPoint(poi.getLatitude(), poi.getLongitude());
 
             String displayName;
-            if(poi.getName() != null && !poi.getName().isEmpty()) {
+            if (poi.getName() != null && !poi.getName().isEmpty()) {
                 displayName = poi.getName();
             } else {
                 displayName = String.valueOf(Data.sFilteredPoi.indexOf(poi));
@@ -471,7 +471,7 @@ public class RouteCreatorActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() +1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() + 1);
                 refreshMap();
                 setButtonsState();
             }
@@ -481,7 +481,7 @@ public class RouteCreatorActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() -1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() - 1);
                 refreshMap();
                 setButtonsState();
             }
@@ -490,9 +490,9 @@ public class RouteCreatorActivity extends Utils
         modeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch(Data.sRoutingProfile) {
+                switch (Data.sRoutingProfile) {
                     case MODE_CAR:
-                        Data.sRoutingProfile =  MODE_BIKE;
+                        Data.sRoutingProfile = MODE_BIKE;
                         modeButton.setBackgroundResource(R.drawable.button_cycling);
                         break;
                     case MODE_BIKE:
@@ -688,7 +688,7 @@ public class RouteCreatorActivity extends Utils
         Data.sSelectedAlternative = null;
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
@@ -713,7 +713,7 @@ public class RouteCreatorActivity extends Utils
             locationButton.setEnabled(true);
             locationButton.getBackground().setAlpha(255);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
 
             locationButton.setEnabled(false);
             locationButton.getBackground().setAlpha(0);
@@ -786,7 +786,7 @@ public class RouteCreatorActivity extends Utils
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
-        if(Data.sCardinalGeoPoints == null || Data.sCardinalGeoPoints.isEmpty()) {
+        if (Data.sCardinalGeoPoints == null || Data.sCardinalGeoPoints.isEmpty()) {
             menu.findItem(R.id.clear_waypoints).setEnabled(false);
         } else {
             menu.findItem(R.id.clear_waypoints).setEnabled(true);

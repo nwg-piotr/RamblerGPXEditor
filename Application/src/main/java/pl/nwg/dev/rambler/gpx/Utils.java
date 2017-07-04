@@ -119,7 +119,7 @@ public class Utils extends Activity {
 
         List<GeoPoint> geopoints = new ArrayList<>();
 
-        for(Point point : source) {
+        for (Point point : source) {
             GeoPoint geoPoint = new GeoPoint(point.getLatitude(), point.getLongitude());
             geopoints.add(geoPoint);
         }
@@ -137,8 +137,9 @@ public class Utils extends Activity {
 
     /**
      * This will return a marker bitmap.
+     *
      * @param hoverText - is the name of the route point or POI displayed above;
-     * @param color - if passed, we create a bitmap for POI, it should be coloured by the POI type
+     * @param color     - if passed, we create a bitmap for POI, it should be coloured by the POI type
      */
     protected Bitmap makeMarkerBitmap(Context context, String hoverText, Integer color, Integer alpha) {
 
@@ -180,7 +181,7 @@ public class Utils extends Activity {
         int y = bounds.height();
         canvas.drawText(hoverText, x, y, paint);
 
-        return  bitmap;
+        return bitmap;
     }
 
     /**
@@ -220,7 +221,7 @@ public class Utils extends Activity {
         int y = bounds.height();
         canvas.drawText(name, x, y, paint);
 
-        return  bitmap;
+        return bitmap;
     }
 
     protected static String convertStreamToString(InputStream inputStream) throws IOException {
@@ -229,7 +230,7 @@ public class Utils extends Activity {
 
             char[] buffer = new char[1024];
             try {
-                Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"),1024);
+                Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 1024);
                 int n;
                 while ((n = reader.read(buffer)) != -1) {
                     writer.write(buffer, 0, n);
@@ -380,7 +381,7 @@ public class Utils extends Activity {
     /**
      * Parses received OSRM JSON string and stores result in List<Route> Data.osrmRoutes
      */
-    protected void parseOsrmResponse(final String json_string){
+    protected void parseOsrmResponse(final String json_string) {
 
         Log.d(TAG, "Parsing OSRM response");
 
@@ -410,7 +411,7 @@ public class Utils extends Activity {
 
                     float distance = Float.valueOf(osrmRoute.getString("distance"));
 
-                    GpxUtils.simplifyRoute(route, (int)distance / 100, 6d);
+                    GpxUtils.simplifyRoute(route, (int) distance / 100, 6d);
 
                     Log.d(TAG, "Simplified: " + route);
 
@@ -421,7 +422,7 @@ public class Utils extends Activity {
                     String tmpName = "OSMR_" + String.valueOf(System.currentTimeMillis()).substring(7);
 
                     JSONArray osrmWaypoints = receivedJson.getJSONArray("waypoints");
-                    JSONObject lastWaypoint = osrmWaypoints.getJSONObject(osrmWaypoints.length() -1);
+                    JSONObject lastWaypoint = osrmWaypoints.getJSONObject(osrmWaypoints.length() - 1);
                     if (!lastWaypoint.getString("name").isEmpty()) {
                         tmpName = lastWaypoint.getString("name");
                     }
@@ -437,7 +438,7 @@ public class Utils extends Activity {
                         + receivedJson.getString("message"), Toast.LENGTH_LONG).show();
             }
 
-        } catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -555,7 +556,7 @@ public class Utils extends Activity {
 
         List<RoutePoint> allRoutePoints = route.getRoutePoints();
 
-        Map<Float,RoutePoint> distanceToRoutePoint = new HashMap<>();
+        Map<Float, RoutePoint> distanceToRoutePoint = new HashMap<>();
 
         List<RoutePoint> limitedRoutePoints = new ArrayList<>();
 
@@ -630,7 +631,7 @@ public class Utils extends Activity {
 
         showPoi = preferences.getBoolean("showPoi", false);
 
-        switch(preferences.getInt("units", 0)) {
+        switch (preferences.getInt("units", 0)) {
             case 0:
                 Data.sUnitsInUse = Units.METRIC;
                 break;

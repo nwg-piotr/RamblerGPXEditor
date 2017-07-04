@@ -134,7 +134,7 @@ public class RouteOptimizerActivity extends Utils
         TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
-        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), mMapView);
         mLocationOverlay.enableMyLocation();
 
         mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
@@ -159,7 +159,7 @@ public class RouteOptimizerActivity extends Utils
          * The route points limitation will actually be performed by the method called above
          * but we need to display the Toast here
          */
-        if(Data.OPTIMIZER_POINTS_LIMIT <= Data.sSourceRoutePointsNumber) {
+        if (Data.OPTIMIZER_POINTS_LIMIT <= Data.sSourceRoutePointsNumber) {
             Toast.makeText(getApplicationContext(), String.format(getResources().getString(R.string.route_points_limited),
                     Data.OPTIMIZER_POINTS_LIMIT), Toast.LENGTH_SHORT).show();
         }
@@ -189,7 +189,7 @@ public class RouteOptimizerActivity extends Utils
 
         mMapView.getOverlays().add(mLocationOverlay);
 
-        if(Data.sAllowRotation) {
+        if (Data.sAllowRotation) {
             mMapView.getOverlays().add(this.mRotationGestureOverlay);
         }
 
@@ -264,7 +264,7 @@ public class RouteOptimizerActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() +1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() + 1);
                 setButtonsState();
             }
         });
@@ -273,7 +273,7 @@ public class RouteOptimizerActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                mapController.setZoom(mMapView.getProjection().getZoomLevel() -1);
+                mapController.setZoom(mMapView.getProjection().getZoomLevel() - 1);
                 setButtonsState();
             }
         });
@@ -339,7 +339,7 @@ public class RouteOptimizerActivity extends Utils
 
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
@@ -358,7 +358,7 @@ public class RouteOptimizerActivity extends Utils
             locationButton.setEnabled(true);
             locationButton.getBackground().setAlpha(255);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
 
             locationButton.setEnabled(false);
             locationButton.getBackground().setAlpha(0);
@@ -424,7 +424,7 @@ public class RouteOptimizerActivity extends Utils
         /*
          * Handle the back button
          */
-        if(keyCode == KeyEvent.KEYCODE_BACK ) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
             /*
              * If data changed
@@ -510,7 +510,7 @@ public class RouteOptimizerActivity extends Utils
 
                 refreshMap();
 
-                String promptMessage = String.format(promptFormat, Data.sCurrentMaxPointsNumber, (int)simplificationError);
+                String promptMessage = String.format(promptFormat, Data.sCurrentMaxPointsNumber, (int) simplificationError);
                 routePrompt.setText(promptMessage);
             }
         });
@@ -522,7 +522,7 @@ public class RouteOptimizerActivity extends Utils
          */
         double simplificationError = routeUtils.simplify(Data.sCurrentMaxPointsNumber, Data.currentMaxErrorMtr);
         Data.sCopiedRoute.resetIsChanged();
-        String promptMessage = String.format(promptFormat, source_route_points_number, (int)simplificationError);
+        String promptMessage = String.format(promptFormat, source_route_points_number, (int) simplificationError);
         routePrompt.setText(promptMessage);
         refreshMap();
     }

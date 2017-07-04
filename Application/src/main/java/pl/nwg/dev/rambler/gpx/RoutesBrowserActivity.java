@@ -152,12 +152,12 @@ public class RoutesBrowserActivity extends Utils
     /**
      * route label marker -> index of selected route
      */
-    private Map<Marker,Integer> markerToRouteIdx;
+    private Map<Marker, Integer> markerToRouteIdx;
 
     /**
      * Drawer entry -> route index
      */
-    private Map<Integer,Integer> drawerIdxToRouteIdx;
+    private Map<Integer, Integer> drawerIdxToRouteIdx;
 
     /**
      * View filtering
@@ -191,7 +191,7 @@ public class RoutesBrowserActivity extends Utils
 
         web[0] = getResources().getString(R.string.no_routes_loaded);
 
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout_routes);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_routes);
 
         addDrawerItems(web);
         setupDrawer();
@@ -218,7 +218,7 @@ public class RoutesBrowserActivity extends Utils
         TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
-        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), mMapView);
         mLocationOverlay.enableMyLocation();
 
         mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
@@ -297,7 +297,7 @@ public class RoutesBrowserActivity extends Utils
 
         mMapView.getOverlays().add(mLocationOverlay);
 
-        if(Data.sAllowRotation) {
+        if (Data.sAllowRotation) {
             mMapView.getOverlays().add(this.mRotationGestureOverlay);
         }
 
@@ -317,7 +317,7 @@ public class RoutesBrowserActivity extends Utils
 
         Data.sFilteredRoutes = ListUtils.filter(Data.sRoutesGpx.getRoutes(), Data.sViewRouteFilter);
 
-        if(Data.sFilteredRoutes == null || Data.sFilteredRoutes.isEmpty()) {
+        if (Data.sFilteredRoutes == null || Data.sFilteredRoutes.isEmpty()) {
             Data.sSelectedRouteIdx = null;
         }
 
@@ -331,18 +331,18 @@ public class RoutesBrowserActivity extends Utils
 
         markerToRouteIdx = new HashMap<>();
 
-        for(int i = 0; i < mFilteredRoutesNumber; i++) {
+        for (int i = 0; i < mFilteredRoutesNumber; i++) {
 
             final Route route = Data.sFilteredRoutes.get(i);
 
             List<RoutePoint> routePoints = route.getRoutePoints();
 
             int halfWayPoint = routePoints.size() / 2;
-            int lastWayPoint = routePoints.size() -1;
+            int lastWayPoint = routePoints.size() - 1;
 
             List<GeoPoint> geoPoints = new ArrayList<>();
 
-            for(int j = 0; j < routePoints.size(); j++) {
+            for (int j = 0; j < routePoints.size(); j++) {
 
                 RoutePoint routePoint = routePoints.get(j);
                 GeoPoint geoPoint = new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude());
@@ -477,7 +477,7 @@ public class RoutesBrowserActivity extends Utils
         }
         routesSummary.setText(String.format(getResources().getString(R.string.x_of_y_routes), mFilteredRoutesNumber, allRoutesNumber));
 
-        if(zoom_to_fit && mAllGeopoints.size() > 0) {
+        if (zoom_to_fit && mAllGeopoints.size() > 0) {
             mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), false);
         }
 
@@ -504,9 +504,9 @@ public class RoutesBrowserActivity extends Utils
          */
         List<String> wptTypes = GpxUtils.getDistinctPointTypes(Data.sFilteredPoi);
 
-        Map<String,Integer>	wptTypeColourMap = new HashMap<>();
+        Map<String, Integer> wptTypeColourMap = new HashMap<>();
         int colourIdx = 0;
-        for (String wptType: wptTypes) {
+        for (String wptType : wptTypes) {
             wptTypeColourMap.put(wptType, typeColors[colourIdx++ % N_COLOURS]);
         }
 
@@ -515,7 +515,7 @@ public class RoutesBrowserActivity extends Utils
             GeoPoint markerPosition = new GeoPoint(poi.getLatitude(), poi.getLongitude());
 
             String displayName;
-            if(poi.getName() != null && !poi.getName().isEmpty()) {
+            if (poi.getName() != null && !poi.getName().isEmpty()) {
                 displayName = poi.getName();
             } else {
                 displayName = String.valueOf(Data.sFilteredPoi.indexOf(poi));
@@ -571,7 +571,7 @@ public class RoutesBrowserActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                if(mAllGeopoints != null && mAllGeopoints.size() > 0) {
+                if (mAllGeopoints != null && mAllGeopoints.size() > 0) {
                     mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), false);
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.no_routes_in_view), Toast.LENGTH_SHORT).show();
@@ -589,7 +589,7 @@ public class RoutesBrowserActivity extends Utils
                 if (Data.sSelectedRouteIdx == null) {
                     Data.sSelectedRouteIdx = 0;
                 } else {
-                    if (Data.sSelectedRouteIdx < mFilteredRoutesNumber -1) {
+                    if (Data.sSelectedRouteIdx < mFilteredRoutesNumber - 1) {
                         Data.sSelectedRouteIdx++;
                     } else {
                         Data.sSelectedRouteIdx = 0;
@@ -610,7 +610,7 @@ public class RoutesBrowserActivity extends Utils
                     if (Data.sSelectedRouteIdx > 0) {
                         Data.sSelectedRouteIdx--;
                     } else {
-                        Data.sSelectedRouteIdx = mFilteredRoutesNumber -1;
+                        Data.sSelectedRouteIdx = mFilteredRoutesNumber - 1;
                     }
                 }
                 mMapDragged = true;
@@ -700,7 +700,7 @@ public class RoutesBrowserActivity extends Utils
 
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
@@ -725,7 +725,7 @@ public class RoutesBrowserActivity extends Utils
             locationButton.setEnabled(true);
             locationButton.getBackground().setAlpha(255);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
 
             locationButton.setEnabled(false);
             locationButton.getBackground().setAlpha(0);
@@ -967,7 +967,7 @@ public class RoutesBrowserActivity extends Utils
 
         CustomListNoIcons adapter = new
                 CustomListNoIcons(RoutesBrowserActivity.this, items);
-        list=(ListView)findViewById(R.id.routesNavList);
+        list = (ListView) findViewById(R.id.routesNavList);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -1022,7 +1022,7 @@ public class RoutesBrowserActivity extends Utils
                 String fileFullPath = data.getStringExtra(
                         FileBrowserActivity.returnFileParameter);
 
-                switch(filePickerAction) {
+                switch (filePickerAction) {
 
                     case ACTION_IMPORT_ROUTES:
                         displayImportRoutesDialog(fileFullPath);
@@ -1332,7 +1332,7 @@ public class RoutesBrowserActivity extends Utils
 
     private void displayEditDialog() {
 
-        if(Data.sFilteredRoutes.isEmpty() || Data.sSelectedRouteIdx == null) {
+        if (Data.sFilteredRoutes.isEmpty() || Data.sSelectedRouteIdx == null) {
 
             return;
         }
@@ -1345,7 +1345,7 @@ public class RoutesBrowserActivity extends Utils
         final View routeEditLayout = inflater.inflate(R.layout.route_edit_dialog, null);
 
         final EditText editName = (EditText) routeEditLayout.findViewById(R.id.route_name_edit);
-        editName.setFilters(new InputFilter[] {
+        editName.setFilters(new InputFilter[]{
                 new InputFilter.LengthFilter(99)
         });
 
@@ -1566,7 +1566,8 @@ public class RoutesBrowserActivity extends Utils
                         }
                     })
                     .setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) { }
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
                     })
                     .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -1576,7 +1577,7 @@ public class RoutesBrowserActivity extends Utils
 
                             ArrayList<Route> gpxRoutesPickedByUser = new ArrayList<>();
 
-                            for (String nameOfGPXroutePickedByUser: selectedNames) {
+                            for (String nameOfGPXroutePickedByUser : selectedNames) {
 
                                 int idxOfRoute = sortedRteNames.indexOf(nameOfGPXroutePickedByUser);
                                 gpxRoutesPickedByUser.add(sortedRoutes.get(idxOfRoute));
@@ -1613,7 +1614,7 @@ public class RoutesBrowserActivity extends Utils
 
     private void displayConvertTracksDialog(final String path_to_file) {
 
-        Gpx gpxOnlyTrks = GpxFileIo.parseIn(path_to_file, GpxParserOptions.ONLY_TRACKS) ;
+        Gpx gpxOnlyTrks = GpxFileIo.parseIn(path_to_file, GpxParserOptions.ONLY_TRACKS);
 
         List<Track> tracksIn;
         try {
@@ -1623,7 +1624,7 @@ public class RoutesBrowserActivity extends Utils
             return;
         }
 
-        final List<Route> importedRoutes	= new ArrayList<>();
+        final List<Route> importedRoutes = new ArrayList<>();
 
         if (gpxOnlyTrks.getTracks().size() == 0) {
             Toast.makeText(getApplicationContext(), getString(R.string.no_tracks_not_gpx), Toast.LENGTH_LONG).show();
@@ -1748,7 +1749,8 @@ public class RoutesBrowserActivity extends Utils
                         }
                     })
                     .setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) { }
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
                     })
                     .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -1828,7 +1830,8 @@ public class RoutesBrowserActivity extends Utils
                     }
                 })
                 .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) { }
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
                 });
 
         AlertDialog alert = builder.create();
@@ -1897,7 +1900,8 @@ public class RoutesBrowserActivity extends Utils
                     }
                 })
                 .setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) { }
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
                 })
                 .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -1964,7 +1968,8 @@ public class RoutesBrowserActivity extends Utils
                 .setIcon(R.drawable.map_save)
                 .setCancelable(true)
                 .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) { }
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
                 })
                 .setNeutralButton(saveAsText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -1994,7 +1999,7 @@ public class RoutesBrowserActivity extends Utils
 
         final Button saveButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
 
-        final TextWatcher validate_name = new TextWatcher(){
+        final TextWatcher validate_name = new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable arg0) {
@@ -2060,7 +2065,7 @@ public class RoutesBrowserActivity extends Utils
 
                 Gpx gpxToSave = new Gpx();
 
-                switch(filePickerAction) {
+                switch (filePickerAction) {
                     case SAVE_SELECTED_ROUTE:
                         gpxToSave.addRoute(Data.sFilteredRoutes.get(Data.sSelectedRouteIdx));
                         break;
