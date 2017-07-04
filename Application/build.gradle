@@ -51,8 +51,8 @@ android {
         applicationId "pl.nwg.dev.rambler.gpx"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 53
-        versionName "0.0.5.3"
+        versionCode 54
+        versionName "0.0.5.4"
         setProperty("archivesBaseName", "RamblerGPXeditor")
     }
     buildTypes {
