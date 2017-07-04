@@ -23,6 +23,8 @@ import pt.karambola.gpx.predicate.RouteFilter;
 
 final class Data {
 
+    static boolean firstRun;
+
     static List<GeoPoint> sCardinalGeoPoints;
     static GeoPoint sCurrentPosition;
     static List<Route> osrmRoutes;

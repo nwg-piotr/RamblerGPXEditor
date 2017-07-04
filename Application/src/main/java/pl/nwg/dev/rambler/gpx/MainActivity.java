@@ -65,8 +65,6 @@ public class MainActivity extends Utils {
 
     String fileName = "myfile";
 
-    SharedPreferences sharedPreferences;
-
     int filePickerAction = -1;
     private final int ACTION_OPEN = 1;
     private final int ACTION_SAVE_AS = 2;
@@ -121,7 +119,16 @@ public class MainActivity extends Utils {
 
         mTitle = mDrawerTitle = getTitle();
 
-        sharedPreferences = getSharedPreferences("Rambler", MODE_PRIVATE);
+        preferences = getSharedPreferences("RamblerEditor", MODE_PRIVATE);
+
+        Data.firstRun = preferences.getBoolean("firstRun", true);
+
+        if (Data.firstRun) {
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("firstRun", false);
+            editor.apply();
+        }
 
         mLocationAcquired =  false;
 
@@ -170,7 +177,7 @@ public class MainActivity extends Utils {
         defaultRoutesFile = new File(Environment.getExternalStorageDirectory() + "/RamblerSharedData/ramblerRoutes.gpx");
         defaultTracksFile = new File(Environment.getExternalStorageDirectory() + "/RamblerSharedData/ramblerTracks.gpx");
 
-        boolean firstInstall = !defaultPoisFile.exists() || !defaultRoutesFile.exists() || !defaultTracksFile.exists();
+        boolean defaultFilesWereMissing = !defaultPoisFile.exists() || !defaultRoutesFile.exists() || !defaultTracksFile.exists();
 
         if (!defaultPoisFile.exists()) {
             try {
@@ -206,34 +213,7 @@ public class MainActivity extends Utils {
             }
         }
 
-        if (!firstInstall) {
-
-            new loadDefaultDataFiles().execute();
-
-        } else {
-
-            AssetManager assetManager = getAssets();
-            try {
-                InputStream inputStream = assetManager.open("sample.gpx");
-
-                Gpx inputGpx = GpxStreamIo.parseIn(new GpxParser(), inputStream);
-
-                Data.sPoiGpx.setPoints(inputGpx.getPoints());
-
-                Data.sRoutesGpx.setRoutes(inputGpx.getRoutes());
-
-                Data.sTracksGpx.setTracks(inputGpx.getTracks());
-
-                refreshLoadedDataInfo();
-                TextView openFile = (TextView) findViewById(R.id.open_file);
-                openFile.setText("sample.gpx");
-
-                Toast.makeText(MainActivity.this, getString(R.string.sample_loaded), Toast.LENGTH_LONG).show();
-
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
-        }
+        new loadDefaultDataFiles().execute();
 
         poisButton = (TableRow) findViewById(R.id.main_poi_btn);
         poisButton.setOnClickListener(new View.OnClickListener() {
@@ -1140,8 +1120,7 @@ public class MainActivity extends Utils {
         alert.show();
     }
 
-    private class loadDefaultDataFiles extends
-            AsyncTask<Void, Boolean, Void> {
+    private class loadDefaultDataFiles extends AsyncTask<Void, Boolean, Void> {
 
         AlertDialog alert;
 
@@ -1172,7 +1151,6 @@ public class MainActivity extends Utils {
                 }
             }
 
-
             if(Data.sRoutesGpx == null) {
 
                 try {
@@ -1193,7 +1171,6 @@ public class MainActivity extends Utils {
                 }
             }
 
-
             if (Data.sTracksGpx == null) {
 
                 try {
@@ -1211,7 +1188,6 @@ public class MainActivity extends Utils {
             return null;
         }
 
-
         @Override
         protected void onPostExecute(Void result) {
 
@@ -1225,8 +1201,40 @@ public class MainActivity extends Utils {
                 handleCorruptedFileError(errorMessage, corruptedFile, corruptedGpx);
 
             }
-            refreshLoadedDataInfo();
 
+            /*
+             * If all data files are empty, and the app is running for the first time,
+             * we'll load the sample data set.
+             */
+            if (Data.sPoiGpx.getPoints().size() == 0 && Data.sRoutesGpx.getRoutes().size() == 0
+                    && Data.sTracksGpx.getTracks().size() == 0 && Data.firstRun) {
+
+                AssetManager assetManager = getAssets();
+                try {
+                    InputStream inputStream = assetManager.open("sample.gpx");
+
+                    Gpx inputGpx = GpxStreamIo.parseIn(new GpxParser(), inputStream);
+
+                    Data.sPoiGpx.setPoints(inputGpx.getPoints());
+
+                    Data.sRoutesGpx.setRoutes(inputGpx.getRoutes());
+
+                    Data.sTracksGpx.setTracks(inputGpx.getTracks());
+
+                    refreshLoadedDataInfo();
+                    TextView openFile = (TextView) findViewById(R.id.open_file);
+                    openFile.setText("sample.gpx");
+
+                    Toast.makeText(MainActivity.this, getString(R.string.sample_loaded), Toast.LENGTH_LONG).show();
+
+                    saveDataFiles();
+
+                } catch (final IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            refreshLoadedDataInfo();
         }
 
         @Override
@@ -1405,7 +1413,7 @@ public class MainActivity extends Utils {
                 Toast.makeText(getApplicationContext(), getString(R.string.removed) + " " + purged_routes + " " + getString(R.string.overlapping_routes), Toast.LENGTH_SHORT).show();
             }
 
-            saveJustOpenedData();
+            saveDataFiles();
         }
 
         @Override
@@ -1423,7 +1431,7 @@ public class MainActivity extends Utils {
         }
     }
 
-    private void saveJustOpenedData() {
+    private void saveDataFiles() {
 
         saveInProgress = true;
 
