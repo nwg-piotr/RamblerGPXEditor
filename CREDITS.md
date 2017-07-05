@@ -13,7 +13,7 @@ Open source GPS/GPX java library Copyright 2016 Afonso Santos.
 
 - GPX format import / export / manipulation tools;
 - POI / Routes view filtering and sorting;
-- PathSimplifier: the on-the-fly path reduction engine;
+- PathSimplifier: the on-the-fly path reduction engine.
 
 Licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
