@@ -135,12 +135,6 @@ public class RouteEditorActivity extends Utils
                 .addApi(LocationServices.API)
                 .build();
 
-        if (Data.sCardinalGeoPoints == null) {
-            Data.sCardinalGeoPoints = new ArrayList<>();
-        }
-
-        Data.sSelectedAlternative = null;
-
         setUpMap();
 
         refreshMap();

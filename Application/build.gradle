@@ -26,7 +26,7 @@ dependencies {
     compile 'com.android.support:support-v13:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'org.osmdroid:osmdroid-android:5.6.4'
-    compile 'com.github.MKergall:osmbonuspack:6.3'
+
     compile project(':Karambola')
 }
 
@@ -51,8 +51,8 @@ android {
         applicationId "pl.nwg.dev.rambler.gpx"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 53
-        versionName "0.0.5.3"
+        versionCode 54
+        versionName "0.0.5.4"
         setProperty("archivesBaseName", "RamblerGPXeditor")
     }
     buildTypes {
