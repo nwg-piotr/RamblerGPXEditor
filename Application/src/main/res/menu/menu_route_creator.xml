@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".RouteEditorActivity">
 
-    <item android:orderInCategory="100"
+    <item
         android:id="@+id/clear_waypoints"
+        android:orderInCategory="100"
         android:title="@string/creator_clear_waypoints" />
 
-    <item android:orderInCategory="110"
+    <item
         android:id="@+id/show_poi"
         android:checkable="true"
+        android:orderInCategory="110"
         android:title="@string/show_poi" />
 
 </menu>

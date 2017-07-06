@@ -130,7 +130,7 @@ public class MainActivity extends Utils {
             editor.apply();
         }
 
-        mLocationAcquired =  false;
+        mLocationAcquired = false;
 
         ramblerPath = (new File(Environment.getExternalStorageDirectory() + "/Rambler").toString());
 
@@ -146,8 +146,8 @@ public class MainActivity extends Utils {
         web[2] = getResources().getString(R.string.save_gpx);
         web[3] = getResources().getString(R.string.sync_data);
 
-        mDrawerList = (ListView)findViewById(R.id.navList);
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.navList);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
 
         addDrawerItems();
@@ -376,7 +376,7 @@ public class MainActivity extends Utils {
 
         CustomList adapter = new
                 CustomList(MainActivity.this, web, imageId);
-        list=(ListView)findViewById(R.id.navList);
+        list = (ListView) findViewById(R.id.navList);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -422,6 +422,7 @@ public class MainActivity extends Utils {
 
         refreshLoadedDataInfo();
     }
+
     private void fileOpen() {
         filePickerAction = ACTION_OPEN;
 
@@ -434,6 +435,7 @@ public class MainActivity extends Utils {
                 REQUEST_CODE_PICK_FILE
         );
     }
+
     private void syncData() {
 
         mOnSyncButton = true;
@@ -509,7 +511,7 @@ public class MainActivity extends Utils {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             case R.id.action_about:
                 displayAboutDialog();
@@ -540,7 +542,7 @@ public class MainActivity extends Utils {
         LayoutInflater inflater = getLayoutInflater();
         final View layout = inflater.inflate(R.layout.about_dialog, null);
 
-        PackageInfo packageInfo =  null;
+        PackageInfo packageInfo = null;
         try {
             packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
@@ -639,7 +641,7 @@ public class MainActivity extends Utils {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
 
-                switch(pos) {
+                switch (pos) {
                     case 0:
                         Data.sUnitsInUse = Units.METRIC;
                         break;
@@ -653,6 +655,7 @@ public class MainActivity extends Utils {
                         break;
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -749,7 +752,7 @@ public class MainActivity extends Utils {
 
             if (data != null) {
 
-                final String filePath = data.getEncodedPath ();
+                final String filePath = data.getEncodedPath();
 
                 if (filePath != null && !filePath.isEmpty()) {
 
@@ -769,7 +772,7 @@ public class MainActivity extends Utils {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //Handle the back button
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
             if (!saveInProgress) {
                 new saveDefaultDataFiles().execute();
@@ -801,7 +804,7 @@ public class MainActivity extends Utils {
                 String fileFullPath = data.getStringExtra(
                         pl.nwg.dev.rambler.gpx.FileBrowserActivity.returnFileParameter);
 
-                switch(filePickerAction) {
+                switch (filePickerAction) {
 
                     case ACTION_OPEN:
 
@@ -831,9 +834,9 @@ public class MainActivity extends Utils {
 
                         try {
                             String[] splitFullPath = fileFullPath.split("/");
-                            String filaname = splitFullPath[splitFullPath.length -1];
+                            String filaname = splitFullPath[splitFullPath.length - 1];
                             openFile.setText(filaname);
-                        } catch(Exception e) {
+                        } catch (Exception e) {
                             openFile.setText(String.valueOf(e));
                         }
                         break;
@@ -915,7 +918,7 @@ public class MainActivity extends Utils {
 
         final Button saveButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
 
-        final TextWatcher validate_name = new TextWatcher(){
+        final TextWatcher validate_name = new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable arg0) {
@@ -932,7 +935,8 @@ public class MainActivity extends Utils {
 
                 saveButton.setEnabled(!s.toString().equals(""));
 
-            }};
+            }
+        };
         filename.addTextChangedListener(validate_name);
     }
 
@@ -984,7 +988,7 @@ public class MainActivity extends Utils {
                                 Data.mGpx.addRoutes(Data.sRoutesGpx.getRoutes());
                                 Data.mGpx.addTracks(Data.sTracksGpx.getTracks());
 
-                                GpxFileIo.parseOut(Data.mGpx, new_file) ;
+                                GpxFileIo.parseOut(Data.mGpx, new_file);
                             }
                         });
 
@@ -1006,7 +1010,7 @@ public class MainActivity extends Utils {
                 Data.mGpx.addRoutes(Data.sRoutesGpx.getRoutes());
                 Data.mGpx.addTracks(Data.sTracksGpx.getTracks());
 
-                GpxFileIo.parseOut(Data.mGpx, new_file) ;
+                GpxFileIo.parseOut(Data.mGpx, new_file);
 
             }
 
@@ -1015,9 +1019,9 @@ public class MainActivity extends Utils {
 
             try {
                 String[] splitFullPath = new_file.split("/");
-                String filaname = splitFullPath[splitFullPath.length -1];
+                String filaname = splitFullPath[splitFullPath.length - 1];
                 openFile.setText(filaname);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 openFile.setText(String.valueOf(e));
             }
 
@@ -1045,7 +1049,7 @@ public class MainActivity extends Utils {
 
             TextView tracksStatus = (TextView) findViewById(R.id.track_manager_text);
             tracksStatus.setText(String.format(getString(R.string.main_tracks_loaded), Data.sTracksGpx.getTracks().size()));
-        } catch(Exception e) {
+        } catch (Exception e) {
             Toast.makeText(getApplicationContext(), getString(R.string.read_error) + e, Toast.LENGTH_SHORT).show();
         }
     }
@@ -1131,7 +1135,7 @@ public class MainActivity extends Utils {
         @Override
         protected Void doInBackground(Void... params) {
 
-            if(Data.sPoiGpx == null) {
+            if (Data.sPoiGpx == null) {
 
                 try {
                     Data.sPoiGpx = GpxFileIo.parseIn(defaultPoisFile);
@@ -1151,7 +1155,7 @@ public class MainActivity extends Utils {
                 }
             }
 
-            if(Data.sRoutesGpx == null) {
+            if (Data.sRoutesGpx == null) {
 
                 try {
                     Data.sRoutesGpx = GpxFileIo.parseIn(defaultRoutesFile);
@@ -1240,7 +1244,7 @@ public class MainActivity extends Utils {
         @Override
         protected void onPreExecute() {
 
-            if(Data.sPoiGpx == null || Data.sRoutesGpx == null || Data.sTracksGpx == null) {
+            if (Data.sPoiGpx == null || Data.sRoutesGpx == null || Data.sTracksGpx == null) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
@@ -1319,7 +1323,7 @@ public class MainActivity extends Utils {
                 finish();
             } else {
                 mOnSyncButton = false;
-                if(alert != null) {
+                if (alert != null) {
                     alert.dismiss();
                 }
             }
@@ -1399,9 +1403,9 @@ public class MainActivity extends Utils {
 
             try {
                 String[] splitFullPath = externalGpxFile.split("/");
-                String filaname = splitFullPath[splitFullPath.length -1];
+                String filaname = splitFullPath[splitFullPath.length - 1];
                 openFile.setText(filaname);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 openFile.setText(String.valueOf(e));
             }
 
@@ -1437,11 +1441,9 @@ public class MainActivity extends Utils {
 
         final Handler mSaveHandler = new Handler();
 
-        Runnable r = new Runnable()
-        {
+        Runnable r = new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
 
                 try {
 

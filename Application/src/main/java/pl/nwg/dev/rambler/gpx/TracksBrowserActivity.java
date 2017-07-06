@@ -149,12 +149,12 @@ public class TracksBrowserActivity extends Utils
     /**
      * Track label marker -> index of selected track
      */
-    private Map<Marker,Integer> markerToTrackIdx;
+    private Map<Marker, Integer> markerToTrackIdx;
 
     /**
      * Drawer entry -> route index
      */
-    private Map<Integer,Integer> drawerIdxToTrackIdx;
+    private Map<Integer, Integer> drawerIdxToTrackIdx;
 
     /**
      * View filtering todo delete me
@@ -188,7 +188,7 @@ public class TracksBrowserActivity extends Utils
 
         web[0] = getResources().getString(R.string.no_routes_loaded);
 
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout_routes);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_routes);
 
         addDrawerItems(web);
         setupDrawer();
@@ -215,7 +215,7 @@ public class TracksBrowserActivity extends Utils
         TilesOverlay tilesOverlay = mMapView.getOverlayManager().getTilesOverlay();
         tilesOverlay.setOvershootTileCache(tilesOverlay.getOvershootTileCache() * 2);
 
-        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this),mMapView);
+        mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), mMapView);
         mLocationOverlay.enableMyLocation();
 
         mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
@@ -275,7 +275,7 @@ public class TracksBrowserActivity extends Utils
 
         mMapView.getOverlays().add(mLocationOverlay);
 
-        if(Data.sAllowRotation) {
+        if (Data.sAllowRotation) {
             mMapView.getOverlays().add(this.mRotationGestureOverlay);
         }
 
@@ -295,7 +295,7 @@ public class TracksBrowserActivity extends Utils
 
         mAllTracksNumber = Data.sAllTracks.size();
 
-        if(Data.sAllTracks == null || Data.sAllTracks.isEmpty()) {
+        if (Data.sAllTracks == null || Data.sAllTracks.isEmpty()) {
             Data.sSelectedTrackIdx = null;
         }
 
@@ -307,18 +307,18 @@ public class TracksBrowserActivity extends Utils
 
         markerToTrackIdx = new HashMap<>();
 
-        for(int i = 0; i < mAllTracksNumber; i++) {
+        for (int i = 0; i < mAllTracksNumber; i++) {
 
             final Track track = Data.sAllTracks.get(i);
 
             List<TrackPoint> trackPoints = track.getTrackPoints();
 
             int halfWayPoint = trackPoints.size() / 2;
-            int lastTrackPoint = trackPoints.size() -1;
+            int lastTrackPoint = trackPoints.size() - 1;
 
             List<GeoPoint> geoPoints = new ArrayList<>();
 
-            for(int j = 0; j < trackPoints.size(); j++) {
+            for (int j = 0; j < trackPoints.size(); j++) {
 
                 TrackPoint trackPoint = trackPoints.get(j);
                 GeoPoint geoPoint = new GeoPoint(trackPoint.getLatitude(), trackPoint.getLongitude());
@@ -453,7 +453,7 @@ public class TracksBrowserActivity extends Utils
         }
         routesSummary.setText(String.format(getResources().getString(R.string.x_tracks), mAllTracksNumber));
 
-        if(zoom_to_fit && mAllGeopoints.size() > 0) {
+        if (zoom_to_fit && mAllGeopoints.size() > 0) {
             mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), false);
         }
 
@@ -484,7 +484,7 @@ public class TracksBrowserActivity extends Utils
             @Override
             public void onClick(View v) {
 
-                if(mAllGeopoints != null && mAllGeopoints.size() > 0) {
+                if (mAllGeopoints != null && mAllGeopoints.size() > 0) {
                     mMapView.zoomToBoundingBox(findBoundingBox(mAllGeopoints), false);
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.no_routes_in_view), Toast.LENGTH_SHORT).show();
@@ -500,7 +500,7 @@ public class TracksBrowserActivity extends Utils
                 if (Data.sSelectedTrackIdx == null) {
                     Data.sSelectedTrackIdx = 0;
                 } else {
-                    if (Data.sSelectedTrackIdx < mAllTracksNumber -1) {
+                    if (Data.sSelectedTrackIdx < mAllTracksNumber - 1) {
                         Data.sSelectedTrackIdx++;
                     } else {
                         Data.sSelectedTrackIdx = 0;
@@ -520,7 +520,7 @@ public class TracksBrowserActivity extends Utils
                     if (Data.sSelectedTrackIdx > 0) {
                         Data.sSelectedTrackIdx--;
                     } else {
-                        Data.sSelectedTrackIdx = mAllTracksNumber -1;
+                        Data.sSelectedTrackIdx = mAllTracksNumber - 1;
                     }
                 }
                 refreshMap();
@@ -578,7 +578,7 @@ public class TracksBrowserActivity extends Utils
 
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
@@ -601,7 +601,7 @@ public class TracksBrowserActivity extends Utils
             locationButton.setEnabled(true);
             locationButton.getBackground().setAlpha(255);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
 
             locationButton.setEnabled(false);
             locationButton.getBackground().setAlpha(0);
@@ -815,7 +815,7 @@ public class TracksBrowserActivity extends Utils
 
         CustomListNoIcons adapter = new
                 CustomListNoIcons(TracksBrowserActivity.this, items);
-        list=(ListView)findViewById(R.id.routesNavList);
+        list = (ListView) findViewById(R.id.routesNavList);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -869,7 +869,7 @@ public class TracksBrowserActivity extends Utils
                 String fileFullPath = data.getStringExtra(
                         FileBrowserActivity.returnFileParameter);
 
-                switch(filePickerAction) {
+                switch (filePickerAction) {
 
                     case ACTION_IMPORT_TRACKS:
                         displayImportTracksDialog(fileFullPath);
@@ -932,7 +932,7 @@ public class TracksBrowserActivity extends Utils
 
     private void displayEditDialog() {
 
-        if(Data.sAllTracks.isEmpty() || Data.sSelectedTrackIdx == null) {
+        if (Data.sAllTracks.isEmpty() || Data.sSelectedTrackIdx == null) {
 
             return;
         }
@@ -946,7 +946,7 @@ public class TracksBrowserActivity extends Utils
 
 
         final EditText editName = (EditText) trackEditLayout.findViewById(R.id.track_name_edit);
-        editName.setFilters(new InputFilter[] {
+        editName.setFilters(new InputFilter[]{
                 new InputFilter.LengthFilter(99)
         });
 
@@ -1134,7 +1134,8 @@ public class TracksBrowserActivity extends Utils
                         }
                     })
                     .setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) { }
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
                     })
                     .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -1144,7 +1145,7 @@ public class TracksBrowserActivity extends Utils
 
                             ArrayList<Track> gpxTracksPickedByUser = new ArrayList<>();
 
-                            for (String nameOfGPXtrackPickedByUser: selectedNames) {
+                            for (String nameOfGPXtrackPickedByUser : selectedNames) {
 
                                 int idxOfTrack = sortedTrackNames.indexOf(nameOfGPXtrackPickedByUser);
                                 gpxTracksPickedByUser.add(sortedTracks.get(idxOfTrack));
@@ -1320,7 +1321,8 @@ public class TracksBrowserActivity extends Utils
                         }
                     })
                     .setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) { }
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
                     })
                     .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -1415,7 +1417,8 @@ public class TracksBrowserActivity extends Utils
                     }
                 })
                 .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) { }
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
                 });
 
         AlertDialog alert = builder.create();
@@ -1484,7 +1487,8 @@ public class TracksBrowserActivity extends Utils
                     }
                 })
                 .setNegativeButton(buttonCancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) { }
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
                 })
                 .setPositiveButton(buttonAll, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -1539,7 +1543,8 @@ public class TracksBrowserActivity extends Utils
                 .setIcon(R.drawable.map_save)
                 .setCancelable(true)
                 .setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) { }
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
                 })
                 .setNeutralButton(saveAsText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -1569,7 +1574,7 @@ public class TracksBrowserActivity extends Utils
 
         final Button saveButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
 
-        final TextWatcher validate_name = new TextWatcher(){
+        final TextWatcher validate_name = new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable arg0) {
@@ -1628,7 +1633,7 @@ public class TracksBrowserActivity extends Utils
 
                 Gpx gpxToSave = new Gpx();
 
-                switch(filePickerAction) {
+                switch (filePickerAction) {
                     case SAVE_SELECTED_TRACK:
                         gpxToSave.addTrack(Data.sAllTracks.get(Data.sSelectedTrackIdx));
                         break;

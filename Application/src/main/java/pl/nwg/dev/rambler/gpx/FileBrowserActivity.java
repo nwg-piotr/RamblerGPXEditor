@@ -216,7 +216,7 @@ public class FileBrowserActivity extends Activity {
         if (freeSpace == 0) {
             Log.d(LOGTAG, "NO FREE SPACE");
             File currentDir = new File(curDirString);
-            if(!currentDir.canWrite())
+            if (!currentDir.canWrite())
                 formattedSpaceString = "NON Writable";
         }
 

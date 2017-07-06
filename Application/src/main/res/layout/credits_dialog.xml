@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     android:padding="20dp">
 
     <LinearLayout
@@ -16,152 +17,152 @@
             android:id="@+id/aosp_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/credits_aosp_name"
             android:textColor="#333"
-            android:textSize="16sp"
-            android:text="@string/credits_aosp_name"/>
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/aosp_copy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/credits_aosp_copy"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/credits_aosp_copy"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/aosp_license"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/license_apache20"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/license_apache20"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/karambola_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:text="@string/credits_karambola_name"/>
+            android:text="@string/credits_karambola_name"
+            android:textColor="#333"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/karambola_copy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/credits_karambola_copy"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/credits_karambola_copy"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/karambola_license"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/license_gpl30"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/license_gpl30"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/osmdroid_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:text="@string/credits_osmdroid_name"/>
+            android:text="@string/credits_osmdroid_name"
+            android:textColor="#333"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/osmdroid_license"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/license_apache20"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/license_apache20"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/osmbp_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:text="@string/credits_osmbonuspack_name"/>
+            android:text="@string/credits_osmbonuspack_name"
+            android:textColor="#333"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/osmbp_license"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/license_gnuelesser"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/license_gnuelesser"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/osrm_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:text="@string/credits_osrm_name"/>
+            android:text="@string/credits_osrm_name"
+            android:textColor="#333"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/osrm_license"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/license_bsd2clause"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/license_bsd2clause"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/osrm_license_demo_server"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/license_demo_server"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/license_demo_server"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/filebrowser_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:text="@string/credits_filebrowser_name"/>
+            android:text="@string/credits_filebrowser_name"
+            android:textColor="#333"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/filebrowser_copy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/credits_filebrowser_copy"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/credits_filebrowser_copy"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/filebrowser_license"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/license_apache20"
             android:textColor="#333"
-            android:textSize="14sp"
-            android:text="@string/license_apache20"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/languages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="14sp"
             android:layout_marginTop="10dp"
-            android:text="@string/translations"/>
+            android:text="@string/translations"
+            android:textColor="#333"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/app_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="14sp"
             android:layout_marginTop="10dp"
-            android:text="@string/credits_logo"/>
+            android:text="@string/credits_logo"
+            android:textColor="#333"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

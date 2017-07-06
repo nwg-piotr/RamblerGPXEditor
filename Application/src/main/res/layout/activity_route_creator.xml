@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <org.osmdroid.views.MapView android:id="@+id/osmmap"
+    <org.osmdroid.views.MapView
+        android:id="@+id/osmmap"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -13,55 +14,58 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/location_button"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="12dp"
         android:layout_marginTop="55dp"
+        android:background="@drawable/location_button"
         android:enabled="false" />
 
-    <Button style="?android:attr/buttonStyleSmall"
+    <Button
         android:id="@+id/pencil_button"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/pencil_button"
+        android:layout_alignStart="@+id/location_button"
         android:layout_below="@+id/location_button"
-        android:layout_alignStart="@+id/location_button"/>
+        android:background="@drawable/pencil_button" />
 
-    <Button style="?android:attr/buttonStyleSmall"
+    <Button
         android:id="@+id/alternatives_button"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/variant_button"
-        android:text="0/0"
+        android:layout_alignStart="@+id/pencil_button"
         android:layout_below="@+id/pencil_button"
-        android:layout_alignStart="@+id/pencil_button" />
+        android:background="@drawable/variant_button"
+        android:text="0/0" />
 
     <TextView
         android:id="@+id/routing_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/location_button"
         android:gravity="start"
-        android:textSize="12sp"
-        android:textColor="#444"
+        android:linksClickable="true"
         android:padding="4dp"
         android:text="@string/credits_routing_source"
-        android:linksClickable="true"
-        android:layout_alignTop="@+id/location_button"
-        android:layout_alignParentStart="true" />
+        android:textColor="#444"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/route_prompt"
-        android:text="@string/map_prompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:textSize="14sp"
-        android:gravity="center_vertical|center_horizontal"
         android:layout_above="@+id/buttons"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="5dp"
+        android:text="@string/map_prompt"
+        android:textSize="14sp" />
 
-    <TableLayout android:id="@+id/buttons"
+    <TableLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
@@ -128,11 +132,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:textSize="12sp"
-            android:textColor="#444"
+            android:linksClickable="true"
             android:padding="4dp"
             android:text="@string/osm_copyright"
-            android:linksClickable="true" />
+            android:textColor="#444"
+            android:textSize="12sp" />
 
     </TableLayout>
 

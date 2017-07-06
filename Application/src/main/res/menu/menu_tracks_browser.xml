@@ -5,32 +5,38 @@
     tools:context=".RouteEditorActivity">
 
 
-    <item android:orderInCategory="100"
+    <item
         android:id="@+id/tracks_edit_properties"
-        android:title="@string/tracks_edit_properties"
-        android:enabled="false" />
+        android:enabled="false"
+        android:orderInCategory="100"
+        android:title="@string/tracks_edit_properties" />
 
-    <item android:orderInCategory="105"
+    <item
         android:id="@+id/tracks_convert"
-        android:title="@string/tracks_convert"
-        android:enabled="false" />
+        android:enabled="false"
+        android:orderInCategory="105"
+        android:title="@string/tracks_convert" />
 
-    <item android:orderInCategory="110"
+    <item
         android:id="@+id/tracks_delete_selected"
-        android:title="@string/tracks_delete_selected"
-        android:enabled="false" />
+        android:enabled="false"
+        android:orderInCategory="110"
+        android:title="@string/tracks_delete_selected" />
 
-    <item android:orderInCategory="120"
+    <item
         android:id="@+id/tracks_clear"
-        android:title="@string/tracks_clear_all"
-        android:enabled="false" />
+        android:enabled="false"
+        android:orderInCategory="120"
+        android:title="@string/tracks_clear_all" />
 
-    <item android:orderInCategory="130"
+    <item
         android:id="@+id/tracks_import_tracks"
+        android:orderInCategory="130"
         android:title="@string/tracks_import" />
 
-    <item android:orderInCategory="140"
+    <item
         android:id="@+id/tracks_export"
+        android:orderInCategory="140"
         android:title="@string/tracks_export" />
 
 </menu>

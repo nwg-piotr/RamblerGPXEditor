@@ -9,41 +9,41 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
         android:background="@drawable/background"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         tools:context=".MainActivity">
 
         <ScrollView
             android:id="@+id/scrolling_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <TableLayout
+                android:id="@+id/tableLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tableLayout3">
+                android:layout_height="wrap_content">
 
                 <TableRow
                     android:id="@+id/main_poi_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="5dp"
                     android:background="#ffffff"
                     android:gravity="center_vertical"
-                    android:padding="3dp"
-                    android:layout_margin="5dp">
+                    android:padding="3dp">
 
-                    <ImageView android:contentDescription="@string/poi_manager_name"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
+                        android:contentDescription="@string/poi_manager_name"
                         android:src="@mipmap/main_btn_poi" />
 
                     <TextView
                         android:id="@+id/poi_manager_text"
-                        android:gravity="start"
                         android:layout_marginStart="20dp"
+                        android:gravity="start"
                         android:text="@string/poi_manager_name" />
 
                 </TableRow>
@@ -52,21 +52,22 @@
                     android:id="@+id/main_routes_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="5dp"
                     android:background="#ffffff"
                     android:gravity="center_vertical"
-                    android:padding="3dp"
-                    android:layout_margin="5dp">
+                    android:padding="3dp">
 
-                    <ImageView android:contentDescription="@string/route_picker_name"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
+                        android:contentDescription="@string/route_picker_name"
                         android:src="@mipmap/main_btn_routes" />
 
                     <TextView
                         android:id="@+id/route_manager_text"
-                        android:gravity="start"
                         android:layout_marginStart="20dp"
+                        android:gravity="start"
                         android:text="@string/route_picker_name" />
 
                 </TableRow>
@@ -75,21 +76,22 @@
                     android:id="@+id/main_tracks_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="5dp"
                     android:background="#ffffff"
                     android:gravity="center_vertical"
-                    android:padding="3dp"
-                    android:layout_margin="5dp">
+                    android:padding="3dp">
 
-                    <ImageView android:contentDescription="@string/route_picker_name"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
+                        android:contentDescription="@string/route_picker_name"
                         android:src="@mipmap/main_btn_tracks" />
 
                     <TextView
                         android:id="@+id/track_manager_text"
-                        android:gravity="start"
                         android:layout_marginStart="20dp"
+                        android:gravity="start"
                         android:text="@string/track_manager_name" />
 
                 </TableRow>
@@ -98,11 +100,11 @@
                     android:id="@+id/open_file"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:gravity="center_horizontal"
                     android:text="file"
                     android:textColor="#333333"
-                    android:textSize="14sp"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="top" />
+                    android:textSize="14sp" />
 
             </TableLayout>
 
@@ -111,88 +113,96 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp">
 
             <LinearLayout
                 android:id="@+id/bar_new"
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:layout_weight="1">
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bar_new" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:paddingBottom="4dp"
-                    android:textSize="12sp"
-                    android:text="@string/new_data"/>
+                    android:text="@string/new_data"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/bar_open"
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:layout_weight="1">
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bar_open" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:paddingBottom="4dp"
-                    android:textSize="12sp"
-                    android:text="@string/open_gpx"/>
+                    android:text="@string/open_gpx"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/bar_save"
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:layout_weight="1">
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bar_save" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:paddingBottom="4dp"
-                    android:textSize="12sp"
-                    android:text="@string/save_gpx"/>
+                    android:text="@string/save_gpx"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/bar_sync"
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:layout_weight="1">
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bar_sync" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:paddingBottom="4dp"
-                    android:textSize="12sp"
-                    android:text="@string/sync_data"/>
+                    android:text="@string/sync_data"
+                    android:textSize="12sp" />
             </LinearLayout>
 
         </TableRow>
@@ -201,11 +211,11 @@
 
     <ListView
         android:id="@+id/navList"
-        android:paddingTop="10dp"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
-        android:background="#fffefefe" />
+        android:background="#fffefefe"
+        android:paddingTop="10dp" />
 
     <!-- Side navigation drawer UI -->
 

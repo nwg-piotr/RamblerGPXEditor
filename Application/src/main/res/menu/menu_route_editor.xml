@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".RouteEditorActivity">
 
-    <item android:orderInCategory="100"
+    <item
         android:id="@+id/route_reverse"
+        android:orderInCategory="100"
         android:title="@string/map_reverse_route" />
 
-    <item android:orderInCategory="130"
+    <item
         android:id="@+id/show_poi"
         android:checkable="true"
+        android:orderInCategory="130"
         android:title="@string/show_poi" />
 
 </menu>
