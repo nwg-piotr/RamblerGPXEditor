@@ -1,8 +1,7 @@
 Rambler GPX Editor
 ===================================
 
-This project is an attempt to create a GPX editor, based on an existing commercial application code, 
-but this time using opensource APIs and open data. 
+This project is an attempt to create an open source and open data visual GPX editor. 
 
 **Activities:**
 
@@ -21,4 +20,4 @@ to Route(s).
 
 See [CHANGELOG](https://github.com/nwg-piotr/RamblerGPXEditor/blob/master/CHANGELOG.md) to learn more.
 
-[Download from Google Play](https://play.google.com/store/apps/details?id=pl.nwg.dev.rambler.gpx) (beta version).
+[Download from Google Play](https://play.google.com/store/apps/details?id=pl.nwg.dev.rambler.gpx) (beta).
