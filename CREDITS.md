@@ -41,7 +41,7 @@ Copyright @vaal12 Alexey Vassiliev
 Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
 ## German Translation
-Stefan Scherrer
+@RigiRitter https://github.com/RigiRitter
 
 ## Application logo
 @edskeye https://github.com/edskeye

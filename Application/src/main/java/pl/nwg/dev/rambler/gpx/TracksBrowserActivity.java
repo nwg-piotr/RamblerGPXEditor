@@ -1201,7 +1201,7 @@ public class TracksBrowserActivity extends Utils
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             LayoutInflater inflater = getLayoutInflater();
-            final View layout = inflater.inflate(R.layout.import_tracks_dialog, null);
+            final View layout = inflater.inflate(R.layout.convert_tracks_dialog, null);
 
             final EditText maxWptEditText = (EditText) layout.findViewById(R.id.reduceMaxPoints);
 
