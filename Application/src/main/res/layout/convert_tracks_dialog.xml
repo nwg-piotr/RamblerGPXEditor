@@ -69,6 +69,18 @@
 
         </TableRow>
 
+        <TableRow>
+
+            <CheckBox
+                android:id="@+id/deleteSorceCheckbox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:text="@string/delete_source_track" />
+        </TableRow>
 
     </TableLayout>
 
