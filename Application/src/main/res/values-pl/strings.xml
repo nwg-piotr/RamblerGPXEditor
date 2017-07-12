@@ -289,4 +289,6 @@
     <string name="creator_clear_waypoints">Wyczyść punkty</string>
     <string name="dialog_confirm_clear_message">Na pewno chcesz wyczyścić dane w pamięci?</string>
     <string name="dialog_confirm_clear_title">Usuwanie danych</string>
+    <string name="settings_routing_label">Serwer routingu</string>
+    <string name="settings_key_label">Klucz API MapQuest</string>
 </resources>

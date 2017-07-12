@@ -30,16 +30,6 @@
         android:layout_below="@+id/location_button"
         android:background="@drawable/pencil_button" />
 
-    <Button
-        android:id="@+id/alternatives_button"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/pencil_button"
-        android:layout_below="@+id/pencil_button"
-        android:background="@drawable/variant_button"
-        android:text="0/0" />
-
     <TextView
         android:id="@+id/routing_by"
         android:layout_width="wrap_content"

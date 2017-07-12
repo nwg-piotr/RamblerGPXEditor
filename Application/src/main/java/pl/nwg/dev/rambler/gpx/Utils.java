@@ -92,7 +92,8 @@ public class Utils extends Activity {
     /**
      * Calculate bounding box for given List of GeoPoints
      * Based on the osmdroid code by Nicolas Gramlich, released under the Apache License 2.0
-     * https://github.com/osmdroid/osmdroid/blob/master/osmdroid-android/src/main/java/org/osmdroid/util/BoundingBox.java
+     * https://github.com/osmdroid/osmdroid/blob/master/osmdroid-android/src/main/java/org
+     * /osmdroid/util/BoundingBox.java
      */
     protected BoundingBox findBoundingBox(List<GeoPoint> geoPoints) {
 
@@ -139,9 +140,11 @@ public class Utils extends Activity {
      * This will return a marker bitmap.
      *
      * @param hoverText - is the name of the route point or POI displayed above;
-     * @param color     - if passed, we create a bitmap for POI, it should be coloured by the POI type
+     * @param color     - if passed, we create a bitmap for POI, it should be coloured by the POI
+     *                  type
      */
-    protected Bitmap makeMarkerBitmap(Context context, String hoverText, Integer color, Integer alpha) {
+    protected Bitmap makeMarkerBitmap(Context context, String hoverText, Integer color, Integer
+            alpha) {
 
         Resources resources = context.getResources();
         float scale = resources.getDisplayMetrics().density;
@@ -230,7 +233,8 @@ public class Utils extends Activity {
 
             char[] buffer = new char[1024];
             try {
-                Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 1024);
+                Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"),
+                        1024);
                 int n;
                 while ((n = reader.read(buffer)) != -1) {
                     writer.write(buffer, 0, n);
@@ -379,69 +383,9 @@ public class Utils extends Activity {
     }
 
     /**
-     * Parses received OSRM JSON string and stores result in List<Route> Data.osrmRoutes
+     * Parses received OSRM JSON string and stores result in List<Route> Data.osrmRoute
      */
-    protected void parseOsrmResponse(final String json_string) {
 
-        Log.d(TAG, "Parsing OSRM response");
-
-        Data.osrmRoutes = new ArrayList<>();
-
-        try {
-            JSONObject receivedJson = new JSONObject(json_string);
-
-            if (receivedJson.getString("code").toUpperCase().equals("OK")) {
-
-                JSONArray osrmRoutes = receivedJson.getJSONArray("routes");
-
-                Data.sAlternativesNumber = osrmRoutes.length();
-                Log.d(TAG, "Found routes# = " + Data.sAlternativesNumber);
-
-                for (int i = 0; i < osrmRoutes.length(); i++) {
-
-                    Route route = new Route();
-                    route.setType("OSRM");
-
-                    JSONObject osrmRoute = osrmRoutes.getJSONObject(i);
-                    String encodedPolyline = osrmRoute.getString("geometry");
-
-                    route.setRoutePoints(decodeToRoutePoints(encodedPolyline));
-
-                    Log.d(TAG, "Route: " + route);
-
-                    float distance = Float.valueOf(osrmRoute.getString("distance"));
-
-                    GpxUtils.simplifyRoute(route, (int) distance / 100, 6d);
-
-                    Log.d(TAG, "Simplified: " + route);
-
-                    /*
-                     * Let's use the last route point name (if received) as a temporary route name
-                     * In case we received nothing, use a generic, timestamp-based name
-                     */
-                    String tmpName = "OSMR_" + String.valueOf(System.currentTimeMillis()).substring(7);
-
-                    JSONArray osrmWaypoints = receivedJson.getJSONArray("waypoints");
-                    JSONObject lastWaypoint = osrmWaypoints.getJSONObject(osrmWaypoints.length() - 1);
-                    if (!lastWaypoint.getString("name").isEmpty()) {
-                        tmpName = lastWaypoint.getString("name");
-                    }
-                    route.setName(tmpName);
-                    Log.d(TAG, "Named: " + tmpName);
-
-                    Data.osrmRoutes.add(route);
-                }
-
-            } else {
-
-                Toast.makeText(getApplicationContext(), receivedJson.getString("code") + ": "
-                        + receivedJson.getString("message"), Toast.LENGTH_LONG).show();
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     protected static Integer[] typeColors = {
             Color.parseColor("#99006600"),
@@ -644,6 +588,8 @@ public class Utils extends Activity {
         }
 
         Data.sAllowRotation = preferences.getBoolean("rotation", false);
+        Data.sRoutingSource = preferences.getInt("source", Data.ROUTING_SRC_OSRM);
+        Data.sMapQuestKey = preferences.getString("mqkey", "");
     }
 
     protected void saveSettings() {
@@ -652,6 +598,15 @@ public class Utils extends Activity {
 
         editor.putBoolean("showPoi", showPoi);
         editor.putInt("units", Data.sUnitsInUse.getCode());
+
+        if (Data.sRoutingSource != null) {
+            editor.putInt("source", Data.sRoutingSource);
+        } else {
+            editor.putInt("source", Data.ROUTING_SRC_OSRM);
+        }
+
+        editor.putString("mqkey", Data.sMapQuestKey);
+
         editor.putBoolean("rotation", Data.sAllowRotation);
 
         editor.apply();

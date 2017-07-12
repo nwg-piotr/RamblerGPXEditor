@@ -34,12 +34,10 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.events.MapListener;
@@ -58,12 +56,6 @@ import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,12 +84,7 @@ public class RouteCreatorActivity extends Utils
     private final int MAX_ZOOM_LEVEL = 19;
     private final int MIN_ZOOM_LEVEL = 4;
 
-    /**
-     * Routing profile to be used in the OSRM API request
-     */
-    private final String MODE_CAR = "driving";
-    private final String MODE_BIKE = "cycling";
-    private final String MODE_FOOT = "foot";
+
 
     Button locationButton;
     Button pencilButton;
@@ -105,7 +92,6 @@ public class RouteCreatorActivity extends Utils
     Button zoomInButton;
     Button zoomOutButton;
     Button modeButton;
-    Button alternativesButton;
     Button saveButton;
 
     TextView routePrompt;
@@ -122,7 +108,7 @@ public class RouteCreatorActivity extends Utils
 
     private RotationGestureOverlay mRotationGestureOverlay;
 
-    private Route selectedOsrmRoute;
+    //private Route selectedOsrmRoute;
 
     private Map<Marker, Point> markerToPoi;
 
@@ -158,10 +144,8 @@ public class RouteCreatorActivity extends Utils
         }
 
         if (Data.sRoutingProfile == null) {
-            Data.sRoutingProfile = MODE_CAR;
+            Data.sRoutingProfile = Data.MODE_CAR;
         }
-
-        Data.sSelectedAlternative = null;
 
         setUpMap();
 
@@ -203,7 +187,7 @@ public class RouteCreatorActivity extends Utils
             public boolean longPressHelper(GeoPoint p) {
 
                 Data.sCardinalGeoPoints.add(new GeoPoint(p));
-                clearRoutes();
+                clearResults();
                 refreshMap();
                 return false;
             }
@@ -274,7 +258,7 @@ public class RouteCreatorActivity extends Utils
 
         Polyline routeOverlay = new Polyline();
 
-        if (Data.osrmRoutes == null || Data.osrmRoutes.size() == 0) {
+        if (Data.osrmRoute == null || Data.osrmRoute.getRoutePoints().size() == 0) {
 
             routeOverlay.setColor(Color.parseColor("#006666"));
             routeOverlay.setPoints(Data.sCardinalGeoPoints);
@@ -285,17 +269,13 @@ public class RouteCreatorActivity extends Utils
 
             List<GeoPoint> geoPoints = new ArrayList<>();
 
-            if (Data.sSelectedAlternative == null) {
-                Data.sSelectedAlternative = 0;
-            }
-            selectedOsrmRoute = Data.osrmRoutes.get(Data.sSelectedAlternative);
-            for (int i = 0; i < selectedOsrmRoute.getRoutePoints().size(); i++) {
-                RoutePoint routePoint = selectedOsrmRoute.getRoutePoints().get(i);
+            for (int i = 0; i < Data.osrmRoute.getRoutePoints().size(); i++) {
+                RoutePoint routePoint = Data.osrmRoute.getRoutePoints().get(i);
                 geoPoints.add(new GeoPoint(routePoint.getLatitude(), routePoint.getLongitude()));
             }
             routeOverlay.setColor(Color.parseColor("#0066ff"));
             routeOverlay.setPoints(geoPoints);
-            routePrompt.setText(GpxUtils.getRouteNameAnnotated(selectedOsrmRoute, Data.sUnitsInUse));
+            routePrompt.setText(GpxUtils.getRouteNameAnnotated(Data.osrmRoute, Data.sUnitsInUse));
         }
 
         mMapView.getOverlays().add(routeOverlay);
@@ -344,7 +324,7 @@ public class RouteCreatorActivity extends Utils
                     GeoPoint dragged = markerToCardinalWaypoint.get(marker);
                     dragged.setCoords(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
 
-                    clearRoutes();
+                    clearResults();
                     refreshMap();
                 }
 
@@ -451,7 +431,8 @@ public class RouteCreatorActivity extends Utils
         pencilButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                askOsrm(Data.sCardinalGeoPoints);
+                //askOsrm(Data.sCardinalGeoPoints);
+                getOsrmRoute(Data.sCardinalGeoPoints);
             }
         });
 
@@ -491,46 +472,34 @@ public class RouteCreatorActivity extends Utils
             @Override
             public void onClick(View v) {
                 switch (Data.sRoutingProfile) {
-                    case MODE_CAR:
-                        Data.sRoutingProfile = MODE_BIKE;
+                    case Data.MODE_CAR:
+                        Data.sRoutingProfile = Data.MODE_BIKE;
                         modeButton.setBackgroundResource(R.drawable.button_cycling);
                         break;
-                    case MODE_BIKE:
-                        Data.sRoutingProfile = MODE_FOOT;
+                    case Data.MODE_BIKE:
+                        Data.sRoutingProfile = Data.MODE_FOOT;
                         modeButton.setBackgroundResource(R.drawable.button_walking);
                         break;
-                    case MODE_FOOT:
-                        Data.sRoutingProfile = MODE_CAR;
+                    case Data.MODE_FOOT:
+                        Data.sRoutingProfile = Data.MODE_CAR;
                         modeButton.setBackgroundResource(R.drawable.button_driving);
                         break;
                 }
             }
         });
-        alternativesButton = (Button) findViewById(R.id.alternatives_button);
-        alternativesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (Data.sSelectedAlternative < Data.sAlternativesNumber - 1) {
-                    Data.sSelectedAlternative++;
-                } else {
-                    Data.sSelectedAlternative = 0;
-                }
-                refreshMap();
-            }
-        });
         saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedOsrmRoute != null) {
-                    Data.sRoutesGpx.addRoute(selectedOsrmRoute);
-                    clearRoutes();
-                    Data.sCardinalGeoPoints = new ArrayList<>();
+                if (Data.osrmRoute != null) {
+                    Data.sRoutesGpx.addRoute(Data.osrmRoute);
 
                     Intent i = new Intent(RouteCreatorActivity.this, RoutesBrowserActivity.class);
-                    Data.sSelectedRouteIdx = Data.sRoutesGpx.getRoutes().indexOf(selectedOsrmRoute);
+                    Data.sSelectedRouteIdx = Data.sRoutesGpx.getRoutes().indexOf(Data.osrmRoute);
                     setResult(Data.NEW_ROUTE_ADDED, i);
+
+                    clearResults();
 
                     finish();
                 }
@@ -556,21 +525,6 @@ public class RouteCreatorActivity extends Utils
             pencilButton.getBackground().setAlpha(100);
         }
 
-        if (Data.sSelectedAlternative != null) {
-            alternativesButton.setText((Data.sSelectedAlternative + 1) + "/" + Data.sAlternativesNumber);
-            if (Data.sAlternativesNumber > 1) {
-                alternativesButton.setEnabled(true);
-                alternativesButton.getBackground().setAlpha(255);
-            } else {
-                alternativesButton.setEnabled(false);
-                alternativesButton.getBackground().setAlpha(100);
-            }
-        } else {
-            alternativesButton.setText("0/0");
-            alternativesButton.setEnabled(false);
-            alternativesButton.getBackground().setAlpha(100);
-        }
-
         if (mMapView.getProjection().getZoomLevel() < MAX_ZOOM_LEVEL) {
             zoomInButton.setEnabled(true);
             zoomInButton.getBackground().setAlpha(255);
@@ -591,7 +545,7 @@ public class RouteCreatorActivity extends Utils
          * When the Route Manager main activity (picker) is ready, this button will be adding selected route
          * to Data.sRoutesGpx, and close the Creator.
          */
-        if (Data.osrmRoutes != null && Data.osrmRoutes.size() > 0 && Data.sSelectedAlternative != null) {
+        if (Data.osrmRoute != null && Data.osrmRoute.getRoutePoints().size() > 0) {
             saveButton.setEnabled(true);
             saveButton.getBackground().setAlpha(255);
         } else {
@@ -613,7 +567,7 @@ public class RouteCreatorActivity extends Utils
 
                         Data.sCardinalGeoPoints.remove(geoPoint);
 
-                        clearRoutes();
+                        clearResults();
                         refreshMap();
                     }
                 })
@@ -682,10 +636,9 @@ public class RouteCreatorActivity extends Utils
         mAddFromPoiDialog.show();
     }
 
-    public void clearRoutes() {
-        Data.osrmRoutes = null;
-        Data.sAlternativesNumber = 0;
-        Data.sSelectedAlternative = null;
+    public void clearResults() {
+        Data.osrmRoute = null;
+        Data.sCardinalGeoPoints = new ArrayList<>();
     }
 
     public void onResume() {
@@ -810,7 +763,7 @@ public class RouteCreatorActivity extends Utils
 
             case R.id.clear_waypoints:
                 Data.sCardinalGeoPoints = new ArrayList<>();
-                Data.osrmRoutes = null;
+                Data.osrmRoute = null;
                 refreshMap();
                 return true;
 
@@ -819,27 +772,11 @@ public class RouteCreatorActivity extends Utils
         }
     }
 
-    /**
-     * The osmbonuspack API uses their own RoadManager class, as described here:
-     * https://github.com/MKergall/osmbonuspack/wiki/Tutorial_1
-     * However, the class uses the Mapquest API, which requires the user registration for the API key,
-     * and enforces quite restrictive usage conditions.
-     * We'll use the Open Street Routing Machine demo server instead.
-     * Please read the API usage policy here:
-     * https://github.com/Project-OSRM/osrm-backend/wiki/Api-usage-policy
-     */
-    private void askOsrm(final List<GeoPoint> waypoints) {
+    private Road road;
 
-        String polyline = encode(waypoints);
-        try {
-            polyline = URLEncoder.encode(polyline, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            polyline = "";
-        }
-        final String uri = "http://router.project-osrm.org/route/v1/" + Data.sRoutingProfile + "/polyline(" + polyline + ")?alternatives=true&overview=full";
+    private void getOsrmRoute(final ArrayList<GeoPoint> waypoints) {
 
-        Log.d(TAG, uri);
+        final RoadManager roadManager = new OSRMRoadManager(this);
 
         AsyncTask<Void, Void, Boolean> getHttpRequest = new AsyncTask<Void, Void, Boolean>() {
             @Override
@@ -850,42 +787,37 @@ public class RouteCreatorActivity extends Utils
             @Override
             protected Boolean doInBackground(Void... params) {
 
-                responseString = null;
-
-                HttpResponse response = null;
-                try {
-                    HttpClient client = new DefaultHttpClient();
-                    HttpGet request = new HttpGet();
-                    request.setURI(new URI(uri));
-                    response = client.execute(request);
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                } catch (ClientProtocolException e) {
-                    Log.d(TAG, "ClientProtocolException: " + e);
-                } catch (IOException e) {
-                    Log.d(TAG, "IOException: " + e);
-                }
-
-                if (response != null) {
-                    try {
-                        InputStream inputStream = response.getEntity().getContent();
-                        responseString = convertStreamToString(inputStream);
-                    } catch (IOException e) {
-                        responseString = null;
-                        e.printStackTrace();
-                    }
-                }
+                road = roadManager.getRoad(waypoints);
                 return true;
             }
 
             @Override
             protected void onPostExecute(Boolean result) {
 
-                if (responseString != null && !responseString.isEmpty()) {
+                if (road != null) {
 
-                    Log.d(TAG, "Response: " + responseString);
+                    Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
 
-                    parseOsrmResponse(responseString); // and store results in List<Route> Data.osrmRoutes
+                    Data.osrmRoute = new Route();
+
+                    for (GeoPoint geoPoint : roadOverlay.getPoints()) {
+
+                        RoutePoint routePoint = new RoutePoint();
+                        routePoint.setLatitude(geoPoint.getLatitude());
+                        routePoint.setLongitude(geoPoint.getLongitude());
+
+                        Data.osrmRoute.addRoutePoint(routePoint);
+                    }
+                    Data.osrmRoute.setName("Auto_" + String.valueOf(System.currentTimeMillis())
+                            .substring(7));
+                    Data.osrmRoute.setType("OSRM");
+
+                    /*
+                     * Let's simplify the path so that it had up to 10 route points per kilometer
+                     * at maximum error 6 m.
+                     */
+                    double distance = GpxUtils.lengthOfRoute(Data.osrmRoute);
+                    GpxUtils.simplifyRoute(Data.osrmRoute, (int) distance / 100, 6d);
 
                     refreshMap();
 
@@ -897,6 +829,7 @@ public class RouteCreatorActivity extends Utils
         };
         getHttpRequest.execute();
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {

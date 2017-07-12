@@ -93,6 +93,9 @@ public class MainActivity extends Utils {
     LinearLayout saveButton;
     LinearLayout syncButton;
 
+    AlertDialog mSettingsDialog;
+    EditText mMapQuestKey;
+
     private boolean mOnSyncButton = false;
 
     ListView list;
@@ -627,17 +630,20 @@ public class MainActivity extends Utils {
 
     private void displaySettingsDialog() {
 
+        loadSettings();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
         final View layout = inflater.inflate(R.layout.settings_dialog, null);
 
-        final Spinner spinner = (Spinner) layout.findViewById(R.id.units_spinner);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.units_array));
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-        spinner.setSelection(Data.sUnitsInUse.getCode());
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        final Spinner units_spinner = (Spinner) layout.findViewById(R.id.units_spinner);
+        ArrayAdapter<String> dataAdapterUnits = new ArrayAdapter<>(this, android.R.layout
+                .simple_spinner_item, getResources().getStringArray(R.array.units_array));
+        dataAdapterUnits.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        units_spinner.setAdapter(dataAdapterUnits);
+        units_spinner.setSelection(Data.sUnitsInUse.getCode());
+        units_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
 
@@ -661,6 +667,50 @@ public class MainActivity extends Utils {
             }
         });
 
+        mMapQuestKey = (EditText) layout.findViewById(R.id.key_edit);
+
+        final Spinner routing_spinner = (Spinner) layout.findViewById(R.id.routing_spinner);
+        ArrayAdapter<String> dataAdapterRouting = new ArrayAdapter<>(this, android.R.layout
+                .simple_spinner_item, getResources().getStringArray(R.array.settings_routing_array));
+        dataAdapterRouting.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        routing_spinner.setAdapter(dataAdapterRouting);
+        if (Data.sRoutingSource == null) {
+            Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
+        }
+        routing_spinner.setSelection(Data.sRoutingSource);
+        routing_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+
+                switch (pos) {
+                    case 0:
+                        Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
+                        break;
+                    case 1:
+                        Data.sRoutingSource = Data.ROUTING_SRC_MAPQUEST;
+                        break;
+                    default:
+                        Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
+                        break;
+                }
+                mMapQuestKey.setEnabled(Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST);
+
+                if (mSettingsDialog != null) {
+
+                    Button okButton = mSettingsDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                    okButton.setEnabled(!mMapQuestKey.getText().toString().equals("") || Data
+                            .sRoutingSource == Data.ROUTING_SRC_OSRM);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        mMapQuestKey.setText(Data.sMapQuestKey);
+        mMapQuestKey.setEnabled(Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST);
+
         final CheckBox rotationCheckBox = (CheckBox) layout.findViewById(R.id.rotationCheckBox);
         rotationCheckBox.setChecked(Data.sAllowRotation);
         rotationCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -677,11 +727,38 @@ public class MainActivity extends Utils {
                 .setView(layout)
                 .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+
+                        Data.sMapQuestKey = mMapQuestKey.getText().toString();
                         saveSettings();
                     }
                 });
-        AlertDialog alert = builder.create();
-        alert.show();
+        mSettingsDialog = builder.create();
+        mSettingsDialog.show();
+
+        final Button okButton = mSettingsDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+        final TextWatcher validate_key = new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+                okButton.setEnabled(!arg0.toString().equals("") || Data.sRoutingSource == Data
+                        .ROUTING_SRC_OSRM);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int a, int b, int c) {
+
+                okButton.setEnabled(!s.toString().equals("") || Data.sRoutingSource == Data
+                        .ROUTING_SRC_OSRM);
+
+            }
+        };
+        mMapQuestKey.addTextChangedListener(validate_key);
     }
 
     private void displayWhatsNewDialog() {

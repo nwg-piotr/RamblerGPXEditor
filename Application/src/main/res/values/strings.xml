@@ -277,6 +277,16 @@
     <string name="settings">Settings</string>
     <string name="settings_map_rotation">Allow map rotation</string>
     <string name="settings_units_label">Units</string>
+    <string name="settings_routing_label">Routing server</string>
+    <string name="settings_routing_osrm" translatable="false">OSRM</string>
+    <string name="settings_routing_mapquest" translatable="false">MapQuest</string>
+
+    <string name="settings_key_label">MapQuest API key</string>
+
+    <string-array name="settings_routing_array" translatable="false">
+        <item>@string/settings_routing_osrm</item>
+        <item>@string/settings_routing_mapquest</item>
+    </string-array>
 
     <string name="shared_folder_created">SharedData folder created</string>
     <string name="shared_folder_failure">Failed creating SharedData folder</string>

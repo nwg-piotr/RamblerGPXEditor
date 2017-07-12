@@ -25,14 +25,23 @@ final class Data {
 
     static boolean firstRun;
 
-    static List<GeoPoint> sCardinalGeoPoints;
+    static ArrayList<GeoPoint> sCardinalGeoPoints;
     static GeoPoint sCurrentPosition;
-    static List<Route> osrmRoutes;
+    static Route osrmRoute;
 
     static String sRoutingProfile;
 
-    static int sAlternativesNumber;
-    static Integer sSelectedAlternative;
+    static final int ROUTING_SRC_OSRM = 0;
+    static final int ROUTING_SRC_MAPQUEST = 1;
+    static Integer sRoutingSource = null;
+    static String sMapQuestKey = "";
+
+    /**
+     * Routing profile to be used in the MapQuest API request
+     */
+    static final String MODE_CAR = "fastest";
+    static final String MODE_BIKE = "bicycle";
+    static final String MODE_FOOT = "pedestrian";
 
     static Gpx mGpx = null;
 
