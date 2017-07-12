@@ -34,7 +34,22 @@ final class Data {
     static final int ROUTING_SRC_OSRM = 0;
     static final int ROUTING_SRC_MAPQUEST = 1;
     static Integer sRoutingSource = null;
-    static String sMapQuestKey = "";
+
+    /**
+     * Encode your MapQuest API key (e.g. at https://www.base64encode.org/) and paste below
+     * if you want the app to use it.
+     *
+     * Leave the line UNCHANGED:
+     *
+     * String sEncodedKey = "YOUR_BASE64_ENCODED_KEY_HERE";
+     *
+     * if you don't want to provide a key. User will be able to enter their own value.
+     */
+    static String sEncodedKey = "UUFxYjZ1WGJhbjFJbXVpclpJUHM3NGhieW5NQkczWmc=";
+
+    static String sAppMapQuestKey = "";
+    static String sUsersMapQuestKey = "";
+    static String sMapQuestKeyInUse = "";
 
     /**
      * Routing profile to be used in the MapQuest API request

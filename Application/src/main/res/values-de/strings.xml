@@ -289,4 +289,5 @@
     <string name="dialog_confirm_clear_title">Daten löschen</string>
     <string name="settings_routing_label">Routing-Server</string>
     <string name="settings_key_label">MapQuest API-Schlüssel</string>
+    <string name="settings_key_mask">STANDARD_API_SCHLÜSSEL</string>
 </resources>

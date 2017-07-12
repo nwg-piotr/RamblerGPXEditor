@@ -291,4 +291,5 @@
     <string name="dialog_confirm_clear_title">Usuwanie danych</string>
     <string name="settings_routing_label">Serwer routingu</string>
     <string name="settings_key_label">Klucz API MapQuest</string>
+    <string name="settings_key_mask">DOMYŚLY_KLUCZ_API</string>
 </resources>

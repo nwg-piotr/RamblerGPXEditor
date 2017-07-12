@@ -25,6 +25,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,6 +154,8 @@ public class MainActivity extends Utils {
         mDrawerList = (ListView) findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
+
+        setAppsMapQuestKey();
 
         addDrawerItems();
         setupDrawer();
@@ -632,6 +636,14 @@ public class MainActivity extends Utils {
 
         loadSettings();
 
+        if(!Data.sUsersMapQuestKey.equals("")) {
+            Data.sMapQuestKeyInUse = Data.sUsersMapQuestKey;
+        } else if (!Data.sAppMapQuestKey.equals("")) {
+            Data.sMapQuestKeyInUse = Data.sAppMapQuestKey;
+        } else {
+            Data.sMapQuestKeyInUse = "";
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -667,8 +679,6 @@ public class MainActivity extends Utils {
             }
         });
 
-        mMapQuestKey = (EditText) layout.findViewById(R.id.key_edit);
-
         final Spinner routing_spinner = (Spinner) layout.findViewById(R.id.routing_spinner);
         ArrayAdapter<String> dataAdapterRouting = new ArrayAdapter<>(this, android.R.layout
                 .simple_spinner_item, getResources().getStringArray(R.array.settings_routing_array));
@@ -693,23 +703,12 @@ public class MainActivity extends Utils {
                         Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
                         break;
                 }
-                mMapQuestKey.setEnabled(Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST);
-
-                if (mSettingsDialog != null) {
-
-                    Button okButton = mSettingsDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                    okButton.setEnabled(!mMapQuestKey.getText().toString().equals("") || Data
-                            .sRoutingSource == Data.ROUTING_SRC_OSRM);
-                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
-        mMapQuestKey.setText(Data.sMapQuestKey);
-        mMapQuestKey.setEnabled(Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST);
 
         final CheckBox rotationCheckBox = (CheckBox) layout.findViewById(R.id.rotationCheckBox);
         rotationCheckBox.setChecked(Data.sAllowRotation);
@@ -723,42 +722,37 @@ public class MainActivity extends Utils {
 
         builder.setTitle(getResources().getString(R.string.settings))
                 .setIcon(R.drawable.ico_settings)
-                .setCancelable(false)
+                .setCancelable(true)
                 .setView(layout)
                 .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Data.sMapQuestKey = mMapQuestKey.getText().toString();
+                        Data.sUsersMapQuestKey = mMapQuestKey.getText().toString();
                         saveSettings();
                     }
                 });
         mSettingsDialog = builder.create();
         mSettingsDialog.show();
 
-        final Button okButton = mSettingsDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-
-        final TextWatcher validate_key = new TextWatcher() {
-
+        mMapQuestKey = (EditText) layout.findViewById(R.id.key_edit);
+        if(Data.sMapQuestKeyInUse.equals(Data.sUsersMapQuestKey)) {
+            mMapQuestKey.setText(Data.sMapQuestKeyInUse);
+        } else {
+            mMapQuestKey.setText(getResources().getString(R.string.settings_key_mask));
+        }
+        mMapQuestKey.setEnabled(false);
+        TextView keyLabel = (TextView) layout.findViewById(R.id.key_label);
+        keyLabel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void afterTextChanged(Editable arg0) {
+            public void onClick(View v) {
+
+                if(mMapQuestKey.getText().toString().equals(getResources().getString(R.string
+                        .settings_key_mask))) {
+                    mMapQuestKey.setText("");
+                }
+                mMapQuestKey.setEnabled(!mMapQuestKey.isEnabled());
             }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-
-                okButton.setEnabled(!arg0.toString().equals("") || Data.sRoutingSource == Data
-                        .ROUTING_SRC_OSRM);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int a, int b, int c) {
-
-                okButton.setEnabled(!s.toString().equals("") || Data.sRoutingSource == Data
-                        .ROUTING_SRC_OSRM);
-
-            }
-        };
-        mMapQuestKey.addTextChangedListener(validate_key);
+        });
     }
 
     private void displayWhatsNewDialog() {

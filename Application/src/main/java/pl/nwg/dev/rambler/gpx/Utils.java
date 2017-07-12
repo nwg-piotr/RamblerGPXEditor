@@ -13,14 +13,11 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.location.Location;
+import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
@@ -32,6 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +45,6 @@ import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.RoutePoint;
 import pt.karambola.gpx.beans.Track;
 import pt.karambola.gpx.beans.TrackPoint;
-import pt.karambola.gpx.util.GpxUtils;
 
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
@@ -589,7 +586,7 @@ public class Utils extends Activity {
 
         Data.sAllowRotation = preferences.getBoolean("rotation", false);
         Data.sRoutingSource = preferences.getInt("source", Data.ROUTING_SRC_OSRM);
-        Data.sMapQuestKey = preferences.getString("mqkey", "");
+        Data.sUsersMapQuestKey = preferences.getString("mqkey", "");
     }
 
     protected void saveSettings() {
@@ -605,10 +602,26 @@ public class Utils extends Activity {
             editor.putInt("source", Data.ROUTING_SRC_OSRM);
         }
 
-        editor.putString("mqkey", Data.sMapQuestKey);
+        editor.putString("mqkey", Data.sUsersMapQuestKey);
 
         editor.putBoolean("rotation", Data.sAllowRotation);
 
         editor.apply();
+    }
+
+    protected void setAppsMapQuestKey() {
+
+        if(!Data.sEncodedKey.equals("YOUR_BASE64_ENCODED_KEY_HERE")) {
+
+            byte[] data = Base64.decode(Data.sEncodedKey, Base64.DEFAULT);
+            try {
+                Data.sAppMapQuestKey = new String(data, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                Data.sAppMapQuestKey = "";
+                Log.d(TAG, "UnsupportedEncodingException" + e);
+            }
+        } else {
+            Data.sAppMapQuestKey = "";
+        }
     }
 }

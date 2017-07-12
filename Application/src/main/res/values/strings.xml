@@ -288,6 +288,8 @@
         <item>@string/settings_routing_mapquest</item>
     </string-array>
 
+    <string name="settings_key_mask">DEFAULT_API_KEY</string>
+
     <string name="shared_folder_created">SharedData folder created</string>
     <string name="shared_folder_failure">Failed creating SharedData folder</string>
 
