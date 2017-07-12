@@ -1,5 +1,12 @@
 CHANGELOG
 ===============
+**12th July, 2017**
+
+Preparation to use of alternative routing servers in the Route Creator:
+
+- Own OSRM request and parsing replaced with @osmbonuspack `RoadManager` class.
+- Fields to change the routing source (OSRM / MapQuest) and enter the MapQuest API key added to the settings dialog.
+
 **4th July, 2017**
 
 - German translation corrected by @RigiRitter (Many thanks!).
