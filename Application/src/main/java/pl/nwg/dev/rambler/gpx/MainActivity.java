@@ -703,6 +703,14 @@ public class MainActivity extends Utils {
                         Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
                         break;
                 }
+                final Button saveButton = mSettingsDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+                if(Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST && mMapQuestKey.getText()
+                        .toString().isEmpty()) {
+                    saveButton.setEnabled(false);
+                } else {
+                    saveButton.setEnabled(true);
+                }
             }
 
             @Override
@@ -753,6 +761,29 @@ public class MainActivity extends Utils {
                 mMapQuestKey.setEnabled(!mMapQuestKey.isEnabled());
             }
         });
+
+        final Button saveButton = mSettingsDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+        final TextWatcher validate_key = new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int a, int b, int c) {
+
+                saveButton.setEnabled(!s.toString().equals("") || Data.sRoutingSource != Data
+                        .ROUTING_SRC_MAPQUEST);
+
+            }
+        };
+        mMapQuestKey.addTextChangedListener(validate_key);
     }
 
     private void displayWhatsNewDialog() {
