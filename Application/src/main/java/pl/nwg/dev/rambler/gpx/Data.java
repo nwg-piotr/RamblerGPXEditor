@@ -45,7 +45,7 @@ final class Data {
      *
      * if you don't want to provide a key. User will be able to enter their own value.
      */
-    static String sEncodedKey = "UUFxYjZ1WGJhbjFJbXVpclpJUHM3NGhieW5NQkczWmc=";
+    static String sEncodedKey = "YOUR_BASE64_ENCODED_KEY_HERE";
 
     static String sAppMapQuestKey = "";
     static String sUsersMapQuestKey = "";
