@@ -10,9 +10,14 @@
         android:title="@string/creator_clear_waypoints" />
 
     <item
+        android:id="@+id/routing_server"
+        android:orderInCategory="110"
+        android:title="@string/settings_routing_label" />
+
+    <item
         android:id="@+id/show_poi"
         android:checkable="true"
-        android:orderInCategory="110"
+        android:orderInCategory="120"
         android:title="@string/show_poi" />
 
 </menu>

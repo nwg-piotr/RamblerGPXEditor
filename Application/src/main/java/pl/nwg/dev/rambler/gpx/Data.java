@@ -29,34 +29,30 @@ final class Data {
     static GeoPoint sCurrentPosition;
     static Route osrmRoute;
 
-    static String sRoutingProfile;
-
     static final int ROUTING_SRC_OSRM = 0;
     static final int ROUTING_SRC_MAPQUEST = 1;
     static Integer sRoutingSource = null;
 
     /**
      * Encode your MapQuest API key (e.g. at https://www.base64encode.org/) and paste below
-     * if you want the app to use it.
-     *
-     * Leave the line UNCHANGED:
+     * if you want the app to use it. Leave the line UNCHANGED (as below):
      *
      * String sEncodedKey = "YOUR_BASE64_ENCODED_KEY_HERE";
      *
-     * if you don't want to provide a key. User will be able to enter their own value.
+     * if you don't want to provide a key.
      */
     static String sEncodedKey = "YOUR_BASE64_ENCODED_KEY_HERE";
 
-    static String sAppMapQuestKey = "";
-    static String sUsersMapQuestKey = "";
-    static String sMapQuestKeyInUse = "";
+    static String sMapQuestKey = "";
 
     /**
      * Routing profile to be used in the MapQuest API request
      */
-    static final String MODE_CAR = "fastest";
-    static final String MODE_BIKE = "bicycle";
-    static final String MODE_FOOT = "pedestrian";
+    static final String MODE_CAR = "routeType=fastest";
+    static final String MODE_BIKE = "routeType=bicycle";
+    static final String MODE_FOOT = "routeType=pedestrian";
+
+    static String sRoutingProfile = MODE_CAR;
 
     static Gpx mGpx = null;
 
@@ -138,5 +134,4 @@ final class Data {
      */
     static Integer sSelectedTrackIdx = null;
 
-    static List<GeoPoint> trackNodes;
 }

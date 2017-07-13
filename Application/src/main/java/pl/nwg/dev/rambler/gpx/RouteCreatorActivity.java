@@ -8,23 +8,31 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +43,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
@@ -62,6 +71,7 @@ import java.util.List;
 import java.util.Map;
 
 import pt.karambola.commons.collections.ListUtils;
+import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Point;
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.RoutePoint;
@@ -107,8 +117,6 @@ public class RouteCreatorActivity extends Utils
     private MyLocationNewOverlay mLocationOverlay;
 
     private RotationGestureOverlay mRotationGestureOverlay;
-
-    //private Route selectedOsrmRoute;
 
     private Map<Marker, Point> markerToPoi;
 
@@ -187,7 +195,7 @@ public class RouteCreatorActivity extends Utils
             public boolean longPressHelper(GeoPoint p) {
 
                 Data.sCardinalGeoPoints.add(new GeoPoint(p));
-                clearResults();
+                //clearResults();
                 refreshMap();
                 return false;
             }
@@ -324,7 +332,7 @@ public class RouteCreatorActivity extends Utils
                     GeoPoint dragged = markerToCardinalWaypoint.get(marker);
                     dragged.setCoords(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
 
-                    clearResults();
+                    Data.osrmRoute = null;
                     refreshMap();
                 }
 
@@ -512,7 +520,36 @@ public class RouteCreatorActivity extends Utils
         copyright.setMovementMethod(LinkMovementMethod.getInstance());
 
         final TextView routingBy = (TextView) findViewById(R.id.routing_by);
-        routingBy.setMovementMethod(LinkMovementMethod.getInstance());
+        routingBy.setPaintFlags(routingBy.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        if (Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST) {
+
+            routingBy.setText(getResources().getString(R.string
+                    .credits_routing_mapquest));
+
+            routingBy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri = Uri.parse("http://www.mapquest.com");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            });
+
+        } else {
+
+            routingBy.setText(getResources().getString(R.string
+                    .credits_routing_osrm));
+
+            routingBy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri = Uri.parse("http://project-osrm.org");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void setButtonsState() {
@@ -553,6 +590,18 @@ public class RouteCreatorActivity extends Utils
             saveButton.getBackground().setAlpha(100);
         }
 
+        /*
+         * "routeType=..." is unavailable for the OSRM Demo Server.
+         * Let's disable the switch if OSRM selected in common settings.
+         */
+        if (Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST) {
+            modeButton.setEnabled(true);
+            modeButton.getBackground().setAlpha(255);
+        } else {
+            modeButton.setEnabled(false);
+            modeButton.getBackground().setAlpha(100);
+        }
+
     }
 
     private void displayDeleteWaypointDialog(final GeoPoint geoPoint) {
@@ -567,7 +616,7 @@ public class RouteCreatorActivity extends Utils
 
                         Data.sCardinalGeoPoints.remove(geoPoint);
 
-                        clearResults();
+                        Data.osrmRoute = null;
                         refreshMap();
                     }
                 })
@@ -580,6 +629,64 @@ public class RouteCreatorActivity extends Utils
         mDeleteWayPointDialog = builder.create();
         mDeleteWayPointDialog.show();
 
+    }
+
+    private void displaySettingsDialog() {
+
+        loadSettings();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        final View layout = inflater.inflate(R.layout.dialog_settings_creator, null);
+
+        final Spinner routing_spinner = (Spinner) layout.findViewById(R.id.routing_spinner);
+        routing_spinner.setEnabled(!Data.sEncodedKey.equals("YOUR_BASE64_ENCODED_KEY_HERE"));
+
+        ArrayAdapter<String> dataAdapterRouting = new ArrayAdapter<>(this, android.R.layout
+                .simple_spinner_item, getResources().getStringArray(R.array.settings_routing_array));
+        dataAdapterRouting.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        routing_spinner.setAdapter(dataAdapterRouting);
+        if (Data.sRoutingSource == null) {
+            Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
+        }
+        routing_spinner.setSelection(Data.sRoutingSource);
+        routing_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+
+                switch (pos) {
+                    case 0:
+                        Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
+                        break;
+                    case 1:
+                        Data.sRoutingSource = Data.ROUTING_SRC_MAPQUEST;
+                        break;
+                    default:
+                        Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        builder.setTitle(getResources().getString(R.string.settings_routing_label))
+                .setIcon(R.drawable.ico_settings)
+                .setCancelable(true)
+                .setView(layout)
+                .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        saveSettings();
+                        setUpButtons();
+                        refreshMap();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public void addFromPoi(final Point poi) {
@@ -744,6 +851,8 @@ public class RouteCreatorActivity extends Utils
         } else {
             menu.findItem(R.id.clear_waypoints).setEnabled(true);
         }
+        menu.findItem(R.id.routing_server).setEnabled(!Data.sMapQuestKey.isEmpty());
+
         menu.findItem(R.id.show_poi).setChecked(showPoi);
 
         return super.onPrepareOptionsMenu(menu);
@@ -761,6 +870,11 @@ public class RouteCreatorActivity extends Utils
                 refreshMap();
                 return true;
 
+            case R.id.routing_server:
+
+                displaySettingsDialog();
+                return true;
+
             case R.id.clear_waypoints:
                 Data.sCardinalGeoPoints = new ArrayList<>();
                 Data.osrmRoute = null;
@@ -776,7 +890,18 @@ public class RouteCreatorActivity extends Utils
 
     private void getOsrmRoute(final ArrayList<GeoPoint> waypoints) {
 
-        final RoadManager roadManager = new OSRMRoadManager(this);
+        final RoadManager roadManager;
+
+        if (Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST) {
+
+            roadManager = new MapQuestRoadManager(Data.sMapQuestKey);
+
+            roadManager.addRequestOption(Data.sRoutingProfile);
+
+        } else {
+
+            roadManager = new OSRMRoadManager(this);
+        }
 
         AsyncTask<Void, Void, Boolean> getHttpRequest = new AsyncTask<Void, Void, Boolean>() {
             @Override
@@ -810,7 +935,32 @@ public class RouteCreatorActivity extends Utils
                     }
                     Data.osrmRoute.setName("Auto_" + String.valueOf(System.currentTimeMillis())
                             .substring(7));
-                    Data.osrmRoute.setType("OSRM");
+
+                    /*
+                     * MapQuest supports routing types. Lets assign them to the route.
+                     */
+                    if (Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST) {
+
+                        switch(Data.sRoutingProfile) {
+
+                            case Data.MODE_BIKE:
+                                Data.osrmRoute.setType(getResources().getString(R.string.route_type_bicycle));
+                                break;
+
+                            case Data.MODE_FOOT:
+                                Data.osrmRoute.setType(getResources().getString(R.string
+                                        .route_type_pedestrian));
+                                break;
+
+                            default:
+                                Data.osrmRoute.setType(getResources().getString(R.string
+                                        .route_type_car));
+                                break;
+                        }
+
+                    } else {
+                        Data.osrmRoute.setType("OSRM");
+                    }
 
                     /*
                      * Let's simplify the path so that it had up to 10 route points per kilometer

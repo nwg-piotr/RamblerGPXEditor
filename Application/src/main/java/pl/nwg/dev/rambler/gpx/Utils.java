@@ -586,7 +586,6 @@ public class Utils extends Activity {
 
         Data.sAllowRotation = preferences.getBoolean("rotation", false);
         Data.sRoutingSource = preferences.getInt("source", Data.ROUTING_SRC_OSRM);
-        Data.sUsersMapQuestKey = preferences.getString("mqkey", "");
     }
 
     protected void saveSettings() {
@@ -602,8 +601,6 @@ public class Utils extends Activity {
             editor.putInt("source", Data.ROUTING_SRC_OSRM);
         }
 
-        editor.putString("mqkey", Data.sUsersMapQuestKey);
-
         editor.putBoolean("rotation", Data.sAllowRotation);
 
         editor.apply();
@@ -615,13 +612,15 @@ public class Utils extends Activity {
 
             byte[] data = Base64.decode(Data.sEncodedKey, Base64.DEFAULT);
             try {
-                Data.sAppMapQuestKey = new String(data, "UTF-8");
+                Data.sMapQuestKey = new String(data, "UTF-8");
             } catch (UnsupportedEncodingException e) {
-                Data.sAppMapQuestKey = "";
+                Data.sMapQuestKey = "";
                 Log.d(TAG, "UnsupportedEncodingException" + e);
             }
         } else {
-            Data.sAppMapQuestKey = "";
+            Data.sMapQuestKey = "";
+            Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
+            saveSettings();
         }
     }
 }

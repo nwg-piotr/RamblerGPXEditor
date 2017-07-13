@@ -39,7 +39,8 @@
     <string name="credits_osrm_name" translatable="false">
         <a href="http://project-osrm.org">Open Source Routing Machine</a>
     </string>
-    <string name="credits_routing_source" translatable="false">Routing by <a href="http://project-osrm.org">OSRM</a> Demo Server</string>
+    <string name="credits_routing_mapquest" translatable="false">Routing by <u>MapQuest</u></string>
+    <string name="credits_routing_osrm" translatable="false">Routing by <u>OSRM</u> Demo Server</string>
 
     <string name="credits_logo">App logo by <a href="https://github.com/edskeye">edskeye</a></string>
 
@@ -247,6 +248,9 @@
     <string name="route_edit_number_label">Number</string>
     <string name="route_edit_prompt">Select a route</string>
     <string name="route_points_limited">Points number reduced to %1$d</string>
+    <string name="route_type_bicycle">Bicycle</string>
+    <string name="route_type_car">Car</string>
+    <string name="route_type_pedestrian">Pedestrian</string>
 
     <string name="routes_clear">Clear all routes</string>
     <string name="routes_cleared">Routes cleared</string>
@@ -329,7 +333,7 @@
     <string name="warning_poi_filtered_out">POI will be invisible at current filter settings</string>
 
     <string name="waypoint_delete">Delete waypoint?</string>
-    <string name="waypoint_edit_title">Edit waypoint</string>
+    <string name="waypoint_edit_title">Edit route point</string>
 
     <string name="whats_new_dont_show">Don\'t show again</string>
     <string name="whats_new_message">Everything is new, however still under development.</string>

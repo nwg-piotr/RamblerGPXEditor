@@ -25,7 +25,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
-import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -47,7 +46,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,9 +92,6 @@ public class MainActivity extends Utils {
     LinearLayout openButton;
     LinearLayout saveButton;
     LinearLayout syncButton;
-
-    AlertDialog mSettingsDialog;
-    EditText mMapQuestKey;
 
     private boolean mOnSyncButton = false;
 
@@ -636,18 +631,10 @@ public class MainActivity extends Utils {
 
         loadSettings();
 
-        if(!Data.sUsersMapQuestKey.equals("")) {
-            Data.sMapQuestKeyInUse = Data.sUsersMapQuestKey;
-        } else if (!Data.sAppMapQuestKey.equals("")) {
-            Data.sMapQuestKeyInUse = Data.sAppMapQuestKey;
-        } else {
-            Data.sMapQuestKeyInUse = "";
-        }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
-        final View layout = inflater.inflate(R.layout.settings_dialog, null);
+        final View layout = inflater.inflate(R.layout.dialog_settings_main, null);
 
         final Spinner units_spinner = (Spinner) layout.findViewById(R.id.units_spinner);
         ArrayAdapter<String> dataAdapterUnits = new ArrayAdapter<>(this, android.R.layout
@@ -679,45 +666,6 @@ public class MainActivity extends Utils {
             }
         });
 
-        final Spinner routing_spinner = (Spinner) layout.findViewById(R.id.routing_spinner);
-        ArrayAdapter<String> dataAdapterRouting = new ArrayAdapter<>(this, android.R.layout
-                .simple_spinner_item, getResources().getStringArray(R.array.settings_routing_array));
-        dataAdapterRouting.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        routing_spinner.setAdapter(dataAdapterRouting);
-        if (Data.sRoutingSource == null) {
-            Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
-        }
-        routing_spinner.setSelection(Data.sRoutingSource);
-        routing_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
-
-                switch (pos) {
-                    case 0:
-                        Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
-                        break;
-                    case 1:
-                        Data.sRoutingSource = Data.ROUTING_SRC_MAPQUEST;
-                        break;
-                    default:
-                        Data.sRoutingSource = Data.ROUTING_SRC_OSRM;
-                        break;
-                }
-                final Button saveButton = mSettingsDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-
-                if(Data.sRoutingSource == Data.ROUTING_SRC_MAPQUEST && mMapQuestKey.getText()
-                        .toString().isEmpty()) {
-                    saveButton.setEnabled(false);
-                } else {
-                    saveButton.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
         final CheckBox rotationCheckBox = (CheckBox) layout.findViewById(R.id.rotationCheckBox);
         rotationCheckBox.setChecked(Data.sAllowRotation);
         rotationCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -730,60 +678,16 @@ public class MainActivity extends Utils {
 
         builder.setTitle(getResources().getString(R.string.settings))
                 .setIcon(R.drawable.ico_settings)
-                .setCancelable(true)
+                .setCancelable(false)
                 .setView(layout)
                 .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Data.sUsersMapQuestKey = mMapQuestKey.getText().toString();
                         saveSettings();
                     }
                 });
-        mSettingsDialog = builder.create();
-        mSettingsDialog.show();
-
-        mMapQuestKey = (EditText) layout.findViewById(R.id.key_edit);
-        if(Data.sMapQuestKeyInUse.equals(Data.sUsersMapQuestKey)) {
-            mMapQuestKey.setText(Data.sMapQuestKeyInUse);
-        } else {
-            mMapQuestKey.setText(getResources().getString(R.string.settings_key_mask));
-        }
-        mMapQuestKey.setEnabled(false);
-        TextView keyLabel = (TextView) layout.findViewById(R.id.key_label);
-        keyLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(mMapQuestKey.getText().toString().equals(getResources().getString(R.string
-                        .settings_key_mask))) {
-                    mMapQuestKey.setText("");
-                }
-                mMapQuestKey.setEnabled(!mMapQuestKey.isEnabled());
-            }
-        });
-
-        final Button saveButton = mSettingsDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-
-        final TextWatcher validate_key = new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int a, int b, int c) {
-
-                saveButton.setEnabled(!s.toString().equals("") || Data.sRoutingSource != Data
-                        .ROUTING_SRC_MAPQUEST);
-
-            }
-        };
-        mMapQuestKey.addTextChangedListener(validate_key);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void displayWhatsNewDialog() {

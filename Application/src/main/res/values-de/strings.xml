@@ -272,7 +272,7 @@
     <string name="warning_poi_filtered_out">POI wird unsichtbar sein bei den aktuellen Filtereinstellungen</string>
 
     <string name="waypoint_delete">Wegpunkt löschen?</string>
-    <string name="waypoint_edit_title">Bearbeite Wegpunkt</string>
+    <string name="waypoint_edit_title">Bearbeite Routenpunkt</string>
 
     <string name="whats_new_dont_show">Nicht mehr anzeigen</string>
     <string name="whats_new_message">Alles ist neu, aber immer noch in der Entwicklung.</string>
@@ -290,4 +290,7 @@
     <string name="settings_routing_label">Routing-Server</string>
     <string name="settings_key_label">MapQuest API-Schlüssel</string>
     <string name="settings_key_mask">STANDARD_API_SCHLÜSSEL</string>
+    <string name="route_type_pedestrian">Fußgänger</string>
+    <string name="route_type_car">Wagen</string>
+    <string name="route_type_bicycle">Fahrrad</string>
 </resources>

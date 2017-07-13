@@ -27,38 +27,6 @@
             android:layout_marginTop="10dp"
             android:layout_weight="4" />
 
-        <TextView
-            android:id="@+id/routing_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_routing_label"
-            android:layout_marginTop="10dp"
-            android:textColor="#333"
-            android:textSize="16sp" />
-
-        <Spinner
-            android:id="@+id/routing_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="4" />
-
-        <TextView
-            android:id="@+id/key_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_key_label"
-            android:layout_marginTop="10dp"
-            android:textColor="#333"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/key_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:inputType="text"/>
-
         <CheckBox
             android:id="@+id/rotationCheckBox"
             android:layout_width="match_parent"

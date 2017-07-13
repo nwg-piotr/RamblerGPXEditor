@@ -292,4 +292,7 @@
     <string name="settings_routing_label">Serwer routingu</string>
     <string name="settings_key_label">Klucz API MapQuest</string>
     <string name="settings_key_mask">DOMYŚLY_KLUCZ_API</string>
+    <string name="route_type_pedestrian">Pieszo</string>
+    <string name="route_type_car">Samochód</string>
+    <string name="route_type_bicycle">Rower</string>
 </resources>
