@@ -5,7 +5,9 @@ CHANGELOG
 - MapQuest routing added to the Route Creator. Supports modes: Car / Bicycle / Pedestrian. You need
 to fill the `static String sEncodedKey = "YOUR_BASE64_ENCODED_KEY_HERE";` in the `Data` class
 with your API key to build your own apk. Get it here: https://developer.mapquest.com. 
-- Dialog to switch routing sources added to the Route Creator menu. 
+- Dialog to switch routing sources added to the Route Creator menu.
+- Credits dialog updated, Wiki in About dialog linked.
+- First public release (1.0.0) uploaded on the Play Store.
 
 
 **12th July, 2017**
