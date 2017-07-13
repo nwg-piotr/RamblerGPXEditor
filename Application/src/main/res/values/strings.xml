@@ -36,6 +36,9 @@
     <string name="credits_osmdroid_name" translatable="false">
         <a href="https://github.com/osmdroid/osmdroid">osmdroid</a>
     </string>
+    <string name="credits_mapquest_name" translatable="false">
+        <a href="https://www.mapquest.com">MapQuest</a>
+    </string>
     <string name="credits_osrm_name" translatable="false">
         <a href="http://project-osrm.org">Open Source Routing Machine</a>
     </string>
@@ -148,11 +151,12 @@
     </string>
     <string name="license_bsd2clause" translatable="false">Licensed under the <a href="https://opensource.org/licenses/BSD-2-Clause">2-clause BSD license</a>
     </string>
-    <string name="license_demo_server" translatable="false">The Route Creator activity depends on routing from OSRM Demo Server, and the <a href="https://opendatacommons.org/licenses/odbl">ODbl license</a> applies to it.</string>
+    <string name="license_demo_server" translatable="false">The Route Creator activity depends on routing from OSRM Demo Server, and <a href="https://developer.mapquest.com/documentation/open">MapQuest Open APIs</a>, and the <a href="https://opendatacommons.org/licenses/odbl">ODbl license</a> applies to it.</string>
     <string name="license_gnuelesser" translatable="false">Licensed under the <a href="https://www.gnu.org/licenses/lgpl-3.0.en.html">GNU Lesser General Public License Version 3</a>
     </string>
     <string name="license_gpl30" translatable="false">Licensed under the <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3.0</a>
     </string>
+    <string name="license_mapquest" translatable="false">©2017 MapQest, Inc. All rights reserved. Please read <a href="https://hello.mapquest.com/terms-of-use">Terms of use</a>.</string>
 
     <string name="location_unavailable">Location not available</string>
 
@@ -302,6 +306,9 @@
     <string name="simplifying">Simplifying…</string>
 
     <string name="sync_data">Sync data</string>
+
+    <string name="tou_osrm">OSRM Terms of use</string>
+    <string name="tou_mapquest">MapQuest Terms of use</string>
 
     <string name="track_edit_prompt">Select a track</string>
     <string name="track_reduce">Optimization</string>

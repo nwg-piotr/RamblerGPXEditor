@@ -97,6 +97,23 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/mapquest_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/credits_mapquest_name"
+            android:textColor="#333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/mapquest_license"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/license_mapquest"
+            android:textColor="#333"
+            android:textSize="14sp" />
+
+        <TextView
             android:id="@+id/osrm_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,6 +134,7 @@
             android:id="@+id/osrm_license_demo_server"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@string/license_demo_server"
             android:textColor="#333"
             android:textSize="14sp" />

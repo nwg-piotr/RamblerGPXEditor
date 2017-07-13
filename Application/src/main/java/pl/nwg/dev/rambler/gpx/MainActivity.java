@@ -573,7 +573,9 @@ public class MainActivity extends Utils {
                 .setNegativeButton(websiteText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Toast.makeText(getApplicationContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+                        Uri uri = Uri.parse("https://github.com/nwg-piotr/RamblerGPXEditor/wiki");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
                     }
                 });
 
@@ -603,6 +605,8 @@ public class MainActivity extends Utils {
         clickableFields.add((TextView) layout.findViewById(R.id.osmbp_license));
         clickableFields.add((TextView) layout.findViewById(R.id.osrm_name));
         clickableFields.add((TextView) layout.findViewById(R.id.osrm_license));
+        clickableFields.add((TextView) layout.findViewById(R.id.mapquest_name));
+        clickableFields.add((TextView) layout.findViewById(R.id.mapquest_license));
         clickableFields.add((TextView) layout.findViewById(R.id.osrm_license_demo_server));
         clickableFields.add((TextView) layout.findViewById(R.id.filebrowser_name));
         clickableFields.add((TextView) layout.findViewById(R.id.filebrowser_license));

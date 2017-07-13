@@ -20,4 +20,14 @@
         android:orderInCategory="120"
         android:title="@string/show_poi" />
 
+    <item
+        android:id="@+id/tou_osrm"
+        android:orderInCategory="130"
+        android:title="@string/tou_osrm" />
+
+    <item
+        android:id="@+id/tou_mapquest"
+        android:orderInCategory="140"
+        android:title="@string/tou_mapquest" />
+
 </menu>

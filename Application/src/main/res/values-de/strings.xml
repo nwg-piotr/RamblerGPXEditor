@@ -293,4 +293,6 @@
     <string name="route_type_pedestrian">Fußgänger</string>
     <string name="route_type_car">Wagen</string>
     <string name="route_type_bicycle">Fahrrad</string>
+    <string name="tou_mapquest">MapQuest Nutzungsbedingungen</string>
+    <string name="tou_osrm">OSRM Nutzungsbedingungen</string>
 </resources>

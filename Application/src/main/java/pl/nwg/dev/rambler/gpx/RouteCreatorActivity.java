@@ -853,6 +853,8 @@ public class RouteCreatorActivity extends Utils
         }
         menu.findItem(R.id.routing_server).setEnabled(!Data.sMapQuestKey.isEmpty());
 
+        menu.findItem(R.id.tou_mapquest).setEnabled(!Data.sMapQuestKey.isEmpty());
+
         menu.findItem(R.id.show_poi).setChecked(showPoi);
 
         return super.onPrepareOptionsMenu(menu);
@@ -879,6 +881,18 @@ public class RouteCreatorActivity extends Utils
                 Data.sCardinalGeoPoints = new ArrayList<>();
                 Data.osrmRoute = null;
                 refreshMap();
+                return true;
+
+            case R.id.tou_mapquest:
+                Uri uri = Uri.parse("http://hello.mapquest.com/terms-of-use");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                return true;
+
+            case R.id.tou_osrm:
+                uri = Uri.parse("https://github.com/Project-OSRM/osrm-backend/wiki/Api-usage-policy");
+                intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 return true;
 
             default:
