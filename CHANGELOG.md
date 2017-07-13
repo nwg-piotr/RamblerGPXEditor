@@ -15,7 +15,7 @@ with your API key to build your own apk. Get it here: https://developer.mapquest
 Preparation to use of alternative routing servers in the Route Creator:
 
 - Own OSRM request and parsing replaced with @osmbonuspack `RoadManager` class (alternative routes no longer available).
-- Fields to change the routing source (OSRM / MapQuest) and enter the MapQuest API key added to the settings dialog.
+- Fields to change the routing source (OSRM / MapQuest) added to the Route Creator/settings dialog.
 
 **4th July, 2017**
 
