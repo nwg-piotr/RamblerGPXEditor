@@ -1,4 +1,4 @@
-This project uses the following libraries:
+This project uses the following libraries, services and resources:
 =========
 
 ## [Android Open Source Project](https://source.android.com)
@@ -32,8 +32,17 @@ Copyright @Project-OSRM
 
 Licensed under the [2-clause BSD license](https://opensource.org/licenses/BSD-2-Clause).
 
-The Route Creator activity depends on the routing from OSRM Demo Server, and the 
-[ODbl license](https://opendatacommons.org/licenses/odbl) applies to it. 
+## [MapQuest](http://developer.mapquest.com)
+
+@MapQuest [Directions API](https://developer.mapquest.com/documentation/directions-api/), which is 
+a part of [MapQuest Open APIs](https://developer.mapquest.com/documentation/open).
+
+© 2017 [MAPQUEST](https://developer.mapquest.com), INC. ALL RIGHTS RESERVED. Please read the 
+[Terms of Use](http://hello.mapquest.com/terms-of-use).
+
+**The Route Creator activity depends on the routing data from [OSRM](http://project-osrm.org) Demo Server 
+and/or [MapQuest Open API](https://developer.mapquest.com/documentation/open), and the 
+[ODbl license](https://opendatacommons.org/licenses/odbl) applies to it.** 
 
 ## [AndroidFileBrowser](https://github.com/vaal12/AndroidFileBrowser)
 Copyright @vaal12 Alexey Vassiliev 
