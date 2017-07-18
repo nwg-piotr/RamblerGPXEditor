@@ -981,7 +981,7 @@ public class RouteCreatorActivity extends Utils
                      * at maximum error 6 m.
                      */
                     double distance = GpxUtils.lengthOfRoute(Data.osrmRoute);
-                    GpxUtils.simplifyRoute(Data.osrmRoute, (int) distance / 100, 6d);
+                    GpxUtils.simplifyRoute(Data.osrmRoute, (int) distance / 50, 2d);
 
                     refreshMap();
 
