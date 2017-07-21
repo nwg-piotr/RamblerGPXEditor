@@ -1,5 +1,21 @@
 CHANGELOG
 ===============
+**21 July, 2017**
+
+- Attempt to fix a silent bug (never seen, unreported, but present in the Developer Console crashes
+report): `java.lang.NullPointerException: at pl.nwg.dev.rambler.gpx.CustomListNoIcons.getView(CustomListNoIcons.java:36)`
+- Build 1.0.2
+
+Please **do report** if the crash on opening the drawer (routes/tracks browsing) happens for you 
+(when exactly?).
+
+**20th July, 2017**
+
+- Creator: optimization parameters for received series of coordinates changed to produce more detailed
+routes: `GpxUtils.simplifyRoute(Data.osrmRoute, (int) distance / 100, 6d);` replaced with 
+`GpxUtils.simplifyRoute(Data.osrmRoute, (int) distance / 50, 2d);`, which means up to 20 route points
+ per kilometer at 2 m path precision.
+
 **13th July, 2017**
 
 - MapQuest routing added to the Route Creator. Supports modes: Car / Bicycle / Pedestrian. You need
