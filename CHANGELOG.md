@@ -4,7 +4,7 @@ CHANGELOG
 
 - Attempt to fix a silent bug (never seen, unreported, but present in the Developer Console crashes
 report): `java.lang.NullPointerException: at pl.nwg.dev.rambler.gpx.CustomListNoIcons.getView(CustomListNoIcons.java:36)`
-- Build 1.0.2
+- Build 1.0.3
 
 Please **do report** if the crash on opening the drawer (routes/tracks browsing) happens for you 
 (when exactly?).
