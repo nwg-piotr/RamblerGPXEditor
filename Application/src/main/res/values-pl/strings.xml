@@ -152,7 +152,7 @@
     <string name="no_poi_selected">Nie wybrano POI</string>
     <string name="no_poi_to_clear">Brak POI do usunięcia</string>
     <string name="no_routes_in_view">Brak tras w tym widoku</string>
-    <string name="no_routes_loaded">Nie załadowano tras</string>
+    <string name="no_data_loaded">Nie załadowano danych</string>
     <string name="no_routes_memory">Brak tras w pamięci lub aktualnym widoku</string>
     <string name="no_routes_not_gpx">Brak tras lub nie jest to plik GPX</string>
     <string name="no_routes_selected">Nie wybrano żadnej trasy</string>

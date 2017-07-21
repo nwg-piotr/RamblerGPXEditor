@@ -199,7 +199,7 @@
     <string name="no_poi_selected">No POI selected</string>
     <string name="no_poi_to_clear">No POI to clear</string>
     <string name="no_routes_in_view">No routes in current view</string>
-    <string name="no_routes_loaded">No routes loaded</string>
+    <string name="no_data_loaded">No data loaded</string>
     <string name="no_routes_memory">No routes in memory or current view</string>
     <string name="no_routes_not_gpx">No routes or not a GPX file</string>
     <string name="no_routes_selected">No routes selected</string>

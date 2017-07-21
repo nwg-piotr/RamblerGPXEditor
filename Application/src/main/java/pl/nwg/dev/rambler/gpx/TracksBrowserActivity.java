@@ -70,7 +70,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pt.karambola.geo.Units;
 import pt.karambola.gpx.beans.Gpx;
 import pt.karambola.gpx.beans.Route;
 import pt.karambola.gpx.beans.Track;
@@ -186,7 +185,7 @@ public class TracksBrowserActivity extends Utils
 
         mTitle = mDrawerTitle = getTitle();
 
-        web[0] = getResources().getString(R.string.no_routes_loaded);
+        web[0] = getResources().getString(R.string.no_data_loaded);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_routes);
 

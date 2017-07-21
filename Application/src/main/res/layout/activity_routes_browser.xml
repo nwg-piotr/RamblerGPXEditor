@@ -140,7 +140,7 @@
 
     <ListView
         android:id="@+id/routesNavList"
-        android:layout_width="240dp"
+        android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
         android:background="#66ccccee"

@@ -30,14 +30,15 @@ public class CustomListNoIcons extends ArrayAdapter<String> {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.list_single_no_icons, null, true);
 
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.ni_txt);
 
         String entry = web[position];
-        if (entry.length() > 35) {
-            entry = entry.substring(0, 34);
+        if (entry != null) {
+            if (entry.length() > 35) {
+                entry = entry.substring(0, 34);
+            }
+            txtTitle.setText(entry);
         }
-        txtTitle.setText(entry);
-
         return rowView;
     }
 }

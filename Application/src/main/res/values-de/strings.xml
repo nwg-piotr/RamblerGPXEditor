@@ -151,7 +151,7 @@
     <string name="no_poi_selected">Kein POI ausgewählt</string>
     <string name="no_poi_to_clear">Kein POI zu löschen</string>
     <string name="no_routes_in_view">Keine Route in aktueller Ansicht</string>
-    <string name="no_routes_loaded">Keine Routen geladen</string>
+    <string name="no_data_loaded">Keine Daten geladen</string>
     <string name="no_routes_memory">Keine Routen im Speicher oder aktueller Ansicht</string>
     <string name="no_routes_not_gpx">Keine Routen oder nicht eine GPX Datei!</string>
     <string name="no_routes_selected">Keine Routen ausgewählt</string>
