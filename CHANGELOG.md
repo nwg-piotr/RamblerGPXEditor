@@ -1,5 +1,10 @@
 CHANGELOG
 ===============
+**27th July, 2017**
+
+- limitation to POI display, in order to fix the OutOfMemory exception: if POI number in the current 
+view exceeds 200, the same bitmap will be used for all of them. No names, no types coloring.
+
 **21 July, 2017**
 
 - Attempt to fix a silent bug (never seen, unreported, but present in the Developer Console crashes
