@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -272,115 +273,129 @@ public class PoiActivity extends Utils
 
     private void refreshMap() {
 
-        mMapViewBoundingBox = mMapView.getBoundingBox();
+        try {
 
-        Data.sFilteredPoi = ListUtils.filter(Data.sCopiedPoiGpx.getPoints(), Data.sViewPoiFilter);
+            mMapViewBoundingBox = mMapView.getBoundingBox();
+
+            Data.sFilteredPoi = ListUtils.filter(Data.sCopiedPoiGpx.getPoints(), Data.sViewPoiFilter);
 
         /*
          * Let's assign a color to each existing POI type
          */
-        List<String> wptTypes = GpxUtils.getDistinctPointTypes(Data.sFilteredPoi);
+            List<String> wptTypes = GpxUtils.getDistinctPointTypes(Data.sFilteredPoi);
 
-        Map<String, Integer> wptTypeColourMap = new HashMap<>();
-        int colourIdx = 0;
-        for (String wptType : wptTypes) {
-            wptTypeColourMap.put(wptType, typeColors[colourIdx++ % N_COLOURS]);
-        }
-
-        mMapView.getOverlays().clear();
-
-        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(mapEventsReceiver);
-        mMapView.getOverlays().add(0, mapEventsOverlay);
-
-        mMapView.getOverlays().add(mLocationOverlay);
-
-        if (Data.sAllowRotation) {
-            mMapView.getOverlays().add(this.mRotationGestureOverlay);
-        }
-
-        ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
-        mMapView.getOverlays().add(mScaleBarOverlay);
-
-        mScaleBarOverlay.setScaleBarOffset(
-                (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()
-                        .getDisplayMetrics().xdpi / 2), 10);
-
-        markerToPoi = new HashMap<>();
-
-        for (Point poi : Data.sFilteredPoi) {
-
-            GeoPoint markerPosition = new GeoPoint(poi.getLatitude(), poi.getLongitude());
-
-            String displayName;
-            if (poi.getName() != null && !poi.getName().isEmpty()) {
-                displayName = poi.getName();
-            } else {
-                displayName = String.valueOf(Data.sFilteredPoi.indexOf(poi));
+            Map<String, Integer> wptTypeColourMap = new HashMap<>();
+            int colourIdx = 0;
+            for (String wptType : wptTypes) {
+                wptTypeColourMap.put(wptType, typeColors[colourIdx++ % N_COLOURS]);
             }
 
-            /*
-             * Use the color from the map if the POI has a type defined.
-             * If not - paint in grey.
-             */
-            int color;
-            if (poi.getType() == null) {
-                color = Color.parseColor("#999999");
-            } else {
-                color = wptTypeColourMap.get(poi.getType());
-            }
-            Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, displayName, color));
+            mMapView.getOverlays().clear();
 
-            Marker marker = new Marker(mMapView);
-            marker.setPosition(markerPosition);
-            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            marker.setDraggable(true);
-            marker.setIcon(icon);
+            MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(mapEventsReceiver);
+            mMapView.getOverlays().add(0, mapEventsOverlay);
 
-            markerToPoi.put(marker, poi);
+            mMapView.getOverlays().add(mLocationOverlay);
 
-            if (mMapViewBoundingBox.contains(markerPosition)) {
-                mMapView.getOverlays().add(marker);
+            if (Data.sAllowRotation) {
+                mMapView.getOverlays().add(this.mRotationGestureOverlay);
             }
 
-            marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
-                @Override
-                public void onMarkerDrag(Marker marker) {
+            ScaleBarOverlay mScaleBarOverlay = new ScaleBarOverlay(mMapView);
+            mMapView.getOverlays().add(mScaleBarOverlay);
+
+            mScaleBarOverlay.setScaleBarOffset(
+                    (int) (getResources().getDisplayMetrics().widthPixels / 2 - getResources()
+                            .getDisplayMetrics().xdpi / 2), 10);
+
+            markerToPoi = new HashMap<>();
+
+            for (Point poi : Data.sFilteredPoi) {
+
+                GeoPoint markerPosition = new GeoPoint(poi.getLatitude(), poi.getLongitude());
+
+                String displayName;
+                if (poi.getName() != null && !poi.getName().isEmpty()) {
+                    displayName = poi.getName();
+                } else {
+                    displayName = String.valueOf(Data.sFilteredPoi.indexOf(poi));
                 }
 
-                @Override
-                public void onMarkerDragEnd(Marker marker) {
+                Marker marker = new Marker(mMapView);
+                marker.setPosition(markerPosition);
+                marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                marker.setDraggable(true);
 
-                    Point draggedPoi = markerToPoi.get(marker);
-                    draggedPoi.setLatitude(marker.getPosition().getLatitude());
-                    draggedPoi.setLongitude(marker.getPosition().getLongitude());
+                if (Data.sFilteredPoi.size() <= 200) {
 
-                    refreshMap();
+                    /*
+                     * Use the color from the map if the POI has a type defined.
+                     * If not - paint in grey.
+                     */
+                    int color;
+                    if (poi.getType() == null) {
+                        color = Color.parseColor("#999999");
+                    } else {
+                        color = wptTypeColourMap.get(poi.getType());
+                    }
+                    Drawable icon = new BitmapDrawable(getResources(), makeMarkerBitmap(this, displayName, color));
+                    marker.setIcon(icon);
+
+                } else {
+                    
+                    marker.setIcon(getResources().getDrawable(R.drawable.poi_stnd));
                 }
 
-                @Override
-                public void onMarkerDragStart(Marker marker) {
-                }
-            });
+                markerToPoi.put(marker, poi);
 
-            marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker, MapView mapView) {
+                if (mMapViewBoundingBox.contains(markerPosition)) {
+                    mMapView.getOverlays().add(marker);
+                }
+
+                marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
+                    @Override
+                    public void onMarkerDrag(Marker marker) {
+                    }
+
+                    @Override
+                    public void onMarkerDragEnd(Marker marker) {
+
+                        Point draggedPoi = markerToPoi.get(marker);
+                        draggedPoi.setLatitude(marker.getPosition().getLatitude());
+                        draggedPoi.setLongitude(marker.getPosition().getLongitude());
+
+                        refreshMap();
+                    }
+
+                    @Override
+                    public void onMarkerDragStart(Marker marker) {
+                    }
+                });
+
+                marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker, MapView mapView) {
 
                     /*
                      * @osmdroid allows to click multiple markers at a time. Here we need a workaround
                      * to avoid opening a dialog for each clicked one.
                      */
-                    if (mPoiEditDialog == null || !mPoiEditDialog.isShowing()) {
-                        displayEditDialog(markerToPoi.get(marker));
+                        if (mPoiEditDialog == null || !mPoiEditDialog.isShowing()) {
+                            displayEditDialog(markerToPoi.get(marker));
+                        }
+                        return false;
                     }
-                    return false;
-                }
-            });
-        }
-        poiPrompt.setText(String.format(getResources().getString(R.string.x_of_y_poi_press), Data.sFilteredPoi.size(), Data.sCopiedPoiGpx.getPoints().size()));
+                });
+            }
+            poiPrompt.setText(String.format(getResources().getString(R.string.x_of_y_poi_press), Data.sFilteredPoi.size(), Data.sCopiedPoiGpx.getPoints().size()));
 
-        mMapView.invalidate();
-        setButtonsState();
+            mMapView.invalidate();
+            setButtonsState();
+
+        } catch (OutOfMemoryError e) {
+            Toast.makeText(getApplicationContext(), getString(R.string.out_of_memory), Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     private void setUpButtons() {

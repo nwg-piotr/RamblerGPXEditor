@@ -297,4 +297,5 @@
     <string name="route_type_bicycle">Rower</string>
     <string name="tou_mapquest">Warunki korzystania z MapQuest</string>
     <string name="tou_osrm">Warunki korzystania z OSRM</string>
+    <string name="out_of_memory">Brak pamięci</string>
 </resources>

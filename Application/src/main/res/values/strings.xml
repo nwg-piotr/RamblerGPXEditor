@@ -218,6 +218,8 @@
 
     <string name="osm_copyright">©<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</string>
 
+    <string name="out_of_memory">Out of memory</string>
+
     <string name="overlapping_routes">overlapping routes</string>
 
     <string name="path_not_exists">Path does not exist or cannot be read</string>
