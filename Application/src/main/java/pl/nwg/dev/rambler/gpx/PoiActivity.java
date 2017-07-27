@@ -342,7 +342,7 @@ public class PoiActivity extends Utils
                     marker.setIcon(icon);
 
                 } else {
-                    
+
                     marker.setIcon(getResources().getDrawable(R.drawable.poi_stnd));
                 }
 
